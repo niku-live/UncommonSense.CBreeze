@@ -13,32 +13,16 @@ namespace UncommonSense.CBreeze.Core.Page.Control
             Properties.SourceExpr = sourceExpr;
         }
 
-        public override Properties AllProperties
-        {
-            get
-            {
-                return Properties;
-            }
-        }
+        public override Properties AllProperties => Properties;
 
         public override IEnumerable<INode> ChildNodes
         {
             get { yield return Properties; }
         }
 
-        public PageControlProperties Properties
-        {
-            get;
-            protected set;
-        }
+        public PageControlProperties Properties { get; protected set; }
 
-        public override PageControlType Type
-        {
-            get
-            {
-                return PageControlType.Field;
-            }
-        }
+        public override PageControlType Type => PageControlType.Field;
 
         public override string GetName()
         {

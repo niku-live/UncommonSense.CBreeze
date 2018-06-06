@@ -14,13 +14,20 @@ namespace UncommonSense.CBreeze.Parse
             var propertyName = match.Groups[1].Value;
             var propertyValueFirstLine = match.Groups[2].Value;
 
-            if (propertyName == "ActionList")
+            switch (propertyName)
             {
-                lines.FirstLineMustMatch(Patterns.BeginSection);
-                lines.LastLineMustMatch(Patterns.EndSection);
-                lines.Unindent(2);
-                ParseActionList(lines);
-                return;
+                case "ActionList":
+                    lines.FirstLineMustMatch(Patterns.BeginSection);
+                    lines.LastLineMustMatch(Patterns.EndSection);
+                    lines.Unindent(2);
+                    ParseActionList(lines);
+                    return;
+                case "Menu":
+                    lines.FirstLineMustMatch(Patterns.BeginSection);
+                    lines.LastLineMustMatch(Patterns.EndSection);
+                    lines.Unindent(2);
+                    ParseFormMenuItems(lines);
+                    return;
             }
 
             var stringBuilder = new StringBuilder(propertyValueFirstLine);

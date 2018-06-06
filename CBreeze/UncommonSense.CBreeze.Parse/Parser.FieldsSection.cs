@@ -4,7 +4,7 @@ namespace UncommonSense.CBreeze.Parse
 {
 	public partial class Parser
 	{
-		internal void ParseFieldsSection(Lines lines)
+		internal void ParseTableFieldsSection(Lines lines)
 		{
 			foreach (var chunk in lines.Chunks(Patterns.TableField))
 			{

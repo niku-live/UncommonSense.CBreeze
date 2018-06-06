@@ -65,12 +65,20 @@
   <ItemGroup>
     <Compile Include="IListener.cs" />
     <Compile Include="ListenerBase.cs" />
+    <Compile Include="Parser.DataItemsSection.cs" />
+    <Compile Include="Parser.DataPortFieldsSection.cs" />
+    <Compile Include="Parser.FormMenuItems.cs" />
+    <Compile Include="Parser.FormControlsSection.cs" />
     <Compile Include="Parser.FieldGroupProperties.cs" />
     <Compile Include="Parser.MenuSuiteNode.cs" />
     <Compile Include="NullListener.cs" />
     <Compile Include="Parser.ActionList.cs" />
     <Compile Include="Parser.CodeSection.cs" />
-    <Compile Include="Parser.ControlsSection.cs" />
+    <Compile Include="Parser.FormControl.cs" />
+    <Compile Include="Parser.FormControlProperties.cs" />
+    <Compile Include="Parser.FormMenuItem.cs" />
+    <Compile Include="Parser.FormMenuItemProperties.cs" />
+    <Compile Include="Parser.PageControlsSection.cs" />
     <Compile Include="Parser.DatasetSection.cs" />
     <Compile Include="Parser.Documentation.cs" />
     <Compile Include="Parser.FieldGroup.cs" />
@@ -95,6 +103,9 @@
     <Compile Include="Parser.ReportElementProperties.cs" />
     <Compile Include="Parser.RequestPageSection.cs" />
     <Compile Include="Parser.ReturnValue.cs" />
+    <Compile Include="Parser.DataPortField.cs" />
+    <Compile Include="Parser.DataPortFieldProperties.cs" />
+    <Compile Include="Parser.SectionsSection.cs" />
     <Compile Include="Parser.TableKey.cs" />
     <Compile Include="Parser.TableKeyProperties.cs" />
     <Compile Include="Parser.Variable.cs" />
@@ -142,6 +153,9 @@
       <Project>{ade7d762-7efd-4867-8b34-926d64793335}</Project>
       <Name>UncommonSense.CBreeze.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Parser.RequestFormSection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

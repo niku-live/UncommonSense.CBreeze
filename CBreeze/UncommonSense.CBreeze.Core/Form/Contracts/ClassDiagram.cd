@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IAction" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAgAAAAAAAAAgCAAACAAAAAAAAAAGAAACAAAAA=</HashCode>
+      <FileName>Form\Contracts\IAction.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IAlignment" Collapsed="true">
+    <Position X="9.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IAlignment.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IBaseBorderlessControl" Collapsed="true">
+    <Position X="36.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IBaseBorderlessControl.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IBaseControl" Collapsed="true">
+    <Position X="20.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IBaseControl.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IBaseControl2" Collapsed="true">
+    <Position X="19.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IBaseControl2.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IBitmap" Collapsed="true">
+    <Position X="32" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IBitmap.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IButton" Collapsed="true">
+    <Position X="17.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IButton.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.ICaption" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAABA=</HashCode>
+      <FileName>Form\Contracts\ICaption.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.ICheckBox" Collapsed="true">
+    <Position X="11.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\ICheckBox.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IColumnMatrix" Collapsed="true">
+    <Position X="16.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAQAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IColumnMatrix.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IColumnMatrixExtended" Collapsed="true">
+    <Position X="25.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IColumnMatrixExtended.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.ICommandButton" Collapsed="true">
+    <Position X="14.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAEIAAAAAAAAAAAAAAAIAAABAA=</HashCode>
+      <FileName>Form\Contracts\ICommandButton.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IControlList" Collapsed="true">
+    <Position X="34.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IControlList.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IDataSetField" Collapsed="true">
+    <Position X="38.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Form\Contracts\IDataSetField.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IDescriptionable" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IDescriptionable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IEditable" Collapsed="true">
+    <Position X="11.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IEditable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IEnabledFocusable" Collapsed="true">
+    <Position X="18.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IEnabledFocusable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IExtendedCaption" Collapsed="true">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Form\Contracts\IExtendedCaption.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IExtendedFormBorder" Collapsed="true">
+    <Position X="29.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IExtendedFormBorder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IExtendedSourceExpr" Collapsed="true">
+    <Position X="23" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAgAABAAAA=</HashCode>
+      <FileName>Form\Contracts\IExtendedSourceExpr.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IExtendedText" Collapsed="true">
+    <Position X="41" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAEAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IExtendedText.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IExtendFormBorder2" Collapsed="true">
+    <Position X="29.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IExtendFormBorder2.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IFocusable" Collapsed="true">
+    <Position X="14" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IFocusable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IFont" Collapsed="true">
+    <Position X="20.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AwAAAAAAAAAAAAAAAAAAAgAAAAAAAAACAACAAgAAAAA=</HashCode>
+      <FileName>Form\Contracts\IFont.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IForeColor" Collapsed="true">
+    <Position X="27.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IForeColor.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IFormBorder" Collapsed="true">
+    <Position X="29.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IFormBorder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IFormControlBackColorProperties" Collapsed="true">
+    <Position X="36.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Form\Contracts\IFormControlBackColorProperties.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IFormControlProperties" Collapsed="true">
+    <Position X="20.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAIAAAABAAAAAAAAAAAAEQAgAAAAEAJEAAQAAAAgAA=</HashCode>
+      <FileName>Form\Contracts\IFormControlProperties.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IFrame" Collapsed="true">
+    <Position X="20.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IFrame.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IImage" Collapsed="true">
+    <Position X="29.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IImage.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IIndicator" Collapsed="true">
+    <Position X="22.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IIndicator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.ILabel" Collapsed="true">
+    <Position X="25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\ILabel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IMatrixBox" Collapsed="true">
+    <Position X="13.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IMatrixBox.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IMenuButton" Collapsed="true">
+    <Position X="9.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IMenuButton.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IOptionButton" Collapsed="true">
+    <Position X="11.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IOptionButton.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IPictureBox" Collapsed="true">
+    <Position X="27.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\IPictureBox.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.IShape" Collapsed="true">
+    <Position X="25.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Form\Contracts\IShape.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.ISourceExpr" Collapsed="true">
+    <Position X="23" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\ISourceExpr.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.ISubForm" Collapsed="true">
+    <Position X="16.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Form\Contracts\ISubForm.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.ITabControl" Collapsed="true">
+    <Position X="27.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\ITabControl.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.ITableBox" Collapsed="true">
+    <Position X="21.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACACAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\ITableBox.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.ITextBox" Collapsed="true">
+    <Position X="19" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAoAAgAEAACAgMJBAwAQIAECYAgBAAAAcAAwABAAAAA=</HashCode>
+      <FileName>Form\Contracts\ITextBox.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UncommonSense.CBreeze.Core.Form.Contracts.ITransparentBack" Collapsed="true">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Form\Contracts\ITransparentBack.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -24,7 +24,7 @@ namespace UncommonSense.CBreeze.Parse
         public static readonly Regex PropertySignature = new Regex(@"^(\w[^=]+)=(.*)$", RegexOptions.Compiled);
         public static readonly Regex TriggerSignature = new Regex(@"^((Import::|Export::)?On[^=]+)=(.*)$", RegexOptions.Compiled);
         public static readonly Regex DecimalPlaces = new Regex(@"^(\d*):(\d*)$", RegexOptions.Compiled);
-        public static readonly Regex AccessByPermission = new Regex(@"^(TableData|Table|Report|Codeunit|XmlPort|Page|Query|System)\s(\d+)=([RIMDX]*)$", RegexOptions.Compiled);
+        public static readonly Regex AccessByPermission = new Regex(@"^(TableData|Table|Form|Report|Codeunit|Dataport|XmlPort|Page|Query|System)\s(\d+)=([RIMDX]*)$", RegexOptions.Compiled);
 
         // Code
         public static readonly Regex Variables = new Regex(@"^VAR$", RegexOptions.Compiled);
@@ -79,8 +79,12 @@ namespace UncommonSense.CBreeze.Parse
         public static readonly Regex FieldGroup = new Regex(@"^{([^;]+);([^;]+);([^;}]+)([;}])", RegexOptions.Compiled);
         public static readonly Regex EndFieldGroup = new Regex(@"\s}$", RegexOptions.Compiled);
         // Control
+        public static readonly Regex FormControl = new Regex(@"^{\s*(\d+)\s*;([^;]*);\s*(\d+)\s*;\s*(\d+)\s*;\s*(\d+)\s*;\s*(\d+)\s*;([^;]*)([;}])$", RegexOptions.Compiled);
         public static readonly Regex PageControl = new Regex(@"^{\s*(\d+)\s*;([^;]*);([^;]*)([;}])$", RegexOptions.Compiled);
         public static readonly Regex EndPageControl = new Regex(@"\s}$", RegexOptions.Compiled);
+        // Form MenuItem
+        public static readonly Regex MenuItem = new Regex(@"^{\s*([^;]*)([;}])$", RegexOptions.Compiled);
+        public static readonly Regex EndMenuItem = new Regex(@"\s}$", RegexOptions.Compiled);
         // Action
         public static readonly Regex PageAction = new Regex(@"^{\s*(\d+)\s*;([^;]*);([^;]*)([;}])$", RegexOptions.Compiled);
         public static readonly Regex EndPageAction = new Regex(@"\s}$", RegexOptions.Compiled);
@@ -101,6 +105,9 @@ namespace UncommonSense.CBreeze.Parse
         // Menu
         public static readonly Regex MenuSuiteNode = new Regex(@"^{([^;]+);\[([^\]]+)\]\s([;}])", RegexOptions.Compiled);
         public static readonly Regex EndMenuSuiteNode = new Regex(@"\s}$", RegexOptions.Compiled);
+        // Dataport
+        public static readonly Regex DataportField = new Regex(@"^{\s*(\d+)?\s*;\s*(\d+)?\s*;([^;}]+)([;}])", RegexOptions.Compiled);
+        public static readonly Regex EndDataportField = new Regex(@"\s}$", RegexOptions.Compiled);
         // Misc
         public static readonly Regex BlankLine = new Regex(@"^$", RegexOptions.Compiled);
         public static readonly Regex Whitespace = new Regex(@"^\s*", RegexOptions.Compiled);

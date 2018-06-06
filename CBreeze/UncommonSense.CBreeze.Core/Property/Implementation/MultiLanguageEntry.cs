@@ -1,4 +1,5 @@
 using System.Linq;
+using UncommonSense.CBreeze.Core.Code.Variable;
 
 namespace UncommonSense.CBreeze.Core.Property.Implementation
 {

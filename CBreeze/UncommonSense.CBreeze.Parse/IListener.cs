@@ -69,6 +69,10 @@ namespace UncommonSense.CBreeze.Parse
         void OnBeginRequestPage();
         void OnEndRequestPage();
 
+        // Request forms
+        void OnBeginRequestForm();
+        void OnEndRequestForm();
+
         // Report labels
         void OnBeginReportLabel(int labelID, string labelName);
         void OnEndReportLabel();
@@ -97,5 +101,14 @@ namespace UncommonSense.CBreeze.Parse
 
         // Code lines
         void OnCodeLine(string codeLine);
+
+        // Forms
+        void OnBeginFormControl(int controlId, ClassicControlType controlType, int posX, int posY, int width, int height);
+        void OnEndFormControl();
+        void OnBeginFormMenuItem();
+        void OnEndFormMenuItem();
+        // Dataports
+        void OnBeginDataPortField(int? startPos, int? width, string sourceExpr);
+        void OnEndDataPortField();
     }
 }

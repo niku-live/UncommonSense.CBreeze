@@ -7,12 +7,9 @@ namespace UncommonSense.CBreeze.Parse
 {
     public partial class Parser
     {
-        internal void ParseControlsSection(Lines lines)
+        internal void ParseDataItemsSection(Lines lines)
         {
-            foreach (var chunk in lines.Chunks(Patterns.PageControl))
-            {
-                ParsePageControl(chunk);
-            }
+
         }
     }
 }

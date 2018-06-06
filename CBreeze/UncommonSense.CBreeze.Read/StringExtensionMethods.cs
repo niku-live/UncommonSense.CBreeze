@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Drawing;
 using System.Text.RegularExpressions;
-using UncommonSense.CBreeze.Core;
 using UncommonSense.CBreeze.Core.Property.Enumeration;
 using UncommonSense.CBreeze.Core.Property.Type;
 
@@ -16,15 +13,13 @@ namespace UncommonSense.CBreeze.Read
             if (!typeof(T).IsEnum)
                 throw new ArgumentException("T must be an enumerated type.");
 
-            if (normalize)
-            {
-                text = Regex.Replace(text, @"[\s-\.]", string.Empty);
-            }
+            if (normalize) text = Regex.Replace(text, @"[\s-\.]", string.Empty);
 
-            return (T)Enum.Parse(typeof(T), text, ignoreCase);
+            return (T) Enum.Parse(typeof(T), text, ignoreCase);
         }
 
-        public static Nullable<T> ToNullableEnum<T>(this string text, bool ignoreCase = true, bool normalize = true) where T : struct
+        public static T? ToNullableEnum<T>(this string text, bool ignoreCase = true, bool normalize = true)
+            where T : struct
         {
 #if NAV2016
             // Handle eventing attributes
@@ -38,14 +33,15 @@ namespace UncommonSense.CBreeze.Read
             return text.ToEnum<T>(ignoreCase, normalize);
         }
 
-        public static bool IsValidEnumValue<T>(this string text, bool ignoreCase = true, bool normalize = true) where T : struct
+        public static bool IsValidEnumValue<T>(this string text, bool ignoreCase = true, bool normalize = true)
+            where T : struct
         {
             try
             {
                 var enumValue = text.ToEnum<T>(ignoreCase, normalize);
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
@@ -53,7 +49,7 @@ namespace UncommonSense.CBreeze.Read
 
         public static AutoFormatType ToAutoFormatType(this string text)
         {
-            return (AutoFormatType)text.ToInteger();
+            return (AutoFormatType) text.ToInteger();
         }
 
         public static FormatEvaluate ToFormatEvaluate(this string text)
@@ -162,6 +158,30 @@ namespace UncommonSense.CBreeze.Read
                 throw new ArgumentOutOfRangeException(string.Format("Invalid table reference: {0}.", text));
 
             return match.Groups[1].Value.ToInteger();
+        }
+
+        public static Color ToColor(this string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return Color.FromArgb(100, 100, 100);
+
+            var integer = int.Parse(text);
+            var buffer = BitConverter.GetBytes(integer);
+
+            var red = (int) buffer[0];
+            var green = (int) buffer[1];
+            var blue = (int) buffer[2];
+
+            var color = Color.FromArgb(red, green, blue);
+            return color;
+        }
+
+        public static uint? ToNullableUnsignedInteger(this string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return null;
+
+            return uint.Parse(text);
         }
     }
 }

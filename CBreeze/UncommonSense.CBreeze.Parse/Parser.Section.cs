@@ -28,7 +28,15 @@ namespace UncommonSense.CBreeze.Parse
                     break;
 
                 case SectionType.Fields:
-                    ParseFieldsSection(lines);
+                    switch (objectType)
+                    {
+                        case ObjectType.Table:
+                            ParseTableFieldsSection(lines);
+                            break;
+                        case ObjectType.Dataport:
+                            ParseDataPortFieldsSection(lines);
+                            break;
+                    }
                     break;
 
                 case SectionType.Keys:
@@ -40,8 +48,17 @@ namespace UncommonSense.CBreeze.Parse
                     break;
 
                 case SectionType.Controls:
-                    ParseControlsSection(lines);
+                    switch (objectType)
+                    {
+                        case ObjectType.Page:
+                            ParsePageControlsSection(lines);
+                            break;
+                        case ObjectType.Form:
+                            ParseFormControlsSection(lines);
+                            break;
+                    }
                     break;
+
 
                 case SectionType.Elements:
                     switch (objectType)
@@ -83,6 +100,18 @@ namespace UncommonSense.CBreeze.Parse
 
                 case SectionType.MenuNodes:
                     ParseMenuNodesSection(lines);
+                    break;
+
+                case SectionType.RequestForm:
+                    ParseRequestFormSection(lines, objectType);
+                    break;
+
+                case SectionType.DataItems:
+                    ParseDataItemsSection(lines);
+                    break;
+
+                case SectionType.Sections:
+                    ParseSectionsSection(lines);
                     break;
 
                 default:

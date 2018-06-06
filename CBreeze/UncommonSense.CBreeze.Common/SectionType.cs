@@ -16,7 +16,7 @@ namespace UncommonSense.CBreeze.Common
         Keys,
         FieldGroups,
 
-        // Page:
+        // Page, Form, Report:
         Controls,
 
         // Query:
@@ -31,6 +31,9 @@ namespace UncommonSense.CBreeze.Common
         Labels,
         RdlData,
         WordLayout,
+        RequestForm,
+        DataItems,
+        Sections,
 
         // Menusuite:
         MenuNodes,

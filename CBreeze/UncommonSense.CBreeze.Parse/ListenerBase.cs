@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UncommonSense.CBreeze.Common;
 
 namespace UncommonSense.CBreeze.Parse
 {
@@ -127,6 +128,14 @@ namespace UncommonSense.CBreeze.Parse
         {
         }
 
+        public virtual void OnBeginRequestForm()
+        {
+        }
+
+        public virtual void OnEndRequestForm()
+        {
+        }
+
         public virtual void OnBeginReportLabel(int labelID, string labelName)
         {
         }
@@ -177,6 +186,36 @@ namespace UncommonSense.CBreeze.Parse
 
         public virtual void OnCodeLine(string codeLine)
         {
+        }
+
+        public virtual void OnBeginFormControl(int controlId, ClassicControlType controlType, int posX, int posY, int width, int height)
+        {
+            
+        }
+
+        public virtual void OnEndFormControl()
+        {
+
+        }
+
+        public virtual void OnBeginFormMenuItem()
+        {
+            
+        }
+
+        public virtual void OnEndFormMenuItem()
+        {
+
+        }
+
+        public virtual void OnBeginDataPortField(int? startPos, int? width, string sourceExpr)
+        {
+            
+        }
+
+        public virtual void OnEndDataPortField()
+        {
+
         }
     }
 }

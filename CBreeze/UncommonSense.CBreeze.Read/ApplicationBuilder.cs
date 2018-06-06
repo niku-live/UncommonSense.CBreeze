@@ -1,16 +1,17 @@
-﻿using System.Linq;
+﻿using System;
 using System.Collections.Generic;
-using UncommonSense.CBreeze.Core;
-using System;
-using UncommonSense.CBreeze.Parse;
-using UncommonSense.CBreeze.Common;
 using System.IO;
+using System.Linq;
+using UncommonSense.CBreeze.Common;
 using UncommonSense.CBreeze.Core.Base;
 using UncommonSense.CBreeze.Core.Code;
 using UncommonSense.CBreeze.Core.Code.Function;
 using UncommonSense.CBreeze.Core.Code.Parameter;
 using UncommonSense.CBreeze.Core.Code.Variable;
 using UncommonSense.CBreeze.Core.Codeunit;
+using UncommonSense.CBreeze.Core.Form;
+using UncommonSense.CBreeze.Core.Form.Control;
+using UncommonSense.CBreeze.Core.Form.Control.Properties;
 using UncommonSense.CBreeze.Core.MenuSuite;
 using UncommonSense.CBreeze.Core.Page;
 using UncommonSense.CBreeze.Core.Page.Action;
@@ -24,46 +25,64 @@ using UncommonSense.CBreeze.Core.Table;
 using UncommonSense.CBreeze.Core.Table.Field;
 using UncommonSense.CBreeze.Core.Table.Key;
 using UncommonSense.CBreeze.Core.XmlPort;
+using UncommonSense.CBreeze.Parse;
 using Object = UncommonSense.CBreeze.Core.Base.Object;
 
 namespace UncommonSense.CBreeze.Read
 {
-    public partial class ApplicationBuilder : ListenerBase
+    public class ApplicationBuilder : ListenerBase
     {
-        private Application application;
+        private readonly Stack<IEnumerable<Property>> currentProperties = new Stack<IEnumerable<Property>>();
+        private Code currentCode;
+        private Event currentEvent;
         private string currentFileName;
+        private FormControl currentFormControl;
+        private FormControls currentFormControls;
+        private Function currentFunction;
+        private MenuSuiteNodes currentMenuSuiteNodes;
         private Object currentObject;
-        private SectionType? currentSectionType;
-        private TableFields currentTableFields;
-        private TableKeys currentTableKeys;
-        private TableFieldGroups currentTableFieldGroups;
-        private PageControls currentPageControls;
         private ActionList currentPageActionList;
+        private PageControls currentPageControls;
         private QueryElements currentQueryElements;
-        private XmlPortNodes currentXmlPortNodes;
+        private RdlData currentRdlData;
         private ReportElements currentReportElements;
         private ReportLabels currentReportLabels;
+        private RequestForm currentRequestForm;
         private RequestPage currentRequestPage;
-        private RdlData currentRdlData;
+        private SectionType? currentSectionType;
+        private TableField currentTableField;
+        private TableFieldGroup currentTableFieldGroup;
+        private TableFieldGroups currentTableFieldGroups;
+        private TableFields currentTableFields;
+        private TableKey currentTableKey;
+        private TableKeys currentTableKeys;
+        private Trigger currentTrigger;
 #if NAV2015
         private WordLayout currentWordLayout;
 #endif
-        private MenuSuiteNodes currentMenuSuiteNodes;
-        private Code currentCode;
-        private Trigger currentTrigger;
-        private TableField currentTableField;
-        private TableKey currentTableKey;
-        private TableFieldGroup currentTableFieldGroup;
-        private Function currentFunction;
-        private Event currentEvent;
+        private XmlPortNodes currentXmlPortNodes;
 
-        private Stack<IEnumerable<Property>> currentProperties = new Stack<IEnumerable<Property>>();
+        public ApplicationBuilder(Application application)
+        {
+            Application = application;
+        }
 
-        public static Application ReadFromFolder(string folderName) => ReadFromFiles(Directory.EnumerateFiles(folderName, "*.txt"));
+        public Application Application { get; }
 
-        public static Application ReadFromFile(string fileName) => ReadFromFiles(fileName);
+        public static Application ReadFromFolder(string folderName)
+        {
+            return ReadFromFiles(Directory.EnumerateFiles(folderName, "*.txt"));
+        }
 
-        public static Application ReadFromFiles(params string[] fileNames) => ReadFromFiles((IEnumerable<string>)fileNames);
+        public static Application ReadFromFile(string fileName)
+        {
+            return ReadFromFiles(fileName);
+        }
+
+        public static Application ReadFromFiles(params string[] fileNames)
+        {
+            return ReadFromFiles((IEnumerable<string>) fileNames);
+        }
 
         public static Application ReadFromFiles(IEnumerable<string> fileNames, Action<string> reportProgress = null)
         {
@@ -89,11 +108,6 @@ namespace UncommonSense.CBreeze.Read
             return application;
         }
 
-        public ApplicationBuilder(Application application)
-        {
-            this.application = application;
-        }
-
         public override void OnBeginFile(string fileName)
         {
             currentFileName = fileName;
@@ -109,7 +123,7 @@ namespace UncommonSense.CBreeze.Read
             switch (objectType)
             {
                 case ObjectType.Table:
-                    var newTable = application.Tables.Add(new Table(objectID, objectName));
+                    var newTable = Application.Tables.Add(new Table(objectID, objectName));
 
                     //currentObjectLevelProperties = newTable.Properties;
                     currentProperties.Push(newTable.Properties);
@@ -121,8 +135,18 @@ namespace UncommonSense.CBreeze.Read
                     currentObject = newTable;
                     break;
 
+                case ObjectType.Form:
+                    var newForm = Application.Forms.Add(new Form(objectID, objectName));
+
+                    currentProperties.Push(newForm.Properties);
+                    currentFormControls = newForm.Controls;
+                    currentCode = newForm.Code;
+                    currentObject = newForm;
+                    break;
+
+
                 case ObjectType.Page:
-                    var newPage = application.Pages.Add(new Page(objectID, objectName));
+                    var newPage = Application.Pages.Add(new Page(objectID, objectName));
 
                     // currentObjectLevelProperties = newPage.Properties;
                     currentProperties.Push(newPage.Properties);
@@ -133,11 +157,12 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case ObjectType.Report:
-                    var newReport = application.Reports.Add(new Report(objectID, objectName));
+                    var newReport = Application.Reports.Add(new Report(objectID, objectName));
                     currentProperties.Push(newReport.Properties);
                     currentReportElements = newReport.Elements;
                     currentReportLabels = newReport.Labels;
                     currentRequestPage = newReport.RequestPage;
+                    currentRequestForm = newReport.RequestForm;
                     currentCode = newReport.Code;
                     currentRdlData = newReport.RdlData;
 #if NAV2015
@@ -147,7 +172,7 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case ObjectType.Codeunit:
-                    var newCodeunit = application.Codeunits.Add(new Codeunit(objectID, objectName));
+                    var newCodeunit = Application.Codeunits.Add(new Codeunit(objectID, objectName));
                     currentProperties.Push(newCodeunit.Properties);
 
                     //currentObjectLevelProperties = newCodeunit.Properties;
@@ -156,7 +181,7 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case ObjectType.XmlPort:
-                    var newXmlPort = application.XmlPorts.Add(new XmlPort(objectID, objectName));
+                    var newXmlPort = Application.XmlPorts.Add(new XmlPort(objectID, objectName));
                     currentProperties.Push(newXmlPort.Properties);
                     currentRequestPage = newXmlPort.RequestPage;
                     currentCode = newXmlPort.Code;
@@ -165,14 +190,14 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case ObjectType.MenuSuite:
-                    var newMenuSuite = application.MenuSuites.Add(new MenuSuite(objectID, objectName));
+                    var newMenuSuite = Application.MenuSuites.Add(new MenuSuite(objectID, objectName));
                     currentProperties.Push(newMenuSuite.Properties);
                     currentMenuSuiteNodes = newMenuSuite.Nodes;
                     currentObject = newMenuSuite;
                     break;
 
                 case ObjectType.Query:
-                    var newQuery = application.Queries.Add(new Query(objectID, objectName));
+                    var newQuery = Application.Queries.Add(new Query(objectID, objectName));
 
                     // currentObjectLevelProperties = newQuery.Properties;
                     currentProperties.Push(newQuery.Properties);
@@ -199,12 +224,14 @@ namespace UncommonSense.CBreeze.Read
             currentReportElements = null;
             currentReportLabels = null;
             currentRequestPage = null;
+            currentRequestForm = null;
             currentCode = null;
             currentRdlData = null;
 #if NAV2015
             currentWordLayout = null;
 #endif
             currentMenuSuiteNodes = null;
+            currentFormControls = null;
         }
 
         public override void OnBeginSection(SectionType sectionType)
@@ -222,11 +249,13 @@ namespace UncommonSense.CBreeze.Read
             switch (propertyName)
             {
                 case "Date":
-                    currentObject.ObjectProperties.DateTime = currentObject.ObjectProperties.DateTime.SetDateComponent(propertyValue);
+                    currentObject.ObjectProperties.DateTime =
+                        currentObject.ObjectProperties.DateTime.SetDateComponent(propertyValue);
                     break;
 
                 case "Time":
-                    currentObject.ObjectProperties.DateTime = currentObject.ObjectProperties.DateTime.SetTimeComponent(propertyValue);
+                    currentObject.ObjectProperties.DateTime =
+                        currentObject.ObjectProperties.DateTime.SetTimeComponent(propertyValue);
                     break;
 
                 case "Modified":
@@ -238,7 +267,7 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException("propertyName");
+                    throw new ArgumentOutOfRangeException(nameof(propertyName));
             }
         }
 
@@ -280,62 +309,73 @@ namespace UncommonSense.CBreeze.Read
                 TypeSwitch.Case<DefaultLayoutProperty>(p => p.Value = propertyValue.ToEnum<DefaultLayout>()),
 #endif
 #if NAV2017
-                TypeSwitch.Case<TagListProperty>(p => p.Value.AddRange(propertyValue.Split(",".ToCharArray()).Where(s => !string.IsNullOrEmpty(s)))),
+                TypeSwitch.Case<TagListProperty>(p =>
+                    p.Value.AddRange(propertyValue.Split(",".ToCharArray()).Where(s => !string.IsNullOrEmpty(s)))),
 #endif
 #if NAV2016
                 TypeSwitch.Case<TableTypeProperty>(p => p.Value = propertyValue.ToEnum<TableType>()),
 #endif
-                TypeSwitch.Case<PageActionContainerTypeProperty>(p => p.Value = propertyValue.ToEnum<PageActionContainerType>()),
+                TypeSwitch.Case<PageActionContainerTypeProperty>(p =>
+                    p.Value = propertyValue.ToEnum<PageActionContainerType>()),
                 TypeSwitch.Case<AutoFormatTypeProperty>(p => p.Value = propertyValue.ToAutoFormatType()),
                 TypeSwitch.Case<BlankNumbersProperty>(p => p.Value = propertyValue.ToEnum<BlankNumbers>()),
                 TypeSwitch.Case<CalcFormulaProperty>(p => p.SetCalcFormulaProperty(propertyValue)),
                 TypeSwitch.Case<CodeunitSubTypeProperty>(p => p.Value = propertyValue.ToEnum<CodeunitSubType>()),
                 TypeSwitch.Case<ColumnFilterProperty>(p => p.SetColumnFilterProperty(propertyValue)),
-                TypeSwitch.Case<PageControlContainerTypeProperty>(p => p.Value = propertyValue.ToEnum<PageControlContainerType>()),
+                TypeSwitch.Case<PageControlContainerTypeProperty>(p =>
+                    p.Value = propertyValue.ToEnum<PageControlContainerType>()),
                 TypeSwitch.Case<ControlListProperty>(p => p.Value.AddRange(propertyValue.Split(",".ToCharArray()))),
                 TypeSwitch.Case<QueryDataItemLinkProperty>(p => p.SetDataItemLinkProperty(propertyValue)),
                 TypeSwitch.Case<DataItemLinkTypeProperty>(p => p.Value = propertyValue.ToEnum<DataItemLinkType>()),
-                TypeSwitch.Case<DataItemQueryElementTableFilterProperty>(p => p.SetDataItemQueryElementTableFilter(propertyValue)),
+                TypeSwitch.Case<DataItemQueryElementTableFilterProperty>(p =>
+                    p.SetDataItemQueryElementTableFilter(propertyValue)),
                 TypeSwitch.Case<DateMethodProperty>(p => p.Value = propertyValue.ToEnum<DateMethod>()),
                 TypeSwitch.Case<DecimalPlacesProperty>(p => p.SetDecimalPlacesProperty(propertyValue)),
-                TypeSwitch.Case<MenuItemDepartmentCategoryProperty>(p => p.Value = propertyValue.ToEnum<MenuItemDepartmentCategory>()),
+                TypeSwitch.Case<MenuItemDepartmentCategoryProperty>(p =>
+                    p.Value = propertyValue.ToEnum<MenuItemDepartmentCategory>()),
                 TypeSwitch.Case<DirectionProperty>(p => p.Value = propertyValue.ToEnum<Direction>()),
 #if NAV2016
- TypeSwitch.Case<ExternalAccessProperty>(p => p.Value = propertyValue.ToEnum<ExternalAccess>()),
- TypeSwitch.Case<EventSubscriberInstanceProperty>(p => p.Value = propertyValue.ToEnum<EventSubscriberInstance>()),
+                TypeSwitch.Case<ExternalAccessProperty>(p => p.Value = propertyValue.ToEnum<ExternalAccess>()),
+                TypeSwitch.Case<EventSubscriberInstanceProperty>(p =>
+                    p.Value = propertyValue.ToEnum<EventSubscriberInstance>()),
 #endif
- TypeSwitch.Case<ExtendedDataTypeProperty>(p => p.Value = propertyValue.ToEnum<ExtendedDataType>()),
+                TypeSwitch.Case<ExtendedDataTypeProperty>(p => p.Value = propertyValue.ToEnum<ExtendedDataType>()),
                 TypeSwitch.Case<FieldClassProperty>(p => p.Value = propertyValue.ToEnum<FieldClass>()),
                 TypeSwitch.Case<FieldListProperty>(p => p.Value.AddRange(propertyValue.Split(",".ToCharArray()))),
                 TypeSwitch.Case<FormatEvaluateProperty>(p => p.Value = propertyValue.ToFormatEvaluate()),
                 TypeSwitch.Case<GestureProperty>(p => p.Value = propertyValue.ToEnum<Gesture>()),
-                TypeSwitch.Case<PageControlGroupTypeProperty>(p => p.Value = propertyValue.ToEnum<PageControlGroupType>()),
+                TypeSwitch.Case<PageControlGroupTypeProperty>(p =>
+                    p.Value = propertyValue.ToEnum<PageControlGroupType>()),
                 TypeSwitch.Case<ImportanceProperty>(p => p.Value = propertyValue.ToEnum<Importance>()),
-                TypeSwitch.Case<PageControlGroupLayoutProperty>(p => p.Value = propertyValue.ToEnum<PageControlGroupLayout>()),
+                TypeSwitch.Case<PageControlGroupLayoutProperty>(p =>
+                    p.Value = propertyValue.ToEnum<PageControlGroupLayout>()),
                 TypeSwitch.Case<LinkFieldsProperty>(p => p.SetLinkFieldsProperty(propertyValue)),
                 TypeSwitch.Case<MethodTypeProperty>(p => p.Value = propertyValue.ToEnum<MethodType>()),
                 TypeSwitch.Case<MaxOccursProperty>(p => p.Value = propertyValue.ToEnum<MaxOccurs>()),
-                TypeSwitch.Case<MenuItemRunObjectTypeProperty>(p => p.Value = propertyValue.ToEnum<MenuItemRunObjectType>()),
+                TypeSwitch.Case<MenuItemRunObjectTypeProperty>(p =>
+                    p.Value = propertyValue.ToEnum<MenuItemRunObjectType>()),
                 TypeSwitch.Case<MinOccursProperty>(p => p.Value = propertyValue.ToEnum<MinOccurs>()),
                 TypeSwitch.Case<MultiLanguageProperty>(p => p.Value.SetMultiLanguageValue(propertyValue)),
 #if NAV2016
- TypeSwitch.Case<XmlPortNamespacesProperty>(p => p.Value.SetNamespacesValue(propertyValue)),
+                TypeSwitch.Case<XmlPortNamespacesProperty>(p => p.Value.SetNamespacesValue(propertyValue)),
 #endif
- TypeSwitch.Case<ObjectProperty>(p => p.Value = propertyValue),
+                TypeSwitch.Case<ObjectProperty>(p => p.Value = propertyValue),
                 TypeSwitch.Case<RunObjectProperty>(p => p.SetObjectReferenceProperty(propertyValue)),
                 TypeSwitch.Case<OccurrenceProperty>(p => p.Value = propertyValue.ToEnum<Occurrence>()),
                 TypeSwitch.Case<OptionStringProperty>(p => p.Value = propertyValue),
                 TypeSwitch.Case<PageReferenceProperty>(p => p.Value = propertyValue.ToPageReference()),
                 TypeSwitch.Case<PageTypeProperty>(p => p.Value = propertyValue.ToEnum<PageType>()),
                 TypeSwitch.Case<PaperSourceProperty>(p => p.Value = propertyValue.ToEnum<PaperSource>()),
-                TypeSwitch.Case<PageControlPartTypeProperty>(p => p.Value = propertyValue.ToEnum<PageControlPartType>()),
+                TypeSwitch.Case<PageControlPartTypeProperty>(p =>
+                    p.Value = propertyValue.ToEnum<PageControlPartType>()),
                 TypeSwitch.Case<PermissionsProperty>(p => p.SetPermissionProperty(propertyValue)),
                 TypeSwitch.Case<PromotedCategoryProperty>(p => p.Value = propertyValue.ToEnum<PromotedCategory>()),
                 TypeSwitch.Case<QueryOrderByLinesProperty>(p => p.SetQueryOrderByLinesProperty(propertyValue)),
                 TypeSwitch.Case<ReportDataItemLinkProperty>(p => p.SetReportDataItemLinkProperty(propertyValue)),
                 TypeSwitch.Case<RunObjectLinkProperty>(p => p.SetObjectLinkProperty(propertyValue)),
                 TypeSwitch.Case<RunPageModeProperty>(p => p.Value = propertyValue.ToEnum<RunPageMode>()),
-                TypeSwitch.Case<SemiColonSeparatedStringProperty>(p => p.SetSemiColonSeparatedStringProperty(propertyValue)),
+                TypeSwitch.Case<SemiColonSeparatedStringProperty>(p =>
+                    p.SetSemiColonSeparatedStringProperty(propertyValue)),
                 TypeSwitch.Case<SIFTLevelsProperty>(p => p.SetSIFTLevelsProperty(propertyValue)),
                 TypeSwitch.Case<SourceFieldProperty>(p => p.SetSourceFieldProperty(propertyValue)),
                 TypeSwitch.Case<SqlJoinTypeProperty>(p => p.Value = propertyValue.ToEnum<SqlJoinType>()),
@@ -356,7 +396,8 @@ namespace UncommonSense.CBreeze.Read
                 TypeSwitch.Case<TotalsMethodProperty>(p => p.Value = propertyValue.ToEnum<TotalsMethod>()),
                 TypeSwitch.Case<TransactionTypeProperty>(p => p.Value = propertyValue.ToEnum<TransactionType>()),
                 TypeSwitch.Case<XmlPortEncodingProperty>(p => p.Value = propertyValue.ToEnum<XmlPortEncoding>()),
-                TypeSwitch.Case<XmlPortNodeDataTypeProperty>(p => p.Value = propertyValue.ToEnum<XmlPortNodeDataType>()),
+                TypeSwitch.Case<XmlPortNodeDataTypeProperty>(p =>
+                    p.Value = propertyValue.ToEnum<XmlPortNodeDataType>()),
                 TypeSwitch.Case<XmlPortFormatProperty>(p => p.Value = propertyValue.ToEnum<XmlPortFormat>()),
                 TypeSwitch.Case<NullableTimeProperty>(p => p.Value = propertyValue.ToNullableTime()),
                 TypeSwitch.Case<NullableBooleanProperty>(p => p.Value = propertyValue.ToNullableBoolean()),
@@ -364,7 +405,27 @@ namespace UncommonSense.CBreeze.Read
                 TypeSwitch.Case<NullableGuidProperty>(p => p.Value = propertyValue.ToNullableGuid()),
                 TypeSwitch.Case<NullableBigIntegerProperty>(p => p.Value = propertyValue.ToNullableBigInteger()),
                 TypeSwitch.Case<NullableIntegerProperty>(p => p.Value = propertyValue.ToNullableInteger()),
-            TypeSwitch.Default(() => UnknownPropertyType()));
+                TypeSwitch.Case<AutoPositionProperty>(p =>
+                    p.Value = propertyValue.ToEnum<ClassicControlAutoPosition>()),
+                TypeSwitch.Case<BitmapPosProperty>(p => p.Value = propertyValue.ToEnum<BitmapPos>()),
+                TypeSwitch.Case<BlankNumbersProperty>(p => p.Value = propertyValue.ToEnum<BlankNumbers>()),
+                TypeSwitch.Case<BorderStyleProperty>(p => p.Value = propertyValue.ToEnum<BorderStyle>()),
+                TypeSwitch.Case<BorderWidthProperty>(p => p.Value = propertyValue.ToEnum<BorderWidth>()),
+                TypeSwitch.Case<CaptionBarProperty>(p => p.Value = propertyValue.ToEnum<ClassicControlCaptionBar>()),
+                TypeSwitch.Case<ColorProperty>(p => p.Value = propertyValue.ToColor()),
+                TypeSwitch.Case<HorzAlignProperty>(p => p.Value = propertyValue.ToEnum<HorzAlign>()),
+                TypeSwitch.Case<VertAlignProperty>(p => p.Value = propertyValue.ToEnum<VertAlign>()),
+                TypeSwitch.Case<HorzGlueProperty>(p => p.Value = propertyValue.ToEnum<HorzGlue>()),
+                TypeSwitch.Case<VertGlueProperty>(p => p.Value = propertyValue.ToEnum<VertGlue>()),
+                TypeSwitch.Case<InvalidActionAppearanceProperty>(p =>
+                    p.Value = propertyValue.ToEnum<InvalidActionAppearance>()),
+                TypeSwitch.Case<PushActionProperty>(p => p.Value = propertyValue.ToEnum<PushAction>()),
+                TypeSwitch.Case<RunFormLinkTypeProperty>(p => p.Value = propertyValue.ToEnum<RunFormLinkType>()),
+                TypeSwitch.Case<IntegerProperty>(p => p.Value = propertyValue.ToInteger()),
+                TypeSwitch.Case<MenuItemTypeProperty>(p => p.Value = propertyValue.ToEnum<MenuItemType>()),
+                TypeSwitch.Case<NullableUnsignedIntegerProperty>(p =>
+                    p.Value = propertyValue.ToNullableUnsignedInteger()),
+                TypeSwitch.Default(() => UnknownPropertyType()));
         }
 
         private void UnknownPropertyType()
@@ -380,20 +441,22 @@ namespace UncommonSense.CBreeze.Read
             switch (currentSectionType)
             {
                 case SectionType.ObjectProperties:
-                    throw new System.ApplicationException("No variables expected in object properties section.");
+                    throw new ApplicationException("No variables expected in object properties section.");
                 case SectionType.Properties:
                 case SectionType.Fields:
                 case SectionType.Controls:
                 case SectionType.Dataset:
-                    currentTrigger = (currentProperties.Peek().First(p => p.Name == triggerName) as TriggerProperty).Value;
+                    currentTrigger = (currentProperties.Peek().First(p => p.Name == triggerName) as TriggerProperty)
+                        ?.Value;
                     break;
 
                 case SectionType.Elements:
-                    currentTrigger = (currentProperties.Peek().First(p => p.Name == triggerName) as ScopedTriggerProperty).Value;
+                    currentTrigger =
+                        (currentProperties.Peek().First(p => p.Name == triggerName) as ScopedTriggerProperty)?.Value;
                     break;
 
                 default:
-                    throw new ArgumentException(string.Format("No triggers expected in {0} section.", currentSectionType));
+                    throw new ArgumentException($"No triggers expected in {currentSectionType} section.");
             }
         }
 
@@ -402,7 +465,8 @@ namespace UncommonSense.CBreeze.Read
             currentTrigger = null;
         }
 
-        public override void OnBeginTableField(int fieldNo, bool? fieldEnabled, string fieldName, TableFieldType fieldType, int fieldLength)
+        public override void OnBeginTableField(int fieldNo, bool? fieldEnabled, string fieldName,
+            TableFieldType fieldType, int fieldLength)
         {
             var fields = (currentObject as Table).Fields;
 
@@ -525,7 +589,7 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException("fieldType");
+                    throw new ArgumentOutOfRangeException(nameof(fieldType));
             }
 
             currentTableField.Container = currentTableFields;
@@ -554,7 +618,8 @@ namespace UncommonSense.CBreeze.Read
 
         public override void OnBeginTableFieldGroup(int fieldGroupID, string fieldGroupName, string[] fieldGroupFields)
         {
-            currentTableFieldGroup = (currentObject as Table).FieldGroups.Add(new TableFieldGroup(fieldGroupID, fieldGroupName));
+            currentTableFieldGroup =
+                (currentObject as Table).FieldGroups.Add(new TableFieldGroup(fieldGroupID, fieldGroupName));
             currentTableFieldGroup.Fields.AddRange(fieldGroupFields);
             currentProperties.Push(currentTableFieldGroup.Properties);
         }
@@ -634,6 +699,7 @@ namespace UncommonSense.CBreeze.Read
                             break;
 #endif
                     }
+
                     break;
 
                 case "Test":
@@ -667,14 +733,17 @@ namespace UncommonSense.CBreeze.Read
             }
         }
 
-        public override void OnVariable(int variableID, string variableName, VariableType variableType, string variableSubType, int? variableLength, string variableOptionString, string variableConstValue, bool variableTemporary, string variableDimensions, bool variableRunOnClient, bool variableWithEvents, string variableSecurityFiltering, bool variableInDataSet)
+        public override void OnVariable(int variableID, string variableName, VariableType variableType,
+            string variableSubType, int? variableLength, string variableOptionString, string variableConstValue,
+            bool variableTemporary, string variableDimensions, bool variableRunOnClient, bool variableWithEvents,
+            string variableSecurityFiltering, bool variableInDataSet)
         {
             Variables variables = null;
 
             switch (currentSectionType)
             {
                 case SectionType.ObjectProperties:
-                    throw new System.ApplicationException("No variables expected in object properties section.");
+                    throw new ApplicationException("No variables expected in object properties section.");
                 case SectionType.Properties: // Object-level trigger variable
                 case SectionType.Fields: // Field trigger variable
                 case SectionType.Controls: // Page control trigger variable
@@ -685,22 +754,17 @@ namespace UncommonSense.CBreeze.Read
 
                 case SectionType.Code:
                     if (currentFunction != null)
-                    {
                         variables = currentFunction.Variables;
-                    }
                     else if (currentEvent != null)
-                    {
                         variables = currentEvent.Variables;
-                    }
                     else
-                    {
                         variables = currentCode.Variables;
-                    }
 
                     break;
 
                 default:
-                    throw new ArgumentException(string.Format("No variables expected for {0} section.", currentSectionType));
+                    throw new ArgumentException(string.Format("No variables expected for {0} section.",
+                        currentSectionType));
             }
 
             switch (variableType)
@@ -711,7 +775,8 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case VariableType.Automation:
-                    var automationVariable = variables.Add(new AutomationVariable(variableID, variableName, variableSubType));
+                    var automationVariable =
+                        variables.Add(new AutomationVariable(variableID, variableName, variableSubType));
                     automationVariable.Dimensions = variableDimensions;
                     automationVariable.WithEvents = variableWithEvents;
                     break;
@@ -761,7 +826,8 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case VariableType.Codeunit:
-                    var codeunitVariable = variables.Add(new CodeunitVariable(variableID, variableName, variableSubType.ToInteger()));
+                    var codeunitVariable =
+                        variables.Add(new CodeunitVariable(variableID, variableName, variableSubType.ToInteger()));
                     codeunitVariable.Dimensions = variableDimensions;
                     break;
 
@@ -825,7 +891,8 @@ namespace UncommonSense.CBreeze.Read
                     break;
 #if NAV2016
                 case VariableType.FilterPageBuilder:
-                    var filterPageBuilderVariable = variables.Add(new FilterPageBuilderVariable(variableID, variableName));
+                    var filterPageBuilderVariable =
+                        variables.Add(new FilterPageBuilderVariable(variableID, variableName));
                     filterPageBuilderVariable.Dimensions = variableDimensions;
                     break;
 #endif
@@ -857,7 +924,8 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case VariableType.NotificationScope:
-                    var notificationScopeVariable = variables.Add(new NotificationScopeVariable(variableID, variableName));
+                    var notificationScopeVariable =
+                        variables.Add(new NotificationScopeVariable(variableID, variableName));
                     notificationScopeVariable.Dimensions = variableDimensions;
                     break;
 
@@ -884,20 +952,25 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case VariableType.Page:
-                    var pageVariable = variables.Add(new PageVariable(variableID, variableName, variableSubType.ToInteger()));
+                    var pageVariable =
+                        variables.Add(new PageVariable(variableID, variableName, variableSubType.ToInteger()));
                     pageVariable.Dimensions = variableDimensions;
                     break;
 
                 case VariableType.Query:
-                    var queryVariable = variables.Add(new QueryVariable(variableID, variableName, variableSubType.ToInteger()));
+                    var queryVariable =
+                        variables.Add(new QueryVariable(variableID, variableName, variableSubType.ToInteger()));
                     queryVariable.Dimensions = variableDimensions;
-                    queryVariable.SecurityFiltering = variableSecurityFiltering.ToNullableEnum<QuerySecurityFiltering>();
+                    queryVariable.SecurityFiltering =
+                        variableSecurityFiltering.ToNullableEnum<QuerySecurityFiltering>();
                     break;
 
                 case VariableType.Record:
-                    var recordVariable = variables.Add(new RecordVariable(variableID, variableName, variableSubType.ToInteger()));
+                    var recordVariable =
+                        variables.Add(new RecordVariable(variableID, variableName, variableSubType.ToInteger()));
                     recordVariable.Dimensions = variableDimensions;
-                    recordVariable.SecurityFiltering = variableSecurityFiltering.ToNullableEnum<RecordSecurityFiltering>();
+                    recordVariable.SecurityFiltering =
+                        variableSecurityFiltering.ToNullableEnum<RecordSecurityFiltering>();
                     recordVariable.Temporary = variableTemporary;
                     break;
 
@@ -909,11 +982,13 @@ namespace UncommonSense.CBreeze.Read
                 case VariableType.RecordRef:
                     var recordRefVariable = variables.Add(new RecordRefVariable(variableID, variableName));
                     recordRefVariable.Dimensions = variableDimensions;
-                    recordRefVariable.SecurityFiltering = variableSecurityFiltering.ToNullableEnum<RecordSecurityFiltering>();
+                    recordRefVariable.SecurityFiltering =
+                        variableSecurityFiltering.ToNullableEnum<RecordSecurityFiltering>();
                     break;
 
                 case VariableType.Report:
-                    var reportVariable = variables.Add(new ReportVariable(variableID, variableName, variableSubType.ToInteger()));
+                    var reportVariable =
+                        variables.Add(new ReportVariable(variableID, variableName, variableSubType.ToInteger()));
                     reportVariable.Dimensions = variableDimensions;
                     break;
 #if NAV2016
@@ -923,12 +998,14 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case VariableType.TableConnectionType:
-                    var tableConnectionTypeVariable = variables.Add(new TableConnectionTypeVariable(variableID, variableName));
+                    var tableConnectionTypeVariable =
+                        variables.Add(new TableConnectionTypeVariable(variableID, variableName));
                     tableConnectionTypeVariable.Dimensions = variableDimensions;
                     break;
 #endif
                 case VariableType.TestPage:
-                    var testPageVariable = variables.Add(new TestPageVariable(variableID, variableName, variableSubType.ToInteger()));
+                    var testPageVariable =
+                        variables.Add(new TestPageVariable(variableID, variableName, variableSubType.ToInteger()));
                     testPageVariable.Dimensions = variableDimensions;
                     break;
 
@@ -971,12 +1048,13 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case VariableType.XmlPort:
-                    var xmlportVariable = variables.Add(new XmlPortVariable(variableID, variableName, variableSubType.ToInteger()));
+                    var xmlportVariable =
+                        variables.Add(new XmlPortVariable(variableID, variableName, variableSubType.ToInteger()));
                     xmlportVariable.Dimensions = variableDimensions;
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException("variableType");
+                    throw new ArgumentOutOfRangeException(nameof(variableType));
             }
         }
 
@@ -987,7 +1065,7 @@ namespace UncommonSense.CBreeze.Read
             switch (currentSectionType)
             {
                 case SectionType.ObjectProperties:
-                    throw new System.ApplicationException("No codelines expected in object properties section.");
+                    throw new ApplicationException("No codelines expected in object properties section.");
                 case SectionType.Properties:
                 case SectionType.Fields:
                 case SectionType.Controls:
@@ -999,8 +1077,7 @@ namespace UncommonSense.CBreeze.Read
                 case SectionType.Code:
                     if (currentFunction != null)
                         codeLines = currentFunction.CodeLines;
-                    else
-                        if (currentEvent != null)
+                    else if (currentEvent != null)
                         codeLines = currentEvent.CodeLines;
                     else
                         codeLines = currentCode.Documentation.CodeLines;
@@ -1015,21 +1092,17 @@ namespace UncommonSense.CBreeze.Read
                     break;
 #endif
                 default:
-                    throw new ArgumentException(string.Format("No code lines expected for section {0}.", currentSectionType));
+                    throw new ArgumentException(string.Format("No code lines expected for section {0}.",
+                        currentSectionType));
             }
 
             codeLines.Add(codeLine);
         }
 
-        public Application Application
-        {
-            get
-            {
-                return this.application;
-            }
-        }
-
-        public override void OnParameter(bool parameterVar, int parameterID, string parameterName, ParameterType parameterType, string parameterSubType, int? parameterLength, string parameterOptionString, bool parameterTemporary, string parameterDimensions, bool parameterRunOnClient, string parameterSecurityFiltering, bool parameterSuppressDispose)
+        public override void OnParameter(bool parameterVar, int parameterID, string parameterName,
+            ParameterType parameterType, string parameterSubType, int? parameterLength, string parameterOptionString,
+            bool parameterTemporary, string parameterDimensions, bool parameterRunOnClient,
+            string parameterSecurityFiltering, bool parameterSuppressDispose)
         {
             Parameters parameters = null;
 
@@ -1046,27 +1119,32 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case ParameterType.Automation:
-                    var automationParameter = parameters.Add(new AutomationParameter(parameterName, parameterSubType, parameterVar, parameterID));
+                    var automationParameter = parameters.Add(new AutomationParameter(parameterName, parameterSubType,
+                        parameterVar, parameterID));
                     automationParameter.Dimensions = parameterDimensions;
                     break;
 
                 case ParameterType.BigInteger:
-                    var bigIntegerParameter = parameters.Add(new BigIntegerParameter(parameterName, parameterVar, parameterID));
+                    var bigIntegerParameter =
+                        parameters.Add(new BigIntegerParameter(parameterName, parameterVar, parameterID));
                     bigIntegerParameter.Dimensions = parameterDimensions;
                     break;
 
                 case ParameterType.BigText:
-                    var bigTextParameter = parameters.Add(new BigTextParameter(parameterName, parameterVar, parameterID));
+                    var bigTextParameter =
+                        parameters.Add(new BigTextParameter(parameterName, parameterVar, parameterID));
                     bigTextParameter.Dimensions = parameterDimensions;
                     break;
 
                 case ParameterType.Binary:
-                    var binaryParameter = parameters.Add(new BinaryParameter(parameterName, parameterVar, parameterID, parameterLength.Value));
+                    var binaryParameter = parameters.Add(new BinaryParameter(parameterName, parameterVar, parameterID,
+                        parameterLength.Value));
                     binaryParameter.Dimensions = parameterDimensions;
                     break;
 
                 case ParameterType.Boolean:
-                    var booleanParameter = parameters.Add(new BooleanParameter(parameterName, parameterVar, parameterID));
+                    var booleanParameter =
+                        parameters.Add(new BooleanParameter(parameterName, parameterVar, parameterID));
                     booleanParameter.Dimensions = parameterDimensions;
                     break;
 
@@ -1082,18 +1160,21 @@ namespace UncommonSense.CBreeze.Read
 
 #if NAV2017
                 case ParameterType.ClientType:
-                    var clientTypeParameter = parameters.Add(new ClientTypeParameter(parameterName, parameterVar, parameterID));
+                    var clientTypeParameter =
+                        parameters.Add(new ClientTypeParameter(parameterName, parameterVar, parameterID));
                     clientTypeParameter.Dimensions = parameterDimensions;
                     break;
 #endif
 
                 case ParameterType.Code:
-                    var codeParameter = parameters.Add(new CodeParameter(parameterName, parameterVar, parameterID, parameterLength));
+                    var codeParameter =
+                        parameters.Add(new CodeParameter(parameterName, parameterVar, parameterID, parameterLength));
                     codeParameter.Dimensions = parameterDimensions;
                     break;
 
                 case ParameterType.Codeunit:
-                    var codeunitParameter = parameters.Add(new CodeunitParameter(parameterName, parameterSubType.ToInteger(), parameterVar, parameterID));
+                    var codeunitParameter = parameters.Add(new CodeunitParameter(parameterName,
+                        parameterSubType.ToInteger(), parameterVar, parameterID));
                     codeunitParameter.Dimensions = parameterDimensions;
                     break;
 
@@ -1103,26 +1184,30 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case ParameterType.DateFormula:
-                    var dateFormulaParameter = parameters.Add(new DateFormulaParameter(parameterName, parameterVar, parameterID));
+                    var dateFormulaParameter =
+                        parameters.Add(new DateFormulaParameter(parameterName, parameterVar, parameterID));
                     dateFormulaParameter.Dimensions = parameterDimensions;
                     break;
 
                 case ParameterType.DateTime:
-                    var dateTimeParameter = parameters.Add(new DateTimeParameter(parameterName, parameterVar, parameterID));
+                    var dateTimeParameter =
+                        parameters.Add(new DateTimeParameter(parameterName, parameterVar, parameterID));
                     dateTimeParameter.Dimensions = parameterDimensions;
                     break;
 
                 case ParameterType.Decimal:
-                    var decimalParameter = parameters.Add(new DecimalParameter(parameterName, parameterVar, parameterID));
+                    var decimalParameter =
+                        parameters.Add(new DecimalParameter(parameterName, parameterVar, parameterID));
                     decimalParameter.Dimensions = parameterDimensions;
                     break;
 
 #if NAV2017
                 case ParameterType.DefaultLayout:
-                    var defaultLayoutParameter = parameters.Add(new DefaultLayoutParameter(parameterName, parameterVar, parameterID));
+                    var defaultLayoutParameter =
+                        parameters.Add(new DefaultLayoutParameter(parameterName, parameterVar, parameterID));
                     defaultLayoutParameter.Dimensions = parameterDimensions;
                     break;
-#endif 
+#endif
 
                 case ParameterType.Dialog:
                     var dialogParameter = parameters.Add(new DialogParameter(parameterName, parameterVar, parameterID));
@@ -1130,24 +1215,28 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case ParameterType.DotNet:
-                    var dotnetParameter = parameters.Add(new DotNetParameter(parameterName, parameterSubType, parameterVar, parameterID));
+                    var dotnetParameter =
+                        parameters.Add(new DotNetParameter(parameterName, parameterSubType, parameterVar, parameterID));
                     dotnetParameter.Dimensions = parameterDimensions;
                     dotnetParameter.RunOnClient = parameterRunOnClient;
                     dotnetParameter.SuppressDispose = parameterSuppressDispose;
                     break;
 
                 case ParameterType.Duration:
-                    var durationParameter = parameters.Add(new DurationParameter(parameterName, parameterVar, parameterID));
+                    var durationParameter =
+                        parameters.Add(new DurationParameter(parameterName, parameterVar, parameterID));
                     durationParameter.Dimensions = parameterDimensions;
                     break;
 
                 case ParameterType.ExecutionMode:
-                    var executionModeParameter = parameters.Add(new ExecutionModeParameter(parameterName, parameterVar, parameterID));
+                    var executionModeParameter =
+                        parameters.Add(new ExecutionModeParameter(parameterName, parameterVar, parameterID));
                     executionModeParameter.Dimensions = parameterDimensions;
                     break;
 
                 case ParameterType.FieldRef:
-                    var fieldRefParameter = parameters.Add(new FieldRefParameter(parameterName, parameterVar, parameterID));
+                    var fieldRefParameter =
+                        parameters.Add(new FieldRefParameter(parameterName, parameterVar, parameterID));
                     fieldRefParameter.Dimensions = parameterDimensions;
                     break;
 
@@ -1157,7 +1246,8 @@ namespace UncommonSense.CBreeze.Read
                     break;
 #if NAV2016
                 case ParameterType.FilterPageBuilder:
-                    var filterPageBuilderParameter = parameters.Add(new FilterPageBuilderParameter(parameterName, parameterVar, parameterID));
+                    var filterPageBuilderParameter =
+                        parameters.Add(new FilterPageBuilderParameter(parameterName, parameterVar, parameterID));
                     filterPageBuilderParameter.Dimensions = parameterDimensions;
                     break;
 #endif
@@ -1167,12 +1257,14 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case ParameterType.InStream:
-                    var instreamParameter = parameters.Add(new InStreamParameter(parameterName, parameterVar, parameterID));
+                    var instreamParameter =
+                        parameters.Add(new InStreamParameter(parameterName, parameterVar, parameterID));
                     instreamParameter.Dimensions = parameterDimensions;
                     break;
 
                 case ParameterType.Integer:
-                    var integerParameter = parameters.Add(new IntegerParameter(parameterName, parameterVar, parameterID));
+                    var integerParameter =
+                        parameters.Add(new IntegerParameter(parameterName, parameterVar, parameterID));
                     integerParameter.Dimensions = parameterDimensions;
                     break;
 
@@ -1183,23 +1275,27 @@ namespace UncommonSense.CBreeze.Read
 
 #if NAV2017
                 case ParameterType.Notification:
-                    var notificationParameter = parameters.Add(new NotificationParameter(parameterName, parameterVar, parameterID));
+                    var notificationParameter =
+                        parameters.Add(new NotificationParameter(parameterName, parameterVar, parameterID));
                     notificationParameter.Dimensions = parameterDimensions;
                     break;
 
                 case ParameterType.NotificationScope:
-                    var notificationScopeParameter = parameters.Add(new NotificationScopeParameter(parameterName, parameterVar, parameterID));
+                    var notificationScopeParameter =
+                        parameters.Add(new NotificationScopeParameter(parameterName, parameterVar, parameterID));
                     notificationScopeParameter.Dimensions = parameterDimensions;
                     break;
 
                 case ParameterType.ObjectType:
-                    var objectTypeParameter = parameters.Add(new ObjectTypeParameter(parameterName, parameterVar, parameterID));
+                    var objectTypeParameter =
+                        parameters.Add(new ObjectTypeParameter(parameterName, parameterVar, parameterID));
                     objectTypeParameter.Dimensions = parameterDimensions;
                     break;
 #endif
 
                 case ParameterType.Ocx:
-                    var ocxParameter = parameters.Add(new OcxParameter(parameterName, parameterSubType, parameterVar, parameterID));
+                    var ocxParameter =
+                        parameters.Add(new OcxParameter(parameterName, parameterSubType, parameterVar, parameterID));
                     ocxParameter.Dimensions = parameterDimensions;
                     break;
 
@@ -1210,77 +1306,93 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case ParameterType.OutStream:
-                    var outstreamParameter = parameters.Add(new OutStreamParameter(parameterName, parameterVar, parameterID));
+                    var outstreamParameter =
+                        parameters.Add(new OutStreamParameter(parameterName, parameterVar, parameterID));
                     outstreamParameter.Dimensions = parameterDimensions;
                     break;
 
                 case ParameterType.Page:
-                    var pageParameter = parameters.Add(new PageParameter(parameterName, parameterSubType.ToInteger(), parameterVar, parameterID));
+                    var pageParameter = parameters.Add(new PageParameter(parameterName, parameterSubType.ToInteger(),
+                        parameterVar, parameterID));
                     pageParameter.Dimensions = parameterDimensions;
                     break;
 
                 case ParameterType.Query:
-                    var queryParameter = parameters.Add(new QueryParameter(parameterName, parameterSubType.ToInteger(), parameterVar, parameterID));
+                    var queryParameter = parameters.Add(new QueryParameter(parameterName, parameterSubType.ToInteger(),
+                        parameterVar, parameterID));
                     queryParameter.Dimensions = parameterDimensions;
-                    queryParameter.SecurityFiltering = parameterSecurityFiltering.ToNullableEnum<QuerySecurityFiltering>();
+                    queryParameter.SecurityFiltering =
+                        parameterSecurityFiltering.ToNullableEnum<QuerySecurityFiltering>();
                     break;
 
                 case ParameterType.Record:
-                    var recordParameter = parameters.Add(new RecordParameter(parameterName, parameterSubType.ToInteger(), parameterVar, parameterID));
+                    var recordParameter = parameters.Add(new RecordParameter(parameterName,
+                        parameterSubType.ToInteger(), parameterVar, parameterID));
                     recordParameter.Dimensions = parameterDimensions;
                     recordParameter.Temporary = parameterTemporary;
                     break;
 
                 case ParameterType.RecordID:
-                    var recordIDParameter = parameters.Add(new RecordIDParameter(parameterName, parameterVar, parameterID));
+                    var recordIDParameter =
+                        parameters.Add(new RecordIDParameter(parameterName, parameterVar, parameterID));
                     recordIDParameter.Dimensions = parameterDimensions;
                     break;
 
                 case ParameterType.RecordRef:
-                    var recordRefParameter = parameters.Add(new RecordRefParameter(parameterName, parameterVar, parameterID));
+                    var recordRefParameter =
+                        parameters.Add(new RecordRefParameter(parameterName, parameterVar, parameterID));
                     recordRefParameter.Dimensions = parameterDimensions;
-                    recordRefParameter.SecurityFiltering = parameterSecurityFiltering.ToNullableEnum<RecordSecurityFiltering>();
+                    recordRefParameter.SecurityFiltering =
+                        parameterSecurityFiltering.ToNullableEnum<RecordSecurityFiltering>();
                     break;
 
                 case ParameterType.Report:
-                    var reportParameter = parameters.Add(new ReportParameter(parameterName, parameterSubType.ToInteger(), parameterVar, parameterID));
+                    var reportParameter = parameters.Add(new ReportParameter(parameterName,
+                        parameterSubType.ToInteger(), parameterVar, parameterID));
                     reportParameter.Dimensions = parameterDimensions;
                     break;
 #if NAV2016
                 case ParameterType.ReportFormat:
-                    var reportFormatParameter = parameters.Add(new ReportFormatParameter(parameterName, parameterVar, parameterID));
+                    var reportFormatParameter =
+                        parameters.Add(new ReportFormatParameter(parameterName, parameterVar, parameterID));
                     reportFormatParameter.Dimensions = parameterDimensions;
                     break;
 
                 case ParameterType.TableConnectionType:
-                    var tableConnectionTypeParameter = parameters.Add(new TableConnectionTypeParameter(parameterName, parameterVar, parameterID));
+                    var tableConnectionTypeParameter =
+                        parameters.Add(new TableConnectionTypeParameter(parameterName, parameterVar, parameterID));
                     tableConnectionTypeParameter.Dimensions = parameterDimensions;
                     break;
 #endif
                 case ParameterType.TestPage:
-                    var testPageParameter = parameters.Add(new TestPageParameter(parameterName, parameterSubType.ToInteger(), parameterVar, parameterID));
+                    var testPageParameter = parameters.Add(new TestPageParameter(parameterName,
+                        parameterSubType.ToInteger(), parameterVar, parameterID));
                     testPageParameter.Dimensions = parameterDimensions;
                     break;
 
 #if NAV2017
                 case ParameterType.TestPermissions:
-                    var testPermissions = parameters.Add(new TestPermissionsParameter(parameterName, parameterVar, parameterID));
+                    var testPermissions =
+                        parameters.Add(new TestPermissionsParameter(parameterName, parameterVar, parameterID));
                     testPermissions.Dimensions = parameterDimensions;
                     break;
 #endif
 
                 case ParameterType.TestRequestPage:
-                    var testRequestPageParameter = parameters.Add(new TestRequestPageParameter(parameterName, parameterSubType.ToInteger(), parameterVar, parameterID));
+                    var testRequestPageParameter = parameters.Add(new TestRequestPageParameter(parameterName,
+                        parameterSubType.ToInteger(), parameterVar, parameterID));
                     testRequestPageParameter.Dimensions = parameterDimensions;
                     break;
 
                 case ParameterType.Text:
-                    var textParameter = parameters.Add(new TextParameter(parameterName, parameterVar, parameterID, parameterLength));
+                    var textParameter =
+                        parameters.Add(new TextParameter(parameterName, parameterVar, parameterID, parameterLength));
                     textParameter.Dimensions = parameterDimensions;
                     break;
 #if NAV2016
                 case ParameterType.TextEncoding:
-                    var textEncodingParameter = parameters.Add(new TextEncodingParameter(parameterName, parameterVar, parameterID));
+                    var textEncodingParameter =
+                        parameters.Add(new TextEncodingParameter(parameterName, parameterVar, parameterID));
                     textEncodingParameter.Dimensions = parameterDimensions;
                     break;
 #endif
@@ -1290,17 +1402,20 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case ParameterType.TransactionType:
-                    var transactionTypeParameter = parameters.Add(new TransactionTypeParameter(parameterName, parameterVar, parameterID));
+                    var transactionTypeParameter =
+                        parameters.Add(new TransactionTypeParameter(parameterName, parameterVar, parameterID));
                     transactionTypeParameter.Dimensions = parameterDimensions;
                     break;
 
                 case ParameterType.Variant:
-                    var variantParameter = parameters.Add(new VariantParameter(parameterName, parameterVar, parameterID));
+                    var variantParameter =
+                        parameters.Add(new VariantParameter(parameterName, parameterVar, parameterID));
                     variantParameter.Dimensions = parameterDimensions;
                     break;
 
                 case ParameterType.XmlPort:
-                    var xmlPortParameter = parameters.Add(new XmlPortParameter(parameterName, parameterSubType.ToInteger(), parameterVar, parameterID));
+                    var xmlPortParameter = parameters.Add(new XmlPortParameter(parameterName,
+                        parameterSubType.ToInteger(), parameterVar, parameterID));
                     xmlPortParameter.Dimensions = parameterDimensions;
                     break;
 
@@ -1309,7 +1424,8 @@ namespace UncommonSense.CBreeze.Read
             }
         }
 
-        public override void OnReturnValue(string returnValueName, FunctionReturnValueType? returnValueType, int? returnValueLength, string returnValueDimensions)
+        public override void OnReturnValue(string returnValueName, FunctionReturnValueType? returnValueType,
+            int? returnValueLength, string returnValueDimensions)
         {
             currentFunction.ReturnValue.Name = returnValueName;
             currentFunction.ReturnValue.Type = returnValueType;
@@ -1327,27 +1443,34 @@ namespace UncommonSense.CBreeze.Read
             currentEvent = null;
         }
 
-        public override void OnBeginQueryElement(int elementID, int? elementIndentation, string elementName, QueryElementType elementType)
+        public override void OnBeginQueryElement(int elementID, int? elementIndentation, string elementName,
+            QueryElementType elementType)
         {
             switch (elementType)
             {
                 case QueryElementType.DataItem:
-                    var newDataItemQueryElement = currentQueryElements.Add(new DataItemQueryElement(0, elementID, elementName, elementIndentation));
+                    var newDataItemQueryElement =
+                        currentQueryElements.Add(
+                            new DataItemQueryElement(0, elementID, elementName, elementIndentation));
                     currentProperties.Push(newDataItemQueryElement.Properties);
                     break;
 
                 case QueryElementType.Filter:
-                    var newFilterQueryElement = currentQueryElements.Add(new FilterQueryElement(null, elementID, elementName, elementIndentation));
+                    var newFilterQueryElement =
+                        currentQueryElements.Add(new FilterQueryElement(null, elementID, elementName,
+                            elementIndentation));
                     currentProperties.Push(newFilterQueryElement.Properties);
                     break;
 
                 case QueryElementType.Column:
-                    var newColumnQueryElement = currentQueryElements.Add(new ColumnQueryElement(null, elementID, elementName, elementIndentation));
+                    var newColumnQueryElement =
+                        currentQueryElements.Add(new ColumnQueryElement(null, elementID, elementName,
+                            elementIndentation));
                     currentProperties.Push(newColumnQueryElement.Properties);
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException("elementType");
+                    throw new ArgumentOutOfRangeException(nameof(elementType));
             }
         }
 
@@ -1361,28 +1484,32 @@ namespace UncommonSense.CBreeze.Read
             switch (controlType)
             {
                 case PageControlType.Container:
-                    var newContainerPageControl = currentPageControls.Add(new PageControlContainer(controlID, controlIndentation));
+                    var newContainerPageControl =
+                        currentPageControls.Add(new PageControlContainer(controlID, controlIndentation));
                     currentProperties.Push(newContainerPageControl.Properties);
                     break;
 
                 case PageControlType.Group:
-                    var newGroupPageControl = currentPageControls.Add(new PageControlGroup(controlID, controlIndentation));
+                    var newGroupPageControl =
+                        currentPageControls.Add(new PageControlGroup(controlID, controlIndentation));
                     currentPageActionList = newGroupPageControl.Properties.ActionList;
                     currentProperties.Push(newGroupPageControl.Properties);
                     break;
 
                 case PageControlType.Field:
-                    var newFieldPageControl = currentPageControls.Add(new PageControl(null, controlID, controlIndentation));
+                    var newFieldPageControl =
+                        currentPageControls.Add(new PageControl(null, controlID, controlIndentation));
                     currentProperties.Push(newFieldPageControl.Properties);
                     break;
 
                 case PageControlType.Part:
-                    var newPartPageControl = currentPageControls.Add(new PageControlPart(controlID, controlIndentation));
+                    var newPartPageControl =
+                        currentPageControls.Add(new PageControlPart(controlID, controlIndentation));
                     currentProperties.Push(newPartPageControl.Properties);
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException("controlType");
+                    throw new ArgumentOutOfRangeException(nameof(controlType));
             }
         }
 
@@ -1397,12 +1524,14 @@ namespace UncommonSense.CBreeze.Read
             switch (actionType)
             {
                 case PageActionType.ActionContainer:
-                    var newPageActionContainer = currentPageActionList.Add(new PageActionContainer(actionIndentation, actionID));
+                    var newPageActionContainer =
+                        currentPageActionList.Add(new PageActionContainer(actionIndentation, actionID));
                     currentProperties.Push(newPageActionContainer.Properties);
                     break;
 
                 case PageActionType.ActionGroup:
-                    var newPageActionGroup = currentPageActionList.Add(new PageActionGroup(actionID, actionIndentation));
+                    var newPageActionGroup =
+                        currentPageActionList.Add(new PageActionGroup(actionID, actionIndentation));
                     currentProperties.Push(newPageActionGroup.Properties);
                     break;
 
@@ -1412,7 +1541,8 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case PageActionType.Separator:
-                    var newPageActionSeparator = currentPageActionList.Add(new PageActionSeparator(actionID, actionIndentation));
+                    var newPageActionSeparator =
+                        currentPageActionList.Add(new PageActionSeparator(actionID, actionIndentation));
                     currentProperties.Push(newPageActionSeparator.Properties);
                     break;
             }
@@ -1423,53 +1553,69 @@ namespace UncommonSense.CBreeze.Read
             currentProperties.Pop();
         }
 
-        public override void OnBeginXmlPortElement(Guid elementID, int? elementIndentation, string elementName, UncommonSense.CBreeze.Common.XmlPortNodeType elementNodeType, XmlPortSourceType elementSourceType)
+        public override void OnBeginXmlPortElement(Guid elementID, int? elementIndentation, string elementName,
+            XmlPortNodeType elementNodeType, XmlPortSourceType elementSourceType)
         {
             switch (elementSourceType)
             {
                 case XmlPortSourceType.Text:
                     switch (elementNodeType)
                     {
-                        case UncommonSense.CBreeze.Common.XmlPortNodeType.Element:
-                            var newTextElementNode = currentXmlPortNodes.Add(new XmlPortTextElement(elementName, elementIndentation, elementID));
+                        case XmlPortNodeType.Element:
+                            var newTextElementNode =
+                                currentXmlPortNodes.Add(new XmlPortTextElement(elementName, elementIndentation,
+                                    elementID));
                             currentProperties.Push(newTextElementNode.Properties);
                             break;
 
-                        case UncommonSense.CBreeze.Common.XmlPortNodeType.Attribute:
-                            var newTextAttributeNode = currentXmlPortNodes.Add(new XmlPortTextAttribute(elementName, elementIndentation, elementID));
+                        case XmlPortNodeType.Attribute:
+                            var newTextAttributeNode =
+                                currentXmlPortNodes.Add(new XmlPortTextAttribute(elementName, elementIndentation,
+                                    elementID));
                             currentProperties.Push(newTextAttributeNode.Properties);
                             break;
                     }
+
                     break;
 
                 case XmlPortSourceType.Table:
                     switch (elementNodeType)
                     {
-                        case UncommonSense.CBreeze.Common.XmlPortNodeType.Element:
-                            var newTableElementNode = currentXmlPortNodes.Add(new XmlPortTableElement(elementName, elementIndentation, elementID));
+                        case XmlPortNodeType.Element:
+                            var newTableElementNode =
+                                currentXmlPortNodes.Add(new XmlPortTableElement(elementName, elementIndentation,
+                                    elementID));
                             currentProperties.Push(newTableElementNode.Properties);
                             break;
 
-                        case UncommonSense.CBreeze.Common.XmlPortNodeType.Attribute:
-                            var newTableAttributeNode = currentXmlPortNodes.Add(new XmlPortTableAttribute(elementName, elementIndentation, elementID));
+                        case XmlPortNodeType.Attribute:
+                            var newTableAttributeNode =
+                                currentXmlPortNodes.Add(new XmlPortTableAttribute(elementName, elementIndentation,
+                                    elementID));
                             currentProperties.Push(newTableAttributeNode.Properties);
                             break;
                     }
+
                     break;
 
                 case XmlPortSourceType.Field:
                     switch (elementNodeType)
                     {
-                        case UncommonSense.CBreeze.Common.XmlPortNodeType.Element:
-                            var newFieldElementNode = currentXmlPortNodes.Add(new XmlPortFieldElement(elementName, elementIndentation, elementID));
+                        case XmlPortNodeType.Element:
+                            var newFieldElementNode =
+                                currentXmlPortNodes.Add(new XmlPortFieldElement(elementName, elementIndentation,
+                                    elementID));
                             currentProperties.Push(newFieldElementNode.Properties);
                             break;
 
-                        case UncommonSense.CBreeze.Common.XmlPortNodeType.Attribute:
-                            var newFieldAttributeNode = currentXmlPortNodes.Add(new XmlPortFieldAttribute(elementName, elementIndentation, elementID));
+                        case XmlPortNodeType.Attribute:
+                            var newFieldAttributeNode =
+                                currentXmlPortNodes.Add(new XmlPortFieldAttribute(elementName, elementIndentation,
+                                    elementID));
                             currentProperties.Push(newFieldAttributeNode.Properties);
                             break;
                     }
+
                     break;
             }
         }
@@ -1479,7 +1625,8 @@ namespace UncommonSense.CBreeze.Read
             currentProperties.Pop();
         }
 
-        public override void OnBeginReportElement(int elementID, int? elementIndentation, string elementName, ReportElementType elementType)
+        public override void OnBeginReportElement(int elementID, int? elementIndentation, string elementName,
+            ReportElementType elementType)
         {
             switch (elementType)
             {
@@ -1564,6 +1711,166 @@ namespace UncommonSense.CBreeze.Read
         public override void OnEndMenuSuiteNode()
         {
             currentProperties.Pop();
+        }
+
+        public override void OnBeginFormControl(int controlId, ClassicControlType controlType, int posX, int posY,
+            int width, int height)
+        {
+            switch (controlType)
+            {
+                case ClassicControlType.Label:
+                    var item = new FormLabelControl(controlId, posX, posY, width, height);
+                    currentFormControl = item;
+                    var newFormLabel =
+                        currentFormControls.Add(item);
+                    currentProperties.Push(newFormLabel.Properties);
+                    break;
+                case ClassicControlType.Image:
+                    var item1 = new FormImageControl(controlId, posX, posY, width, height);
+                    currentFormControl = item1;
+                    var newFormImage =
+                        currentFormControls.Add(item1);
+                    currentProperties.Push(newFormImage.Properties);
+                    break;
+                case ClassicControlType.Shape:
+                    var item2 = new FormShapeControl(controlId, posX, posY, width, height);
+                    currentFormControl = item2;
+                    var newFormShape =
+                        currentFormControls.Add(item2);
+                    currentProperties.Push(newFormShape.Properties);
+                    break;
+                case ClassicControlType.CommandButton:
+                    var item3 = new FormCommandButtonControl(controlId, posX, posY, width, height);
+                    currentFormControl = item3;
+                    var newFormCommandButton =
+                        currentFormControls.Add(item3);
+                    currentProperties.Push(newFormCommandButton.Properties);
+                    break;
+                case ClassicControlType.MenuButton:
+                    var item4 = new FormMenuButtonControl(controlId, posX, posY, width, height);
+                    currentFormControl = item4;
+                    var newFormMenuButton =
+                        currentFormControls.Add(item4);
+                    currentProperties.Push(newFormMenuButton.Properties);
+                    break;
+                case ClassicControlType.CheckBox:
+                    var item5 = new FormCheckBoxControl(controlId, posX, posY, width, height);
+                    currentFormControl = item5;
+                    var newFormCheckBox =
+                        currentFormControls.Add(item5);
+                    currentProperties.Push(newFormCheckBox.Properties);
+                    break;
+                case ClassicControlType.OptionButton:
+                    var item6 = new FormOptionButtonControl(controlId, posX, posY, width, height);
+                    currentFormControl = item6;
+                    var newFormOptionButton =
+                        currentFormControls.Add(item6);
+                    currentProperties.Push(newFormOptionButton.Properties);
+                    break;
+                case ClassicControlType.TextBox:
+                    var item7 = new FormTextBoxControl(controlId, posX, posY, width, height);
+                    currentFormControl = item7;
+                    var newFormTextBox =
+                        currentFormControls.Add(item7);
+                    currentProperties.Push(newFormTextBox.Properties);
+                    break;
+                case ClassicControlType.PictureBox:
+                    var item8 = new FormPictureBoxControl(controlId, posX, posY, width, height);
+                    currentFormControl = item8;
+                    var newFormPictureBox =
+                        currentFormControls.Add(item8);
+                    currentProperties.Push(newFormPictureBox.Properties);
+                    break;
+                case ClassicControlType.Indicator:
+                    var item9 = new FormIndicatorControl(controlId, posX, posY, width, height);
+                    currentFormControl = item9;
+                    var newFormIndicator =
+                        currentFormControls.Add(item9);
+                    currentProperties.Push(newFormIndicator.Properties);
+                    break;
+                case ClassicControlType.Frame:
+                    var item10 = new FormFrameControl(controlId, posX, posY, width, height);
+                    currentFormControl = item10;
+                    var newFormFrame =
+                        currentFormControls.Add(item10);
+                    currentProperties.Push(newFormFrame.Properties);
+                    break;
+                case ClassicControlType.TabControl:
+                    var item11 = new FormTabControl(controlId, posX, posY, width, height);
+                    currentFormControl = item11;
+                    var newFormTabControl =
+                        currentFormControls.Add(item11);
+                    currentProperties.Push(newFormTabControl.Properties);
+                    break;
+                case ClassicControlType.TableBox:
+                    var item12 = new FormTableBoxControl(controlId, posX, posY, width, height);
+                    currentFormControl = item12;
+                    var newFormTableBox =
+                        currentFormControls.Add(item12);
+                    currentProperties.Push(newFormTableBox.Properties);
+                    break;
+                case ClassicControlType.MatrixBox:
+                    var item13 = new FormMatrixBoxControl(controlId, posX, posY, width, height);
+                    currentFormControl = item13;
+                    var newFormMatrixBox =
+                        currentFormControls.Add(item13);
+                    currentProperties.Push(newFormMatrixBox.Properties);
+                    break;
+                case ClassicControlType.SubForm:
+                    var item14 = new FormSubFormControl(controlId, posX, posY, width, height);
+                    currentFormControl = item14;
+                    var newFormSubform =
+                        currentFormControls.Add(item14);
+                    currentProperties.Push(newFormSubform.Properties);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(controlType), controlType, null);
+            }
+        }
+
+        public override void OnEndFormControl()
+        {
+            currentProperties.Pop();
+            currentFormControl = null;
+        }
+
+        public override void OnBeginFormMenuItem()
+        {
+            if (!(currentFormControl is FormMenuButtonControl menuControl))
+                return;
+
+            if (menuControl.MenuItems == null)
+                menuControl.MenuItems = new FormMenuItems();
+
+            var menuItem = new FormMenuItem(menuControl);
+            currentProperties.Push(menuItem.Properties);
+        }
+
+        public override void OnEndFormMenuItem()
+        {
+            currentProperties.Pop();
+        }
+
+        public override void OnBeginDataPortField(int? startPos, int? width, string sourceExpr)
+        {
+            base.OnBeginDataPortField(startPos, width, sourceExpr);
+        }
+
+        public override void OnEndDataPortField()
+        {
+            base.OnEndDataPortField();
+        }
+
+        public override void OnBeginRequestForm()
+        {
+            currentProperties.Push(currentRequestForm.Properties);
+            currentFormControls = currentRequestForm.Controls;
+        }
+
+        public override void OnEndRequestForm()
+        {
+            currentProperties.Pop();
+            currentFormControls = null;
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UncommonSense.CBreeze.Common;
+using UncommonSense.CBreeze.Core.Code.Variable;
 using UncommonSense.CBreeze.Core.Contracts;
 using UncommonSense.CBreeze.Core.Generic;
 

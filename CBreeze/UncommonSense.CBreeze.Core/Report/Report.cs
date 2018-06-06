@@ -6,10 +6,8 @@ using UncommonSense.CBreeze.Core.Property;
 
 namespace UncommonSense.CBreeze.Core.Report
 {
-    public class Report : Object, IHasCode, IHasRequestPage
+    public class Report : Object, IHasCode, IHasRequestPage, IHasRequestForm
     {
-        public Application Application => Container?.Application;
-
         public Report(string name) : this(0, name)
         {
         }
@@ -26,71 +24,36 @@ namespace UncommonSense.CBreeze.Core.Report
 #if NAV2015
             WordLayout = new WordLayout(this);
 #endif
+            RequestForm = new RequestForm(this);
         }
 
-        public override ObjectType Type
-        {
-            get
-            {
-                return ObjectType.Report;
-            }
-        }
+        public override ObjectType Type => ObjectType.Report;
 
         public Reports Container { get; internal set; }
 
-        public ReportProperties Properties
-        {
-            get;
-            protected set;
-        }
+        public ReportProperties Properties { get; protected set; }
 
-        public ReportElements Elements
-        {
-            get;
-            protected set;
-        }
+        public ReportElements Elements { get; protected set; }
 
-        public RequestPage RequestPage
-        {
-            get;
-            protected set;
-        }
+        public ReportLabels Labels { get; protected set; }
 
-        public ReportLabels Labels
-        {
-            get;
-            protected set;
-        }
-
-        public Code.Variable.Code Code
-        {
-            get;
-            protected set;
-        }
-
-        public RdlData RdlData
-        {
-            get;
-            protected set;
-        }
+        public RdlData RdlData { get; protected set; }
 
 #if NAV2015
 
-        public WordLayout WordLayout
-        {
-            get;
-            protected set;
-        }
+        public WordLayout WordLayout { get; protected set; }
 
 #endif
 
-        public override Properties AllProperties
-        {
-            get
-            {
-                return Properties;
-            }
-        }
+        public override Properties AllProperties => Properties;
+
+        public Code.Variable.Code Code { get; protected set; }
+
+        public RequestForm RequestForm { get; protected set; }
+
+        public Application Application => Container?.Application;
+
+        public RequestPage RequestPage { get; protected set; }
 
         public override INode ParentNode => Container;
 
@@ -107,6 +70,7 @@ namespace UncommonSense.CBreeze.Core.Report
 #if NAV2015
                 yield return WordLayout;
 #endif
+                yield return RequestForm;
             }
         }
     }

@@ -85,6 +85,35 @@ namespace UncommonSense.CBreeze.Parse
         {
         }
 
+        public void OnBeginFormControl(int controlId, ClassicControlType controlType, int posX, int posY, int width, int height)
+        {
+            
+        }
+
+        public void OnEndFormControl()
+        {
+        }
+
+        public void OnBeginFormMenuItem()
+        {
+            
+        }
+
+        public void OnEndFormMenuItem()
+        {
+
+        }
+
+        public void OnBeginDataPortField(int? startPos, int? width, string sourceExpr)
+        {
+            
+        }
+
+        public void OnEndDataPortField()
+        {
+
+        }
+
         public void OnBeginTrigger(string triggerName)
         {
         }
@@ -171,6 +200,16 @@ namespace UncommonSense.CBreeze.Parse
 
         public void OnEndRequestPage()
         {
+        }
+
+        public void OnBeginRequestForm()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnEndRequestForm()
+        {
+            throw new NotImplementedException();
         }
 
         public void OnBeginReportLabel(int labelID, string labelName)
