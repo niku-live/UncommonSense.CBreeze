@@ -3,6 +3,7 @@ using UncommonSense.CBreeze.Common;
 using UncommonSense.CBreeze.Core.Base;
 using UncommonSense.CBreeze.Core.Contracts;
 using UncommonSense.CBreeze.Core.Property;
+using UncommonSense.CBreeze.Core.Report.Classic;
 
 namespace UncommonSense.CBreeze.Core.Report
 {
@@ -25,7 +26,10 @@ namespace UncommonSense.CBreeze.Core.Report
             WordLayout = new WordLayout(this);
 #endif
             RequestForm = new RequestForm(this);
+            DataItems = new DataItems(this);
         }
+
+        public DataItems DataItems { get; internal set; }
 
         public override ObjectType Type => ObjectType.Report;
 

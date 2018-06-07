@@ -21,12 +21,17 @@ using UncommonSense.CBreeze.Core.Property.Implementation;
 using UncommonSense.CBreeze.Core.Property.Type;
 using UncommonSense.CBreeze.Core.Query;
 using UncommonSense.CBreeze.Core.Report;
+using UncommonSense.CBreeze.Core.Report.Classic;
+using UncommonSense.CBreeze.Core.Report.Classic.Controls;
+using UncommonSense.CBreeze.Core.Report.Classic.Section;
+using UncommonSense.CBreeze.Core.Report.Classic.Section.Contracts;
 using UncommonSense.CBreeze.Core.Table;
 using UncommonSense.CBreeze.Core.Table.Field;
 using UncommonSense.CBreeze.Core.Table.Key;
 using UncommonSense.CBreeze.Core.XmlPort;
 using UncommonSense.CBreeze.Parse;
 using Object = UncommonSense.CBreeze.Core.Base.Object;
+using SectionType = UncommonSense.CBreeze.Common.SectionType;
 
 namespace UncommonSense.CBreeze.Read
 {
@@ -34,6 +39,8 @@ namespace UncommonSense.CBreeze.Read
     {
         private readonly Stack<IEnumerable<Property>> currentProperties = new Stack<IEnumerable<Property>>();
         private Code currentCode;
+        private DataItem currentDataItem;
+        private DataItems currentDataItems;
         private Event currentEvent;
         private string currentFileName;
         private FormControl currentFormControl;
@@ -49,6 +56,8 @@ namespace UncommonSense.CBreeze.Read
         private ReportLabels currentReportLabels;
         private RequestForm currentRequestForm;
         private RequestPage currentRequestPage;
+        private SectionBase currentSection;
+        private Sections currentSections;
         private SectionType? currentSectionType;
         private TableField currentTableField;
         private TableFieldGroup currentTableFieldGroup;
@@ -61,6 +70,7 @@ namespace UncommonSense.CBreeze.Read
         private WordLayout currentWordLayout;
 #endif
         private XmlPortNodes currentXmlPortNodes;
+        private bool sectionBegin;
 
         public ApplicationBuilder(Application application)
         {
@@ -273,6 +283,48 @@ namespace UncommonSense.CBreeze.Read
 
         public override void OnProperty(string propertyName, string propertyValue)
         {
+            // Unfortunately, this block is necessary because the type of the section in the text files does not depend on the object section,
+            // but on the "Properties" subordinate object. This is very unpleasant, because it is not really object-oriented.
+            // Maybe there's a better solution?
+            if (sectionBegin && currentObject is Report &&
+                propertyName.Equals("SectionType", StringComparison.InvariantCultureIgnoreCase))
+            {
+                var secttype = propertyValue.ToEnum<Core.Report.Classic.Section.SectionType>();
+                // If possible, should be outsourced to a factory or at least one factory method.
+                switch (secttype)
+                {
+                    case Core.Report.Classic.Section.SectionType.Header:
+                        currentSection = new HeaderSection(currentDataItem);
+                        break;
+                    case Core.Report.Classic.Section.SectionType.TransHeader:
+                        currentSection = new TransHeaderSection(currentDataItem);
+                        break;
+                    case Core.Report.Classic.Section.SectionType.GroupHeader:
+                        currentSection = new GroupHeaderSection(currentDataItem);
+                        break;
+                    case Core.Report.Classic.Section.SectionType.Body:
+                        currentSection = new BodySection(currentDataItem);
+                        break;
+                    case Core.Report.Classic.Section.SectionType.GroupFooter:
+                        currentSection = new GroupFooterSection(currentDataItem);
+                        break;
+                    case Core.Report.Classic.Section.SectionType.TransFooter:
+                        currentSection = new TransFooterSection(currentDataItem);
+                        break;
+                    case Core.Report.Classic.Section.SectionType.Footer:
+                        currentSection = new FooterSection(currentDataItem);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                currentDataItem.Sections.Add(currentSection);
+                currentProperties.Push(currentSection.AllProperties);
+                currentFormControls = currentSection.Controls;
+                sectionBegin = false;
+                return;
+            }
+
             var properties = currentProperties.Peek();
 
             if (propertyName == "Method")
@@ -1871,6 +1923,88 @@ namespace UncommonSense.CBreeze.Read
         {
             currentProperties.Pop();
             currentFormControls = null;
+        }
+
+        public override void OnBeginReportControl(int controlId, ClassicControlType controlType, int posX, int posY,
+            int width, int height)
+        {
+            switch (controlType)
+            {
+                case ClassicControlType.Label:
+                    var item = new ReportLabelControl(controlId, posX, posY, width, height);
+                    currentFormControl = item;
+                    var newFormLabel = currentFormControls.Add(item);
+                    currentProperties.Push(newFormLabel.Properties);
+                    break;
+                case ClassicControlType.Image:
+                    var item2 = new ReportImageControl(controlId, posX, posY, width, height);
+                    currentFormControl = item2;
+                    var newFormImage = currentFormControls.Add(item2);
+                    currentProperties.Push(newFormImage.Properties);
+                    break;
+                case ClassicControlType.Shape:
+                    var item3 = new ReportShapeControl(controlId, posX, posY, width, height);
+                    currentFormControl = item3;
+                    var newFormShape = currentFormControls.Add(item3);
+                    currentProperties.Push(newFormShape.Properties);
+                    break;
+                case ClassicControlType.TextBox:
+                    var item4 = new ReportTextBoxControl(controlId, posX, posY, width, height);
+                    currentFormControl = item4;
+                    var newFormTextBox = currentFormControls.Add(item4);
+                    currentProperties.Push(newFormTextBox.Properties);
+                    break;
+                case ClassicControlType.PictureBox:
+                    var item5 = new ReportPictureBoxControl(controlId, posX, posY, width, height);
+                    currentFormControl = item5;
+                    var newFormPictureBox = currentFormControls.Add(item5);
+                    currentProperties.Push(newFormPictureBox.Properties);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(controlType), controlType, null);
+            }
+        }
+
+        public override void OnEndReportControl()
+        {
+            currentProperties.Pop();
+            currentFormControl = null;
+        }
+
+        public override void OnBeginReportDataItem()
+        {
+            var report = currentObject as Report;
+            if (report == null)
+                return;
+
+            var newDataItem = new DataItem();
+            report.DataItems.Add(newDataItem);
+            currentProperties.Push(newDataItem.Properties);
+            currentDataItem = newDataItem;
+        }
+
+        public override void OnEndReportDataItem()
+        {
+            currentDataItem = null;
+            currentProperties.Pop();
+        }
+
+        public override void OnBeginReportSection()
+        {
+            var report = currentObject as Report;
+            if (report == null)
+                return;
+
+            currentSection = null;
+            sectionBegin = true;
+        }
+
+        public override void OnEndReportSection()
+        {
+            sectionBegin = false;
+            currentSection = null;
+            currentFormControls = null;
+            currentProperties.Pop();
         }
     }
 }

@@ -110,5 +110,12 @@ namespace UncommonSense.CBreeze.Parse
         // Dataports
         void OnBeginDataPortField(int? startPos, int? width, string sourceExpr);
         void OnEndDataPortField();
+        // Reports
+        void OnBeginReportControl(int controlId, ClassicControlType controlType, int posX, int posY, int width, int height);
+        void OnEndReportControl();
+        void OnBeginReportDataItem();
+        void OnEndReportDataItem();
+        void OnBeginReportSection();
+        void OnEndReportSection();
     }
 }

@@ -56,6 +56,9 @@ namespace UncommonSense.CBreeze.Parse
                         case ObjectType.Form:
                             ParseFormControlsSection(lines);
                             break;
+                        case ObjectType.Report:
+                            ParseReportControlsSection(lines);
+                            break;
                     }
                     break;
 
@@ -107,7 +110,7 @@ namespace UncommonSense.CBreeze.Parse
                     break;
 
                 case SectionType.DataItems:
-                    ParseDataItemsSection(lines);
+                    ParseDataItemsSection(lines,objectType);
                     break;
 
                 case SectionType.Sections:

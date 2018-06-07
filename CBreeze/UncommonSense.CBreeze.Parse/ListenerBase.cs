@@ -217,5 +217,35 @@ namespace UncommonSense.CBreeze.Parse
         {
 
         }
+
+        public virtual void OnBeginReportControl(int controlId, ClassicControlType controlType, int posX, int posY, int width, int height)
+        {
+            
+        }
+
+        public virtual void OnEndReportControl()
+        {
+
+        }
+
+        public virtual void OnBeginReportDataItem()
+        {
+            
+        }
+
+        public virtual void OnEndReportDataItem()
+        {
+      
+        }
+
+        public virtual void OnBeginReportSection()
+        {
+           
+        }
+
+        public virtual void OnEndReportSection()
+        {
+      
+        }
     }
 }

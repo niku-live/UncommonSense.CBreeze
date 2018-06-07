@@ -102,6 +102,7 @@ namespace UncommonSense.CBreeze.Parse
                                            NLD=Boekingsdatum] }*/
         public static readonly Regex ReportLabel = new Regex(@"^{([^;]+);([^;]+)([;}])", RegexOptions.Compiled);
         public static readonly Regex EndReportLabel = new Regex(@"\s}$", RegexOptions.Compiled);
+        public static readonly Regex EndDataItem = new Regex(@"^  }$", RegexOptions.Compiled);
         // Menu
         public static readonly Regex MenuSuiteNode = new Regex(@"^{([^;]+);\[([^\]]+)\]\s([;}])", RegexOptions.Compiled);
         public static readonly Regex EndMenuSuiteNode = new Regex(@"\s}$", RegexOptions.Compiled);

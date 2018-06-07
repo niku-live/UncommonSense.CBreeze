@@ -67,6 +67,8 @@
     <Compile Include="ListenerBase.cs" />
     <Compile Include="Parser.DataItemsSection.cs" />
     <Compile Include="Parser.DataPortFieldsSection.cs" />
+    <Compile Include="Parser.ReportControl.cs" />
+    <Compile Include="Parser.ReportControlsSection.cs" />
     <Compile Include="Parser.FormMenuItems.cs" />
     <Compile Include="Parser.FormControlsSection.cs" />
     <Compile Include="Parser.FieldGroupProperties.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Parser.QueryElement.cs" />
     <Compile Include="Parser.ReportElement.cs" />
     <Compile Include="Parser.ReportElementProperties.cs" />
+    <Compile Include="Parser.ReportSection.cs" />
     <Compile Include="Parser.RequestPageSection.cs" />
     <Compile Include="Parser.ReturnValue.cs" />
     <Compile Include="Parser.DataPortField.cs" />
@@ -156,6 +159,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Parser.RequestFormSection.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Parser.ReportDataItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
