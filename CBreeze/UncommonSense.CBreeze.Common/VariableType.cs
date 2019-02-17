@@ -71,6 +71,8 @@ namespace UncommonSense.CBreeze.Common
         TransactionType,
         Variant,
         XmlPort,
+        Form,
+        Dataport,
     }
 
 }
