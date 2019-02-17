@@ -17,7 +17,8 @@ namespace UncommonSense.CBreeze.Parse
 			Listener.OnBeginObject(objectType, objectID, objectName);
 
 			lines.FirstLineMustMatch(Patterns.BeginObject);
-			lines.LastLineTryMatch(Patterns.BlankLine);
+            while (lines.LastLineTryMatch(Patterns.BlankLine))
+                ;
 			lines.LastLineMustMatch(Patterns.EndObject);
 
             // Because of the odd indentation of RDLData, we need to extract it 
