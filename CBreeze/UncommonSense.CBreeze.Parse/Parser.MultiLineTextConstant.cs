@@ -24,7 +24,16 @@ namespace UncommonSense.CBreeze.Parse
             {
                 var languageCode = match.Groups[1].Value;
                 var languageValue = match.Groups[2].Value;
-
+                var separator = match.Groups[3].Value;
+                if (String.IsNullOrEmpty(separator)) //TextConst value is multiline
+                {
+                    while (!lines.FirstLineTryMatch(Patterns.EndMultiLineTextConstValue, true))
+                    {
+                        var valuePart = lines.First();
+                        lines.Consume(0, 0, valuePart.Length);
+                        languageValue += valuePart + "\n";
+                    }
+                }
                 stringBuilder.AppendFormat("{0}={1};", languageCode, languageValue);
             }
 

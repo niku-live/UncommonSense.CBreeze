@@ -29,8 +29,9 @@ namespace UncommonSense.CBreeze.Parse
         // Code
         public static readonly Regex Variables = new Regex(@"^VAR$", RegexOptions.Compiled);
         public static readonly Regex Variable = new Regex(@"^\s*([^@]+)@(\d+)\s:\s(.*);$", RegexOptions.Compiled);
-        public static readonly Regex MultiLineTextConst = new Regex(@"^\s*([^@]+)@(\d+)\s:\sTextConst$", RegexOptions.Compiled);
-        public static readonly Regex MultiLineTextConstValue = new Regex(@"^\s*'(.{3})=(.*)'([,;])$", RegexOptions.Compiled);
+        public static readonly Regex MultiLineTextConst = new Regex(@"^\s*([^@]+)@(\d+)\s:\sTextConst", RegexOptions.Compiled);
+        public static readonly Regex MultiLineTextConstValue = new Regex(@"^\s*'(.{3})=(.*)(('[,;]){0,1})$", RegexOptions.Compiled);
+        public static readonly Regex EndMultiLineTextConstValue = new Regex(@"^'[,;]$", RegexOptions.Compiled);
         public static readonly Regex VariableRunOnClient = new Regex(@"^(.*)\sRUNONCLIENT$", RegexOptions.Compiled);
         public static readonly Regex VariableWithEvents = new Regex(@"^(.*)\sWITHEVENTS$", RegexOptions.Compiled);
         public static readonly Regex VariableInDataSet = new Regex(@"^(.*)\sINDATASET$", RegexOptions.Compiled);
