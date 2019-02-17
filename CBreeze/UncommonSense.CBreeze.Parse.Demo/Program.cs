@@ -16,6 +16,7 @@ namespace UncommonSense.CBreeze.Parse.Demo
 
             var parser = new Parser();
             parser.Listener = myListener;
+            parser.FileEncoding = Encoding.GetEncoding(775);
             parser.ParseFiles(Directory.GetFiles(sourceFolderName, "*.txt", SearchOption.AllDirectories));
         }
     }

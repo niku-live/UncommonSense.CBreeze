@@ -10,6 +10,7 @@ namespace UncommonSense.CBreeze.Parse
     {
         private static NullListener nullListener = new NullListener();
         private IListener listener;
+        private Encoding fileEncoding;
 
         public void ParseFiles(IEnumerable<string> fileNames, Action<string> reportProgress = null)
         {
@@ -20,7 +21,7 @@ namespace UncommonSense.CBreeze.Parse
                 if (reportProgress != null)
                     reportProgress.Invoke(fileName);
                 Listener.OnBeginFile(fileName);
-                ParseApplication(new Lines(File.ReadLines(fileName, Encoding.GetEncoding("ibm850"))));
+                ParseApplication(new Lines(File.ReadLines(fileName, FileEncoding)));
                 Listener.OnEndFile();
             }
 
@@ -48,6 +49,18 @@ namespace UncommonSense.CBreeze.Parse
             set
             {
                 listener = value;
+            }
+        }
+
+        public Encoding FileEncoding
+        {
+            get
+            {
+                return fileEncoding ?? Encoding.GetEncoding("ibm850");
+            }
+            set
+            {
+                fileEncoding = value;
             }
         }
     }
