@@ -204,12 +204,10 @@ namespace UncommonSense.CBreeze.Parse
 
         public void OnBeginRequestForm()
         {
-            throw new NotImplementedException();
         }
 
         public void OnEndRequestForm()
         {
-            throw new NotImplementedException();
         }
 
         public void OnBeginReportLabel(int labelID, string labelName)
@@ -225,6 +223,30 @@ namespace UncommonSense.CBreeze.Parse
         }
 
         public void OnEndMenuSuiteNode()
+        {
+        }
+
+        public void OnBeginReportControl(int controlId, ClassicControlType controlType, int posX, int posY, int width, int height)
+        {
+        }
+
+        public void OnEndReportControl()
+        {
+        }
+
+        public void OnBeginReportDataItem()
+        {
+        }
+
+        public void OnEndReportDataItem()
+        {
+        }
+
+        public void OnBeginReportSection()
+        {
+        }
+
+        public void OnEndReportSection()
         {
         }
     }
