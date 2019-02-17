@@ -63,7 +63,7 @@ namespace UncommonSense.CBreeze.Parse
         public static readonly Regex ProcedureParameters = new Regex(@"^\((.*)\)", RegexOptions.Compiled);
         public static readonly Regex ProcedureParameter = new Regex(@"^(VAR\s)?([^@]+)@(\d+)\s:\s(.*)$", RegexOptions.Compiled);
         public static readonly Regex ProcedureNoReturnValue = new Regex(@"^;$", RegexOptions.Compiled);
-        public static readonly Regex ProcedureReturnValue = new Regex(@"^\s(\S+\s)?:\s(.*);$", RegexOptions.Compiled);
+        public static readonly Regex ProcedureReturnValue = new Regex(@"^\s(((\S+)|(""[^""]*""))\s)?:\s(.*);$", RegexOptions.Compiled);
         public static readonly Regex EventSignature = new Regex(@"^EVENT\s([^@]+)@(-?\d+)::([^@]+)@(-?\d+)", RegexOptions.Compiled);
         public static readonly Regex BeginCodeBlock = new Regex(@"^BEGIN$", RegexOptions.Compiled);
         public static readonly Regex EndCodeBlock = new Regex(@"^END;$", RegexOptions.Compiled);

@@ -15,7 +15,7 @@ namespace UncommonSense.CBreeze.Parse
 
             var match = lines.FirstLineMustMatch(Patterns.ProcedureReturnValue);
             var returnValueName = match.Groups[1].Value.Trim();
-            var returnValueType = match.Groups[2].Value;
+            var returnValueType = match.Groups[5].Value;
             var returnValueLength = ParseVariableLength(ref returnValueType);
             var returnValueDimensions = ParseDimensions(ref returnValueType);
 
