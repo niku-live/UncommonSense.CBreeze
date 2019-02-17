@@ -19,6 +19,7 @@ namespace UncommonSense.CBreeze.Parse
             var variableName = match.Groups[1].Value;
             var variableID = match.Groups[2].Value.ToInteger();
             var variableType = match.Groups[3].Value;
+            var variableSuppressDispose = ParseSuppressDispose(ref variableType);
             var variableRunOnClient = ParseRunOnClient(ref variableType);
             var variableWithEvents = ParseWithEvents(ref variableType);
             var variableSecurityFiltering = ParseSecurityFiltering(ref variableType);
