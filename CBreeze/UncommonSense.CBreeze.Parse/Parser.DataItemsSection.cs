@@ -10,7 +10,7 @@ namespace UncommonSense.CBreeze.Parse
     {
         internal void ParseDataItemsSection(Lines lines, ObjectType objectType)
         {
-            foreach (var chunk in lines.Chunks(Patterns.BeginSection))
+            foreach (var chunk in lines.Chunks(Patterns.BeginClassicSection))
             {
                 ParseReportDataItem(chunk, objectType);
             }

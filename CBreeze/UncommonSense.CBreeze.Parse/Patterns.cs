@@ -6,13 +6,14 @@ namespace UncommonSense.CBreeze.Parse
     public static class Patterns
     {
         // Object
-        public static readonly Regex ObjectSignature = new Regex(@"^OBJECT\s(?<bracket>\[)(\w+)\s(\d+)\s(.*)(?(bracket)\]|)$", RegexOptions.Compiled);
+        public static readonly Regex ObjectSignature = new Regex(@"^OBJECT\s(?<bracket>\[){0,1}(\w+)\s(\d+)\s(.*)(?<close_bracket>\]|){0,1}$", RegexOptions.Compiled);
         public static readonly Regex BeginObject = new Regex(@"^{$", RegexOptions.Compiled);
         public static readonly Regex EndObject = new Regex(@"^}$", RegexOptions.Compiled);
         // Section
         public static readonly Regex SectionSignature = new Regex(@"^([A-Z-]+)$", RegexOptions.Compiled);
         public static readonly Regex BeginSection = new Regex(@"^{$", RegexOptions.Compiled);
-        public static readonly Regex EndSection = new Regex(@"^}$", RegexOptions.Compiled);
+        public static readonly Regex BeginClassicSection = new Regex(@"^{ ", RegexOptions.Compiled);
+        public static readonly Regex EndSection = new Regex(@"^}$", RegexOptions.Compiled);        
         // RdlData
         public static readonly Regex RdlDataSectionSignature = new Regex(@"^  RDLDATA$", RegexOptions.Compiled);
         public static readonly Regex BeginRdlDataSection = new Regex(@"^  {$", RegexOptions.Compiled);
@@ -80,11 +81,12 @@ namespace UncommonSense.CBreeze.Parse
         public static readonly Regex FieldGroup = new Regex(@"^{([^;]+);([^;]+);([^;}]+)([;}])", RegexOptions.Compiled);
         public static readonly Regex EndFieldGroup = new Regex(@"\s}$", RegexOptions.Compiled);
         // Control
-        public static readonly Regex FormControl = new Regex(@"^{\s*(\d+)\s*;([^;]*);\s*(\d+)\s*;\s*(\d+)\s*;\s*(\d+)\s*;\s*(\d+)\s*;([^;]*)([;}])$", RegexOptions.Compiled);
+        public static readonly Regex FormControl = new Regex(@"^{\s*(\d+)\s*;([^;]*);\s*(\d+)\s*;\s*(\d+)\s*;\s*(\d+)\s*;\s*(\d+)\s*([;}])", RegexOptions.Compiled);
         public static readonly Regex PageControl = new Regex(@"^{\s*(\d+)\s*;([^;]*);([^;]*)([;}])$", RegexOptions.Compiled);
         public static readonly Regex EndPageControl = new Regex(@"\s}$", RegexOptions.Compiled);
         // Form MenuItem
         public static readonly Regex MenuItem = new Regex(@"^{\s*([^;]*)([;}])$", RegexOptions.Compiled);
+        public static readonly Regex BeginMenuItem = new Regex(@"^{ ", RegexOptions.Compiled);
         public static readonly Regex EndMenuItem = new Regex(@"\s}$", RegexOptions.Compiled);
         // Action
         public static readonly Regex PageAction = new Regex(@"^{\s*(\d+)\s*;([^;]*);([^;]*)([;}])$", RegexOptions.Compiled);
@@ -103,7 +105,7 @@ namespace UncommonSense.CBreeze.Parse
                                            NLD=Boekingsdatum] }*/
         public static readonly Regex ReportLabel = new Regex(@"^{([^;]+);([^;]+)([;}])", RegexOptions.Compiled);
         public static readonly Regex EndReportLabel = new Regex(@"\s}$", RegexOptions.Compiled);
-        public static readonly Regex EndDataItem = new Regex(@"^  }$", RegexOptions.Compiled);
+        public static readonly Regex EndDataItem = new Regex(@"^   }$", RegexOptions.Compiled);
         // Menu
         public static readonly Regex MenuSuiteNode = new Regex(@"^{([^;]+);\[([^\]]+)\]\s([;}])", RegexOptions.Compiled);
         public static readonly Regex EndMenuSuiteNode = new Regex(@"\s}$", RegexOptions.Compiled);

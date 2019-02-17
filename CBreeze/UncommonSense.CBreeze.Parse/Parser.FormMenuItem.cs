@@ -10,16 +10,13 @@ namespace UncommonSense.CBreeze.Parse
 	{
 		internal void ParseFormMenuItem(Lines lines)
 		{
-			var match = lines.FirstLineMustMatch(Patterns.PageAction);
-			var menuItemSeparator = match.Groups[1].Value;
+			var match = lines.FirstLineMustMatch(Patterns.BeginMenuItem);
 
 			Listener.OnBeginFormMenuItem();
 
-			if (menuItemSeparator == ";")
-			{
-				lines.Unindent(2);
-			    FormMenuItemProperties(lines);
-			}
+			lines.Unindent(2);
+            lines.FirstLineTryMatch(Patterns.BlankLine);
+			FormMenuItemProperties(lines);
 
 			Listener.OnEndFormMenuItem();
 		}

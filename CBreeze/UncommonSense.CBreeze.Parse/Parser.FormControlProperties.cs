@@ -9,7 +9,7 @@ namespace UncommonSense.CBreeze.Parse
     {
         internal void ParseFormControlProperties(Lines lines)
         {
-            lines.LastLineMustMatch(Patterns.BlankLine);
+            lines.LastLineTryMatch(Patterns.BlankLine);
             lines.LastLineMustMatch(Patterns.EndPageControl);
 
             foreach (var chunk in lines.Chunks(Patterns.PropertySignature))

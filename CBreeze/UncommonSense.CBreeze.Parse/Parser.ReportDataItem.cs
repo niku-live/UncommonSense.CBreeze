@@ -10,9 +10,9 @@ namespace UncommonSense.CBreeze.Parse
     {
         internal void ParseReportDataItem(Lines lines, ObjectType objectType)
         {
-            lines.FirstLineMustMatch(Patterns.BeginSection);
+            lines.FirstLineMustMatch(Patterns.BeginClassicSection);
             lines.LastLineMustMatch(Patterns.EndDataItem);
-			lines.Unindent(2);
+            lines.Unindent(2);
 
             Listener.OnBeginReportDataItem();
 

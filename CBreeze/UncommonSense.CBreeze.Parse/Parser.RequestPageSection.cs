@@ -14,7 +14,7 @@ namespace UncommonSense.CBreeze.Parse
 
             foreach (var chunk in lines.Chunks(Patterns.SectionSignature))
             {
-                ParseSection(chunk, objectType);
+                ParseSection(chunk, objectType, true);
             }
 
             Listener.OnEndRequestPage();
