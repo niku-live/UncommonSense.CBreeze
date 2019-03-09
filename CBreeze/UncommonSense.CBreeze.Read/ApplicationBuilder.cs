@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using UncommonSense.CBreeze.Common;
 using UncommonSense.CBreeze.Core.Base;
 using UncommonSense.CBreeze.Core.Code;
@@ -79,28 +80,29 @@ namespace UncommonSense.CBreeze.Read
 
         public Application Application { get; }
 
-        public static Application ReadFromFolder(string folderName)
+        public static Application ReadFromFolder(string folderName, Encoding fileEncoding = null)
         {
-            return ReadFromFiles(Directory.EnumerateFiles(folderName, "*.txt"));
+            return ReadFromFiles(Directory.EnumerateFiles(folderName, "*.txt"), fileEncoding: fileEncoding);
         }
 
-        public static Application ReadFromFile(string fileName)
+        public static Application ReadFromFile(string fileName, Encoding fileEncoding = null)
         {
-            return ReadFromFiles(fileName);
+            return ReadFromFiles(fileEncoding, fileName);
         }
 
-        public static Application ReadFromFiles(params string[] fileNames)
+        public static Application ReadFromFiles(Encoding fileEncoding = null, params string[] fileNames)
         {
-            return ReadFromFiles((IEnumerable<string>) fileNames);
+            return ReadFromFiles((IEnumerable<string>) fileNames, fileEncoding: fileEncoding);
         }
 
-        public static Application ReadFromFiles(IEnumerable<string> fileNames, Action<string> reportProgress = null)
+        public static Application ReadFromFiles(IEnumerable<string> fileNames, Action<string> reportProgress = null, Encoding fileEncoding = null)
         {
             var parser = new Parser();
             var application = new Application();
             var applicationBuilder = new ApplicationBuilder(application);
 
             parser.Listener = applicationBuilder;
+            parser.FileEncoding = fileEncoding;
             parser.ParseFiles(fileNames, reportProgress);
 
             return application;
