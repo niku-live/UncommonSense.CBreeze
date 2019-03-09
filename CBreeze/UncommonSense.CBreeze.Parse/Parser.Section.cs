@@ -51,6 +51,7 @@ namespace UncommonSense.CBreeze.Parse
                     switch (objectType)
                     {
                         case ObjectType.Page:
+                        case ObjectType.XmlPort:
                             ParsePageControlsSection(lines);
                             break;
                         case ObjectType.Form:

@@ -23,7 +23,7 @@ namespace UncommonSense.CBreeze.Write
             TypeSwitch.Do(
                 property,
 #if NAV2015
- TypeSwitch.Case<AccessByPermissionProperty>(p => WriteSimpleProperty(p.Name, string.Format("{0} {1}={2}", p.Value.ObjectType, p.Value.ObjectID, p.Value.ToString()), isLastProperty, writer)),
+                TypeSwitch.Case<AccessByPermissionProperty>(p => WriteSimpleProperty(p.Name, string.Format("{0} {1}={2}", p.Value.ObjectType, p.Value.ObjectID, p.Value.ToString()), isLastProperty, writer)),
                 TypeSwitch.Case<PreviewModeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<PageActionScopeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<UpdatePropagationProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
@@ -31,14 +31,14 @@ namespace UncommonSense.CBreeze.Write
 #endif
 #if NAV2016
                 TypeSwitch.Case<ExternalAccessProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
- TypeSwitch.Case<TableTypeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
+                TypeSwitch.Case<TableTypeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<EventSubscriberInstanceProperty>(p => WriteSimpleProperty(p.Name, p.ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<XmlPortNamespacesProperty>(p => p.Write(isLastProperty, style, writer)),
 #endif
 #if NAV2017
                 TypeSwitch.Case<TestPermissionsProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
 #endif
- TypeSwitch.Case<MenuItemRunObjectTypeProperty>(p => p.Write(isLastProperty, style, writer)),
+                TypeSwitch.Case<MenuItemRunObjectTypeProperty>(p => p.Write(isLastProperty, style, writer)),
                 TypeSwitch.Case<MenuItemDepartmentCategoryProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().AsString(), isLastProperty, writer)),
                 TypeSwitch.Case<PaperSourceProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<DataItemLinkTypeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().AsString(), isLastProperty, writer)),
