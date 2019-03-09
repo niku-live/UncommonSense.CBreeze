@@ -16,7 +16,7 @@ namespace UncommonSense.CBreeze.IO
 
     public static class ApplicationImporter
     {
-        private static void DoImport(Application application, string devClient, Arguments arguments)
+        private static void DoImport(Application application, string devClient, Arguments arguments, Encoding fileEncoding = null)
         {
             var fileName = Path.ChangeExtension(Path.GetTempFileName(), "txt");
             arguments.Add("file", fileName);
