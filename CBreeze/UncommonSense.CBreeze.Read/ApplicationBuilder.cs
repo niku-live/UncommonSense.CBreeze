@@ -479,6 +479,7 @@ namespace UncommonSense.CBreeze.Read
                 TypeSwitch.Case<MenuItemTypeProperty>(p => p.Value = propertyValue.ToEnum<MenuItemType>()),
                 TypeSwitch.Case<NullableUnsignedIntegerProperty>(p =>
                     p.Value = propertyValue.ToNullableUnsignedInteger()),
+                TypeSwitch.Case<DataClassificationProperty>(p => p.Value = propertyValue.ToEnum<DataClassification>()),
                 TypeSwitch.Default(() => UnknownPropertyType()));
         }
 

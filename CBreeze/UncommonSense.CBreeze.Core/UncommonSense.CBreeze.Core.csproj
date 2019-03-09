@@ -223,7 +223,9 @@
     <Compile Include="Form\Control\FormMenuItem.cs" />
     <Compile Include="Form\Control\FormMenuItemBase.cs" />
     <Compile Include="Form\Control\Properties\MenuItemProperties.cs" />
+    <Compile Include="Property\Enumeration\DataClassification.cs" />
     <Compile Include="Property\Enumeration\MenuItemType.cs" />
+    <Compile Include="Property\Implementation\DataClassificationProperty.cs" />
     <Compile Include="Property\Implementation\MenuItemTypeProperty.cs" />
     <Compile Include="Form\Control\Properties\BaseButtonProperties.cs" />
     <Compile Include="Form\Control\Properties\BaseControlBaseProperties.cs" />

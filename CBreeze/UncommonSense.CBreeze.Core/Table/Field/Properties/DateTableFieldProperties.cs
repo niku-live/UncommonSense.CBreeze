@@ -21,6 +21,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         private MultiLanguageProperty captionML = new MultiLanguageProperty("CaptionML");
         private NullableBooleanProperty closingDates = new NullableBooleanProperty("ClosingDates");
         private StringProperty description = new StringProperty("Description");
+        private DataClassificationProperty dataClassification = new DataClassificationProperty("DataClassification");
         private NullableBooleanProperty editable = new NullableBooleanProperty("Editable");
         private ExtendedDataTypeProperty extendedDatatype = new ExtendedDataTypeProperty("ExtendedDatatype");
 #if NAV2016
@@ -45,6 +46,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         {
             Field = field;
 
+            innerList.Add(dataClassification);
             innerList.Add(fieldClass);
             innerList.Add(calcFormula);
             innerList.Add(initValue);
@@ -189,6 +191,18 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             set
             {
                 this.description.Value = value;
+            }
+        }
+
+        public DataClassification? DataClassification
+        {
+            get
+            {
+                return this.dataClassification.Value;
+            }
+            set
+            {
+                this.dataClassification.Value = value;
             }
         }
 

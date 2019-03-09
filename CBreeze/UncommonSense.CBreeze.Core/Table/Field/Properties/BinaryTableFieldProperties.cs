@@ -1,5 +1,6 @@
 using UncommonSense.CBreeze.Core.Code.Variable;
 using UncommonSense.CBreeze.Core.Contracts;
+using UncommonSense.CBreeze.Core.Property.Enumeration;
 using UncommonSense.CBreeze.Core.Property.Implementation;
 using UncommonSense.CBreeze.Core.Property.Type;
 
@@ -12,6 +13,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
 #endif
         private MultiLanguageProperty captionML = new MultiLanguageProperty("CaptionML");
         private StringProperty description = new StringProperty("Description");
+        private DataClassificationProperty dataClassification = new DataClassificationProperty("DataClassification");
         private TriggerProperty onLookup = new TriggerProperty("OnLookup");
         private TriggerProperty onValidate = new TriggerProperty("OnValidate");
 
@@ -19,6 +21,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         {
             Field = field;
 
+            innerList.Add(dataClassification);
             innerList.Add(onValidate);
             innerList.Add(onLookup);
 #if NAV2015
@@ -59,6 +62,18 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             set
             {
                 this.description.Value = value;
+            }
+        }
+
+        public DataClassification? DataClassification
+        {
+            get
+            {
+                return this.dataClassification.Value;
+            }
+            set
+            {
+                this.dataClassification.Value = value;
             }
         }
 

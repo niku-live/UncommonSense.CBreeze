@@ -14,6 +14,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         private MultiLanguageProperty captionML = new MultiLanguageProperty("CaptionML");
         private NullableBooleanProperty compressed = new NullableBooleanProperty("Compressed");
         private StringProperty description = new StringProperty("Description");
+        private DataClassificationProperty dataClassification = new DataClassificationProperty("DataClassification");
 #if NAV2016
         private ExternalAccessProperty externalAccess = new ExternalAccessProperty("ExternalAccess");
         private StringProperty externalName = new StringProperty("ExternalName");
@@ -27,6 +28,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
 
         internal BlobTableFieldProperties(BlobTableField field)
         {
+            innerList.Add(dataClassification);
             innerList.Add(onValidate);
             innerList.Add(onLookup);
             innerList.Add(compressed);
@@ -91,8 +93,20 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             }
         }
 
+        public DataClassification? DataClassification
+        {
+            get
+            {
+                return this.dataClassification.Value;
+            }
+            set
+            {
+                this.dataClassification.Value = value;
+            }
+        }
+
 #if NAV2016
-      public ExternalAccess? ExternalAccess
+        public ExternalAccess? ExternalAccess
       {
           get
           {

@@ -17,6 +17,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         private StringProperty captionClass = new StringProperty("CaptionClass");
         private MultiLanguageProperty captionML = new MultiLanguageProperty("CaptionML");
         private StringProperty description = new StringProperty("Description");
+        private DataClassificationProperty dataClassification = new DataClassificationProperty("DataClassification");
         private NullableBooleanProperty editable = new NullableBooleanProperty("Editable");
         private ExtendedDataTypeProperty extendedDataType = new ExtendedDataTypeProperty("ExtendedDatatype");
         private FieldClassProperty fieldClass = new FieldClassProperty("FieldClass");
@@ -30,6 +31,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         {
             Field = field;
 
+            innerList.Add(dataClassification);
             innerList.Add(fieldClass);
             innerList.Add(calcFormula);
             innerList.Add(tableRelation);
@@ -75,6 +77,18 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         {
             get => description.Value;
             set => description.Value = value;
+        }
+
+        public DataClassification? DataClassification
+        {
+            get
+            {
+                return this.dataClassification.Value;
+            }
+            set
+            {
+                this.dataClassification.Value = value;
+            }
         }
 
         public bool? Editable
