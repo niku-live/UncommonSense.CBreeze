@@ -69,6 +69,7 @@ namespace UncommonSense.CBreeze.Automation
         [Parameter()] public string Description { get; set; }
         [Parameter()] public SwitchParameter DrillDown { get; set; }
         [Parameter()] public string DrillDownPageID { get; set; }
+
         [Parameter()] public string Editable { get; set; }
         [Parameter()] public string Enabled { get; set; }
         [Parameter()] public ExtendedDataType? ExtendedDataType { get; set; }
@@ -85,6 +86,10 @@ namespace UncommonSense.CBreeze.Automation
         [Parameter()] public string Name { get; set; }
         [Parameter()] public SwitchParameter NotBlank { get; set; }
         [Parameter()] public SwitchParameter Numeric { get; set; }
+#if NAV2018
+        [Parameter()] public string ODataEdmType { get; set; }
+#endif
+
         [Parameter()] public ScriptBlock OnAssistEdit { get; set; }
         [Parameter()] public ScriptBlock OnControlAddIn { get; set; }
         [Parameter()] public ScriptBlock OnDrillDown { get; set; }
@@ -158,6 +163,9 @@ namespace UncommonSense.CBreeze.Automation
             pageControl.Properties.Name = Name;
             pageControl.Properties.NotBlank = NullableBooleanFromSwitch(nameof(NotBlank));
             pageControl.Properties.Numeric = NullableBooleanFromSwitch(nameof(Numeric));
+#if NAV2018
+            pageControl.Properties.ODataEDMType = ODataEdmType;
+#endif
             pageControl.Properties.OnAssistEdit.Set(OnAssistEdit);
             pageControl.Properties.OnControlAddIn.Set(OnControlAddIn);
             pageControl.Properties.OnDrillDown.Set(OnDrillDown);

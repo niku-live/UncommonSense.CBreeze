@@ -12,6 +12,8 @@ namespace UncommonSense.CBreeze.Core.Table.Field
             Table = table;
         }
 
+        public override string ToString() => "Field Groups";
+
         public IEnumerable<INode> ChildNodes => this.Cast<INode>();
 
         public INode ParentNode => Table;

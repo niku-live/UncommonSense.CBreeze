@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UncommonSense.CBreeze.Core;
-using UncommonSense.CBreeze.Read;
+﻿using UncommonSense.CBreeze.Read;
 using UncommonSense.CBreeze.Write;
 
 namespace UncommonSense.CBreeze.Test
@@ -15,8 +8,12 @@ namespace UncommonSense.CBreeze.Test
         private static void Main(string[] args)
         {
             ApplicationBuilder
-                .ReadFromFolder(@"C:\Users\jhoek\GitHub\Dynamics.NAV.ReferenceObjects.2017\NL\RTM")
-                .WriteToFolder(@"c:\users\jhoek\Desktop\NL2017RTM");
+                .ReadFromFolder(@"C:\Users\jhoek\Desktop\2018\input\nl\rtm")
+                .WriteToFolder(@"c:\users\jhoek\Desktop\2018\Output");
+
+            //ApplicationBuilder
+            //    .ReadFromFile(@"C:\Users\jhoek\Desktop\2018\Input\NL\rtm\PAG1170.TXT")
+            //    .WriteToFile(@"C:\Users\jhoek\Desktop\out.txt");
         }
     }
 }

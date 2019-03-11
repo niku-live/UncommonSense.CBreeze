@@ -25,7 +25,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NAV2013;NAV2013R2;NAV2015;NAV2016;NAV2017;NAV2009</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NAV2009;NAV2013;NAV2013R2;NAV2015;NAV2016;NAV2017;NAV2018</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>true</UseVSHostingProcess>
@@ -34,7 +34,7 @@
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;NAV2013;NAV2013R2;NAV2015;NAV2016;NAV2017</DefineConstants>
+    <DefineConstants>TRACE;NAV2009;NAV2013;NAV2013R2;NAV2015;NAV2016;NAV2017;NAV2018</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -52,14 +52,21 @@
     <Compile Include="Base\Application.cs" />
     <Compile Include="Base\DefaultRanges.cs" />
     <Compile Include="Base\GuidKeyedContainer.cs" />
+    <Compile Include="DataClassificationParameter.cs" />
+    <Compile Include="DataClassificationProperty.cs" />
+    <Compile Include="DataClassificationVariable.cs" />
     <Compile Include="Base\IntegerKeyedAndNamedContainer.cs" />
     <Compile Include="Base\IntegerKeyedContainer.cs" />
+    <Compile Include="LanguageExtensionMethods.cs" />
+    <Compile Include="ObsoleteStateProperty.cs" />
     <Compile Include="Base\NavApplication\BaseApp.2015.cs" />
     <Compile Include="Base\NavApplication\BaseApp.2016.cs" />
     <Compile Include="Base\NavApplication\BaseApp.2017.cs" />
+    <Compile Include="Base\NavApplication\BaseApp.2018.cs" />    
     <Compile Include="Base\NavApplication\RunTime.2015.cs" />
     <Compile Include="Base\NavApplication\RunTime.2016.cs" />
     <Compile Include="Base\NavApplication\RunTime.2017.cs" />
+    <Compile Include="Base\NavApplication\RunTime.2018.cs" />    
     <Compile Include="Base\Object.cs" />
     <Compile Include="Codeunit\Codeunit.cs" />
     <Compile Include="Codeunit\CodeunitProperties.cs" />
@@ -137,6 +144,9 @@
     <Compile Include="Code\Variable\BooleanVariable.cs" />
     <Compile Include="Code\Variable\ByteVariable.cs" />
     <Compile Include="Code\Variable\CharVariable.cs" />
+    <Compile Include="QueryTypeProperty.cs" />
+    <Compile Include="SessionSettingsParameter.cs" />
+    <Compile Include="SessionSettingsVariable.cs" />
     <Compile Include="Code\Variable\ClientTypeVariable.cs" />
     <Compile Include="Code\Variable\Code.cs" />
     <Compile Include="Code\Variable\CodeunitVariable.cs" />
@@ -144,6 +154,8 @@
     <Compile Include="Code\Variable\DataportVariable.cs" />
     <Compile Include="Code\Variable\DateFormulaVariable.cs" />
     <Compile Include="Code\Variable\DateTimeVariable.cs" />
+    <Compile Include="VerbosityParameter.cs" />
+    <Compile Include="VerbosityVariable.cs" />
     <Compile Include="Code\Variable\DateVariable.cs" />
     <Compile Include="Code\Variable\DecimalVariable.cs" />
     <Compile Include="Code\Variable\DefaultLayoutVariable.cs" />

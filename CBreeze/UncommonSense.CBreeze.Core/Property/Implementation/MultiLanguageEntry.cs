@@ -42,5 +42,7 @@ namespace UncommonSense.CBreeze.Core.Property.Implementation
                     Value == string.Empty;
             }
         }
+
+        public override string ToString() => $"{LanguageID}={QuotedValue}";
     }
 }

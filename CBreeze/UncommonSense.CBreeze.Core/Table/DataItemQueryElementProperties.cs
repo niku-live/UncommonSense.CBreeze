@@ -20,8 +20,8 @@ namespace UncommonSense.CBreeze.Core.Table
         {
             DataItemQueryElement = dataItemQueryElement;
 
-            innerList.Add(dataItemTable);
             innerList.Add(description);
+            innerList.Add(dataItemTable);
             innerList.Add(dataItemTableFilter);
             innerList.Add(dataItemLink);
             innerList.Add(dataItemLinkType);

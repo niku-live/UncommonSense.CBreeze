@@ -1,4 +1,5 @@
 using UncommonSense.CBreeze.Core.Code.Variable;
+using UncommonSense.CBreeze.Common;
 using UncommonSense.CBreeze.Core.Contracts;
 using UncommonSense.CBreeze.Core.Property;
 using UncommonSense.CBreeze.Core.Property.Enumeration;
@@ -6,25 +7,43 @@ using UncommonSense.CBreeze.Core.Property.Implementation;
 
 namespace UncommonSense.CBreeze.Core.Query
 {
-        public class QueryProperties : Properties
+    public class QueryProperties : Properties
     {
+#if NAV2018
+        private StringProperty apiVersion = new StringProperty("APIVersion");
+#endif
         private MultiLanguageProperty captionML = new MultiLanguageProperty("CaptionML");
         private StringProperty description = new StringProperty("Description");
+#if NAV2018
+        private StringProperty entityName = new StringProperty("EntityName");
+        private StringProperty entitySetName = new StringProperty("EntitySetName");
+#endif
         private TriggerProperty onBeforeOpen = new TriggerProperty("OnBeforeOpen");
         private QueryOrderByLinesProperty orderBy = new QueryOrderByLinesProperty("OrderBy");
         private PermissionsProperty permissions = new PermissionsProperty("Permissions");
+#if NAV2018
+        private QueryTypeProperty queryType = new QueryTypeProperty("QueryType");
+#endif
         private ReadStateProperty readState = new ReadStateProperty("ReadState");
         private NullableIntegerProperty topNumberOfRows = new NullableIntegerProperty("TopNumberOfRows");
 
         internal QueryProperties(Query query)
         {
-            Query =query;
+            Query = query;
 
             innerList.Add(permissions);
             innerList.Add(captionML);
             innerList.Add(description);
+#if NAV2018
+            innerList.Add(entitySetName);
+            innerList.Add(entityName);
+            innerList.Add(apiVersion);
+#endif
             innerList.Add(topNumberOfRows);
             innerList.Add(readState);
+#if NAV2018
+            innerList.Add(queryType);
+#endif
             innerList.Add(orderBy);
             innerList.Add(onBeforeOpen);
         }
@@ -32,6 +51,16 @@ namespace UncommonSense.CBreeze.Core.Query
         public Query Query { get; protected set; }
 
         public override INode ParentNode => Query;
+
+#if NAV2018
+
+        public string APIVersion
+        {
+            get => apiVersion.Value;
+            set => apiVersion.Value = value;
+        }
+
+#endif
 
         public MultiLanguageValue CaptionML
         {
@@ -41,7 +70,7 @@ namespace UncommonSense.CBreeze.Core.Query
             }
         }
 
-      public string Description
+        public string Description
         {
             get
             {
@@ -52,6 +81,22 @@ namespace UncommonSense.CBreeze.Core.Query
                 this.description.Value = value;
             }
         }
+
+#if NAV2018
+
+        public string EntitySetName
+        {
+            get => entitySetName.Value;
+            set => entitySetName.Value = value;
+        }
+
+        public string EntityName
+        {
+            get => entityName.Value;
+            set => entityName.Value = value;
+        }
+
+#endif
 
         public Trigger OnBeforeOpen
         {
@@ -77,6 +122,16 @@ namespace UncommonSense.CBreeze.Core.Query
             }
         }
 
+#if NAV2018
+
+        public QueryType? QueryType
+        {
+            get => queryType.Value;
+            set => queryType.Value = value;
+        }
+
+#endif
+
         public ReadState? ReadState
         {
             get
@@ -89,7 +144,7 @@ namespace UncommonSense.CBreeze.Core.Query
             }
         }
 
-      public int? TopNumberOfRows
+        public int? TopNumberOfRows
         {
             get
             {

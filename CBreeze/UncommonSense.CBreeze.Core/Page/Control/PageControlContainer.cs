@@ -15,6 +15,8 @@ namespace UncommonSense.CBreeze.Core.Page.Control
             Properties.ContainerType = containerType;
         }
 
+        public override string ToString() => $"{Type} {ID} ({Properties.ContainerType})";
+
         public override Properties AllProperties
         {
             get

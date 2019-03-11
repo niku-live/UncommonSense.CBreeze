@@ -394,6 +394,9 @@ namespace UncommonSense.CBreeze.Read
                     p.Value = propertyValue.ToEnum<PageControlContainerType>()),
                 TypeSwitch.Case<ControlListProperty>(p => p.Value.AddRange(propertyValue.Split(",".ToCharArray()))),
                 TypeSwitch.Case<QueryDataItemLinkProperty>(p => p.SetDataItemLinkProperty(propertyValue)),
+#if NAV2018
+                TypeSwitch.Case<DataClassificationProperty>(p => p.Value = propertyValue.ToEnum<DataClassification>()),
+#endif
                 TypeSwitch.Case<DataItemLinkTypeProperty>(p => p.Value = propertyValue.ToEnum<DataItemLinkType>()),
                 TypeSwitch.Case<DataItemQueryElementTableFilterProperty>(p =>
                     p.SetDataItemQueryElementTableFilter(propertyValue)),
@@ -429,6 +432,9 @@ namespace UncommonSense.CBreeze.Read
 #endif
                 TypeSwitch.Case<ObjectProperty>(p => p.Value = propertyValue),
                 TypeSwitch.Case<RunObjectProperty>(p => p.SetObjectReferenceProperty(propertyValue)),
+#if NAV2018
+                TypeSwitch.Case<ObsoleteStateProperty>(p => p.Value = propertyValue.ToEnum<ObsoleteState>()),
+#endif
                 TypeSwitch.Case<OccurrenceProperty>(p => p.Value = propertyValue.ToEnum<Occurrence>()),
                 TypeSwitch.Case<OptionStringProperty>(p => p.Value = propertyValue),
                 TypeSwitch.Case<PageReferenceProperty>(p => p.Value = propertyValue.ToPageReference()),
@@ -447,6 +453,8 @@ namespace UncommonSense.CBreeze.Read
                 TypeSwitch.Case<PermissionsProperty>(p => p.SetPermissionProperty(propertyValue)),
                 TypeSwitch.Case<PromotedCategoryProperty>(p => p.Value = propertyValue.ToEnum<PromotedCategory>()),
                 TypeSwitch.Case<QueryOrderByLinesProperty>(p => p.SetQueryOrderByLinesProperty(propertyValue)),
+                TypeSwitch.Case<QueryTypeProperty>(p => p.Value = propertyValue.ToEnum<QueryType>()),
+                TypeSwitch.Case<ReadStateProperty>(p => p.Value = propertyValue.ToEnum<ReadState>()),
                 TypeSwitch.Case<ReportDataItemLinkProperty>(p => p.SetReportDataItemLinkProperty(propertyValue)),
                 TypeSwitch.Case<RunObjectLinkProperty>(p => p.SetObjectLinkProperty(propertyValue)),
                 TypeSwitch.Case<RunPageModeProperty>(p => p.Value = propertyValue.ToEnum<RunPageMode>()),
@@ -503,12 +511,12 @@ namespace UncommonSense.CBreeze.Read
                 TypeSwitch.Case<NullableUnsignedIntegerProperty>(p =>
                     p.Value = propertyValue.ToNullableUnsignedInteger()),
                 TypeSwitch.Case<DataClassificationProperty>(p => p.Value = propertyValue.ToEnum<DataClassification>()),
-                TypeSwitch.Default(() => UnknownPropertyType()));
+                TypeSwitch.Default(() => UnknownPropertyType(property.GetType().FullName)));
         }
 
-        private void UnknownPropertyType()
+        private void UnknownPropertyType(string propertyType)
         {
-            throw new ArgumentOutOfRangeException("Unknown property type.");
+            throw new ArgumentOutOfRangeException($"Unknown property type: {propertyType}");
         }
 
         public override void OnBeginTrigger(string triggerName)
@@ -755,6 +763,16 @@ namespace UncommonSense.CBreeze.Read
                     currentFunction.TransactionModel = values[0].ToNullableEnum<TransactionModel>();
                     break;
 
+#if NAV2018
+                case "FunctionVisibility":
+                    currentFunction.FunctionVisibility = values[0].ToNullableEnum<FunctionVisibility>();
+                    break;
+
+                case "ServiceEnabled":
+                    currentFunction.ServiceEnabled = true;
+                    break;
+#endif
+
 #if NAV2017
                 case "TestPermissions":
                     currentFunction.TestPermissions = values[0].ToNullableEnum<TestPermissions>();
@@ -914,6 +932,13 @@ namespace UncommonSense.CBreeze.Read
                     var dataportVariable =
                         variables.Add(new DataportVariable(variableID, variableName, variableSubType.ToInteger()));
                     dataportVariable.Dimensions = variableDimensions;
+                    break;
+#endif
+
+#if NAV2018
+                case VariableType.DataClassification:
+                    var dataClassificationVariable = variables.Add(new DataClassificationVariable(variableID, variableName));
+                    dataClassificationVariable.Dimensions = variableDimensions;
                     break;
 #endif
 
@@ -1090,6 +1115,13 @@ namespace UncommonSense.CBreeze.Read
                     reportFormatVariable.Dimensions = variableDimensions;
                     break;
 
+#if NAV2018
+                case VariableType.SessionSettings:
+                    var sessionSettingsVariable = variables.Add(new SessionSettingsVariable(variableID, variableName));
+                    sessionSettingsVariable.Dimensions = variableDimensions;
+                    break;
+#endif
+
                 case VariableType.TableConnectionType:
                     var tableConnectionTypeVariable =
                         variables.Add(new TableConnectionTypeVariable(variableID, variableName));
@@ -1139,6 +1171,13 @@ namespace UncommonSense.CBreeze.Read
                     var variantVariable = variables.Add(new VariantVariable(variableID, variableName));
                     variantVariable.Dimensions = variableDimensions;
                     break;
+
+#if NAV2018
+                case VariableType.Verbosity:
+                    var verbosityVariable = variables.Add(new VerbosityVariable(variableID, variableName));
+                    verbosityVariable.Dimensions = variableDimensions;
+                    break;
+#endif
 
                 case VariableType.XmlPort:
                     var xmlportVariable =
@@ -1512,6 +1551,23 @@ namespace UncommonSense.CBreeze.Read
                     xmlPortParameter.Dimensions = parameterDimensions;
                     break;
 
+#if NAV2018
+                case ParameterType.DataClassification:
+                    var dataClassificationParameter = parameters.Add(new DataClassificationParameter(parameterName, parameterVar, parameterID));
+                    dataClassificationParameter.Dimensions = parameterDimensions;
+                    break;
+
+                case ParameterType.SessionSettings:
+                    var sessionSettingsParameter = parameters.Add(new SessionSettingsParameter(parameterName, parameterVar, parameterID));
+                    sessionSettingsParameter.Dimensions = parameterDimensions;
+                    break;
+
+                case ParameterType.Verbosity:
+                    var verbosityParameter = parameters.Add(new VerbosityParameter(parameterName, parameterVar, parameterID));
+                    verbosityParameter.Dimensions = parameterDimensions;
+                    break;
+#endif
+
                 default:
                     throw new ArgumentOutOfRangeException("parameterType");
             }
@@ -1724,8 +1780,7 @@ namespace UncommonSense.CBreeze.Read
             switch (elementType)
             {
                 case ReportElementType.DataItem:
-                    var newDataItemElement = new DataItemReportElement(null, elementID, elementIndentation)
-                    {
+                    var newDataItemElement = new DataItemReportElement(null, elementID, elementIndentation) {
                         Name = elementName
                     };
                     currentReportElements.Add(newDataItemElement);

@@ -9,6 +9,9 @@ namespace UncommonSense.CBreeze.Core.Page
     public class PageProperties : Properties
     {
         private ActionListProperty actionList = new ActionListProperty("ActionList");
+#if NAV2018
+        private StringProperty apiVersion = new StringProperty("APIVersion");
+#endif
         private NullableBooleanProperty autoSplitKey = new NullableBooleanProperty("AutoSplitKey");
         private MultiLanguageProperty captionML = new MultiLanguageProperty("CaptionML");
         private StringProperty cardPageID = new StringProperty("CardPageID");
@@ -17,12 +20,19 @@ namespace UncommonSense.CBreeze.Core.Page
         private NullableBooleanProperty delayedInsert = new NullableBooleanProperty("DelayedInsert");
         private NullableBooleanProperty deleteAllowed = new NullableBooleanProperty("DeleteAllowed");
         private StringProperty description = new StringProperty("Description");
+#if NAV2018
+        private StringProperty entityName = new StringProperty("EntityName");
+        private StringProperty entitySetName = new StringProperty("EntitySetName");
+#endif
         private NullableBooleanProperty editable = new NullableBooleanProperty("Editable");
         private NullableBooleanProperty insertAllowed = new NullableBooleanProperty("InsertAllowed");
         private MultiLanguageProperty instructionalTextML = new MultiLanguageProperty("InstructionalTextML");
         private NullableBooleanProperty linksAllowed = new NullableBooleanProperty("LinksAllowed");
         private NullableBooleanProperty modifyAllowed = new NullableBooleanProperty("ModifyAllowed");
         private NullableBooleanProperty multipleNewLines = new NullableBooleanProperty("MultipleNewLines");
+#if NAV2018
+        private FieldListProperty odataKeyFields = new FieldListProperty("ODataKeyFields");
+#endif
         private TriggerProperty onAfterGetCurrRecord = new TriggerProperty("OnAfterGetCurrRecord");
         private TriggerProperty onAfterGetRecord = new TriggerProperty("OnAfterGetRecord");
         private TriggerProperty onClosePage = new TriggerProperty("OnClosePage");
@@ -68,6 +78,10 @@ namespace UncommonSense.CBreeze.Core.Page
             innerList.Add(dataCaptionFields);
             innerList.Add(pageType);
             innerList.Add(sourceTableTemporary);
+#if NAV2018
+            innerList.Add(entitySetName);
+            innerList.Add(entityName);
+#endif
             innerList.Add(cardPageID);
             innerList.Add(instructionalTextML);
             innerList.Add(autoSplitKey);
@@ -86,6 +100,10 @@ namespace UncommonSense.CBreeze.Core.Page
             innerList.Add(onDeleteRecord);
             innerList.Add(onQueryClosePage);
             innerList.Add(onAfterGetCurrRecord);
+#if NAV2018
+            innerList.Add(odataKeyFields);
+            innerList.Add(apiVersion);
+#endif
             innerList.Add(actionList);
         }
 
@@ -100,6 +118,16 @@ namespace UncommonSense.CBreeze.Core.Page
                 return this.actionList.Value;
             }
         }
+
+#if NAV2018
+
+        public string APIVersion
+        {
+            get => apiVersion.Value;
+            set => apiVersion.Value = value;
+        }
+
+#endif
 
         public bool? AutoSplitKey
         {
@@ -201,6 +229,22 @@ namespace UncommonSense.CBreeze.Core.Page
             }
         }
 
+#if NAV2018
+
+        public string EntityName
+        {
+            get => entityName.Value;
+            set => entityName.Value = value;
+        }
+
+        public string EntitySetName
+        {
+            get => entitySetName.Value;
+            set => entitySetName.Value = value;
+        }
+
+#endif
+
         public bool? InsertAllowed
         {
             get
@@ -256,6 +300,10 @@ namespace UncommonSense.CBreeze.Core.Page
                 this.multipleNewLines.Value = value;
             }
         }
+
+#if NAV2018
+        public FieldList ODataKeyFields => odataKeyFields.Value;
+#endif
 
         public Trigger OnAfterGetCurrRecord
         {

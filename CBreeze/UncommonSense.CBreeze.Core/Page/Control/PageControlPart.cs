@@ -13,6 +13,8 @@ namespace UncommonSense.CBreeze.Core.Page.Control
             Properties = new PageControlPartProperties(this);
         }
 
+        public override string ToString() => $"{Type} {ID} ({Properties.PartType})";
+
         public override Properties AllProperties
         {
             get

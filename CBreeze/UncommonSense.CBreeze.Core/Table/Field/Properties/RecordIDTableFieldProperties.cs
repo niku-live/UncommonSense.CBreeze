@@ -4,6 +4,7 @@ using UncommonSense.CBreeze.Core.Property.Enumeration;
 using UncommonSense.CBreeze.Core.Property.Implementation;
 using UncommonSense.CBreeze.Core.Property.Type;
 using UncommonSense.CBreeze.Core.Table.Relation;
+using UncommonSense.CBreeze.Common;
 
 namespace UncommonSense.CBreeze.Core.Table.Field.Properties
 {
@@ -18,8 +19,10 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         private CalcFormulaProperty calcFormula = new CalcFormulaProperty("CalcFormula");
         private StringProperty captionClass = new StringProperty("CaptionClass");
         private MultiLanguageProperty captionML = new MultiLanguageProperty("CaptionML");
-        private StringProperty description = new StringProperty("Description");
+#if NAV2018
         private DataClassificationProperty dataClassification = new DataClassificationProperty("DataClassification");
+#endif
+        private StringProperty description = new StringProperty("Description");
         private NullableBooleanProperty editable = new NullableBooleanProperty("Editable");
         private ExtendedDataTypeProperty extendedDatatype = new ExtendedDataTypeProperty("ExtendedDatatype");
 #if NAV2016
@@ -30,6 +33,10 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         private FieldClassProperty fieldClass = new FieldClassProperty("FieldClass");
         private StringProperty initValue = new StringProperty("InitValue");
         private NullableBooleanProperty notBlank = new NullableBooleanProperty("NotBlank");
+#if NAV2018
+        private ObsoleteStateProperty obsoleteState = new ObsoleteStateProperty("ObsoleteState");
+        private StringProperty obsoleteReason = new StringProperty("ObsoleteReason");
+#endif
         private TriggerProperty onLookup = new TriggerProperty("OnLookup");
         private TriggerProperty onValidate = new TriggerProperty("OnValidate");
         private TableRelationProperty tableRelation = new TableRelationProperty("TableRelation");
@@ -41,7 +48,6 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         {
             Field = field;
 
-            innerList.Add(dataClassification);
             innerList.Add(fieldClass);
             innerList.Add(calcFormula);
             innerList.Add(initValue);
@@ -60,6 +66,11 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             innerList.Add(externalType);
             innerList.Add(externalAccess);
 #endif
+#if NAV2018
+            innerList.Add(obsoleteState);
+            innerList.Add(obsoleteReason);
+            innerList.Add(dataClassification);
+#endif
             innerList.Add(captionML);
             innerList.Add(notBlank);
             innerList.Add(valuesAllowed);
@@ -75,6 +86,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         public override INode ParentNode => Field;
 
 #if NAV2015
+
         public AccessByPermission AccessByPermission
         {
             get
@@ -82,9 +94,32 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
                 return accessByPermission.Value;
             }
         }
+
 #endif
 
-      public string AltSearchField
+#if NAV2018
+
+        public ObsoleteState? ObsoleteState
+        {
+            get => obsoleteState.Value;
+            set => obsoleteState.Value = value;
+        }
+
+        public string ObsoleteReason
+        {
+            get => obsoleteReason.Value;
+            set => obsoleteReason.Value = value;
+        }
+
+        public DataClassification? DataClassification
+        {
+            get => dataClassification.Value;
+            set => dataClassification.Value = value;
+        }
+
+#endif
+
+        public string AltSearchField
         {
             get
             {
@@ -96,7 +131,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             }
         }
 
-      public string AutoFormatExpr
+        public string AutoFormatExpr
         {
             get
             {
@@ -128,7 +163,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             }
         }
 
-      public string CaptionClass
+        public string CaptionClass
         {
             get
             {
@@ -148,7 +183,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             }
         }
 
-      public string Description
+        public string Description
         {
             get
             {
@@ -157,18 +192,6 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             set
             {
                 this.description.Value = value;
-            }
-        }
-
-        public DataClassification? DataClassification
-        {
-            get
-            {
-                return this.dataClassification.Value;
-            }
-            set
-            {
-                this.dataClassification.Value = value;
             }
         }
 
@@ -197,6 +220,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         }
 
 #if NAV2016
+
         public ExternalAccess? ExternalAccess
         {
             get
@@ -232,6 +256,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
                 this.externalType.Value = value;
             }
         }
+
 #endif
 
         public FieldClass? FieldClass
@@ -246,7 +271,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             }
         }
 
-      public string InitValue
+        public string InitValue
         {
             get
             {
@@ -258,7 +283,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             }
         }
 
-      public bool? NotBlank
+        public bool? NotBlank
         {
             get
             {
@@ -294,7 +319,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             }
         }
 
-      public bool? TestTableRelation
+        public bool? TestTableRelation
         {
             get
             {
@@ -306,7 +331,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             }
         }
 
-      public bool? ValidateTableRelation
+        public bool? ValidateTableRelation
         {
             get
             {
@@ -318,7 +343,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             }
         }
 
-      public string ValuesAllowed
+        public string ValuesAllowed
         {
             get
             {

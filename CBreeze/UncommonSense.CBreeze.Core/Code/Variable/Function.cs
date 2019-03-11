@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UncommonSense.CBreeze.Common;
 using UncommonSense.CBreeze.Core.Code.Function;
 using UncommonSense.CBreeze.Core.Code.Parameter;
 using UncommonSense.CBreeze.Core.Contracts;
@@ -103,6 +104,12 @@ namespace UncommonSense.CBreeze.Core.Code.Variable
             get;
             set;
         }
+
+#endif
+
+#if NAV2018
+        public bool? ServiceEnabled { get; set; } // FIXME: Might only apply to page functions, not to e.g. codeunit functions
+        public FunctionVisibility? FunctionVisibility { get; set; }
 
 #endif
 

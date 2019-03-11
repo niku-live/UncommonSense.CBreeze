@@ -95,5 +95,7 @@ namespace UncommonSense.CBreeze.Core.Property.Implementation
                 Set(languageID, value);
             }
         }
+
+        public override string ToString() => string.Join(";", this.OrderBy(e => e.LanguageID).Select(e => e.ToString()));
     }
 }

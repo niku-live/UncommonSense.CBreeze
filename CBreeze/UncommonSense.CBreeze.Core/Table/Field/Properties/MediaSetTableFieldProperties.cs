@@ -2,12 +2,14 @@
 using UncommonSense.CBreeze.Core.Contracts;
 using UncommonSense.CBreeze.Core.Property.Enumeration;
 using UncommonSense.CBreeze.Core.Property.Implementation;
+using UncommonSense.CBreeze.Common;
 using UncommonSense.CBreeze.Core.Property.Type;
 using UncommonSense.CBreeze.Core.Table.Relation;
 
 namespace UncommonSense.CBreeze.Core.Table.Field.Properties
 {
 #if NAV2017
+
     public class MediaSetTableFieldProperties : Property.Properties
     {
         private AccessByPermissionProperty accessByPermission = new AccessByPermissionProperty("AccessByPermission");
@@ -16,12 +18,18 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         private CalcFormulaProperty calcFormula = new CalcFormulaProperty("CalcFormula");
         private StringProperty captionClass = new StringProperty("CaptionClass");
         private MultiLanguageProperty captionML = new MultiLanguageProperty("CaptionML");
-        private StringProperty description = new StringProperty("Description");
+#if NAV2018
         private DataClassificationProperty dataClassification = new DataClassificationProperty("DataClassification");
+#endif
+        private StringProperty description = new StringProperty("Description");
         private NullableBooleanProperty editable = new NullableBooleanProperty("Editable");
         private ExtendedDataTypeProperty extendedDataType = new ExtendedDataTypeProperty("ExtendedDatatype");
         private FieldClassProperty fieldClass = new FieldClassProperty("FieldClass");
         private NullableBooleanProperty notBlank = new NullableBooleanProperty("NotBlank");
+#if NAV2018
+        private ObsoleteStateProperty obsoleteState = new ObsoleteStateProperty("ObsoleteState");
+        private StringProperty obsoleteReason = new StringProperty("ObsoleteReason");
+#endif
         private TriggerProperty onLookup = new TriggerProperty("OnLookup");
         private TriggerProperty onValidate = new TriggerProperty("OnValidate");
         private TableRelationProperty tableRelation = new TableRelationProperty("TableRelation");
@@ -31,7 +39,6 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         {
             Field = field;
 
-            innerList.Add(dataClassification);
             innerList.Add(fieldClass);
             innerList.Add(calcFormula);
             innerList.Add(tableRelation);
@@ -40,6 +47,11 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             innerList.Add(validateTableRelation);
             innerList.Add(extendedDataType);
             innerList.Add(accessByPermission);
+#if NAV2018
+            innerList.Add(obsoleteState);
+            innerList.Add(obsoleteReason);
+            innerList.Add(dataClassification);
+#endif
             innerList.Add(captionML);
             innerList.Add(notBlank);
             innerList.Add(description);
@@ -50,6 +62,28 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         }
 
         public AccessByPermission AccessByPermission => accessByPermission.Value;
+
+#if NAV2018
+
+        public ObsoleteState? ObsoleteState
+        {
+            get => obsoleteState.Value;
+            set => obsoleteState.Value = value;
+        }
+
+        public string ObsoleteReason
+        {
+            get => obsoleteReason.Value;
+            set => obsoleteReason.Value = value;
+        }
+
+        public DataClassification? DataClassification
+        {
+            get => dataClassification.Value;
+            set => dataClassification.Value = value;
+        }
+
+#endif
 
         public string AutoFormatExpr
         {
@@ -77,18 +111,6 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         {
             get => description.Value;
             set => description.Value = value;
-        }
-
-        public DataClassification? DataClassification
-        {
-            get
-            {
-                return this.dataClassification.Value;
-            }
-            set
-            {
-                this.dataClassification.Value = value;
-            }
         }
 
         public bool? Editable
@@ -130,5 +152,6 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         public MediaSetTableField Field { get; }
         public override INode ParentNode => Field;
     }
+
 #endif
 }

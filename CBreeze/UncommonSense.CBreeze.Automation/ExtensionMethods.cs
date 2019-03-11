@@ -26,6 +26,24 @@ namespace UncommonSense.CBreeze.Automation
 {
     public static class ExtensionMethods
     {
+        public static ProgressRecord WithActivity(this ProgressRecord progressRecord, string activity)
+        {
+            progressRecord.Activity = activity;
+            return progressRecord;
+        }
+
+        public static ProgressRecord WithRecordType(this ProgressRecord progressRecord, ProgressRecordType progressRecordType)
+        {
+            progressRecord.RecordType = progressRecordType;
+            return progressRecord;
+        }
+
+        public static ProgressRecord WithStatusDescription(this ProgressRecord progressRecord, string statusDescription)
+        {
+            progressRecord.StatusDescription = statusDescription;
+            return progressRecord;
+        }
+
         public static void Add<T>(this Application application, IEnumerable<T> objs) where T : Object
         {
             foreach (var obj in objs)

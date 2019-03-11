@@ -13,6 +13,8 @@ namespace UncommonSense.CBreeze.Core.Page.Control
             Properties.SourceExpr = sourceExpr;
         }
 
+        public override string ToString() => $"{Type} {ID} ({Properties.SourceExpr})";
+
         public override Properties AllProperties => Properties;
 
         public override IEnumerable<INode> ChildNodes

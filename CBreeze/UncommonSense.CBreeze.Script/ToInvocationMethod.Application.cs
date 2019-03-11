@@ -17,7 +17,7 @@ namespace UncommonSense.CBreeze.Script
 {
     public static partial class ToInvocationMethod
     {
-        public static Invocation ToInvocation(this Application application)
+        public static Invocation ToInvocation(this Application application, string directory)
         {
             return new Invocation(
                 "New-CBreezeApplication",
@@ -26,7 +26,7 @@ namespace UncommonSense.CBreeze.Script
                     application.Tables.ToInvocations()
                         .Concat(application.Pages.ToInvocations())
                         .Concat(application.Codeunits.ToInvocations())
-                        .Concat(application.Reports.ToInvocations())
+                        .Concat(application.Reports.ToInvocations(directory))
                         .Concat(application.Queries.ToInvocations())
                         .Concat(application.XmlPorts.ToInvocations())
                         .Concat(application.MenuSuites.ToInvocations())
@@ -38,7 +38,7 @@ namespace UncommonSense.CBreeze.Script
 
         public static IEnumerable<Invocation> ToInvocations(this Pages pages) => pages.Select(p => p.ToInvocation());
 
-        public static IEnumerable<Invocation> ToInvocations(this Reports reports) => reports.Select(r => r.ToInvocation());
+        public static IEnumerable<Invocation> ToInvocations(this Reports reports, string directory) => reports.Select(r => r.ToInvocation(directory));
 
         public static IEnumerable<Invocation> ToInvocations(this Queries queries) => queries.Select(q => q.ToInvocation());
 

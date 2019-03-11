@@ -15,8 +15,6 @@ namespace UncommonSense.CBreeze.Script
         {
             if (data.Any())
             {
-                fileName = Path.Combine(Paths.Script, fileName);
-
                 // WriteAllLines will append a trailing line break that we don't want in our RDL!
                 File.WriteAllText(fileName, string.Join(Environment.NewLine, data));
                 return $"(Get-Content -Path {fileName} -Raw)";
@@ -25,7 +23,7 @@ namespace UncommonSense.CBreeze.Script
             return null;
         }
 
-        public static Invocation ToInvocation(this Report report)
+        public static Invocation ToInvocation(this Report report, string directory)
         {
             IEnumerable<ParameterBase> signature = new[] {
                 new SimpleParameter("ID", report.ID),
@@ -48,15 +46,16 @@ namespace UncommonSense.CBreeze.Script
                 .Where(p => p.HasValue)
                 .SelectMany(p => p.ToParameters("RequestPage"));
 
-            var rdlData = 
+            var rdlData =
                 new LiteralParameter(
-                    "RdlData", 
-                    GetExternalDataFileParameterValue(report.RdlData.CodeLines, $"rep{report.ID}.rdl.txt"));
-
+                    "RdlData",
+                    GetExternalDataFileParameterValue(report.RdlData.CodeLines, Path.Combine(directory, $"rep{report.ID}.rdl.txt")));
+#if NAV2015
             var wordLayout =
                 new LiteralParameter(
                     "WordLayout",
-                    GetExternalDataFileParameterValue(report.WordLayout.CodeLines, $"rep{report.ID}.word.txt"));
+                    GetExternalDataFileParameterValue(report.WordLayout.CodeLines, Path.Combine(directory, $"rep{report.ID}.word.txt")));
+#endif
 
             IEnumerable<ParameterBase> subObjects = new[] {
                 new ScriptBlockParameter(
@@ -86,11 +85,13 @@ namespace UncommonSense.CBreeze.Script
                     .Concat(requestPageSubObjects)
                     .Concat(subObjects)
                     .Concat(rdlData.ToEnumerable())
+#if NAV2015
                     .Concat(wordLayout.ToEnumerable())
+#endif
             );
         }
 
-        public static IEnumerable<Invocation> ToInvocations(this ReportElements reportElements) => 
+        public static IEnumerable<Invocation> ToInvocations(this ReportElements reportElements) =>
             reportElements.Where(e => e.IndentationLevel.GetValueOrDefault(0) == 0).Select(e => e.ToInvocation());
 
         public static IEnumerable<Invocation> ToInvocations(this ReportLabels reportLabels) => reportLabels.Select(l => l.ToInvocation());

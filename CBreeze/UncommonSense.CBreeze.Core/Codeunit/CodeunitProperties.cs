@@ -34,10 +34,10 @@ namespace UncommonSense.CBreeze.Core.Codeunit
             innerList.Add(eventSubscriberInstance);
 #endif
             innerList.Add(permissions);
+            innerList.Add(singleInstance);
 #if !NAV2016
             innerList.Add(cFRONTMayUsePermissions);
 #endif
-            innerList.Add(singleInstance);
             innerList.Add(subtype);
             innerList.Add(testIsolation);
 #if NAV2017
@@ -51,6 +51,7 @@ namespace UncommonSense.CBreeze.Core.Codeunit
         public override INode ParentNode => Codeunit;
 
 #if NAV2016
+
         public EventSubscriberInstance? EventSubscriberInstance
         {
             get
@@ -62,6 +63,7 @@ namespace UncommonSense.CBreeze.Core.Codeunit
                 this.eventSubscriberInstance.Value = value;
             }
         }
+
 #endif
 
 #if !NAV2016
@@ -143,11 +145,13 @@ namespace UncommonSense.CBreeze.Core.Codeunit
         }
 
 #if NAV2017
+
         public TestPermissions? TestPermissions
         {
             get => testPermissions.Value;
             set => testPermissions.Value = value;
         }
+
 #endif
     }
 }

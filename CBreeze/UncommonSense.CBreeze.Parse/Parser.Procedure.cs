@@ -11,35 +11,27 @@ namespace UncommonSense.CBreeze.Parse
         internal bool ParseProcedure(Lines lines)
         {
 #if NAV2016
-            Match tryFunctionMatch = null;
-            Match businessEventPublisherMatch = null;
-            Match integrationEventPublisherMatch = null;
-            Match eventSubscriberMatch = null;
+            lines.FirstLineTryMatch(Patterns.EventSubscriberAttribute, out Match eventSubscriberMatch);
+            lines.FirstLineTryMatch(Patterns.TryFunctionAttribute, out Match tryFunctionMatch);
 #endif
-            Match functionTypeMatch = null;
-            Match handlerFunctionsMatch = null;
-            Match transactionModelMatch = null;
-            Match procedureSignatureMatch = null;
-#if NAV2017
-            Match testPermissionsMatch = null;
+#if NAV2018
+            lines.FirstLineTryMatch(Patterns.ServiceEnabledAttribute, out Match serviceEnabledMatch);
 #endif
-
 #if NAV2016
-            lines.FirstLineTryMatch(Patterns.TryFunctionAttribute, out tryFunctionMatch);
-
-            if (!lines.FirstLineTryMatch(Patterns.BusinessEventPublisherAttribute, out businessEventPublisherMatch))
-                if (!lines.FirstLineTryMatch(Patterns.IntegrationEventPublisherAttribute, out integrationEventPublisherMatch))
-                    if (!lines.FirstLineTryMatch(Patterns.EventSubscriberAttribute, out eventSubscriberMatch))
+            lines.FirstLineTryMatch(Patterns.BusinessEventPublisherAttribute, out Match businessEventPublisherMatch);
+            lines.FirstLineTryMatch(Patterns.IntegrationEventPublisherAttribute, out Match integrationEventPublisherMatch);
 #endif
-                        lines.FirstLineTryMatch(Patterns.FunctionTypeAttribute, out functionTypeMatch);
-
-            lines.FirstLineTryMatch(Patterns.HandlerFunctionsAttribute, out handlerFunctionsMatch);
-            lines.FirstLineTryMatch(Patterns.TransactionModelAttribute, out transactionModelMatch);
+            lines.FirstLineTryMatch(Patterns.FunctionTypeAttribute, out Match functionTypeMatch);
+            lines.FirstLineTryMatch(Patterns.HandlerFunctionsAttribute, out Match handlerFunctionsMatch);
+            lines.FirstLineTryMatch(Patterns.TransactionModelAttribute, out Match transactionModelMatch);
 #if NAV2017
-            lines.FirstLineTryMatch(Patterns.TestPermissionsAttribute, out testPermissionsMatch);
+            lines.FirstLineTryMatch(Patterns.TestPermissionsAttribute, out Match testPermissionsMatch);
+#endif
+#if NAV2018
+            lines.FirstLineTryMatch(Patterns.FunctionVisibilityAttribute, out Match functionVisibilityMatch);
 #endif
 
-            if (!lines.FirstLineTryMatch(Patterns.ProcedureSignature, out procedureSignatureMatch))
+            if (!lines.FirstLineTryMatch(Patterns.ProcedureSignature, out Match procedureSignatureMatch))
             {
                 return false;
             }
@@ -73,9 +65,9 @@ namespace UncommonSense.CBreeze.Parse
             else
 #endif
                 if (functionTypeMatch.Success)
-                {
-                    Listener.OnFunctionAttribute(functionTypeMatch.Groups[1].Value);
-                }
+            {
+                Listener.OnFunctionAttribute(functionTypeMatch.Groups[1].Value);
+            }
 
 #if NAV2016
             if (tryFunctionMatch.Success)
@@ -101,7 +93,19 @@ namespace UncommonSense.CBreeze.Parse
             }
 #endif
 
-                ParseParameters(lines);
+#if NAV2018
+            if (functionVisibilityMatch.Success)
+            {
+                Listener.OnFunctionAttribute("FunctionVisibility", functionVisibilityMatch.Groups[1].Value);
+            }
+
+            if (serviceEnabledMatch.Success)
+            {
+                Listener.OnFunctionAttribute("ServiceEnabled");
+            }
+#endif
+
+            ParseParameters(lines);
             ParseReturnValue(lines);
 
             if (lines.FirstLineTryMatch(Patterns.Variables))

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using System.Text;
+using UncommonSense.CBreeze.Common;
 using UncommonSense.CBreeze.Core;
 using UncommonSense.CBreeze.Core.Table;
 using UncommonSense.CBreeze.Core.Table.Key;
@@ -28,6 +29,10 @@ namespace UncommonSense.CBreeze.Automation
             tableKey.Properties.KeyGroups = KeyGroups;
             tableKey.Properties.MaintainSIFTIndex = NullableBooleanFromSwitch(nameof(MaintainSIFTIndex));
             tableKey.Properties.MaintainSQLIndex = NullableBooleanFromSwitch(nameof(MaintainSQLIndex));
+#if NAV2018
+            tableKey.Properties.ObsoleteState = ObsoleteState;
+            tableKey.Properties.ObsoleteReason = ObsoleteReason;
+#endif
             tableKey.Properties.SQLIndex.AddRange(SQLIndex ?? new string[] { });
             tableKey.Properties.SumIndexFields.AddRange(SumIndexFields ?? new string[] { });
 
@@ -40,6 +45,11 @@ namespace UncommonSense.CBreeze.Automation
         [Parameter()] public string KeyGroups { get; set; }
         [Parameter()] public SwitchParameter MaintainSIFTIndex { get; set; }
         [Parameter()] public SwitchParameter MaintainSQLIndex { get; set; }
-        [Parameter()] public string[] SQLIndex { get; set; } 
-        [Parameter()] public string[] SumIndexFields { get; set; }     }
+#if NAV2018
+        [Parameter()] public ObsoleteState? ObsoleteState { get; set; }
+        [Parameter()] public string ObsoleteReason { get; set; }
+#endif
+        [Parameter()] public string[] SQLIndex { get; set; }
+        [Parameter()] public string[] SumIndexFields { get; set; }
+    }
 }

@@ -6,7 +6,7 @@ using UncommonSense.CBreeze.Core.Property.Type;
 
 namespace UncommonSense.CBreeze.Core.Page.Control
 {
-        public class PageControlPartProperties : Properties
+    public class PageControlPartProperties : Properties
     {
 #if NAV2015
         private AccessByPermissionProperty accessByPermission = new AccessByPermissionProperty("AccessByPermission");
@@ -19,6 +19,10 @@ namespace UncommonSense.CBreeze.Core.Page.Control
         private StringProperty description = new StringProperty("Description");
         private StringProperty editable = new StringProperty("Editable");
         private StringProperty enabled = new StringProperty("Enabled");
+#if NAV2018
+        private StringProperty entityName = new StringProperty("EntityName");
+        private StringProperty entitySetName = new StringProperty("EntitySetName");
+#endif
         private StringProperty name = new StringProperty("Name");
         private PageReferenceProperty pagePartID = new PageReferenceProperty("PagePartID");
         private PageControlPartTypeProperty partType = new PageControlPartTypeProperty("PartType");
@@ -51,6 +55,10 @@ namespace UncommonSense.CBreeze.Core.Page.Control
             innerList.Add(subPageLink);
             innerList.Add(pagePartID);
             innerList.Add(providerID);
+#if NAV2018
+            innerList.Add(entitySetName);
+            innerList.Add(entityName);
+#endif
             innerList.Add(visible);
             innerList.Add(enabled);
             innerList.Add(editable);
@@ -68,6 +76,7 @@ namespace UncommonSense.CBreeze.Core.Page.Control
         public override INode ParentNode => PartPageControl;
 
 #if NAV2015
+
         public AccessByPermission AccessByPermission
         {
             get
@@ -75,6 +84,7 @@ namespace UncommonSense.CBreeze.Core.Page.Control
                 return this.accessByPermission.Value;
             }
         }
+
 #endif
 
 #if NAV2017
@@ -89,7 +99,7 @@ namespace UncommonSense.CBreeze.Core.Page.Control
             }
         }
 
-      public string ChartPartID
+        public string ChartPartID
         {
             get
             {
@@ -101,7 +111,7 @@ namespace UncommonSense.CBreeze.Core.Page.Control
             }
         }
 
-      public string Description
+        public string Description
         {
             get
             {
@@ -113,7 +123,7 @@ namespace UncommonSense.CBreeze.Core.Page.Control
             }
         }
 
-      public string Editable
+        public string Editable
         {
             get
             {
@@ -125,7 +135,7 @@ namespace UncommonSense.CBreeze.Core.Page.Control
             }
         }
 
-      public string Enabled
+        public string Enabled
         {
             get
             {
@@ -137,7 +147,23 @@ namespace UncommonSense.CBreeze.Core.Page.Control
             }
         }
 
-      public string Name
+#if NAV2018
+
+        public string EntityName
+        {
+            get => entityName.Value;
+            set => entityName.Value = value;
+        }
+
+        public string EntitySetName
+        {
+            get => entitySetName.Value;
+            set => entitySetName.Value = value;
+        }
+
+#endif
+
+        public string Name
         {
             get
             {
@@ -149,7 +175,7 @@ namespace UncommonSense.CBreeze.Core.Page.Control
             }
         }
 
-      public int? PagePartID
+        public int? PagePartID
         {
             get
             {
@@ -173,7 +199,7 @@ namespace UncommonSense.CBreeze.Core.Page.Control
             }
         }
 
-      public int? ProviderID
+        public int? ProviderID
         {
             get
             {
@@ -185,7 +211,7 @@ namespace UncommonSense.CBreeze.Core.Page.Control
             }
         }
 
-      public bool? ShowFilter
+        public bool? ShowFilter
         {
             get
             {
@@ -234,6 +260,7 @@ namespace UncommonSense.CBreeze.Core.Page.Control
         }
 
 #if NAV2015
+
         public UpdatePropagation? UpdatePropagation
         {
             get
@@ -245,9 +272,10 @@ namespace UncommonSense.CBreeze.Core.Page.Control
                 updatePropagation.Value = value;
             }
         }
+
 #endif
 
-      public string Visible
+        public string Visible
         {
             get
             {

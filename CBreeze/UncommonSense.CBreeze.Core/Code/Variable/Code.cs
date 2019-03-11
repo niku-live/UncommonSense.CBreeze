@@ -16,6 +16,8 @@ namespace UncommonSense.CBreeze.Core.Code.Variable
             Variables = new GlobalVariables(this);
         }
 
+        public override string ToString() => "Code";
+
         public IEnumerable<INode> ChildNodes
         {
             get

@@ -15,8 +15,15 @@ namespace UncommonSense.CBreeze.Write
         {
             writer.InnerWriter.WriteLine();
 #if NAV2016
+            WriteSubscriberAttributes(function, writer);
             writer.WriteLineIf(function.TryFunction.GetValueOrDefault(false), "[TryFunction]");
-            WriteEventingAttributes(function, writer);
+            WritePublisherAttributes(function, writer);
+#endif
+#if NAV2018
+            writer.WriteLineIf(
+                function.FunctionVisibility.GetValueOrDefault(Common.FunctionVisibility.Internal) == Common.FunctionVisibility.External &&
+                function.ServiceEnabled.GetValueOrDefault(false),
+                "[ServiceEnabled]");
 #endif
 #if NAV2015
             writer.WriteLineIf(function.UpgradeFunctionType.HasValue, "[{0}]", function.UpgradeFunctionType);
@@ -27,7 +34,9 @@ namespace UncommonSense.CBreeze.Write
 #if NAV2017
             writer.WriteLineIf(function.TestPermissions.HasValue, "[TestPermissions({0})]", function.TestPermissions);
 #endif
-
+#if NAV2018
+            writer.WriteLineIf(function.FunctionVisibility.HasValue, "[{0}]", function.FunctionVisibility);
+#endif
             writer.Write("{2}PROCEDURE {0}@{1}(", function.Name, function.ID, function.Local ? "LOCAL " : "");
             function.Parameters.Write(writer);
             writer.Write(")");
@@ -42,26 +51,18 @@ namespace UncommonSense.CBreeze.Write
         }
 
 #if NAV2016
-        public static void WriteEventingAttributes(Function function, CSideWriter writer)
-        {
-            switch (function.Event.GetValueOrDefault(EventPublisherSubscriber.No))
-            {
-                case EventPublisherSubscriber.Publisher:
-                    WritePublisherAttributes(function, writer);
-                    break;
-                case EventPublisherSubscriber.Subscriber:
-                    WriteSubscriberAttributes(function, writer);
-                    break;
-            }
-        }
 
         public static void WritePublisherAttributes(Function function, CSideWriter writer)
         {
+            if (function.Event.GetValueOrDefault(EventPublisherSubscriber.No) != EventPublisherSubscriber.Publisher)
+                return;
+
             switch (function.EventType)
             {
                 case EventType.Business:
                     WriteBusinessEventAttributes(function, writer);
                     break;
+
                 case EventType.Integration:
                     WriteIntegrationEventAttributes(function, writer);
                     break;
@@ -70,6 +71,9 @@ namespace UncommonSense.CBreeze.Write
 
         public static void WriteSubscriberAttributes(Function function, CSideWriter writer)
         {
+            if (function.Event.GetValueOrDefault(EventPublisherSubscriber.No) != EventPublisherSubscriber.Subscriber)
+                return;
+
             if (function.EventPublisherObject.Type == null)
                 return;
             if (function.EventPublisherObject.ID == null)
@@ -78,15 +82,15 @@ namespace UncommonSense.CBreeze.Write
                 return;
 
             writer.Write(
-                "[EventSubscriber({0},{1},{2}", 
-                function.EventPublisherObject.Type, 
-                function.EventPublisherObject.ID, 
+                "[EventSubscriber({0},{1},{2}",
+                function.EventPublisherObject.Type,
+                function.EventPublisherObject.ID,
                 function.EventFunction);
 
-            var parameters = 
+            var parameters =
                 string.Format(
                     ",{0},{1}",
-                    function.OnMissingLicense.HasValue? function.OnMissingLicense.ToString() : "DEFAULT",
+                    function.OnMissingLicense.HasValue ? function.OnMissingLicense.ToString() : "DEFAULT",
                     function.OnMissingPermission.HasValue ? function.OnMissingPermission.ToString() : "DEFAULT");
             var eventPublisherElement = string.IsNullOrEmpty(function.EventPublisherElement) ? ",\"\"" : string.Format(",{0}", function.EventPublisherElement);
 
@@ -106,9 +110,11 @@ namespace UncommonSense.CBreeze.Write
                 case null:
                     writer.WriteLine("[Business]");
                     break;
+
                 case true:
                     writer.WriteLine("[Business(TRUE)]");
                     break;
+
                 case false:
                     writer.WriteLine("[Business(FALSE)]");
                     break;
@@ -130,6 +136,7 @@ namespace UncommonSense.CBreeze.Write
 
             writer.WriteLine("[Integration{0}]", parameters);
         }
+
 #endif
     }
 }

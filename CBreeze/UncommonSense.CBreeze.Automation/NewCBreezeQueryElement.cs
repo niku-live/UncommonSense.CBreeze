@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
@@ -15,6 +16,9 @@ namespace UncommonSense.CBreeze.Automation
     [Alias("QueryColumn", "Add-CBreezeColumnQueryElement")]
     public class NewCBreezeColumnQueryElement : NewCBreezeQueryElement<DataItemQueryElement>
     {
+        [Parameter()]
+        public Hashtable CaptionML { get; set; }
+
         [Parameter(Position = 2, ParameterSetName = ParameterSetNames.NewWithID)]
         [Parameter(Position = 2, ParameterSetName = ParameterSetNames.AddWithID)]
         [Parameter(Position = 1, ParameterSetName = ParameterSetNames.NewWithoutID)]
@@ -50,6 +54,7 @@ namespace UncommonSense.CBreeze.Automation
         {
             var columnQueryElement = new ColumnQueryElement(DataSource, ID, Name, GetIndentation());
 
+            columnQueryElement.Properties.CaptionML.Set(CaptionML);
             columnQueryElement.Properties.Description = Description;
             columnQueryElement.Properties.ReverseSign = NullableBooleanFromSwitch(nameof(ReverseSign));
             columnQueryElement.Properties.DateMethod = GetDateMethod();
@@ -121,12 +126,6 @@ namespace UncommonSense.CBreeze.Automation
     [Alias("QueryDataItem", "Add-CBreezeDataItemQueryElement")]
     public class NewCBreezeDataItemQueryElement : NewCBreezeQueryElement<PSObject>
     {
-        [Parameter(Position = 3, ParameterSetName = ParameterSetNames.NewWithID)]
-        [Parameter(Position = 3, ParameterSetName = ParameterSetNames.AddWithID)]
-        [Parameter(Position = 2, ParameterSetName = ParameterSetNames.NewWithoutID)]
-        [Parameter(Position = 2, ParameterSetName = ParameterSetNames.AddWithoutID)]
-        public ScriptBlock SubObjects { get; set; }
-
         [Parameter()]
         public DataItemLinkType? DataItemLinkType { get; set; }
 
@@ -149,6 +148,12 @@ namespace UncommonSense.CBreeze.Automation
 
         [Parameter()]
         public SqlJoinType? SQLJoinType { get; set; }
+
+        [Parameter(Position = 3, ParameterSetName = ParameterSetNames.NewWithID)]
+        [Parameter(Position = 3, ParameterSetName = ParameterSetNames.AddWithID)]
+        [Parameter(Position = 2, ParameterSetName = ParameterSetNames.NewWithoutID)]
+        [Parameter(Position = 2, ParameterSetName = ParameterSetNames.AddWithoutID)]
+        public ScriptBlock SubObjects { get; set; }
 
         protected override void AddItemToInputObject(QueryElement item, PSObject InputObject)
         {
@@ -217,6 +222,9 @@ namespace UncommonSense.CBreeze.Automation
     public class NewCBreezeFilterQueryElement : NewCBreezeQueryElement<DataItemQueryElement>
     {
         [Parameter()]
+        public Hashtable CaptionML { get; set; }
+
+        [Parameter()]
         public String DataSource { get; set; }
 
         [Parameter()]
@@ -237,6 +245,7 @@ namespace UncommonSense.CBreeze.Automation
         protected override IEnumerable<QueryElement> CreateItems()
         {
             var filterQueryElement = new FilterQueryElement(DataSource, ID, Name, GetIndentation());
+            filterQueryElement.Properties.CaptionML.Set(CaptionML);
             filterQueryElement.Properties.Description = Description;
             yield return filterQueryElement;
         }
