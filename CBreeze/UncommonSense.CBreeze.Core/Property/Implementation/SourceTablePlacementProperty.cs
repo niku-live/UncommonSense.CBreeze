@@ -2,7 +2,7 @@
 
 namespace UncommonSense.CBreeze.Core.Property.Implementation
 {
-    internal class SourceTablePlacementProperty : NullableValueProperty<ClassicControlSourceTablePlacement>
+    public class SourceTablePlacementProperty : NullableValueProperty<ClassicControlSourceTablePlacement>
     {
         public SourceTablePlacementProperty(string name) : base(name)
         {

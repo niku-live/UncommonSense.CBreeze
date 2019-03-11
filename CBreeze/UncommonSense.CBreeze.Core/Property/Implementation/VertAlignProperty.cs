@@ -2,7 +2,7 @@
 
 namespace UncommonSense.CBreeze.Core.Property.Implementation
 {
-    public class VertAlignProperty : ValueProperty<VertAlign>
+    public class VertAlignProperty : NullableValueProperty<VertAlign>
     {
         public VertAlignProperty(string name) : base(name)
         {

@@ -2,7 +2,7 @@
 
 namespace UncommonSense.CBreeze.Core.Property.Implementation
 {
-    public class HorzAlignProperty : ValueProperty<HorzAlign>
+    public class HorzAlignProperty : NullableValueProperty<HorzAlign>
     {
         public HorzAlignProperty(string name) : base(name)
         {
