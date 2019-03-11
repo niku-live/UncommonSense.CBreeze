@@ -25,7 +25,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NAV2013;NAV2013R2;NAV2015;NAV2016;NAV2017</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NAV2013;NAV2013R2;NAV2015;NAV2016;NAV2017;NAV2009</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>true</UseVSHostingProcess>
@@ -141,6 +141,7 @@
     <Compile Include="Code\Variable\Code.cs" />
     <Compile Include="Code\Variable\CodeunitVariable.cs" />
     <Compile Include="Code\Variable\CodeVariable.cs" />
+    <Compile Include="Code\Variable\DataportVariable.cs" />
     <Compile Include="Code\Variable\DateFormulaVariable.cs" />
     <Compile Include="Code\Variable\DateTimeVariable.cs" />
     <Compile Include="Code\Variable\DateVariable.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="Code\Variable\FieldRefVariable.cs" />
     <Compile Include="Code\Variable\FileVariable.cs" />
     <Compile Include="Code\Variable\FilterPageBuilderVariable.cs" />
+    <Compile Include="Code\Variable\FormVariable.cs" />
     <Compile Include="Code\Variable\Function.cs" />
     <Compile Include="Code\Variable\FunctionVariables.cs" />
     <Compile Include="Code\Variable\GlobalVariables.cs" />
@@ -205,6 +207,15 @@
     <Compile Include="Contracts\IPage.cs" />
     <Compile Include="Contracts\IPageExtensionMethods.cs" />
     <Compile Include="Contracts\IProperties.cs" />
+    <Compile Include="Dataport\Dataport.cs" />
+    <Compile Include="Dataport\DataportDataItem.cs" />
+    <Compile Include="Dataport\DataportDataItemProperties.cs" />
+    <Compile Include="Dataport\DataportDataItems.cs" />
+    <Compile Include="Dataport\DataportField.cs" />
+    <Compile Include="Dataport\DataportFieldProperties.cs" />
+    <Compile Include="Dataport\DataportFields.cs" />
+    <Compile Include="Dataport\DataportProperties.cs" />
+    <Compile Include="Dataport\Dataports.cs" />
     <Compile Include="Extension\AutoCaptionExtensionMethods.cs" />
     <Compile Include="Extension\ExtensionMethods.cs" />
     <Compile Include="Extension\IDManagementExtensionMethods.cs" />
@@ -222,10 +233,15 @@
     <Compile Include="Form\Control\FormMenuItems.cs" />
     <Compile Include="Form\Control\FormMenuItem.cs" />
     <Compile Include="Form\Control\FormMenuItemBase.cs" />
+    <Compile Include="Form\Control\Properties\ClassicControlBorderStyleProperty.cs" />
+    <Compile Include="Form\Control\Properties\ControlBasePropertiesWithFont.cs" />
     <Compile Include="Form\Control\Properties\MenuItemProperties.cs" />
+    <Compile Include="Property\Enumeration\ClassicReportOrientation.cs" />
     <Compile Include="Property\Enumeration\DataClassification.cs" />
     <Compile Include="Property\Enumeration\MenuItemType.cs" />
+    <Compile Include="Property\Implementation\ClassicReportOrientationProperty.cs" />
     <Compile Include="Property\Implementation\DataClassificationProperty.cs" />
+    <Compile Include="Property\Implementation\FormReferenceProperty.cs" />
     <Compile Include="Property\Implementation\MenuItemTypeProperty.cs" />
     <Compile Include="Form\Control\Properties\BaseButtonProperties.cs" />
     <Compile Include="Form\Control\Properties\BaseControlBaseProperties.cs" />
@@ -738,9 +754,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dataport\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
     <None Include="Form\Contracts\ClassDiagram.cd" />

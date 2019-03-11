@@ -27,7 +27,10 @@ namespace UncommonSense.CBreeze.Core.Table
         private StringProperty externalSchema = new StringProperty("ExternalSchema");
         private NullableBooleanProperty writeProtected = new NullableBooleanProperty("WriteProtected");
 #endif
-
+#if NAV2009
+        private FormReferenceProperty lookupFormID = new FormReferenceProperty("LookupFormID");
+        private FormReferenceProperty drillDownFormID = new FormReferenceProperty("DrillDownFormID");
+#endif
         internal TableProperties(Table table)
         {
             Table = table;
@@ -54,9 +57,13 @@ namespace UncommonSense.CBreeze.Core.Table
             innerList.Add(pasteIsValid); // 15423
             innerList.Add(lookupPageID); // 55116
             innerList.Add(drillDownPageID); // 55117
-       }
+#if NAV2009
+            innerList.Add(lookupFormID);
+            innerList.Add(drillDownFormID);
+#endif
+    }
 
-        public Table Table { get; protected set; }
+    public Table Table { get; protected set; }
 
         public override INode ParentNode => Table;
 
@@ -249,6 +256,30 @@ namespace UncommonSense.CBreeze.Core.Table
             }
         }
 #endif
+#if NAV2009
+        public int? LookupFormID
+        {
+            get
+            {
+                return this.lookupFormID.Value;
+            }
+            set
+            {
+                this.lookupFormID.Value = value;
+            }
+        }
 
+        public int? DrillDownFormID
+        {
+            get
+            {
+                return this.drillDownFormID.Value;
+            }
+            set
+            {
+                this.drillDownFormID.Value = value;
+            }
+        }
+#endif
     }
 }
