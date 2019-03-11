@@ -10,6 +10,7 @@ using UncommonSense.CBreeze.Core.Code.Function;
 using UncommonSense.CBreeze.Core.Code.Parameter;
 using UncommonSense.CBreeze.Core.Code.Variable;
 using UncommonSense.CBreeze.Core.Codeunit;
+using UncommonSense.CBreeze.Core.Dataport;
 using UncommonSense.CBreeze.Core.Form;
 using UncommonSense.CBreeze.Core.Form.Control;
 using UncommonSense.CBreeze.Core.Form.Control.Properties;
@@ -42,6 +43,8 @@ namespace UncommonSense.CBreeze.Read
         private Code currentCode;
         private DataItem currentDataItem;
         private DataItems currentDataItems;
+        private DataportDataItem currentDataportDataItem;
+        private DataportField currentDataportField;
         private Event currentEvent;
         private string currentFileName;
         private FormControl currentFormControl;
@@ -146,7 +149,7 @@ namespace UncommonSense.CBreeze.Read
 
                     currentObject = newTable;
                     break;
-
+#if NAV2009
                 case ObjectType.Form:
                     var newForm = Application.Forms.Add(new Form(objectID, objectName));
 
@@ -155,7 +158,7 @@ namespace UncommonSense.CBreeze.Read
                     currentCode = newForm.Code;
                     currentObject = newForm;
                     break;
-
+#endif
 
                 case ObjectType.Page:
                     var newPage = Application.Pages.Add(new Page(objectID, objectName));
@@ -191,7 +194,15 @@ namespace UncommonSense.CBreeze.Read
                     currentCode = newCodeunit.Code;
                     currentObject = newCodeunit;
                     break;
-
+#if NAV2009
+                case ObjectType.Dataport:
+                    var newDataport = Application.Dataports.Add(new Dataport(objectID, objectName));
+                    currentProperties.Push(newDataport.Properties);
+                    currentCode = newDataport.Code;
+                    currentRequestForm = newDataport.RequestForm;
+                    currentObject = newDataport;
+                    break;
+#endif
                 case ObjectType.XmlPort:
                     var newXmlPort = Application.XmlPorts.Add(new XmlPort(objectID, objectName));
                     currentProperties.Push(newXmlPort.Properties);
@@ -319,7 +330,10 @@ namespace UncommonSense.CBreeze.Read
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
+                if (currentDataItem.Sections == null)
+                {
+                    currentDataItem.Sections = new Sections(currentDataItem);
+                }
                 currentDataItem.Sections.Add(currentSection);
                 currentProperties.Push(currentSection.AllProperties);
                 currentFormControls = currentSection.Controls;
@@ -418,6 +432,14 @@ namespace UncommonSense.CBreeze.Read
                 TypeSwitch.Case<OccurrenceProperty>(p => p.Value = propertyValue.ToEnum<Occurrence>()),
                 TypeSwitch.Case<OptionStringProperty>(p => p.Value = propertyValue),
                 TypeSwitch.Case<PageReferenceProperty>(p => p.Value = propertyValue.ToPageReference()),
+#if NAV2009
+                TypeSwitch.Case<FormReferenceProperty>(p => p.Value = propertyValue.ToFormReference()),
+                TypeSwitch.Case<ClassicControlBorderStyleProperty>(p => p.Value = propertyValue.ToEnum<ClassicControlBorderStyle>()),
+                TypeSwitch.Case<ShapeStyleProperty>(p => p.Value = propertyValue.ToEnum<ShapeStyle>()),
+                TypeSwitch.Case<SourceTablePlacementProperty>(p => p.Value = propertyValue.ToEnum<ClassicControlSourceTablePlacement>()),
+                TypeSwitch.Case<OrientationProperty>(p => p.Value = propertyValue.ToEnum<Orientation>()),
+                TypeSwitch.Case<ClassicReportOrientationProperty>(p => p.Value = propertyValue.ToEnum<ClassicReportOrientation>()),
+#endif
                 TypeSwitch.Case<PageTypeProperty>(p => p.Value = propertyValue.ToEnum<PageType>()),
                 TypeSwitch.Case<PaperSourceProperty>(p => p.Value = propertyValue.ToEnum<PaperSource>()),
                 TypeSwitch.Case<PageControlPartTypeProperty>(p =>
@@ -459,12 +481,13 @@ namespace UncommonSense.CBreeze.Read
                 TypeSwitch.Case<NullableGuidProperty>(p => p.Value = propertyValue.ToNullableGuid()),
                 TypeSwitch.Case<NullableBigIntegerProperty>(p => p.Value = propertyValue.ToNullableBigInteger()),
                 TypeSwitch.Case<NullableIntegerProperty>(p => p.Value = propertyValue.ToNullableInteger()),
+                TypeSwitch.Case<NullableDateProperty>(p => p.Value = propertyValue.ToNullableDateTime()),
                 TypeSwitch.Case<AutoPositionProperty>(p =>
                     p.Value = propertyValue.ToEnum<ClassicControlAutoPosition>()),
                 TypeSwitch.Case<BitmapPosProperty>(p => p.Value = propertyValue.ToEnum<BitmapPos>()),
                 TypeSwitch.Case<BlankNumbersProperty>(p => p.Value = propertyValue.ToEnum<BlankNumbers>()),
                 TypeSwitch.Case<BorderStyleProperty>(p => p.Value = propertyValue.ToEnum<BorderStyle>()),
-                TypeSwitch.Case<BorderWidthProperty>(p => p.Value = propertyValue.ToEnum<BorderWidth>()),
+                TypeSwitch.Case<BorderWidthProperty>(p => p.Value = propertyValue.ToBorderWidth()),
                 TypeSwitch.Case<CaptionBarProperty>(p => p.Value = propertyValue.ToEnum<ClassicControlCaptionBar>()),
                 TypeSwitch.Case<ColorProperty>(p => p.Value = propertyValue.ToColor()),
                 TypeSwitch.Case<HorzAlignProperty>(p => p.Value = propertyValue.ToEnum<HorzAlign>()),
@@ -886,6 +909,14 @@ namespace UncommonSense.CBreeze.Read
                     codeunitVariable.Dimensions = variableDimensions;
                     break;
 
+#if NAV2009
+                case VariableType.Dataport:
+                    var dataportVariable =
+                        variables.Add(new DataportVariable(variableID, variableName, variableSubType.ToInteger()));
+                    dataportVariable.Dimensions = variableDimensions;
+                    break;
+#endif
+
                 case VariableType.Date:
                     var dateVariable = variables.Add(new DateVariable(variableID, variableName));
                     dateVariable.Dimensions = variableDimensions;
@@ -949,6 +980,13 @@ namespace UncommonSense.CBreeze.Read
                     var filterPageBuilderVariable =
                         variables.Add(new FilterPageBuilderVariable(variableID, variableName));
                     filterPageBuilderVariable.Dimensions = variableDimensions;
+                    break;
+#endif
+#if NAV2009
+                case VariableType.Form:
+                    var formVariable =
+                        variables.Add(new FormVariable(variableID, variableName, variableSubType.ToInteger()));
+                    formVariable.Dimensions = variableDimensions;
                     break;
 #endif
                 case VariableType.Guid:
@@ -1908,12 +1946,16 @@ namespace UncommonSense.CBreeze.Read
 
         public override void OnBeginDataPortField(int? startPos, int? width, string sourceExpr)
         {
-            base.OnBeginDataPortField(startPos, width, sourceExpr);
+            currentDataportField = new DataportField(startPos, width, sourceExpr);
+            currentDataportDataItem.Fields.Add(currentDataportField);
+            currentProperties.Push(currentDataportField.Properties);
+            
         }
 
         public override void OnEndDataPortField()
         {
-            base.OnEndDataPortField();
+            currentDataportField = null;
+            currentProperties.Pop();
         }
 
         public override void OnBeginRequestForm()
@@ -1984,6 +2026,24 @@ namespace UncommonSense.CBreeze.Read
             report.DataItems.Add(newDataItem);
             currentProperties.Push(newDataItem.Properties);
             currentDataItem = newDataItem;
+        }
+
+        public override void OnBeginDataportDataItem()
+        {
+            var dataport = currentObject as Dataport;
+            if (dataport == null)
+                return;
+
+            var newDataItem = new DataportDataItem();
+            dataport.DataItems.Add(newDataItem);
+            currentProperties.Push(newDataItem.Properties);
+            currentDataportDataItem = newDataItem;
+        }
+
+        public override void OnEndDataportDataItem()
+        {
+            currentDataportDataItem = null;
+            currentProperties.Pop();
         }
 
         public override void OnEndReportDataItem()

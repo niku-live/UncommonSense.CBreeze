@@ -8,6 +8,15 @@ namespace UncommonSense.CBreeze.Read
 {
     public static class StringExtensionMethods
     {
+        public static BorderWidth ToBorderWidth(this string text)
+        {
+            if (Char.IsDigit(text[0]))
+            {
+                text = "Item" + text;
+            }
+            return ToEnum<BorderWidth>(text);
+        }
+
         public static T ToEnum<T>(this string text, bool ignoreCase = true, bool normalize = true) where T : struct
         {
             if (!typeof(T).IsEnum)
@@ -134,6 +143,14 @@ namespace UncommonSense.CBreeze.Read
             return TimeSpan.Parse(text);
         }
 
+        public static DateTime? ToNullableDateTime(this string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return null;
+
+            return DateTime.Parse(text);
+        }
+
         public static int? ToPageReference(this string text)
         {
             if (string.IsNullOrWhiteSpace(text))
@@ -143,6 +160,19 @@ namespace UncommonSense.CBreeze.Read
 
             if (!match.Success)
                 throw new ArgumentOutOfRangeException(string.Format("Invalid page reference: {0}.", text));
+
+            return match.Groups[1].Value.ToInteger();
+        }
+
+        public static int? ToFormReference(this string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return null;
+
+            var match = Regex.Match(text, @"Form(\d+)");
+
+            if (!match.Success)
+                throw new ArgumentOutOfRangeException(string.Format("Invalid form reference: {0}.", text));
 
             return match.Groups[1].Value.ToInteger();
         }
