@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UncommonSense.CBreeze.Common
 {
-    public enum DataClassification
+    public enum DataClassificationCommon
     {
         CustomerContent,
         ToBeClassified,

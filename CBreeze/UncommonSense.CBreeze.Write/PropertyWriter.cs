@@ -480,7 +480,8 @@ namespace UncommonSense.CBreeze.Write
                 writer.Write("[");
             writer.Indent(writer.Column);
 
-            var multiLanguageEntries = property.Value.OrderBy(e => e.LanguageID.GetLCIDFromLanguageCode());
+            //TODO:var multiLanguageEntries = property.Value.OrderBy(e => e.LanguageID.GetLCIDFromLanguageCode());
+            var multiLanguageEntries = property.Value.OrderBy(e => e.LanguageID);
 
             foreach (var multiLanguageEntry in multiLanguageEntries)
             {

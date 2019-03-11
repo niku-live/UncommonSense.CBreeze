@@ -190,7 +190,6 @@ Global
 		{56E5DF45-423C-4108-83A7-C7945FFDCD4C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{56E5DF45-423C-4108-83A7-C7945FFDCD4C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{56E5DF45-423C-4108-83A7-C7945FFDCD4C}.Release|x86.ActiveCfg = Release|Any CPU
-		{56E5DF45-423C-4108-83A7-C7945FFDCD4C}.Release|x86.Build.0 = Release|Any CPU		
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

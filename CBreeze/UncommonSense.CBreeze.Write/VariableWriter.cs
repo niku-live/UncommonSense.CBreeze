@@ -154,7 +154,8 @@ namespace UncommonSense.CBreeze.Write
 
         private static void WriteMultiLineTextConstant(TextConstant textConstant, CSideWriter writer)
         {
-            var sortedValues = textConstant.Values.OrderBy(v => v.LanguageID.GetLCIDFromLanguageCode());
+            //TODO:var sortedValues = textConstant.Values.OrderBy(v => v.LanguageID.GetLCIDFromLanguageCode());
+            var sortedValues = textConstant.Values.OrderBy(v => v.LanguageID);
 
 #if !NAV2017
             writer.InnerWriter.WriteLine();

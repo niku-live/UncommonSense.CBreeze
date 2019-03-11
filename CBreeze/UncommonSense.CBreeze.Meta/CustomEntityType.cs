@@ -21,6 +21,7 @@ namespace UncommonSense.CBreeze.Meta
             }
         }
 
+
         public PrimaryKeyType PrimaryKeyType { get; set; } = PrimaryKeyType.Code;
         public Collection<CustomEntityTypeAttribute> CustomPrimaryKeyAttributes { get; } = new Collection<CustomEntityTypeAttribute>();
         public IEnumerable<CustomEntityTypeAttribute> PrimaryKeyAttributes => CustomPrimaryKeyAttributes.Any() ? CustomPrimaryKeyAttributes : DefaultPrimaryKeyAttributes;
@@ -32,10 +33,12 @@ namespace UncommonSense.CBreeze.Meta
                 switch (PrimaryKeyType)
                 {
                     case PrimaryKeyType.Code:
-                        yield return new CustomEntityTypeAttribute("Code");
+                        yield return new CustomEntityTypeAttribute(); //TODO ("Code");
                         break;
                 }
             }
         }
+
+        public override IEnumerable<EntityTypePage> Pages => throw new System.NotImplementedException();
     }
 }

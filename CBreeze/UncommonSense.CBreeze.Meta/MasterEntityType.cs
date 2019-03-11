@@ -18,10 +18,11 @@ namespace UncommonSense.CBreeze.Meta
         {
             get
             {
-                yield return new EntityTypeTable(Name) { DrillDownPageID = };
+                //TODO:yield return new EntityTypeTable(Name) { DrillDownPageID = };
+                yield return new EntityTypeTable(Name);
             }
         }
 
-
+        public override IEnumerable<EntityTypePage> Pages => throw new System.NotImplementedException();
     }
 }

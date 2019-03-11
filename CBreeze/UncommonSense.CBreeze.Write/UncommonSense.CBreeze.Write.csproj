@@ -129,7 +129,7 @@
       <Name>UncommonSense.CBreeze.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\UncommonSense.CBreeze.Core\UncommonSense.CBreeze.Core.csproj">
-      <Project>{B17B9C13-574D-413C-BCBC-6C3239E17BE8}</Project>
+      <Project>{b17b9c13-574d-413c-bcbc-6c3239e17be8}</Project>
       <Name>UncommonSense.CBreeze.Core</Name>
     </ProjectReference>
   </ItemGroup>

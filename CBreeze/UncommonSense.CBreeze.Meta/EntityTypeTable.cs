@@ -18,5 +18,6 @@ namespace UncommonSense.CBreeze.Meta
         public EntityTypePage LookupPageID { get; set; }
         public EntityTypePage DrillDownPageID { get; set; }
         public Collection<EntityTypeTableField> Fields { get; } = new Collection<EntityTypeTableField>();
+        public PrimaryKeyType PrimaryKeyType { get; internal set; }
     }
 }

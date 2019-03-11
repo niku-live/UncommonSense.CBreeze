@@ -26,7 +26,6 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         private DataClassificationProperty dataClassification = new DataClassificationProperty("DataClassification");
 #endif
         private StringProperty description = new StringProperty("Description");
-        private DataClassificationProperty dataClassification = new DataClassificationProperty("DataClassification");
         private NullableBooleanProperty editable = new NullableBooleanProperty("Editable");
         private ExtendedDataTypeProperty extendedDatatype = new ExtendedDataTypeProperty("ExtendedDatatype");
 #if NAV2016
@@ -59,7 +58,6 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         internal BigIntegerTableFieldProperties(BigIntegerTableField field)
         {
             Field = field;
-            innerList.Add(dataClassification);
             innerList.Add(fieldClass);
             innerList.Add(calcFormula);
             innerList.Add(initValue);
@@ -251,18 +249,6 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             set
             {
                 this.description.Value = value;
-            }
-        }
-
-        public DataClassification? DataClassification
-        {
-            get
-            {
-                return this.dataClassification.Value;
-            }
-            set
-            {
-                this.dataClassification.Value = value;
             }
         }
 

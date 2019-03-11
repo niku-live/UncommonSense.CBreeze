@@ -1,4 +1,4 @@
-namespace UncommonSense.CBreeze.Core
+namespace UncommonSense.CBreeze.Core.Base.NavApplication
 {
     public static partial class BaseApp
     {

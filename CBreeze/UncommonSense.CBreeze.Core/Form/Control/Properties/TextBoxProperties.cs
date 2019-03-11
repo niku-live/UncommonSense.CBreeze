@@ -24,7 +24,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly NullableBooleanProperty _dropDown = new NullableBooleanProperty("DropDown");
         private readonly NullableBooleanProperty _editable = new NullableBooleanProperty("Editable");
         private readonly NullableBooleanProperty _enabled = new NullableBooleanProperty("Enabled");
-        private readonly NullableBooleanProperty _focusable = new NullableBooleanProperty("Focusable");
         private readonly StringProperty _format = new StringProperty("Format");
         private readonly NullableBooleanProperty _lookup = new NullableBooleanProperty("Lookup");
         private readonly StringProperty _lookupFormID = new StringProperty("LookupFormID");
@@ -68,7 +67,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_autoFormatType);
             innerList.Add(_autoFormatExpr);
             innerList.Add(_format);
-            innerList.Add(_focusable);
             innerList.Add(_lookup);
             innerList.Add(_lookupFormID);
             innerList.Add(_maxLength);
@@ -138,12 +136,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             get => _enabled.Value;
             set => _enabled.Value = value;
-        }
-
-        public bool? Focusable
-        {
-            get => _focusable.Value;
-            set => _focusable.Value = value;
         }
 
         public int? MaxLength

@@ -3,6 +3,7 @@ using UncommonSense.CBreeze.Core.Contracts;
 using UncommonSense.CBreeze.Core.Property;
 using UncommonSense.CBreeze.Core.Property.Implementation;
 using UncommonSense.CBreeze.Common;
+using UncommonSense.CBreeze.Core.Property.Enumeration;
 
 namespace UncommonSense.CBreeze.Core.Table
 {

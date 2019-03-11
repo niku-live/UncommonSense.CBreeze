@@ -28,7 +28,6 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         {
             Field = field;
 
-            innerList.Add(dataClassification);
             innerList.Add(onValidate);
             innerList.Add(onLookup);
 #if NAV2015
@@ -73,7 +72,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             set => obsoleteReason.Value = value;
         }
 
-        public DataClassification? DataClassification
+        public Property.Enumeration.DataClassification? DataClassification
         {
             get => dataClassification.Value;
             set => dataClassification.Value = value;
@@ -98,18 +97,6 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             set
             {
                 this.description.Value = value;
-            }
-        }
-
-        public DataClassification? DataClassification
-        {
-            get
-            {
-                return this.dataClassification.Value;
-            }
-            set
-            {
-                this.dataClassification.Value = value;
             }
         }
 

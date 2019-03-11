@@ -152,12 +152,6 @@
     <Compile Include="Parser.MultiLineTextConstant.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UncommonSense.CBreeze.Common\UncommonSense.CBreeze.Common.csproj">
-      <Project>{ade7d762-7efd-4867-8b34-926d64793335}</Project>
-      <Name>UncommonSense.CBreeze.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Parser.RequestFormSection.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +159,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Parser.DataportDataItem.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UncommonSense.CBreeze.Common\UncommonSense.CBreeze.Common.csproj">
+      <Project>{ade7d762-7efd-4867-8b34-926d64793335}</Project>
+      <Name>UncommonSense.CBreeze.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -24,7 +24,7 @@ namespace UncommonSense.CBreeze.Parse
         {
         }
 
-        public virtual void OnBeginObject(Common.ObjectType objectType, int objectID, string objectName)
+        public virtual void OnBeginObject(ObjectType objectType, int objectID, string objectName)
         {
         }
 
