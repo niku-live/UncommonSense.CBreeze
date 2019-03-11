@@ -12,19 +12,23 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly NullableBooleanProperty _inMatrixHeading = new NullableBooleanProperty("InMatrixHeading");
         private readonly StringProperty _maxValue = new StringProperty("MaxValue");
         private readonly StringProperty _minValue = new StringProperty("MinValue");
-        private readonly PushActionProperty _pushAction = new PushActionProperty("PushAction");
-        private readonly StringProperty _runCommand = new StringProperty("RunCommand");
-        private readonly StringProperty _runFormLink = new StringProperty("RunFormLink");
-        private readonly RunFormLinkTypeProperty _runFormLinkType = new RunFormLinkTypeProperty("RunFormLinkType");
-        private readonly NullableBooleanProperty _runFormOnRec = new NullableBooleanProperty("RunFormOnRec");
-        private readonly StringProperty _runFormView = new StringProperty("RunFormView");
-        private readonly RunObjectProperty _runObject = new RunObjectProperty("RunObject");
         private readonly StringProperty _sourceExpr = new StringProperty("SourceExpr");
         private readonly NullableBooleanProperty _updateOnAction = new NullableBooleanProperty("UpdateOnAction");
         private readonly StringProperty _valuesAllowed = new StringProperty("ValuesAllowed");
+        private readonly NullableBooleanProperty _editable = new NullableBooleanProperty("Editable");
 
         public CheckBoxProperties(FormControl control) : base(control)
         {
+            innerList.Add(_autoCalcField);
+            innerList.Add(_inColumn);
+            innerList.Add(_inMatrix);
+            innerList.Add(_inMatrixHeading);
+            innerList.Add(_maxValue);
+            innerList.Add(_minValue);
+            innerList.Add(_sourceExpr);
+            innerList.Add(_updateOnAction);
+            innerList.Add(_valuesAllowed);
+            innerList.Add(_editable);
         }
 
         public bool? InColumn
@@ -75,48 +79,16 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _valuesAllowed.Value = value;
         }
 
-        public PushAction PushAction
-        {
-            get => _pushAction.Value;
-            set => _pushAction.Value = value;
-        }
-
-        public RunObject RunObject => _runObject.Value;
-
-        public string RunFormView
-        {
-            get => _runFormView.Value;
-            set => _runFormView.Value = value;
-        }
-
-        public string RunFormLink
-        {
-            get => _runFormLink.Value;
-            set => _runFormLink.Value = value;
-        }
-
-        public RunFormLinkType RunFormLinkType
-        {
-            get => _runFormLinkType.Value;
-            set => _runFormLinkType.Value = value;
-        }
-
-        public bool? RunFormOnRec
-        {
-            get => _runFormOnRec.Value;
-            set => _runFormOnRec.Value = value;
-        }
-
-        public string RunCommand
-        {
-            get => _runCommand.Value;
-            set => _runCommand.Value = value;
-        }
-
         public bool? UpdateOnAction
         {
             get => _updateOnAction.Value;
             set => _updateOnAction.Value = value;
+        }
+
+        public bool? Editable
+        {
+            get => _editable.Value;
+            set => _editable.Value = value;
         }
     }
 }

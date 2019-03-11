@@ -10,6 +10,8 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public MatrixBoxProperties(FormControl formMatrixBoxControl) : base(formMatrixBoxControl)
         {
+            innerList.Add(_matrixColumnWidth);
+            innerList.Add(_matrixSourceTable);
         }
 
         public int? MatrixColumnWidth

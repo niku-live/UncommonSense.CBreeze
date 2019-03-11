@@ -9,6 +9,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public OptionButtonProperties(FormControl control) : base(control)
         {
+            innerList.Add(_optionValue);
         }
 
         public string OptionValue

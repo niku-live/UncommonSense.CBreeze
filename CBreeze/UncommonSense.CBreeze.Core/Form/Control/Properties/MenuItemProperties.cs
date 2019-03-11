@@ -1,4 +1,5 @@
-﻿using UncommonSense.CBreeze.Core.Contracts;
+﻿using UncommonSense.CBreeze.Core.Code.Variable;
+using UncommonSense.CBreeze.Core.Contracts;
 using UncommonSense.CBreeze.Core.Property.Enumeration;
 using UncommonSense.CBreeze.Core.Property.Implementation;
 
@@ -31,20 +32,44 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly MultiLanguageProperty _tooltipMl = new MultiLanguageProperty("TooltipML");
         private readonly NullableBooleanProperty _updateOnAction = new NullableBooleanProperty("UpdateOnAction");
         private readonly NullableBooleanProperty _visible = new NullableBooleanProperty("Visible");
+        private readonly TriggerProperty _onPush = new TriggerProperty("OnPush");
         private FormMenuItemBase menuItemBase;
 
         public MenuItemProperties(FormMenuItemBase menuItemBase)
         {
             this.menuItemBase = menuItemBase;
+            innerList.Add(_captionClass);
+            innerList.Add(_captionMl);
+            innerList.Add(_description);
+            innerList.Add(_ellipsis);
+            innerList.Add(_enabled);
+            innerList.Add(_id);
+            innerList.Add(_invalidActionAppearance);
+            innerList.Add(_menuItemType);
+            innerList.Add(_menuLevel);
+            innerList.Add(_name);
+            innerList.Add(_pushAction);
+            innerList.Add(_runCommand);
+            innerList.Add(_runFormLink);
+            innerList.Add(_runFormLinkType);
+            innerList.Add(_runFormOnRec);
+            innerList.Add(_runFormView);
+            innerList.Add(_runObject);
+            innerList.Add(_shortCutKey);
+            innerList.Add(_sourceExpr);
+            innerList.Add(_tooltipMl);
+            innerList.Add(_updateOnAction);
+            innerList.Add(_visible);
+            innerList.Add(_onPush);
         }
 
         public override INode ParentNode { get; }
 
-        public PushAction PushAction
+        /*public PushAction PushAction
         {
             get => _pushAction.Value;
             set => _pushAction.Value = value;
-        }
+        }*/
 
         public RunObject RunObject => _runObject.Value;
 
@@ -158,6 +183,11 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             get => _sourceExpr.Value;
             set => _sourceExpr.Value = value;
+        }
+
+        public Trigger OnPush
+        {
+            get => _onPush.Value;
         }
     }
 }

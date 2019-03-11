@@ -14,6 +14,10 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public ShapeProperties(FormControl control) : base(control)
         {
+            innerList.Add(_borderColor);
+            innerList.Add(_borderWidth);
+            innerList.Add(_inColumnHeading);
+            innerList.Add(_shapeStyle);
         }
 
         public Color BorderColor

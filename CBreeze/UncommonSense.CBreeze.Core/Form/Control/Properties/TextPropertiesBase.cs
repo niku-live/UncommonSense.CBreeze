@@ -5,18 +5,13 @@ using UncommonSense.CBreeze.Core.Property.Implementation;
 
 namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
-    public abstract class TextPropertiesBase : FormControlProperties, IText
+    public abstract class TextPropertiesBase : BaseControlBaseProperties, IText
     {
-        private readonly ColorProperty _backColor = new ColorProperty("BackColor");
-        private readonly NullableBooleanProperty _backTransparent = new NullableBooleanProperty("BackTransparent");
-        private readonly NullableBooleanProperty _border = new NullableBooleanProperty("Border");
         private readonly ColorProperty _borderColor = new ColorProperty("BorderColor");
         private readonly BorderStyleProperty _borderStyle = new BorderStyleProperty("BorderStyle");
         private readonly BorderWidthProperty _borderWidth = new BorderWidthProperty("BorderWidth");
         private readonly StringProperty _captionClass = new StringProperty("CaptionClass");
-        private readonly MultiLanguageProperty _captionMl = new MultiLanguageProperty("CaptionML");
         private readonly StringProperty _dataSetFieldName = new StringProperty("DataSetFieldName");
-        private readonly StringProperty _description = new StringProperty("Description");
         private readonly NullableBooleanProperty _fontBold = new NullableBooleanProperty("FontBold");
         private readonly NullableBooleanProperty _fontItalic = new NullableBooleanProperty("FontItalic");
         private readonly StringProperty _fontName = new StringProperty("FontName");
@@ -24,23 +19,33 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly NullableBooleanProperty _fontStrikethru = new NullableBooleanProperty("FontStrikethru");
         private readonly NullableBooleanProperty _fontUnderline = new NullableBooleanProperty("FontUnderline");
         private readonly ColorProperty _foreColor = new ColorProperty("ForeColor");
-        private readonly HorzAlignProperty _horzAlign = new HorzAlignProperty("HorzAlign");
         private readonly NullableBooleanProperty _inColumn = new NullableBooleanProperty("InColumn");
         private readonly NullableBooleanProperty _inMatrix = new NullableBooleanProperty("InMatrix");
         private readonly NullableBooleanProperty _inMatrixHeading = new NullableBooleanProperty("InMatrixHeading");
         private readonly NullableBooleanProperty _leaderDots = new NullableBooleanProperty("LeaderDots");
         private readonly NullableBooleanProperty _multiLine = new NullableBooleanProperty("MultiLine");
         private readonly StringProperty _padChar = new StringProperty("PadChar");
-        private readonly VertAlignProperty _vertAlign = new VertAlignProperty("VertAlign");
 
         protected TextPropertiesBase(FormControl control) : base(control)
         {
-        }
-
-        public bool? Border
-        {
-            get => _border.Value;
-            set => _border.Value = value;
+            innerList.Add(_borderColor);
+            innerList.Add(_borderStyle);
+            innerList.Add(_borderWidth);
+            innerList.Add(_captionClass);
+            innerList.Add(_dataSetFieldName);
+            innerList.Add(_fontBold);
+            innerList.Add(_fontItalic);
+            innerList.Add(_fontName);
+            innerList.Add(_fontSize);
+            innerList.Add(_fontStrikethru);
+            innerList.Add(_fontUnderline);
+            innerList.Add(_foreColor);
+            innerList.Add(_inColumn);
+            innerList.Add(_inMatrix);
+            innerList.Add(_inMatrixHeading);
+            innerList.Add(_leaderDots);
+            innerList.Add(_multiLine);
+            innerList.Add(_padChar);
         }
 
         public Color BorderColor
@@ -60,8 +65,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             get => _borderStyle.Value;
             set => _borderStyle.Value = value;
         }
-
-        public MultiLanguageValue CaptionMl => _captionMl.Value;
 
         public string CaptionClass
         {
@@ -111,18 +114,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _fontUnderline.Value = value;
         }
 
-        public HorzAlign HorzAlign
-        {
-            get => _horzAlign.Value;
-            set => _horzAlign.Value = value;
-        }
-
-        public VertAlign VertAlign
-        {
-            get => _vertAlign.Value;
-            set => _vertAlign.Value = value;
-        }
-
         public string DataSetFieldName
         {
             get => _dataSetFieldName.Value;
@@ -165,22 +156,5 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _leaderDots.Value = value;
         }
 
-        public string Description
-        {
-            get => _description.Value;
-            set => _description.Value = value;
-        }
-
-        public bool? BackTransparent
-        {
-            get => _backTransparent.Value;
-            set => _backTransparent.Value = value;
-        }
-
-        public Color BackColor
-        {
-            get => _backColor.Value;
-            set => _backColor.Value = value;
-        }
     }
 }

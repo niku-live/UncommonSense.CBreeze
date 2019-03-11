@@ -6,13 +6,11 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
     public abstract class CaptionBaseProperties : FormControlProperties, ICaption
     {
         private readonly StringProperty _captionClass = new StringProperty("CaptionClass");
-        private readonly MultiLanguageProperty _captionMl = new MultiLanguageProperty("CaptionML");
 
         protected CaptionBaseProperties(FormControl control) : base(control)
         {
+            innerList.Add(_captionClass);
         }
-
-        public MultiLanguageValue CaptionMl => _captionMl.Value;
 
         public string CaptionClass
         {

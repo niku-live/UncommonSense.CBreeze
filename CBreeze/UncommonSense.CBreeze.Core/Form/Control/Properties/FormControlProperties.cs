@@ -10,8 +10,9 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly NullableUnsignedIntegerProperty _height = new NullableUnsignedIntegerProperty("Height");
         private readonly HorzGlueProperty _horzGlue = new HorzGlueProperty("HorzGlue");
         private readonly NullableBooleanProperty _inFrame = new NullableBooleanProperty("InFrame");
-        private readonly NullableIntegerProperty _inPage = new NullableIntegerProperty("InFrame");
+        private readonly NullableIntegerProperty _inPage = new NullableIntegerProperty("InPage");
         private readonly StringProperty _name = new StringProperty("Name");
+        private readonly MultiLanguageProperty _captionMl = new MultiLanguageProperty("CaptionML");
 
         private readonly NullableUnsignedIntegerProperty _parentControl =
             new NullableUnsignedIntegerProperty("ParentControl");
@@ -22,6 +23,9 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly NullableUnsignedIntegerProperty _width = new NullableUnsignedIntegerProperty("Width");
         private readonly NullableUnsignedIntegerProperty _xPos = new NullableUnsignedIntegerProperty("XPos");
         private readonly NullableUnsignedIntegerProperty _yPos = new NullableUnsignedIntegerProperty("YPos");
+
+        private readonly HorzAlignProperty _horzAlign = new HorzAlignProperty("HorzAlign");
+        private readonly VertAlignProperty _vertAlign = new VertAlignProperty("VertAlign");
 
         protected FormControlProperties(FormControl control)
         {
@@ -39,6 +43,9 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_width);
             innerList.Add(_xPos);
             innerList.Add(_yPos);
+            innerList.Add(_captionMl);
+            innerList.Add(_horzAlign);
+            innerList.Add(_vertAlign);
         }
 
         public FormControl Control { get; }
@@ -114,7 +121,20 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _parentControl.Value = value;
         }
 
+        public MultiLanguageValue CaptionMl => _captionMl.Value;
 
         public MultiLanguageValue ToolTipML => _toolTipMl.Value;
+
+        public HorzAlign? HorzAlign
+        {
+            get => _horzAlign.Value;
+            set => _horzAlign.Value = value;
+        }
+
+        public VertAlign? VertAlign
+        {
+            get => _vertAlign.Value;
+            set => _vertAlign.Value = value;
+        }
     }
 }

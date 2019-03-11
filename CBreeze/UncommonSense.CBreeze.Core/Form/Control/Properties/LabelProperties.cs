@@ -9,6 +9,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public LabelProperties(FormControl control) : base(control)
         {
+            innerList.Add(_inColumnHeading);
         }
 
         public bool? InColumnHeading

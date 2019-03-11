@@ -4,23 +4,18 @@ using UncommonSense.CBreeze.Core.Property.Implementation;
 
 namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
-    public class TabControlProperties : FormControlProperties, ITabControl
+    public class TabControlProperties : ControlBasePropertiesWithFont, ITabControl
     {
+        private readonly NullableBooleanProperty _editable = new NullableBooleanProperty("Editable");
+        private readonly MultiLanguageProperty _pageNamesMl = new MultiLanguageProperty("PageNamesML");
+
         public TabControlProperties(FormControl control) : base(control)
         {
+            innerList.Add(_editable);
+            innerList.Add(_pageNamesMl);
         }
 
-        public bool? Enabled { get; set; }
-        public bool? Focusable { get; set; }
-        public Color BackColor { get; set; }
-        public Color ForeColor { get; set; }
-        public bool? Editable { get; set; }
-        public string FontName { get; set; }
-        public int? FontSize { get; set; }
-        public bool? FontBold { get; set; }
-        public bool? FontItalic { get; set; }
-        public bool? FontStrikethru { get; set; }
-        public bool? FontUnderline { get; set; }
-        public MultiLanguageValue PageNamesMl { get; set; }
+        public bool? Editable { get => _editable.Value; set => _editable.Value = value; }
+        public MultiLanguageValue PageNamesMl { get => _pageNamesMl.Value; }
     }
 }

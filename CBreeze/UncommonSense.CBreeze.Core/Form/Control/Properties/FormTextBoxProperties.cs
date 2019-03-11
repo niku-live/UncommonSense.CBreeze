@@ -20,6 +20,17 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public FormTextBoxProperties(FormControl control) : base(control)
         {
+            innerList.Add(_onActivate);
+            innerList.Add(_onAfterInput);
+            innerList.Add(_onAfterValidate);
+            innerList.Add(_onAssistEdit);
+            innerList.Add(_onBeforeInput);
+            innerList.Add(_onDeactivate);
+            innerList.Add(_onDrillDown);
+            innerList.Add(_onFormat);
+            innerList.Add(_onInputChange);
+            innerList.Add(_onLookup);
+            innerList.Add(_onValidate);
         }
 
         public Trigger OnActivate => _onActivate.Value;

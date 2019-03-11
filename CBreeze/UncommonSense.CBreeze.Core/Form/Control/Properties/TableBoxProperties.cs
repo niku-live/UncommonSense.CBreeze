@@ -5,33 +5,25 @@ using UncommonSense.CBreeze.Core.Property.Implementation;
 
 namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
-    public class TableBoxProperties : FormControlProperties, ITableBox
+    public class TableBoxProperties : BaseControlBaseProperties2, ITableBox
     {
-        private readonly ColorProperty _backColor = new ColorProperty("BackColor");
-        private readonly NullableBooleanProperty _border = new NullableBooleanProperty("Border");
         private readonly ColorProperty _borderColor = new ColorProperty("BorderColor");
         private readonly BorderWidthProperty _borderWidth = new BorderWidthProperty("BorderWidth");
-        private readonly StringProperty _description = new StringProperty("Description");
-        private readonly NullableBooleanProperty _enabled = new NullableBooleanProperty("Enabled");
-        private readonly NullableBooleanProperty _focusable = new NullableBooleanProperty("Focusable");
+        private readonly BorderStyleProperty _borderStyle = new BorderStyleProperty("BorderStyle");
         private readonly NullableIntegerProperty _headingHeight = new NullableIntegerProperty("HeadingHeight");
         private readonly NullableBooleanProperty _inlineEditing = new NullableBooleanProperty("InlineEditing");
         private readonly NullableIntegerProperty _rowHeight = new NullableIntegerProperty("RowHeight");
+        private readonly NullableBooleanProperty _editable = new NullableBooleanProperty("Editable");
 
         public TableBoxProperties(FormControl formTableBoxControl) : base(formTableBoxControl)
         {
-        }
-
-        public Color BackColor
-        {
-            get => _backColor.Value;
-            set => _backColor.Value = value;
-        }
-
-        public bool? Border
-        {
-            get => _border.Value;
-            set => _border.Value = value;
+            innerList.Add(_borderColor);
+            innerList.Add(_borderWidth);
+            innerList.Add(_borderStyle);
+            innerList.Add(_headingHeight);
+            innerList.Add(_inlineEditing);
+            innerList.Add(_rowHeight);
+            innerList.Add(_editable);
         }
 
         public Color BorderColor
@@ -46,22 +38,10 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _borderWidth.Value = value;
         }
 
-        public string Description
+        public BorderStyle BorderStyle
         {
-            get => _description.Value;
-            set => _description.Value = value;
-        }
-
-        public bool? Enabled
-        {
-            get => _enabled.Value;
-            set => _enabled.Value = value;
-        }
-
-        public bool? Focusable
-        {
-            get => _focusable.Value;
-            set => _focusable.Value = value;
+            get => _borderStyle.Value;
+            set => _borderStyle.Value = value;
         }
 
         public int? RowHeight
@@ -80,6 +60,12 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             get => _headingHeight.Value;
             set => _headingHeight.Value = value;
+        }
+
+        public bool? Editable
+        {
+            get => _editable.Value;
+            set => _editable.Value = value;
         }
     }
 }

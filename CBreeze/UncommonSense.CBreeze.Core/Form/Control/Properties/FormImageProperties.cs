@@ -10,6 +10,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public FormImageProperties(FormControl control) : base(control)
         {
+            innerList.Add(_onPush);
         }
 
         public Trigger OnPush => _onPush.Value;

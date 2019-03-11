@@ -59,7 +59,7 @@ namespace UncommonSense.CBreeze.Core.Form
         private readonly NullableBooleanProperty _refreshOnActivate = new NullableBooleanProperty("RefreshOnActivate");
         private readonly NullableBooleanProperty _saveColumnWidths = new NullableBooleanProperty("SaveColumnWidths");
         private readonly NullableBooleanProperty _saveControlInfo = new NullableBooleanProperty("SaveControlInfo");
-        private readonly NullableBooleanProperty _savePosAndSize = new NullableBooleanProperty("SavPosAndSize");
+        private readonly NullableBooleanProperty _savePosAndSize = new NullableBooleanProperty("SavePosAndSize");
         private readonly NullableBooleanProperty _saveTableView = new NullableBooleanProperty("SaveTableView");
         private readonly NullableBooleanProperty _saveValues = new NullableBooleanProperty("SaveValues");
         private readonly NullableBooleanProperty _showFilter = new NullableBooleanProperty("ShowFilter");
@@ -75,7 +75,7 @@ namespace UncommonSense.CBreeze.Core.Form
             new NullableBooleanProperty("SourceTableTemporary");
 
         private readonly TableViewProperty _sourceTableView = new TableViewProperty("SourceTableView");
-        private readonly NullableIntegerProperty _tableBoxId = new NullableIntegerProperty("TableBoxId");
+        private readonly NullableIntegerProperty _tableBoxId = new NullableIntegerProperty("TableBoxID");
         private readonly NullableIntegerProperty _timerInterval = new NullableIntegerProperty("TimerInterval");
         private readonly NullableBooleanProperty _updateOnActivate = new NullableBooleanProperty("UpdateOnActivate");
         private readonly NullableUnsignedIntegerProperty _vertGrid = new NullableUnsignedIntegerProperty("VertGrid");
@@ -83,20 +83,20 @@ namespace UncommonSense.CBreeze.Core.Form
         private readonly NullableUnsignedIntegerProperty _width = new NullableUnsignedIntegerProperty("Width");
         private readonly NullableUnsignedIntegerProperty _xPos = new NullableUnsignedIntegerProperty("XPos");
         private readonly NullableUnsignedIntegerProperty _yPos = new NullableUnsignedIntegerProperty("YPos");
+        private readonly ClassicControlBorderStyleProperty _borderStyle = new ClassicControlBorderStyleProperty("BorderStyle");
 
         internal FormProperties(IForm form)
         {
             Form = form;
 
-            innerList.Add(_onHyperlink);
-            innerList.Add(_onCreateHyperlink);
-            innerList.Add(_onTimer);
-            innerList.Add(_onBeforePutRecord);
-            innerList.Add(_onActivateForm);
-            innerList.Add(_onDeactivateForm);
             innerList.Add(_permissions);
+            innerList.Add(_width);
+            innerList.Add(_height);
             innerList.Add(_editable);
+            innerList.Add(_backColor);
             innerList.Add(_captionMl);
+            innerList.Add(_borderStyle);
+            innerList.Add(_captionBar);
             innerList.Add(_description);
             innerList.Add(_saveValues);
             innerList.Add(_multipleNewLines);
@@ -114,6 +114,32 @@ namespace UncommonSense.CBreeze.Core.Form
             innerList.Add(_autoSplitKey);
             innerList.Add(_refreshOnActivate);
             innerList.Add(_showFilter);
+            innerList.Add(_sourceTableRecord);
+            innerList.Add(_activeControlOnOpen);
+            innerList.Add(_autoPosition);
+            innerList.Add(_calcFields);
+            innerList.Add(_horzGrid);
+            innerList.Add(_vertGrid);
+            innerList.Add(_logHeight);
+            innerList.Add(_logWidth);
+            innerList.Add(_minimizable);
+            innerList.Add(_minimizedOnOpen);
+            innerList.Add(_maximizable);
+            innerList.Add(_maximizedOnOpen);
+            innerList.Add(_timerInterval);
+            innerList.Add(_lookupMode);
+            innerList.Add(_saveColumnWidths);
+            innerList.Add(_saveTableView);
+            innerList.Add(_tableBoxId);
+            innerList.Add(_updateOnActivate);
+            innerList.Add(_visible);
+            innerList.Add(_xPos);
+            innerList.Add(_yPos);
+            innerList.Add(_saveControlInfo);
+            innerList.Add(_sizeable);
+            innerList.Add(_savePosAndSize);
+            innerList.Add(_sourceTablePlacement);
+            innerList.Add(_tableBoxId);
             innerList.Add(_onInit);
             innerList.Add(_onOpenForm);
             innerList.Add(_onCloseForm);
@@ -126,35 +152,13 @@ namespace UncommonSense.CBreeze.Core.Form
             innerList.Add(_onDeleteRecord);
             innerList.Add(_onQueryCloseForm);
             innerList.Add(_onAfterGetCurrRecord);
-            innerList.Add(_sourceTableRecord);
-            innerList.Add(_activeControlOnOpen);
-            innerList.Add(_autoPosition);
-            innerList.Add(_backColor);
-            innerList.Add(_calcFields);
-            innerList.Add(_height);
-            innerList.Add(_width);
-            innerList.Add(_horzGrid);
-            innerList.Add(_vertGrid);
-            innerList.Add(_logHeight);
-            innerList.Add(_logWidth);
-            innerList.Add(_maximizable);
-            innerList.Add(_maximizedOnOpen);
-            innerList.Add(_minimizable);
-            innerList.Add(_minimizedOnOpen);
-            innerList.Add(_timerInterval);
-            innerList.Add(_lookupMode);
-            innerList.Add(_saveColumnWidths);
-            innerList.Add(_savePosAndSize);
-            innerList.Add(_saveTableView);
-            innerList.Add(_tableBoxId);
-            innerList.Add(_updateOnActivate);
-            innerList.Add(_visible);
-            innerList.Add(_xPos);
-            innerList.Add(_yPos);
-            innerList.Add(_captionBar);
-            innerList.Add(_saveControlInfo);
-            innerList.Add(_sizeable);
-            innerList.Add(_sourceTablePlacement);
+            innerList.Add(_onHyperlink);
+            innerList.Add(_onCreateHyperlink);
+            innerList.Add(_onTimer);
+            innerList.Add(_onBeforePutRecord);
+            innerList.Add(_onActivateForm);
+            innerList.Add(_onDeactivateForm);
+
         }
 
         public IForm Form { get; protected set; }
@@ -183,7 +187,11 @@ namespace UncommonSense.CBreeze.Core.Form
             set => _delayedInsert.Value = value;
         }
 
-        public ClassicControlBorderStyle BorderStyle { get; set; }
+        public ClassicControlBorderStyle? BorderStyle
+        {
+            get => _borderStyle.Value;
+            set => _borderStyle.Value = value;
+        }
 
         public bool? DeleteAllowed
         {

@@ -15,6 +15,11 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public FrameProperties(FormControl control) : base(control)
         {
+            innerList.Add(_borderColor);
+            innerList.Add(_borderStyle);
+            innerList.Add(_borderWidth);
+            innerList.Add(_editable);
+            innerList.Add(_topLineOnly);
         }
 
         public Color BorderColor

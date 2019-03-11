@@ -42,6 +42,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly StringProperty _sourceExpr = new StringProperty("SourceExpr");
         private readonly StringProperty _tableRelation = new StringProperty("TableRelation");
         private readonly StringProperty _title = new StringProperty("Title");
+        private readonly NullableBooleanProperty _inColumnHeading = new NullableBooleanProperty("InColumnHeading");
 
         private readonly NullableBooleanProperty _validateTableRelation =
             new NullableBooleanProperty("ValidateTableRelation");
@@ -50,16 +51,45 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public TextBoxProperties(FormControl control) : base(control)
         {
+            innerList.Add(_assistEdit);
+            innerList.Add(_autoEnter);
             innerList.Add(_blankNumbers);
+            innerList.Add(_blankZero);
+            innerList.Add(_charAllowed);
+            innerList.Add(_clearOnLookup);
+            innerList.Add(_closingDates);
+            innerList.Add(_dateFormula);
             innerList.Add(_decimalPlaces);
+            innerList.Add(_divisor);
+            innerList.Add(_drillDown);
+            innerList.Add(_drillDownFormID);
+            innerList.Add(_dropDown);
+            innerList.Add(_editable);
             innerList.Add(_autoFormatType);
             innerList.Add(_autoFormatExpr);
             innerList.Add(_format);
+            innerList.Add(_focusable);
+            innerList.Add(_lookup);
+            innerList.Add(_lookupFormID);
+            innerList.Add(_maxLength);
+            innerList.Add(_maxValue);
+            innerList.Add(_minValue);
+            innerList.Add(_nextControl);
+            innerList.Add(_notBlank);
+            innerList.Add(_numeric);
+            innerList.Add(_optionString);
+            innerList.Add(_optionCaptionML);
             innerList.Add(_autoCalcField);
             innerList.Add(_passwordText);
-            innerList.Add(_divisor);
+            innerList.Add(_permanentAssist);
+            innerList.Add(_sourceExpr);
+            innerList.Add(_tableRelation);
+            innerList.Add(_title);
             innerList.Add(_optionString);
             innerList.Add(_enabled);
+            innerList.Add(_validateTableRelation);
+            innerList.Add(_valuesAllowed);
+            innerList.Add(_inColumnHeading);
         }
 
         public int? NextControl
@@ -279,6 +309,12 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             get => _drillDownFormID.Value;
             set => _drillDownFormID.Value = value;
+        }
+
+        public bool? InColumnHeading
+        {
+            get => _inColumnHeading.Value;
+            set => _inColumnHeading.Value = value;
         }
     }
 }

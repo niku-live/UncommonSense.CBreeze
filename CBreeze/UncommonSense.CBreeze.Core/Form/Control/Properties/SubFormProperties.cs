@@ -10,6 +10,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly NullableBooleanProperty _border = new NullableBooleanProperty("Border");
         private readonly ColorProperty _borderColor = new ColorProperty("BorderColor");
         private readonly BorderWidthProperty _borderWidth = new BorderWidthProperty("BorderWidth");
+        private readonly BorderStyleProperty _borderStyle = new BorderStyleProperty("BorderStyle");
         private readonly StringProperty _description = new StringProperty("Description");
         private readonly NullableBooleanProperty _editable = new NullableBooleanProperty("Editable");
         private readonly NullableBooleanProperty _enabled = new NullableBooleanProperty("Enabled");
@@ -21,6 +22,18 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public SubFormProperties(FormControl control) : base(control)
         {
+            innerList.Add(_border);
+            innerList.Add(_borderColor);
+            innerList.Add(_borderWidth);
+            innerList.Add(_borderStyle);
+            innerList.Add(_description);
+            innerList.Add(_editable);
+            innerList.Add(_enabled);
+            innerList.Add(_focusable);
+            innerList.Add(_nextControl);
+            innerList.Add(_subFormId);
+            innerList.Add(_subFormLink);
+            innerList.Add(_subFormView);
         }
 
         public bool? Border
@@ -57,6 +70,12 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             get => _borderWidth.Value;
             set => _borderWidth.Value = value;
+        }
+
+        private BorderStyle BorderStyle
+        {
+            get => _borderStyle.Value;
+            set => _borderStyle.Value = value;
         }
 
         public bool? Editable

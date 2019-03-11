@@ -14,7 +14,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly NullableBooleanProperty _inMatrixHeading = new NullableBooleanProperty("InMatrixHeading");
         private readonly StringProperty _maxValue = new StringProperty("MaxValue");
         private readonly StringProperty _minValue = new StringProperty("MinValue");
-        private readonly NullableIntegerProperty _nextControl = new NullableIntegerProperty("NextControl");
         private readonly OrientationProperty _orientation = new OrientationProperty("Orientation");
         private readonly NullableIntegerProperty _percentage = new NullableIntegerProperty("Percentage");
         private readonly StringProperty _sourceExpr = new StringProperty("SourceExpr");
@@ -28,12 +27,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             get => _foreColor.Value;
             set => _foreColor.Value = value;
-        }
-
-        public int? NextControl
-        {
-            get => _nextControl.Value;
-            set => _nextControl.Value = value;
         }
 
         public bool? InColumn

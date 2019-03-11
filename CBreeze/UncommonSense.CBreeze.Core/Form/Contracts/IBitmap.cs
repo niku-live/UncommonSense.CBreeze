@@ -2,6 +2,6 @@
 {
     public interface IBitmap : IFormControlProperties
     {
-        int? Bitmap { get; set; }
+        string Bitmap { get; set; }
     }
 }

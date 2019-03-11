@@ -1,79 +1,39 @@
 ﻿using System.Drawing;
+using UncommonSense.CBreeze.Core.Code.Variable;
 using UncommonSense.CBreeze.Core.Form.Contracts;
 using UncommonSense.CBreeze.Core.Property.Enumeration;
 using UncommonSense.CBreeze.Core.Property.Implementation;
 
 namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
-    public abstract class BaseButtonProperties : BaseControlBaseProperties2, IButton
+    public abstract class BaseButtonProperties : ControlBasePropertiesWithFont, IButton
     {
-        private readonly NullableIntegerProperty _bitmap = new NullableIntegerProperty("Bitmap");
+        private readonly StringProperty _bitmap = new StringProperty("Bitmap");
         private readonly BitmapPosProperty _bitmapPos = new BitmapPosProperty("BitmapPos");
-        private readonly MultiLanguageProperty _captionMl = new MultiLanguageProperty("CaptionML");
         private readonly NullableBooleanProperty _focusOnClick = new NullableBooleanProperty("FocusOnClick");
-        private readonly NullableBooleanProperty _fontBold = new NullableBooleanProperty("FontBold");
-        private readonly NullableBooleanProperty _fontItalic = new NullableBooleanProperty("FontItalic");
-        private readonly StringProperty _fontName = new StringProperty("FontName");
-        private readonly NullableIntegerProperty _fontSize = new NullableIntegerProperty("FontSize");
-        private readonly NullableBooleanProperty _fontStrikethru = new NullableBooleanProperty("FontStrikethru");
-        private readonly NullableBooleanProperty _fontUnderline = new NullableBooleanProperty("FontUnderline");
-        private readonly ColorProperty _foreColor = new ColorProperty("ForeColor");
-        private readonly NullableBooleanProperty _showCaption = new NullableBooleanProperty("ShowCaption");
+        private readonly PushActionProperty _pushAction = new PushActionProperty("PushAction");
+        private readonly StringProperty _runCommand = new StringProperty("RunCommand");
+        private readonly StringProperty _runFormLink = new StringProperty("RunFormLink");
+        private readonly RunFormLinkTypeProperty _runFormLinkType = new RunFormLinkTypeProperty("RunFormLinkType");
+        private readonly NullableBooleanProperty _runFormOnRec = new NullableBooleanProperty("RunFormOnRec");
+        private readonly StringProperty _runFormView = new StringProperty("RunFormView");
+        private readonly RunObjectProperty _runObject = new RunObjectProperty("RunObject");
 
         protected BaseButtonProperties(FormControl control) : base(control)
         {
+            innerList.Add(_bitmap);
+            innerList.Add(_bitmapPos);
+            innerList.Add(_focusOnClick);
+            innerList.Add(_pushAction);
+            innerList.Add(_runCommand);
+            innerList.Add(_runFormLink);
+            innerList.Add(_runFormLinkType);
+            innerList.Add(_runFormOnRec);
+            innerList.Add(_runFormView);
+            innerList.Add(_runObject);
         }
 
-        public Color ForeColor
-        {
-            get => _foreColor.Value;
-            set => _foreColor.Value = value;
-        }
-
-        public MultiLanguageValue CaptionMl => _captionMl.Value;
         public string CaptionClass { get; set; }
-
-        public bool? ShowCaption
-        {
-            get => _showCaption.Value;
-            set => _showCaption.Value = value;
-        }
-
-        public string FontName
-        {
-            get => _fontName.Value;
-            set => _fontName.Value = value;
-        }
-
-        public int? FontSize
-        {
-            get => _fontSize.Value;
-            set => _fontSize.Value = value;
-        }
-
-        public bool? FontBold
-        {
-            get => _fontBold.Value;
-            set => _fontBold.Value = value;
-        }
-
-        public bool? FontItalic
-        {
-            get => _fontItalic.Value;
-            set => _fontItalic.Value = value;
-        }
-
-        public bool? FontStrikethru
-        {
-            get => _fontStrikethru.Value;
-            set => _fontStrikethru.Value = value;
-        }
-
-        public bool? FontUnderline
-        {
-            get => _fontUnderline.Value;
-            set => _fontUnderline.Value = value;
-        }
 
         public bool? FocusOnClick
         {
@@ -87,10 +47,49 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _bitmapPos.Value = value;
         }
 
-        public int? Bitmap
+        public string Bitmap
         {
             get => _bitmap.Value;
             set => _bitmap.Value = value;
         }
+
+        public PushAction PushAction
+        {
+            get => _pushAction.Value;
+            set => _pushAction.Value = value;
+        }
+
+        public RunObject RunObject => _runObject.Value;
+
+        public string RunFormView
+        {
+            get => _runFormView.Value;
+            set => _runFormView.Value = value;
+        }
+
+        public string RunFormLink
+        {
+            get => _runFormLink.Value;
+            set => _runFormLink.Value = value;
+        }
+
+        public RunFormLinkType RunFormLinkType
+        {
+            get => _runFormLinkType.Value;
+            set => _runFormLinkType.Value = value;
+        }
+
+        public bool? RunFormOnRec
+        {
+            get => _runFormOnRec.Value;
+            set => _runFormOnRec.Value = value;
+        }
+
+        public string RunCommand
+        {
+            get => _runCommand.Value;
+            set => _runCommand.Value = value;
+        }
+
     }
 }

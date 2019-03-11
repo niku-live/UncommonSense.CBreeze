@@ -14,6 +14,11 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public FormMatrixBoxProperties(FormControl formMatrixBoxControl) : base(formMatrixBoxControl)
         {
+            innerList.Add(_onAfterGetCurrRecord);
+            innerList.Add(_onAfterGetRecord);
+            innerList.Add(_onBeforePutRecord);
+            innerList.Add(_onFindRecord);
+            innerList.Add(_onNextRecord);
         }
 
         public Trigger OnFindRecord => _onFindRecord.Value;

@@ -11,6 +11,8 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public FormSubFormProperties(FormControl control) : base(control)
         {
+            innerList.Add(_onActivate);
+            innerList.Add(_onDeactivate);
         }
 
         public Trigger OnActivate => _onActivate.Value;

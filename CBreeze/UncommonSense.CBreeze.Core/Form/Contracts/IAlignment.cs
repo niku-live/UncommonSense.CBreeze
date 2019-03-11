@@ -4,7 +4,7 @@ namespace UncommonSense.CBreeze.Core.Form.Contracts
 {
     public interface IAlignment : IFormControlProperties
     {
-        HorzAlign HorzAlign { get; set; }
-        VertAlign VertAlign { get; set; }
+        HorzAlign? HorzAlign { get; set; }
+        VertAlign? VertAlign { get; set; }
     }
 }
