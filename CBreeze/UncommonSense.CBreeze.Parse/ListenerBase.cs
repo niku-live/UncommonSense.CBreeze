@@ -247,5 +247,8 @@ namespace UncommonSense.CBreeze.Parse
         {
       
         }
+
+        public virtual void OnBeginDataportDataItem() { }
+        public virtual void OnEndDataportDataItem() { }
     }
 }

@@ -22,7 +22,7 @@ namespace UncommonSense.CBreeze.Parse
         public static readonly Regex EndWordLayoutSection = new Regex(@"^END_OF_WORDLAYOUT$", RegexOptions.Compiled);
         // Properties
         public static readonly Regex ObjectPropertySignature = new Regex(@"^([^=]+)=(.*);$", RegexOptions.Compiled);
-        public static readonly Regex PropertySignature = new Regex(@"^(\w[^=]+)=(.*)$", RegexOptions.Compiled);
+        public static readonly Regex PropertySignature = new Regex(@"^((\w[^=]{3,})|ID)=(.*)$", RegexOptions.Compiled);
         public static readonly Regex TriggerSignature = new Regex(@"^((Import::|Export::)?On[^=]+)=(.*)$", RegexOptions.Compiled);
         public static readonly Regex DecimalPlaces = new Regex(@"^(\d*):(\d*)$", RegexOptions.Compiled);
         public static readonly Regex AccessByPermission = new Regex(@"^(TableData|Table|Form|Report|Codeunit|Dataport|XmlPort|Page|Query|System)\s(\d+)=([RIMDX]*)$", RegexOptions.Compiled);
@@ -31,7 +31,7 @@ namespace UncommonSense.CBreeze.Parse
         public static readonly Regex Variables = new Regex(@"^VAR$", RegexOptions.Compiled);
         public static readonly Regex Variable = new Regex(@"^\s*([^@]+)@(\d+)\s:\s(.*);$", RegexOptions.Compiled);
         public static readonly Regex MultiLineTextConst = new Regex(@"^\s*([^@]+)@(\d+)\s:\sTextConst", RegexOptions.Compiled);
-        public static readonly Regex MultiLineTextConstValue = new Regex(@"^\s*'(.{3})=(.*)(('[,;]){0,1})$", RegexOptions.Compiled);
+        public static readonly Regex MultiLineTextConstValue = new Regex(@"^\s*'(.{3})=(.*)(('[,;]){1,1})$", RegexOptions.Compiled);
         public static readonly Regex EndMultiLineTextConstValue = new Regex(@"^'[,;]$", RegexOptions.Compiled);
         public static readonly Regex VariableRunOnClient = new Regex(@"^(.*)\sRUNONCLIENT$", RegexOptions.Compiled);
         public static readonly Regex VariableWithEvents = new Regex(@"^(.*)\sWITHEVENTS$", RegexOptions.Compiled);

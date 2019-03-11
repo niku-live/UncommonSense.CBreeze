@@ -163,6 +163,9 @@
   <ItemGroup>
     <Compile Include="Parser.ReportDataItem.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Parser.DataportDataItem.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

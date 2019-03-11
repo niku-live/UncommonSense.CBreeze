@@ -108,6 +108,8 @@ namespace UncommonSense.CBreeze.Parse
         void OnBeginFormMenuItem();
         void OnEndFormMenuItem();
         // Dataports
+        void OnBeginDataportDataItem();
+        void OnEndDataportDataItem();
         void OnBeginDataPortField(int? startPos, int? width, string sourceExpr);
         void OnEndDataPortField();
         // Reports

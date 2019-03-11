@@ -12,13 +12,18 @@ namespace UncommonSense.CBreeze.Parse
         internal bool ParseVariable(Lines lines)
         {
             Match match = null;
-
-            if (!lines.FirstLineTryMatch(Patterns.Variable, out match))
-                return false;
+            lines.FirstLineTryMatch(Patterns.BlankLine);
+            if (!lines.FirstLineTryMatch(Patterns.MultiLineTextConst, out match))
+                if (!lines.FirstLineTryMatch(Patterns.Variable, out match))
+                    return false;
 
             var variableName = match.Groups[1].Value;
             var variableID = match.Groups[2].Value.ToInteger();
             var variableType = match.Groups[3].Value;
+            if (String.IsNullOrEmpty(variableType))
+            {
+                variableType = "TextConst";
+            }
             var variableSuppressDispose = ParseSuppressDispose(ref variableType);
             var variableRunOnClient = ParseRunOnClient(ref variableType);
             var variableWithEvents = ParseWithEvents(ref variableType);
@@ -30,6 +35,28 @@ namespace UncommonSense.CBreeze.Parse
             var variableSubType = ParseVariableSubType(ref variableType);
             var variableLength = ParseVariableLength(ref variableType);
             var variableOptionString = ParseOptionString(ref variableType);
+
+            if (variableType == "TextConst")
+            {
+                var stringBuilder = new StringBuilder();
+                while (lines.FirstLineTryMatch(Patterns.MultiLineTextConstValue, out match))
+                {
+                    var languageCode = match.Groups[1].Value;
+                    var languageValue = match.Groups[2].Value;
+                    var separator = match.Groups[3].Value;
+                    if (String.IsNullOrEmpty(separator)) //TextConst value is multiline
+                    {
+                        while (!lines.FirstLineTryMatch(Patterns.EndMultiLineTextConstValue, true))
+                        {
+                            var valuePart = lines.First();
+                            lines.Consume(0, 0, valuePart.Length);
+                            languageValue += valuePart + "\n";
+                        }
+                    }
+                    stringBuilder.AppendFormat("{0}={1};", languageCode, languageValue);
+                }
+                variableConstValue = stringBuilder.ToString();
+            }
 
             Listener.OnVariable(
                 variableID, 

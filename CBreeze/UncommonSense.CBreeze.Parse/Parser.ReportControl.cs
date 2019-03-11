@@ -25,6 +25,22 @@ namespace UncommonSense.CBreeze.Parse
             {
                 var indentation = FindBestIndentationForFormControl(match.Value, lines);
                 lines.Unindent(indentation);
+                var list = lines.ToList();
+                int dedent = 0;
+                foreach (var line in lines.Skip(1))
+                {
+                    if (dedent == 0)
+                    {
+                        dedent = line.Length - line.TrimStart().Length;
+                    }
+                    int diff = line.Length - line.TrimStart().Length;
+                    if ((diff > 0) && (diff < dedent))
+                    {
+                        dedent = diff;
+                    }
+                }
+                lines = new Lines(list);
+                lines.Unindent(dedent);
                 ParseFormControlProperties(lines);
             }
 

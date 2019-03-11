@@ -249,5 +249,13 @@ namespace UncommonSense.CBreeze.Parse
         public void OnEndReportSection()
         {
         }
+
+        public void OnBeginDataportDataItem()
+        {
+        }
+
+        public void OnEndDataportDataItem()
+        {
+        }
     }
 }

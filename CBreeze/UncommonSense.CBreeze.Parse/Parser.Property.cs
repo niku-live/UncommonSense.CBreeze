@@ -12,7 +12,7 @@ namespace UncommonSense.CBreeze.Parse
 
             var match = lines.FirstLineMustMatch(Patterns.PropertySignature);
             var propertyName = match.Groups[1].Value;
-            var propertyValueFirstLine = match.Groups[2].Value;
+            var propertyValueFirstLine = match.Groups[3].Value;
 
             switch (propertyName)
             {
@@ -31,14 +31,21 @@ namespace UncommonSense.CBreeze.Parse
             }
 
             var stringBuilder = new StringBuilder(propertyValueFirstLine);
-            lines.Unindent(propertyName.Length + 1);
-
-            foreach (var line in lines)
+            if (propertyName.EndsWith("ML")|| (propertyName == "CalcFormula") || (propertyName == "Permissions") || (propertyName == "TableRelation") || (propertyName == "DataItemLink"))
             {
-                stringBuilder.AppendFormat(" {0}", line.TrimStart());
-                // stringBuilder.Append(line.TrimStart());
+                //lines.Unindent(propertyName.Length + 1);
+                
+                foreach (var line in lines)
+                {
+                    //if (line.Length - line.TrimStart().Length <= 3)//propertyName.Length)
+                    //{
+                    //    break;
+                    //}
+                    stringBuilder.AppendFormat(" {0}", line.TrimStart());
+                    // stringBuilder.Append(line.TrimStart());
+                }
+                
             }
-
             var propertyValue = stringBuilder.ToString().TrimEnd(";".ToCharArray());
 
             Listener.OnProperty(propertyName, propertyValue);

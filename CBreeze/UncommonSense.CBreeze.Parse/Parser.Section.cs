@@ -6,7 +6,7 @@ namespace UncommonSense.CBreeze.Parse
 {
     public partial class Parser
     {
-        internal void ParseSection(Lines lines, ObjectType objectType, bool forceNewFormat = false)
+        internal void ParseSection(Lines lines, ObjectType objectType, bool forceNewFormat = false, bool inRequestFormOrPage = false)
         {
             var match = lines.FirstLineMustMatch(Patterns.SectionSignature);
             var sectionType = match.Groups[1].Value.ToSectionType();
@@ -64,7 +64,14 @@ namespace UncommonSense.CBreeze.Parse
                             }
                             else
                             {
-                                ParseReportControlsSection(lines);
+                                if (inRequestFormOrPage)
+                                {
+                                    ParseFormControlsSection(lines);
+                                }
+                                else
+                                {
+                                    ParseReportControlsSection(lines);
+                                }
                             }
                             break;
                     }
