@@ -5,11 +5,13 @@ using UncommonSense.CBreeze.Core.Generic;
 
 namespace UncommonSense.CBreeze.Core.Report.Classic.Section.Contracts
 {
-    public abstract class SectionBase : IHasProperties, INode
+    public abstract class SectionBase : IHasProperties, INode, IForm
     {
         protected SectionBase(DataItem parent)
         {
             Parent = parent;
+            Controls = new FormControls(this);
+
         }
 
         public DataItem Parent { get; }
@@ -27,5 +29,7 @@ namespace UncommonSense.CBreeze.Core.Report.Classic.Section.Contracts
         public INode ParentNode => Container;
 
         public abstract IEnumerable<INode> ChildNodes { get; }
+
+        public int ObjectID { get; internal set; }
     }
 }

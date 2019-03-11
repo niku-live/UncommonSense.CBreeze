@@ -23,6 +23,8 @@ namespace UncommonSense.CBreeze.Core.Report.Classic
         private readonly NullableBooleanProperty printOnlyIfDetail = new NullableBooleanProperty("PrintOnlyIfDetail");
         private readonly FieldListProperty reqFilterFields = new FieldListProperty("ReqFilterFields");
         private readonly MultiLanguageProperty reqFilterHeadingML = new MultiLanguageProperty("ReqFilterHeadingML");
+        private readonly NullableIntegerProperty _dataItemIndent = new NullableIntegerProperty("DataItemIndent");
+        private readonly StringProperty _dataItemVarName = new StringProperty("DataItemVarName");
 
         internal DataItemProperties(DataItem dataItem)
         {
@@ -43,6 +45,8 @@ namespace UncommonSense.CBreeze.Core.Report.Classic
             innerList.Add(_newPagePerGroup);
             innerList.Add(_newPagePerRecord);
             innerList.Add(_totalFields);
+            innerList.Add(_dataItemIndent);
+            innerList.Add(_dataItemVarName);
         }
 
         public bool? NewPagePerGroup
@@ -105,5 +109,17 @@ namespace UncommonSense.CBreeze.Core.Report.Classic
         public FieldList ReqFilterFields => reqFilterFields.Value;
 
         public MultiLanguageValue ReqFilterHeadingML => reqFilterHeadingML.Value;
+
+        public int? DataItemIndent
+        {
+            get => _dataItemIndent.Value;
+            set => _dataItemIndent.Value = value;
+        }
+
+        public string DataItemVarName
+        {
+            get => _dataItemVarName.Value;
+            set => _dataItemVarName.Value = value;
+        }
     }
 }

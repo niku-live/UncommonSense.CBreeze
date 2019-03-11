@@ -35,6 +35,17 @@ namespace UncommonSense.CBreeze.Core.Report
 #if NAV2015
         private StringProperty wordMergeDataItem = new StringProperty("WordMergeDataItem");
 #endif
+#if NAV2009
+        private ClassicReportOrientationProperty orientation = new ClassicReportOrientationProperty("Orientation");
+        private NullableIntegerProperty topMargin = new NullableIntegerProperty("TopMargin");
+        private NullableIntegerProperty bottomMargin = new NullableIntegerProperty("BottomMargin");
+        private NullableIntegerProperty leftMargin = new NullableIntegerProperty("LeftMargin");
+        private NullableIntegerProperty rightMargin = new NullableIntegerProperty("RightMargin");
+        private NullableIntegerProperty horzGrid = new NullableIntegerProperty("HorzGrid");
+        private NullableIntegerProperty vertGrid = new NullableIntegerProperty("VertGrid");
+        private StringProperty paperSize = new StringProperty("PaperSize");
+        private NullableBooleanProperty useReqForm = new NullableBooleanProperty("UseReqForm");
+#endif
 
         internal ReportProperties(Report report)
         {
@@ -62,6 +73,17 @@ namespace UncommonSense.CBreeze.Core.Report
             innerList.Add(wordMergeDataItem);
 #endif
             innerList.Add(useRequestPage);
+#if NAV2009
+            innerList.Add(useReqForm);
+            innerList.Add(topMargin);
+            innerList.Add(bottomMargin);
+            innerList.Add(leftMargin);
+            innerList.Add(rightMargin);
+            innerList.Add(horzGrid);
+            innerList.Add(vertGrid);
+            innerList.Add(orientation);
+            innerList.Add(paperSize);
+#endif
         }
 
         public Report Report { get; protected set; }
@@ -291,6 +313,61 @@ namespace UncommonSense.CBreeze.Core.Report
             {
                 this.wordMergeDataItem.Value = value;
             }
+        }
+#endif
+#if NAV2009
+        public ClassicReportOrientation Orientation
+        {
+            get => orientation.Value;
+            set => orientation.Value = value;
+        }
+
+        public int? TopMargin
+        {
+            get => topMargin.Value;
+            set => topMargin.Value = value;
+        }
+
+        public int? BottomMargin
+        {
+            get => bottomMargin.Value;
+            set => bottomMargin.Value = value;
+        }
+
+        public int? LeftMargin
+        {
+            get => leftMargin.Value;
+            set => leftMargin.Value = value;
+        }
+
+        public int? RightMargin
+        {
+            get => rightMargin.Value;
+            set => rightMargin.Value = value;
+        }
+
+        public int? HorzGrid
+        {
+            get => horzGrid.Value;
+            set => horzGrid.Value = value;
+        }
+
+        public int? VertGrid
+        {
+            get => vertGrid.Value;
+            set => vertGrid.Value = value;
+        }
+
+        public string PaperSize
+        {
+            get => paperSize.Value;
+            set => paperSize.Value = value;
+        }
+
+        public bool? UseReqForm
+        {
+            get => useReqForm.Value;
+            set => useReqForm.Value = value;
         }
 #endif
     }

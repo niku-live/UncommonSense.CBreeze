@@ -22,8 +22,8 @@ namespace UncommonSense.CBreeze.Core.Report.Classic
 
         public override void ValidateName(DataItem item)
         {
-            TestNameNotNullOrEmpty(item);
-            TestNameUnique(item);
+            //TestNameNotNullOrEmpty(item);
+            //TestNameUnique(item);
         }
 
         protected override void InsertItem(int index, DataItem item)
