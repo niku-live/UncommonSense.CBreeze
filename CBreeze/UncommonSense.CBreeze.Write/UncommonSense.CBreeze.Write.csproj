@@ -30,7 +30,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NAV2013;NAV2013R2;NAV2015;NAV2016;NAV2017</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NAV2013;NAV2013R2;NAV2015;NAV2016;NAV2017;NAV2009</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>true</UseVSHostingProcess>
@@ -46,6 +46,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -64,6 +65,10 @@
     <Compile Include="ExtendedDataTypeExtensionMethods.cs" />
     <Compile Include="FieldListWriter.cs" />
     <Compile Include="Formatters.cs" />
+    <Compile Include="FormControlsWriter.cs" />
+    <Compile Include="FormControlWriter.cs" />
+    <Compile Include="FormPropertiesWriter.cs" />
+    <Compile Include="FormWriter.cs" />
     <Compile Include="FunctionWriter.cs" />
     <Compile Include="LinesWriter.cs" />
     <Compile Include="CSideWriter.cs" />

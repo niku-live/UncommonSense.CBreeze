@@ -10,6 +10,7 @@ using UncommonSense.CBreeze.Core.MenuSuite;
 using UncommonSense.CBreeze.Core.Property.Enumeration;
 using UncommonSense.CBreeze.Core.Property.Implementation;
 using UncommonSense.CBreeze.Core.Property.Type;
+using System.Drawing;
 
 namespace UncommonSense.CBreeze.Write
 {
@@ -107,6 +108,20 @@ namespace UncommonSense.CBreeze.Write
                 TypeSwitch.Case<DataItemQueryElementTableFilterProperty>(p => p.Write(isLastProperty, style, writer)),
                 TypeSwitch.Case<SIFTLevelsProperty>(p => p.Write(isLastProperty, style, writer)),
                 TypeSwitch.Case<TestIsolationProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
+#if NAV2009
+                TypeSwitch.Case<FormReferenceProperty>(p => p.Write(isLastProperty, style, writer)),
+                TypeSwitch.Case<CaptionBarProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
+                TypeSwitch.Case<ClassicReportOrientationProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
+                TypeSwitch.Case<ClassicControlBorderStyleProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
+                TypeSwitch.Case<VertAlignProperty>(p => { if (p.HasValue) WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer); }),
+                TypeSwitch.Case<VertGlueProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
+                TypeSwitch.Case<HorzAlignProperty>(p => { if (p.HasValue) WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer); }),
+                TypeSwitch.Case<HorzGlueProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
+                TypeSwitch.Case<ShapeStyleProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
+                TypeSwitch.Case<ColorProperty>(p => p.Write(isLastProperty, style, writer)),
+                TypeSwitch.Case<AutoPositionProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
+                TypeSwitch.Case<SourceTablePlacementProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
+#endif
                 TypeSwitch.Case<NullableBooleanProperty>(p => p.Write(isLastProperty, style, writer)),
                 TypeSwitch.Case<NullableDateTimeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString("dd-MM-yy HH:mm"), isLastProperty, writer)),
                 TypeSwitch.Case<NullableDateProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString("dd-MM-yy"), isLastProperty, writer)),
@@ -114,6 +129,7 @@ namespace UncommonSense.CBreeze.Write
                 TypeSwitch.Case<NullableBigIntegerProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<NullableGuidProperty>(p => WriteSimpleProperty(p.Name, string.Format("[{0}]", p.Value.GetValueOrDefault().ToString("B").ToUpper()), isLastProperty, writer)),
                 TypeSwitch.Case<NullableIntegerProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
+                TypeSwitch.Case<NullableUnsignedIntegerProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<NullableTimeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString("c"), isLastProperty, writer)),
                 TypeSwitch.Case<XmlPortNodeDataTypeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<DataClassificationProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
@@ -369,6 +385,31 @@ namespace UncommonSense.CBreeze.Write
             }
         }
 
+#if NAV2009
+        public static void Write(this ColorProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
+        {
+            var color = property.Value;
+            var red = (byte)color.R;
+            var green = (byte)color.G;
+            var blue = (byte)color.B;
+
+            var bytes = new byte[] { red, green, blue, 0 };
+            var integer = BitConverter.ToInt32(bytes, 0);
+
+            var value = integer.ToString();
+            switch (isLastProperty)
+            {
+                case true:
+                    writer.Write("{0}={1} ", property.Name, value);
+                    break;
+
+                case false:
+                    writer.WriteLine("{0}={1};", property.Name, value);
+                    break;
+            }
+        }
+#endif
+
         public static void Write(this NullableBooleanProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
             switch (isLastProperty)
@@ -600,6 +641,20 @@ namespace UncommonSense.CBreeze.Write
 
                 case false:
                     writer.WriteLine("{0}={1} {2};", property.Name, FormatRunObjectType(property.Value.Type.Value), property.Value.ID);
+                    break;
+            }
+        }
+
+        public static void Write(this FormReferenceProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
+        {
+            switch (isLastProperty)
+            {
+                case true:
+                    writer.Write("{0}=Form{1} ", property.Name, property.Value.Value);
+                    break;
+
+                case false:
+                    writer.WriteLine("{0}=Form{1};", property.Name, property.Value.Value);
                     break;
             }
         }

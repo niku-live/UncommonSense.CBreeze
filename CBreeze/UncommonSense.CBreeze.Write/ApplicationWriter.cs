@@ -13,6 +13,9 @@ namespace UncommonSense.CBreeze.Write
         public static void WriteToCSideWriter(this Application application, CSideWriter writer)
         {
             application.Tables.Write(writer);
+#if NAV2009
+            application.Forms.Write(writer);
+#endif
             application.Reports.Write(writer);
             application.Codeunits.Write(writer);
             application.XmlPorts.Write(writer);

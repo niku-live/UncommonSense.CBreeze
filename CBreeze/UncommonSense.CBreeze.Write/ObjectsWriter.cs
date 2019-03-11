@@ -5,6 +5,9 @@ using System.Text;
 using UncommonSense.CBreeze.Common;
 using UncommonSense.CBreeze.Core;
 using UncommonSense.CBreeze.Core.Codeunit;
+#if NAV2009
+using UncommonSense.CBreeze.Core.Form;
+#endif
 using UncommonSense.CBreeze.Core.MenuSuite;
 using UncommonSense.CBreeze.Core.Page;
 using UncommonSense.CBreeze.Core.Query;
@@ -72,6 +75,17 @@ namespace UncommonSense.CBreeze.Write
 				menuSuite.Write(writer);
 			}
 		}
+
+#if NAV2009
+        public static void Write(this Forms forms, CSideWriter writer)
+        {
+            foreach (var form in forms.OrderBy(f=>f.ID))
+            {
+                form.Write(writer);
+            }
+        }
+#endif
+
 
         public static bool RequiresSquareBrackets(string name) => name.Any(c => "{}".Contains(c));
 
