@@ -394,7 +394,7 @@ namespace UncommonSense.CBreeze.Write
 #if NAV2009
         public static void Write(this ColorProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
-            var color = property.Value;
+            var color = property.Value.Value;
             var red = (byte)color.R;
             var green = (byte)color.G;
             var blue = (byte)color.B;

@@ -25,7 +25,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_foreColor);
         }
 
-        public Color ForeColor
+        public Color? ForeColor
         {
             get => _foreColor.Value;
             set => _foreColor.Value = value;

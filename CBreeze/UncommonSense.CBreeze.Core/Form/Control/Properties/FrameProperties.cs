@@ -22,7 +22,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_topLineOnly);
         }
 
-        public Color BorderColor
+        public Color? BorderColor
         {
             get => _borderColor.Value;
             set => _borderColor.Value = value;

@@ -4,6 +4,6 @@ namespace UncommonSense.CBreeze.Core.Form.Contracts
 {
     public interface IForeColor : IFormControlProperties
     {
-        Color ForeColor { get; set; }
+        Color? ForeColor { get; set; }
     }
 }

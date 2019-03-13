@@ -8,7 +8,7 @@ namespace UncommonSense.CBreeze.Core.Property.Implementation
         {
         }
 
-        public override bool HasValue => Value != VertAlign.Top;
+        //public override bool HasValue => Value != VertAlign.Top;
         public override void Reset()
         {
             Value = VertAlign.Top;

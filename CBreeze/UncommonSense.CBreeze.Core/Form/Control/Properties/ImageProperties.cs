@@ -50,13 +50,13 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _backTransparent.Value = value;
         }
 
-        public Color BackColor
+        public Color? BackColor
         {
             get => _backColor.Value;
             set => _backColor.Value = value;
         }
 
-        public Color BorderColor
+        public Color? BorderColor
         {
             get => _borderColor.Value;
             set => _borderColor.Value = value;

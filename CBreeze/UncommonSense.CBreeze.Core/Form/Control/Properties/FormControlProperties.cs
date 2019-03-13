@@ -7,6 +7,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
     public abstract class FormControlProperties : Property.Properties, IFormControlProperties
     {
+        private readonly NullableBooleanProperty _focusable = new NullableBooleanProperty("Focusable");
         private readonly NullableUnsignedIntegerProperty _height = new NullableUnsignedIntegerProperty("Height");
         private readonly HorzGlueProperty _horzGlue = new HorzGlueProperty("HorzGlue");
         private readonly NullableBooleanProperty _inFrame = new NullableBooleanProperty("InFrame");
@@ -31,24 +32,31 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             Control = control;
 
+            innerList.Add(_focusable);
             innerList.Add(_name);
             innerList.Add(_height);
             innerList.Add(_horzGlue);
+            innerList.Add(_parentControl);
             innerList.Add(_inFrame);
             innerList.Add(_inPage);
-            innerList.Add(_parentControl);
             innerList.Add(_toolTipMl);
             innerList.Add(_vertGlue);
             innerList.Add(_visible);
             innerList.Add(_width);
             innerList.Add(_xPos);
             innerList.Add(_yPos);
-            innerList.Add(_captionMl);
             innerList.Add(_horzAlign);
             innerList.Add(_vertAlign);
+            innerList.Add(_captionMl);
         }
 
         public FormControl Control { get; }
+
+        public bool? Focusable
+        {
+            get => _focusable.Value;
+            set => _focusable.Value = value;
+        }
 
         public override INode ParentNode => Control;
 

@@ -48,7 +48,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_padChar);
         }
 
-        public Color BorderColor
+        public Color? BorderColor
         {
             get => _borderColor.Value;
             set => _borderColor.Value = value;
@@ -72,7 +72,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _captionClass.Value = value;
         }
 
-        public Color ForeColor
+        public Color? ForeColor
         {
             get => _foreColor.Value;
             set => _foreColor.Value = value;

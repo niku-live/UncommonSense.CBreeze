@@ -34,7 +34,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_bitmapPos);
         }
 
-        public Color BorderColor
+        public Color? BorderColor
         {
             get => _borderColor.Value;
             set => _borderColor.Value = value;

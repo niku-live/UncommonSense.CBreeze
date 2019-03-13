@@ -14,7 +14,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly StringProperty _description = new StringProperty("Description");
         private readonly NullableBooleanProperty _editable = new NullableBooleanProperty("Editable");
         private readonly NullableBooleanProperty _enabled = new NullableBooleanProperty("Enabled");
-        private readonly NullableBooleanProperty _focusable = new NullableBooleanProperty("Focusable");
         private readonly NullableIntegerProperty _nextControl = new NullableIntegerProperty("NextControl");
         private readonly StringProperty _subFormId = new StringProperty("SubFormID");
         private readonly StringProperty _subFormLink = new StringProperty("SubFormLink");
@@ -29,7 +28,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_description);
             innerList.Add(_editable);
             innerList.Add(_enabled);
-            innerList.Add(_focusable);
             innerList.Add(_nextControl);
             innerList.Add(_subFormId);
             innerList.Add(_subFormLink);
@@ -54,13 +52,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _enabled.Value = value;
         }
 
-        public bool? Focusable
-        {
-            get => _focusable.Value;
-            set => _focusable.Value = value;
-        }
-
-        public Color BorderColor
+        public Color? BorderColor
         {
             get => _borderColor.Value;
             set => _borderColor.Value = value;

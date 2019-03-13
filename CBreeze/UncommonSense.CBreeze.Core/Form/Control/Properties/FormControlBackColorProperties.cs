@@ -13,7 +13,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_backColor);
         }
 
-        public Color BackColor
+        public Color? BackColor
         {
             get => _backColor.Value;
             set => _backColor.Value = value;

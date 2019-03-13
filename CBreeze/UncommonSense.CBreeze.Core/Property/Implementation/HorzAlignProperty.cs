@@ -8,7 +8,7 @@ namespace UncommonSense.CBreeze.Core.Property.Implementation
         {
         }
 
-        public override bool HasValue => Value != HorzAlign.General;
+        //public override bool HasValue => Value != HorzAlign.General;
         public override void Reset()
         {
             Value = HorzAlign.General;
