@@ -8,7 +8,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
     public class IndicatorProperties : BaseControlBaseProperties2, IIndicator
     {
         private readonly NullableBooleanProperty _autoCalcField = new NullableBooleanProperty("AutoCalcField");
-        private readonly ColorProperty _foreColor = new ColorProperty("ForeColor");
         private readonly NullableBooleanProperty _inColumn = new NullableBooleanProperty("InColumn");
         private readonly NullableBooleanProperty _inMatrix = new NullableBooleanProperty("InMatrix");
         private readonly NullableBooleanProperty _inMatrixHeading = new NullableBooleanProperty("InMatrixHeading");
@@ -21,12 +20,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public IndicatorProperties(FormControl control) : base(control)
         {
-        }
-
-        public Color? ForeColor
-        {
-            get => _foreColor.Value;
-            set => _foreColor.Value = value;
         }
 
         public bool? InColumn

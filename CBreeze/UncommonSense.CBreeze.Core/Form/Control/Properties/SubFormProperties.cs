@@ -12,12 +12,12 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly BorderWidthProperty _borderWidth = new BorderWidthProperty("BorderWidth");
         private readonly BorderStyleProperty _borderStyle = new BorderStyleProperty("BorderStyle");
         private readonly StringProperty _description = new StringProperty("Description");
-        private readonly NullableBooleanProperty _editable = new NullableBooleanProperty("Editable");
         private readonly NullableBooleanProperty _enabled = new NullableBooleanProperty("Enabled");
         private readonly NullableIntegerProperty _nextControl = new NullableIntegerProperty("NextControl");
         private readonly StringProperty _subFormId = new StringProperty("SubFormID");
         private readonly StringProperty _subFormLink = new StringProperty("SubFormLink");
         private readonly StringProperty _subFormView = new StringProperty("SubFormView");
+        private readonly MultiLanguageProperty _captionMl = new MultiLanguageProperty("CaptionML");
 
         public SubFormProperties(FormControl control) : base(control)
         {
@@ -26,12 +26,12 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_borderWidth);
             innerList.Add(_borderStyle);
             innerList.Add(_description);
-            innerList.Add(_editable);
             innerList.Add(_enabled);
             innerList.Add(_nextControl);
             innerList.Add(_subFormId);
             innerList.Add(_subFormLink);
             innerList.Add(_subFormView);
+            innerList.Add(_captionMl);
         }
 
         public bool? Border
@@ -70,11 +70,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _borderStyle.Value = value;
         }
 
-        public bool? Editable
-        {
-            get => _editable.Value;
-            set => _editable.Value = value;
-        }
 
         public int? NextControl
         {
@@ -99,5 +94,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             get => _subFormLink.Value;
             set => _subFormLink.Value = value;
         }
+
+        public MultiLanguageValue CaptionMl => _captionMl.Value;
     }
 }

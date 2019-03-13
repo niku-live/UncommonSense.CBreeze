@@ -38,7 +38,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _inColumnHeading.Value = value;
         }
 
-        public ShapeStyle ShapeStyle
+        public ShapeStyle? ShapeStyle
         {
             get => _shapeStyle.Value;
             set => _shapeStyle.Value = value;

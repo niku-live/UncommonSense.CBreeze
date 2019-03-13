@@ -6,7 +6,7 @@ using UncommonSense.CBreeze.Core.Property.Implementation;
 
 namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
-    public abstract class BaseButtonProperties : ControlBasePropertiesWithFont, IButton
+    public abstract class BaseButtonProperties : BaseControlBaseProperties2, IButton
     {
         private readonly StringProperty _bitmap = new StringProperty("Bitmap");
         private readonly BitmapPosProperty _bitmapPos = new BitmapPosProperty("BitmapPos");
@@ -53,7 +53,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _bitmap.Value = value;
         }
 
-        public PushAction PushAction
+        public PushAction? PushAction
         {
             get => _pushAction.Value;
             set => _pushAction.Value = value;

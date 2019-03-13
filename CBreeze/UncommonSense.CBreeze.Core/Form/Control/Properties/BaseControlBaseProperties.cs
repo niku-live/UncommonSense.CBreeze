@@ -4,33 +4,15 @@ using UncommonSense.CBreeze.Core.Property.Implementation;
 
 namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
-    public abstract class BaseControlBaseProperties : FormControlProperties, IBaseControl
+    public abstract class BaseControlBaseProperties : ControlBasePropertiesWithFont, IBaseControl
     {
-        private readonly ColorProperty _backColor = new ColorProperty("BackColor");
-        private readonly NullableBooleanProperty _backTransparent = new NullableBooleanProperty("BackTransparent");
-        private readonly NullableBooleanProperty _border = new NullableBooleanProperty("Border");
         private readonly StringProperty _description = new StringProperty("Description");
-        private readonly NullableBooleanProperty _showCaption = new NullableBooleanProperty("ShowCaption");
+        private readonly MultiLanguageProperty _captionMl = new MultiLanguageProperty("CaptionML");
 
         protected BaseControlBaseProperties(FormControl control) : base(control)
         {
-            innerList.Add(_showCaption);
-            innerList.Add(_backColor);
-            innerList.Add(_backTransparent);
-            innerList.Add(_border);
+            innerList.Add(_captionMl);
             innerList.Add(_description);
-        }
-
-        public bool? ShowCaption
-        {
-            get => _showCaption.Value;
-            set => _showCaption.Value = value;
-        }
-
-        public bool? Border
-        {
-            get => _border.Value;
-            set => _border.Value = value;
         }
 
         public string Description
@@ -39,16 +21,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _description.Value = value;
         }
 
-        public bool? BackTransparent
-        {
-            get => _backTransparent.Value;
-            set => _backTransparent.Value = value;
-        }
-
-        public Color? BackColor
-        {
-            get => _backColor.Value;
-            set => _backColor.Value = value;
-        }
+        public MultiLanguageValue CaptionMl => _captionMl.Value;
     }
 }

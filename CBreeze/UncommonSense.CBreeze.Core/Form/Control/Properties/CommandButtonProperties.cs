@@ -41,7 +41,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _autoRepeat.Value = value;
         }
 
-        public InvalidActionAppearance InvalidActionAppearance
+        public InvalidActionAppearance? InvalidActionAppearance
         {
             get => _invalidActionAppearance.Value;
             set => _invalidActionAppearance.Value = value;

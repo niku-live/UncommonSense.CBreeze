@@ -22,7 +22,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly NullableBooleanProperty _drillDown = new NullableBooleanProperty("DrillDown");
         private readonly StringProperty _drillDownFormID = new StringProperty("DrillDownFormID");
         private readonly NullableBooleanProperty _dropDown = new NullableBooleanProperty("DropDown");
-        private readonly NullableBooleanProperty _editable = new NullableBooleanProperty("Editable");
         private readonly NullableBooleanProperty _enabled = new NullableBooleanProperty("Enabled");
         private readonly StringProperty _format = new StringProperty("Format");
         private readonly NullableBooleanProperty _lookup = new NullableBooleanProperty("Lookup");
@@ -60,15 +59,8 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_dateFormula);
             innerList.Add(_decimalPlaces);
             innerList.Add(_divisor);
-            innerList.Add(_drillDown);
-            innerList.Add(_drillDownFormID);
             innerList.Add(_dropDown);
-            innerList.Add(_editable);
-            innerList.Add(_autoFormatType);
-            innerList.Add(_autoFormatExpr);
             innerList.Add(_format);
-            innerList.Add(_lookup);
-            innerList.Add(_lookupFormID);
             innerList.Add(_maxLength);
             innerList.Add(_maxValue);
             innerList.Add(_minValue);
@@ -81,6 +73,12 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_passwordText);
             innerList.Add(_permanentAssist);
             innerList.Add(_sourceExpr);
+            innerList.Add(_autoFormatType);
+            innerList.Add(_autoFormatExpr);
+            innerList.Add(_lookup);
+            innerList.Add(_lookupFormID);
+            innerList.Add(_drillDown);
+            innerList.Add(_drillDownFormID);
             innerList.Add(_tableRelation);
             innerList.Add(_title);
             innerList.Add(_optionString);
@@ -124,12 +122,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             get => _valuesAllowed.Value;
             set => _valuesAllowed.Value = value;
-        }
-
-        public bool? Editable
-        {
-            get => _editable.Value;
-            set => _editable.Value = value;
         }
 
         public bool? Enabled

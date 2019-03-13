@@ -13,7 +13,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly NullableIntegerProperty _headingHeight = new NullableIntegerProperty("HeadingHeight");
         private readonly NullableBooleanProperty _inlineEditing = new NullableBooleanProperty("InlineEditing");
         private readonly NullableIntegerProperty _rowHeight = new NullableIntegerProperty("RowHeight");
-        private readonly NullableBooleanProperty _editable = new NullableBooleanProperty("Editable");
 
         public TableBoxProperties(FormControl formTableBoxControl) : base(formTableBoxControl)
         {
@@ -23,7 +22,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_headingHeight);
             innerList.Add(_inlineEditing);
             innerList.Add(_rowHeight);
-            innerList.Add(_editable);
         }
 
         public Color? BorderColor
@@ -62,10 +60,5 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _headingHeight.Value = value;
         }
 
-        public bool? Editable
-        {
-            get => _editable.Value;
-            set => _editable.Value = value;
-        }
     }
 }

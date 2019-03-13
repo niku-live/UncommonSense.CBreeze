@@ -10,7 +10,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly ColorProperty _borderColor = new ColorProperty("BorderColor");
         private readonly BorderStyleProperty _borderStyle = new BorderStyleProperty("BorderStyle");
         private readonly BorderWidthProperty _borderWidth = new BorderWidthProperty("BorderWidth");
-        private readonly NullableBooleanProperty _editable = new NullableBooleanProperty("Editable");
         private readonly NullableBooleanProperty _topLineOnly = new NullableBooleanProperty("TopLineOnly");
 
         public FrameProperties(FormControl control) : base(control)
@@ -18,7 +17,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_borderColor);
             innerList.Add(_borderStyle);
             innerList.Add(_borderWidth);
-            innerList.Add(_editable);
             innerList.Add(_topLineOnly);
         }
 
@@ -38,12 +36,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             get => _borderStyle.Value;
             set => _borderStyle.Value = value;
-        }
-
-        public bool? Editable
-        {
-            get => _editable.Value;
-            set => _editable.Value = value;
         }
 
         public bool? TopLineOnly

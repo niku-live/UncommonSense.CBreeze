@@ -135,7 +135,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public MultiLanguageValue CaptionMl => _captionMl.Value;
 
-        public InvalidActionAppearance InvalidActionAppearance
+        public InvalidActionAppearance? InvalidActionAppearance
         {
             get => _invalidActionAppearance.Value;
             set => _invalidActionAppearance.Value = value;

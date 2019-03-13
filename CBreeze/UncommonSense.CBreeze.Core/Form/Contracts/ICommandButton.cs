@@ -7,7 +7,7 @@ namespace UncommonSense.CBreeze.Core.Form.Contracts
         bool? Default { get; set; }
         bool? Cancel { get; set; }
         bool? AutoRepeat { get; set; }
-        InvalidActionAppearance InvalidActionAppearance { get; set; }
+        InvalidActionAppearance? InvalidActionAppearance { get; set; }
         bool? Ellipsis { get; set; }
     }
 }

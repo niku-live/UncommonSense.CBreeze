@@ -126,12 +126,10 @@ namespace UncommonSense.CBreeze.Core.Form
             innerList.Add(_minimizedOnOpen);
             innerList.Add(_maximizable);
             innerList.Add(_maximizedOnOpen);
-            innerList.Add(_timerInterval);
             innerList.Add(_lookupMode);
             innerList.Add(_saveColumnWidths);
             innerList.Add(_saveTableView);
             innerList.Add(_tableBoxId);
-            innerList.Add(_updateOnActivate);
             innerList.Add(_visible);
             innerList.Add(_xPos);
             innerList.Add(_yPos);
@@ -139,10 +137,12 @@ namespace UncommonSense.CBreeze.Core.Form
             innerList.Add(_sizeable);
             innerList.Add(_savePosAndSize);
             innerList.Add(_sourceTablePlacement);
-            innerList.Add(_tableBoxId);
+            innerList.Add(_updateOnActivate);
+            innerList.Add(_timerInterval);
             innerList.Add(_onInit);
             innerList.Add(_onOpenForm);
             innerList.Add(_onCloseForm);
+            innerList.Add(_onActivateForm);
             innerList.Add(_onFindRecord);
             innerList.Add(_onNextRecord);
             innerList.Add(_onAfterGetRecord);
@@ -156,7 +156,6 @@ namespace UncommonSense.CBreeze.Core.Form
             innerList.Add(_onCreateHyperlink);
             innerList.Add(_onTimer);
             innerList.Add(_onBeforePutRecord);
-            innerList.Add(_onActivateForm);
             innerList.Add(_onDeactivateForm);
 
         }

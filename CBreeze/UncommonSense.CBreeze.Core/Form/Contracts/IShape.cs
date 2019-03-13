@@ -4,6 +4,6 @@ namespace UncommonSense.CBreeze.Core.Form.Contracts
 {
     public interface IShape : IBaseControl, IExtendedFormBorder, IColumnMatrixExtended
     {
-        ShapeStyle ShapeStyle { get; set; }
+        ShapeStyle? ShapeStyle { get; set; }
     }
 }

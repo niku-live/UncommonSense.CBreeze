@@ -8,12 +8,12 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
     public abstract class FormControlProperties : Property.Properties, IFormControlProperties
     {
         private readonly NullableBooleanProperty _focusable = new NullableBooleanProperty("Focusable");
+        private readonly NullableBooleanProperty _editable = new NullableBooleanProperty("Editable");
         private readonly NullableUnsignedIntegerProperty _height = new NullableUnsignedIntegerProperty("Height");
         private readonly HorzGlueProperty _horzGlue = new HorzGlueProperty("HorzGlue");
         private readonly NullableBooleanProperty _inFrame = new NullableBooleanProperty("InFrame");
         private readonly NullableIntegerProperty _inPage = new NullableIntegerProperty("InPage");
         private readonly StringProperty _name = new StringProperty("Name");
-        private readonly MultiLanguageProperty _captionMl = new MultiLanguageProperty("CaptionML");
 
         private readonly NullableUnsignedIntegerProperty _parentControl =
             new NullableUnsignedIntegerProperty("ParentControl");
@@ -32,8 +32,9 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             Control = control;
 
-            innerList.Add(_focusable);
             innerList.Add(_name);
+            innerList.Add(_editable);
+            innerList.Add(_focusable);
             innerList.Add(_height);
             innerList.Add(_horzGlue);
             innerList.Add(_parentControl);
@@ -47,7 +48,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_yPos);
             innerList.Add(_horzAlign);
             innerList.Add(_vertAlign);
-            innerList.Add(_captionMl);
         }
 
         public FormControl Control { get; }
@@ -57,6 +57,8 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             get => _focusable.Value;
             set => _focusable.Value = value;
         }
+
+        public bool? Editable { get => _editable.Value; set => _editable.Value = value; }
 
         public override INode ParentNode => Control;
 
@@ -128,8 +130,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             get => _parentControl.Value;
             set => _parentControl.Value = value;
         }
-
-        public MultiLanguageValue CaptionMl => _captionMl.Value;
 
         public MultiLanguageValue ToolTipML => _toolTipMl.Value;
 

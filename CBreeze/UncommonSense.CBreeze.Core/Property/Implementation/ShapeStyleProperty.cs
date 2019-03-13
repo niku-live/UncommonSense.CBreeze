@@ -2,13 +2,13 @@
 
 namespace UncommonSense.CBreeze.Core.Property.Implementation
 {
-    public class ShapeStyleProperty : ValueProperty<ShapeStyle>
+    public class ShapeStyleProperty : NullableValueProperty<ShapeStyle>
     {
         public ShapeStyleProperty(string name) : base(name)
         {
         }
 
-        public override bool HasValue { get; }
+        //public override bool HasValue { get; }
         public override void Reset()
         {
             Value = ShapeStyle.Rectangle;

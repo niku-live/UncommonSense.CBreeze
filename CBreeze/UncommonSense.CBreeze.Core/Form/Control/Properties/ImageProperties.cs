@@ -17,6 +17,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly StringProperty _dataSetFieldName = new StringProperty("DataSetFieldName");
         private readonly StringProperty _description = new StringProperty("Description");
         private readonly NullableBooleanProperty _inColumnHeading = new NullableBooleanProperty("InColumnHeading");
+        private readonly MultiLanguageProperty _captionMl = new MultiLanguageProperty("CaptionML");
 
         public ImageProperties(FormControl control) : base(control)
         {
@@ -30,6 +31,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_dataSetFieldName);
             innerList.Add(_description);
             innerList.Add(_inColumnHeading);
+            innerList.Add(_captionMl);
         }
 
         public bool? Border
@@ -91,5 +93,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             get => _inColumnHeading.Value;
             set => _inColumnHeading.Value = value;
         }
+
+        public MultiLanguageValue CaptionMl => _captionMl.Value;
     }
 }

@@ -15,7 +15,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly StringProperty _sourceExpr = new StringProperty("SourceExpr");
         private readonly NullableBooleanProperty _updateOnAction = new NullableBooleanProperty("UpdateOnAction");
         private readonly StringProperty _valuesAllowed = new StringProperty("ValuesAllowed");
-        private readonly NullableBooleanProperty _editable = new NullableBooleanProperty("Editable");
 
         public CheckBoxProperties(FormControl control) : base(control)
         {
@@ -28,7 +27,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_sourceExpr);
             innerList.Add(_updateOnAction);
             innerList.Add(_valuesAllowed);
-            innerList.Add(_editable);
         }
 
         public bool? InColumn
@@ -85,10 +83,5 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _updateOnAction.Value = value;
         }
 
-        public bool? Editable
-        {
-            get => _editable.Value;
-            set => _editable.Value = value;
-        }
     }
 }

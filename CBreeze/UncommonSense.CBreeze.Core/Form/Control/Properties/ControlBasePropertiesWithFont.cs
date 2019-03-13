@@ -4,7 +4,7 @@ using UncommonSense.CBreeze.Core.Property.Implementation;
 
 namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
-    public abstract class ControlBasePropertiesWithFont : BaseControlBaseProperties2
+    public abstract class ControlBasePropertiesWithFont : FormControlProperties
     {
         private readonly NullableBooleanProperty _fontBold = new NullableBooleanProperty("FontBold");
         private readonly NullableBooleanProperty _fontItalic = new NullableBooleanProperty("FontItalic");
@@ -12,17 +12,51 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly NullableIntegerProperty _fontSize = new NullableIntegerProperty("FontSize");
         private readonly NullableBooleanProperty _fontStrikethru = new NullableBooleanProperty("FontStrikethru");
         private readonly NullableBooleanProperty _fontUnderline = new NullableBooleanProperty("FontUnderline");
+        private readonly ColorProperty _backColor = new ColorProperty("BackColor");
+        private readonly NullableBooleanProperty _backTransparent = new NullableBooleanProperty("BackTransparent");
+        private readonly NullableBooleanProperty _border = new NullableBooleanProperty("Border");
         private readonly ColorProperty _foreColor = new ColorProperty("ForeColor");
+        private readonly NullableBooleanProperty _leaderDots = new NullableBooleanProperty("LeaderDots");
+        private readonly NullableBooleanProperty _showCaption = new NullableBooleanProperty("ShowCaption");
 
         protected ControlBasePropertiesWithFont(FormControl control) : base(control)
         {
+            innerList.Add(_showCaption);
+            innerList.Add(_foreColor);
+            innerList.Add(_backColor);
+            innerList.Add(_backTransparent);
+            innerList.Add(_border);
             innerList.Add(_fontBold);
             innerList.Add(_fontItalic);
             innerList.Add(_fontName);
             innerList.Add(_fontSize);
             innerList.Add(_fontStrikethru);
             innerList.Add(_fontUnderline);
-            innerList.Add(_foreColor);
+            innerList.Add(_leaderDots);
+        }
+
+        public bool? ShowCaption
+        {
+            get => _showCaption.Value;
+            set => _showCaption.Value = value;
+        }
+
+        public bool? Border
+        {
+            get => _border.Value;
+            set => _border.Value = value;
+        }
+
+        public bool? BackTransparent
+        {
+            get => _backTransparent.Value;
+            set => _backTransparent.Value = value;
+        }
+
+        public Color? BackColor
+        {
+            get => _backColor.Value;
+            set => _backColor.Value = value;
         }
 
         public Color? ForeColor
@@ -65,6 +99,12 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             get => _fontUnderline.Value;
             set => _fontUnderline.Value = value;
+        }
+
+        public bool? LeaderDots
+        {
+            get => _leaderDots.Value;
+            set => _leaderDots.Value = value;
         }
     }
 }

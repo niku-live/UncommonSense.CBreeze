@@ -5,7 +5,7 @@ namespace UncommonSense.CBreeze.Core.Form.Contracts
 {
     public interface IAction : IFormControlProperties
     {
-        PushAction PushAction { get; set; }
+        PushAction? PushAction { get; set; }
         RunObject RunObject { get; }
         string RunFormView { get; set; }
         string RunFormLink { get; set; }
