@@ -1,6 +1,7 @@
 using System.Linq;
 using UncommonSense.CBreeze.Common;
 using UncommonSense.CBreeze.Core.Property.Implementation;
+using UncommonSense.CBreeze.Core.Extension;
 
 namespace UncommonSense.CBreeze.Core.Code.Variable
 {
@@ -19,7 +20,6 @@ namespace UncommonSense.CBreeze.Core.Code.Variable
         public override VariableType Type => VariableType.TextConst;
         public override string TypeName => Values.Any() ? $"TextConst '{ValuesAsText}'" : "TextConst";
         public MultiLanguageValue Values { get; protected set; }
-        //TODO: (t => t.LanguageID.GetLCIDFromLanguageCode()
-        public string ValuesAsText => string.Join(";", Values.OrderBy(t => t.LanguageID).Select(v => string.Format("{0}={1}", v.LanguageID, v.Value.TextConstantValue(v.LanguageID == "@@@", Values.Count()))));
+        public string ValuesAsText => string.Join(";", Values.OrderBy(t => t.LanguageID.GetLCIDFromLanguageCode()).Select(v => string.Format("{0}={1}", v.LanguageID, v.Value.TextConstantValue(v.LanguageID == "@@@", Values.Count()))));
     }
 }

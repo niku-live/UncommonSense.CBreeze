@@ -10,6 +10,7 @@ using UncommonSense.CBreeze.Core.MenuSuite;
 using UncommonSense.CBreeze.Core.Property.Enumeration;
 using UncommonSense.CBreeze.Core.Property.Implementation;
 using UncommonSense.CBreeze.Core.Property.Type;
+using UncommonSense.CBreeze.Core.Extension;
 using System.Drawing;
 
 namespace UncommonSense.CBreeze.Write
@@ -480,8 +481,7 @@ namespace UncommonSense.CBreeze.Write
                 writer.Write("[");
             writer.Indent(writer.Column);
 
-            //TODO:var multiLanguageEntries = property.Value.OrderBy(e => e.LanguageID.GetLCIDFromLanguageCode());
-            var multiLanguageEntries = property.Value.OrderBy(e => e.LanguageID);
+            var multiLanguageEntries = property.Value.OrderBy(e => e.LanguageID.GetLCIDFromLanguageCode());            
 
             foreach (var multiLanguageEntry in multiLanguageEntries)
             {

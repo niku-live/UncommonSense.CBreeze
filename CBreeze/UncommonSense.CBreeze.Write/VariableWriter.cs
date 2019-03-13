@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UncommonSense.CBreeze.Core;
+using UncommonSense.CBreeze.Core.Extension;
 using System.Globalization;
 using UncommonSense.CBreeze.Common;
 using UncommonSense.CBreeze.Core.Code.Variable;
@@ -154,8 +155,7 @@ namespace UncommonSense.CBreeze.Write
 
         private static void WriteMultiLineTextConstant(TextConstant textConstant, CSideWriter writer)
         {
-            //TODO:var sortedValues = textConstant.Values.OrderBy(v => v.LanguageID.GetLCIDFromLanguageCode());
-            var sortedValues = textConstant.Values.OrderBy(v => v.LanguageID);
+            var sortedValues = textConstant.Values.OrderBy(v => v.LanguageID.GetLCIDFromLanguageCode());            
 
 #if !NAV2017
             writer.InnerWriter.WriteLine();
