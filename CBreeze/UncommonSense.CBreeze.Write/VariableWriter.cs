@@ -128,7 +128,11 @@ namespace UncommonSense.CBreeze.Write
 
         private static void WriteTextConstant(TextConstant textConstant, CSideWriter writer)
         {
-            if (IsMultiLineTextConstant(textConstant))
+            if (writer.CodeStyle.NewLineBeforeTextConst)
+            {
+                writer.InnerWriter.WriteLine();
+            }
+            if (IsMultiLineTextConstant(textConstant) || writer.CodeStyle.TextConstIsAlwaysMultiLine)
             {
                 WriteMultiLineTextConstant(textConstant, writer);
             }

@@ -11,6 +11,11 @@ namespace UncommonSense.CBreeze.Write
     {
         public static void Write(this TableFieldGroups tableFieldGroups, CSideWriter writer)
         {
+            if (writer.CodeStyle.DoNotPrintEmptyFieldGroups && !tableFieldGroups.Any())
+            {
+                return;
+            }
+
             writer.BeginSection("FIELDGROUPS");
 
             foreach (var tableFieldGroup in tableFieldGroups)

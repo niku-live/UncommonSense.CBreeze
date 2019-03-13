@@ -29,7 +29,7 @@ namespace UncommonSense.CBreeze.Parse.Demo
             else
             {                
                 var encoding = Encoding.GetEncoding(775);
-                var codeStyle = new ApplicationCodeStyle() { DateFormat = "yy-MM-dd" };
+                var codeStyle = new ApplicationCodeStyle() { DateFormat = "yy-MM-dd", TextConstIsAlwaysMultiLine = true, NewLineBeforeTextConst = true, DoNotPrintEmptyFieldGroups = true };
                 var application = ApplicationBuilder.ReadFromFolder(sourceFolderName, encoding, codeStyle);
                 ApplicationWriter.WriteToFile(application, outputFile, encoding);
             }

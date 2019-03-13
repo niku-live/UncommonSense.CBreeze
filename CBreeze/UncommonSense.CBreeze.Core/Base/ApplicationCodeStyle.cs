@@ -10,5 +10,9 @@ namespace UncommonSense.CBreeze.Core.Base
         public string DateFormat { get; set; } = "dd-MM-yy";
         public string DateTimeFormat { get; set; } = "dd-MM-yy HH:mm";
         public string TimeFormat { get; set; } = "HH:mm:ss";
+
+        public bool TextConstIsAlwaysMultiLine { get; set; }
+        public bool NewLineBeforeTextConst { get; set; }
+        public bool DoNotPrintEmptyFieldGroups { get; set; }
     }
 }
