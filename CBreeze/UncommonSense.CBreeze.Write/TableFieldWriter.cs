@@ -36,7 +36,7 @@ namespace UncommonSense.CBreeze.Write
             writer.Write("{0}", declaration.PadRight(46));
             writer.Write(properties.Any(p => p.HasValue) ? ";" : " ");
 
-            if (writer.Column > 51)
+            if ((writer.Column > 51) && (properties.Any(p => p.HasValue)))
             {
                 writer.Indent(51);
                 writer.WriteLine("");
