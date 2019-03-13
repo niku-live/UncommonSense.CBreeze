@@ -122,8 +122,31 @@ namespace UncommonSense.CBreeze.Write
             var controlHeight = BuildControlPart(fieldFormControl.Height.ToString(), 5, ref debt);
             
             var relevantProperties = fieldFormControl.Properties.Where(p => p.HasValue);
+            var declaration = string.Format("{{ {0};{1};{2};{3};{4};{5}", controlID, controlType, controlXPos, controlYPos, controlWidth, controlHeight);
+            writer.Write(declaration);
+            writer.Write(relevantProperties.Any() ? ";" : " ");
 
-            switch (relevantProperties.Any())
+            if ((writer.Column > propertyIndentation) && (relevantProperties.Any()))
+            {
+                writer.Indent(propertyIndentation);
+                writer.WriteLine("");
+            }
+            else
+            {
+                writer.Indent(writer.Column);
+            }
+
+            relevantProperties.Write(PropertiesStyle.Field, writer);
+
+            var lastProperty = relevantProperties.LastOrDefault();
+            if (lastProperty != null)
+                if (lastProperty is TriggerProperty)
+                    writer.Write(new string(' ', lastProperty.Name.Length + 2));
+
+            writer.WriteLine("}");
+            writer.Unindent();
+
+            /*switch (relevantProperties.Any())
             {
                 case false:
                     writer.WriteLine("{{ {0};{1};{2};{3};{4};{5} }}", controlID, controlType, controlXPos, controlYPos, controlWidth, controlHeight);
@@ -148,9 +171,9 @@ namespace UncommonSense.CBreeze.Write
                     writer.WriteLine("}");
                     writer.Unindent();
                     break;
-            }
+            }*/
 
-            writer.InnerWriter.WriteLine();
+            //writer.InnerWriter.WriteLine();
         }
     }
 }
