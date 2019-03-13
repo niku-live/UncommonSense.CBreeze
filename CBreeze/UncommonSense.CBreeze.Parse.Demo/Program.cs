@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using UncommonSense.CBreeze.Core.Base;
 using UncommonSense.CBreeze.Read;
 using UncommonSense.CBreeze.Write;
 
@@ -26,9 +27,10 @@ namespace UncommonSense.CBreeze.Parse.Demo
                 parser.ParseFiles(Directory.GetFiles(sourceFolderName, "*.txt", SearchOption.AllDirectories));
             }
             else
-            {
+            {                
                 var encoding = Encoding.GetEncoding(775);
-                var application = ApplicationBuilder.ReadFromFolder(sourceFolderName, encoding);
+                var codeStyle = new ApplicationCodeStyle() { DateFormat = "yy-MM-dd" };
+                var application = ApplicationBuilder.ReadFromFolder(sourceFolderName, encoding, codeStyle);
                 ApplicationWriter.WriteToFile(application, outputFile, encoding);
             }
         }

@@ -51,7 +51,7 @@ namespace UncommonSense.CBreeze.Write
 
         public static void WriteToTextWriter(this Application application, TextWriter textWriter)
         {
-            application.WriteToCSideWriter(new CSideWriter(textWriter));
+            application.WriteToCSideWriter(new CSideWriter(textWriter) { CodeStyle = application.CodeStyle });
         }
     }
 }

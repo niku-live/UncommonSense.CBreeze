@@ -7,19 +7,19 @@ namespace UncommonSense.CBreeze.Write
 {
     public static class DateTimeExtensionMethods
     {
-        public static string ToShortDateString(this DateTime? dateTime)
+        public static string ToShortDateString(this DateTime? dateTime, string dateFormat = "dd-MM-yy")
         {
             if (!dateTime.HasValue)
                 return null;
             
-            return dateTime.Value.ToString("dd-MM-yy");
+            return dateTime.Value.ToString(dateFormat);
         }
 
-        public static string ToShortTimeString(this DateTime? dateTime)
+        public static string ToShortTimeString(this DateTime? dateTime, string timeFormat = "HH:mm:ss")
         {
             if (!dateTime.HasValue)
                 return null;
-            return dateTime.Value.ToString("HH:mm:ss");
+            return dateTime.Value.ToString(timeFormat);
         }
     }
 }

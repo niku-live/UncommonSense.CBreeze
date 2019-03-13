@@ -30,7 +30,10 @@ namespace UncommonSense.CBreeze.Core.Base
             Codeunits = new Codeunits(this, objects.OfType<Codeunit.Codeunit>());
             Queries = new Queries(this, objects.OfType<Query.Query>());
             MenuSuites = new MenuSuites(this, objects.OfType<MenuSuite.MenuSuite>());
+            CodeStyle = new ApplicationCodeStyle();
         }
+
+        public ApplicationCodeStyle CodeStyle { get; set; }
 
         public Codeunits Codeunits { get; protected set; }
 

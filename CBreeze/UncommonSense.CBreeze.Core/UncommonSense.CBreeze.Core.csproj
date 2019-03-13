@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\Application.cs" />
+    <Compile Include="Base\ApplicationCodeStyle.cs" />
     <Compile Include="Base\DefaultRanges.cs" />
     <Compile Include="Base\GuidKeyedContainer.cs" />
     <Compile Include="Code\Parameter\DataClassificationParameter.cs" />

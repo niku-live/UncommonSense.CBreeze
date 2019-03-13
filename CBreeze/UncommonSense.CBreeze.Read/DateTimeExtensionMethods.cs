@@ -5,12 +5,12 @@ namespace UncommonSense.CBreeze.Read
 {
 	internal static class DateTimeExtensionMethods
 	{
-		internal static DateTime? SetDateComponent(this DateTime? dateTime, string text)
+		internal static DateTime? SetDateComponent(this DateTime? dateTime, string text, string dateFormat = "dd-MM-yy")
 		{
             if (!string.IsNullOrEmpty(text))
             {
                 var time = dateTime.GetValueOrDefault(DateTime.MinValue).TimeOfDay;
-                var date = DateTime.ParseExact(text, "dd-MM-yy", CultureInfo.InvariantCulture).Date;
+                var date = DateTime.ParseExact(text, dateFormat, CultureInfo.InvariantCulture).Date;
                 return date.Add(time);
             }
 

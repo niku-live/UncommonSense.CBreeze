@@ -83,25 +83,29 @@ namespace UncommonSense.CBreeze.Read
 
         public Application Application { get; }
 
-        public static Application ReadFromFolder(string folderName, Encoding fileEncoding = null)
+        public static Application ReadFromFolder(string folderName, Encoding fileEncoding = null, ApplicationCodeStyle codeStyle = null)
         {
-            return ReadFromFiles(Directory.EnumerateFiles(folderName, "*.txt"), fileEncoding: fileEncoding);
+            return ReadFromFiles(Directory.EnumerateFiles(folderName, "*.txt"), fileEncoding: fileEncoding, codeStyle: codeStyle);
         }
 
-        public static Application ReadFromFile(string fileName, Encoding fileEncoding = null)
+        public static Application ReadFromFile(string fileName, Encoding fileEncoding = null, ApplicationCodeStyle codeStyle = null)
         {
-            return ReadFromFiles(fileEncoding, fileName);
+            return ReadFromFiles(fileEncoding, codeStyle, fileName);
         }
 
-        public static Application ReadFromFiles(Encoding fileEncoding = null, params string[] fileNames)
+        public static Application ReadFromFiles(Encoding fileEncoding = null, ApplicationCodeStyle codeStyle = null, params string[] fileNames)
         {
-            return ReadFromFiles((IEnumerable<string>) fileNames, fileEncoding: fileEncoding);
+            return ReadFromFiles((IEnumerable<string>) fileNames, fileEncoding: fileEncoding, codeStyle: codeStyle);
         }
 
-        public static Application ReadFromFiles(IEnumerable<string> fileNames, Action<string> reportProgress = null, Encoding fileEncoding = null)
+        public static Application ReadFromFiles(IEnumerable<string> fileNames, Action<string> reportProgress = null, Encoding fileEncoding = null, ApplicationCodeStyle codeStyle = null)
         {
             var parser = new Parser();
             var application = new Application();
+            if (codeStyle != null)
+            {
+                application.CodeStyle = codeStyle;
+            }
             var applicationBuilder = new ApplicationBuilder(application);
 
             parser.Listener = applicationBuilder;
@@ -111,10 +115,14 @@ namespace UncommonSense.CBreeze.Read
             return application;
         }
 
-        public static Application ReadFromLines(IEnumerable<string> lines)
+        public static Application ReadFromLines(IEnumerable<string> lines, ApplicationCodeStyle codeStyle = null)
         {
             var parser = new Parser();
             var application = new Application();
+            if (codeStyle != null)
+            {
+                application.CodeStyle = codeStyle;
+            }
             var applicationBuilder = new ApplicationBuilder(application);
 
             parser.Listener = applicationBuilder;
@@ -273,7 +281,7 @@ namespace UncommonSense.CBreeze.Read
             {
                 case "Date":
                     currentObject.ObjectProperties.DateTime =
-                        currentObject.ObjectProperties.DateTime.SetDateComponent(propertyValue);
+                        currentObject.ObjectProperties.DateTime.SetDateComponent(propertyValue, Application.CodeStyle.DateFormat);
                     break;
 
                 case "Time":

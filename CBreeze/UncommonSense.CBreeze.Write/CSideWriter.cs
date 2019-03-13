@@ -2,6 +2,7 @@
 using System.IO;
 using System.Globalization;
 using System.Collections.Generic;
+using UncommonSense.CBreeze.Core.Base;
 
 namespace UncommonSense.CBreeze.Write
 {
@@ -90,5 +91,8 @@ namespace UncommonSense.CBreeze.Write
                 return this.writer;
             }
         }
+
+        public ApplicationCodeStyle CodeStyle { get; set; } = new ApplicationCodeStyle();
+
     }
 }
