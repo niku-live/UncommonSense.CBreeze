@@ -56,7 +56,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _borderWidth.Value = value;
         }
 
-        private BorderStyle BorderStyle
+        private BorderStyle? BorderStyle
         {
             get => _borderStyle.Value;
             set => _borderStyle.Value = value;

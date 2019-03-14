@@ -9,7 +9,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
     {
         private readonly ColorProperty _borderColor = new ColorProperty("BorderColor");
         private readonly BorderWidthProperty _borderWidth = new BorderWidthProperty("BorderWidth");
-        private readonly BorderStyleProperty _borderStyle = new BorderStyleProperty("BorderStyle");
         private readonly NullableIntegerProperty _headingHeight = new NullableIntegerProperty("HeadingHeight");
         private readonly NullableBooleanProperty _inlineEditing = new NullableBooleanProperty("InlineEditing");
         private readonly NullableIntegerProperty _rowHeight = new NullableIntegerProperty("RowHeight");
@@ -18,7 +17,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             innerList.Add(_borderColor);
             innerList.Add(_borderWidth);
-            innerList.Add(_borderStyle);
             innerList.Add(_headingHeight);
             innerList.Add(_inlineEditing);
             innerList.Add(_rowHeight);
@@ -34,12 +32,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             get => _borderWidth.Value;
             set => _borderWidth.Value = value;
-        }
-
-        public BorderStyle BorderStyle
-        {
-            get => _borderStyle.Value;
-            set => _borderStyle.Value = value;
         }
 
         public int? RowHeight

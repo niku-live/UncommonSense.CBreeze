@@ -10,7 +10,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly NullableBooleanProperty _autoCalcField = new NullableBooleanProperty("AutoCalcField");
         private readonly StringProperty _bitmapList = new StringProperty("BitmapList");
         private readonly ColorProperty _borderColor = new ColorProperty("BorderColor");
-        private readonly BorderStyleProperty _borderStyle = new BorderStyleProperty("BorderStyle");
         private readonly BorderWidthProperty _borderWidth = new BorderWidthProperty("BorderWidth");
         private readonly StringProperty _dataSetFieldName = new StringProperty("DataSetFieldName");
         private readonly StringProperty _sourceExpr = new StringProperty("SourceExpr");
@@ -20,7 +19,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             innerList.Add(_autoCalcField);
             innerList.Add(_borderColor);
-            innerList.Add(_borderStyle);
             innerList.Add(_borderWidth);
             innerList.Add(_dataSetFieldName);
             innerList.Add(_bitmapPos);
@@ -38,12 +36,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             get => _borderWidth.Value;
             set => _borderWidth.Value = value;
-        }
-
-        public BorderStyle? BorderStyle
-        {
-            get => _borderStyle.Value;
-            set => _borderStyle.Value = value;
         }
 
         public string SourceExpr
