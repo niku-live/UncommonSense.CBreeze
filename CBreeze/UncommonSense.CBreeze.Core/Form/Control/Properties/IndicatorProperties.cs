@@ -8,9 +8,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
     public class IndicatorProperties : BaseControlBaseProperties2, IIndicator
     {
         private readonly NullableBooleanProperty _autoCalcField = new NullableBooleanProperty("AutoCalcField");
-        private readonly NullableBooleanProperty _inColumn = new NullableBooleanProperty("InColumn");
-        private readonly NullableBooleanProperty _inMatrix = new NullableBooleanProperty("InMatrix");
-        private readonly NullableBooleanProperty _inMatrixHeading = new NullableBooleanProperty("InMatrixHeading");
         private readonly StringProperty _maxValue = new StringProperty("MaxValue");
         private readonly StringProperty _minValue = new StringProperty("MinValue");
         private readonly OrientationProperty _orientation = new OrientationProperty("Orientation");
@@ -20,24 +17,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public IndicatorProperties(FormControl control) : base(control)
         {
-        }
-
-        public bool? InColumn
-        {
-            get => _inColumn.Value;
-            set => _inColumn.Value = value;
-        }
-
-        public bool? InMatrix
-        {
-            get => _inMatrix.Value;
-            set => _inMatrix.Value = value;
-        }
-
-        public bool? InMatrixHeading
-        {
-            get => _inMatrixHeading.Value;
-            set => _inMatrixHeading.Value = value;
         }
 
         public string SourceExpr

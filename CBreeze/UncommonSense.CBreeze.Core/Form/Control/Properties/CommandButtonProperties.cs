@@ -8,8 +8,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
     public class CommandButtonProperties : BaseButtonProperties, ICommandButton
     {
         private readonly NullableBooleanProperty _autoRepeat = new NullableBooleanProperty("AutoRepeat");
-        private readonly NullableBooleanProperty _cancel = new NullableBooleanProperty("Cancel");
-        private readonly NullableBooleanProperty _default = new NullableBooleanProperty("Default");
         private readonly NullableBooleanProperty _ellipsis = new NullableBooleanProperty("Ellipsis");
         private readonly InvalidActionAppearanceProperty _invalidActionAppearance =
             new InvalidActionAppearanceProperty("InvalidActionAppearance");
@@ -17,22 +15,8 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         public CommandButtonProperties(FormControl control) : base(control)
         {
             innerList.Add(_autoRepeat);
-            innerList.Add(_cancel);
-            innerList.Add(_default);
             innerList.Add(_ellipsis);
             innerList.Add(_invalidActionAppearance);
-        }
-
-        public bool? Default
-        {
-            get => _default.Value;
-            set => _default.Value = value;
-        }
-
-        public bool? Cancel
-        {
-            get => _cancel.Value;
-            set => _cancel.Value = value;
         }
 
         public bool? AutoRepeat

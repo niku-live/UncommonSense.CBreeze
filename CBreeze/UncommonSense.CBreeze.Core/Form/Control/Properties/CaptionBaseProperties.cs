@@ -3,7 +3,7 @@ using UncommonSense.CBreeze.Core.Property.Implementation;
 
 namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
-    public abstract class CaptionBaseProperties : FormControlProperties, ICaption
+    public abstract class CaptionBaseProperties : ControlBasePropertiesWithFont, ICaption
     {
         private readonly StringProperty _captionClass = new StringProperty("CaptionClass");
         private readonly MultiLanguageProperty _captionMl = new MultiLanguageProperty("CaptionML");

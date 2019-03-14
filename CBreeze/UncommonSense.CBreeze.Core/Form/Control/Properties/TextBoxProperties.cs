@@ -19,8 +19,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly StringProperty _dateFormula = new StringProperty("DateFormula");
         private readonly DecimalPlacesProperty _decimalPlaces = new DecimalPlacesProperty("DecimalPlaces");
         private readonly StringProperty _divisor = new StringProperty("Divisor");
-        private readonly NullableBooleanProperty _drillDown = new NullableBooleanProperty("DrillDown");
-        private readonly StringProperty _drillDownFormID = new StringProperty("DrillDownFormID");
         private readonly NullableBooleanProperty _dropDown = new NullableBooleanProperty("DropDown");
         private readonly NullableBooleanProperty _enabled = new NullableBooleanProperty("Enabled");
         private readonly StringProperty _format = new StringProperty("Format");
@@ -77,8 +75,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_autoFormatExpr);
             innerList.Add(_lookup);
             innerList.Add(_lookupFormID);
-            innerList.Add(_drillDown);
-            innerList.Add(_drillDownFormID);
             innerList.Add(_tableRelation);
             innerList.Add(_title);
             innerList.Add(_optionString);
@@ -152,12 +148,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             get => _lookup.Value;
             set => _lookup.Value = value;
-        }
-
-        public bool? DrillDown
-        {
-            get => _drillDown.Value;
-            set => _drillDown.Value = value;
         }
 
         public bool? AssistEdit
@@ -287,12 +277,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             get => _lookupFormID.Value;
             set => _lookupFormID.Value = value;
-        }
-
-        public string DrillDownFormID
-        {
-            get => _drillDownFormID.Value;
-            set => _drillDownFormID.Value = value;
         }
 
         public bool? InColumnHeading

@@ -12,9 +12,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly BorderWidthProperty _borderWidth = new BorderWidthProperty("BorderWidth");
         private readonly StringProperty _captionClass = new StringProperty("CaptionClass");
         private readonly StringProperty _dataSetFieldName = new StringProperty("DataSetFieldName");
-        private readonly NullableBooleanProperty _inColumn = new NullableBooleanProperty("InColumn");
-        private readonly NullableBooleanProperty _inMatrix = new NullableBooleanProperty("InMatrix");
-        private readonly NullableBooleanProperty _inMatrixHeading = new NullableBooleanProperty("InMatrixHeading");
         private readonly NullableBooleanProperty _multiLine = new NullableBooleanProperty("MultiLine");
         private readonly StringProperty _padChar = new StringProperty("PadChar");
 
@@ -25,9 +22,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_borderWidth);
             innerList.Add(_captionClass);
             innerList.Add(_dataSetFieldName);
-            innerList.Add(_inColumn);
-            innerList.Add(_inMatrix);
-            innerList.Add(_inMatrixHeading);
             innerList.Add(_multiLine);
             innerList.Add(_padChar);
         }
@@ -44,7 +38,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _borderWidth.Value = value;
         }
 
-        public BorderStyle BorderStyle
+        public BorderStyle? BorderStyle
         {
             get => _borderStyle.Value;
             set => _borderStyle.Value = value;
@@ -60,24 +54,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             get => _dataSetFieldName.Value;
             set => _dataSetFieldName.Value = value;
-        }
-
-        public bool? InColumn
-        {
-            get => _inColumn.Value;
-            set => _inColumn.Value = value;
-        }
-
-        public bool? InMatrix
-        {
-            get => _inMatrix.Value;
-            set => _inMatrix.Value = value;
-        }
-
-        public bool? InMatrixHeading
-        {
-            get => _inMatrixHeading.Value;
-            set => _inMatrixHeading.Value = value;
         }
 
         public bool? MultiLine

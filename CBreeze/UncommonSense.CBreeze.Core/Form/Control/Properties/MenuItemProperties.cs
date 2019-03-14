@@ -85,7 +85,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _runFormLink.Value = value;
         }
 
-        public RunFormLinkType RunFormLinkType
+        public RunFormLinkType? RunFormLinkType
         {
             get => _runFormLinkType.Value;
             set => _runFormLinkType.Value = value;

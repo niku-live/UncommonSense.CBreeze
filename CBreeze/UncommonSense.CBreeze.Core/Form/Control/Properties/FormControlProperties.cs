@@ -5,7 +5,7 @@ using UncommonSense.CBreeze.Core.Property.Implementation;
 
 namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
-    public abstract class FormControlProperties : Property.Properties, IFormControlProperties
+    public abstract class FormControlProperties : Property.Properties
     {
         private readonly NullableBooleanProperty _focusable = new NullableBooleanProperty("Focusable");
         private readonly NullableBooleanProperty _editable = new NullableBooleanProperty("Editable");
@@ -13,12 +13,14 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly HorzGlueProperty _horzGlue = new HorzGlueProperty("HorzGlue");
         private readonly NullableBooleanProperty _inFrame = new NullableBooleanProperty("InFrame");
         private readonly NullableIntegerProperty _inPage = new NullableIntegerProperty("InPage");
+        private readonly NullableBooleanProperty _inColumn = new NullableBooleanProperty("InColumn");
+        private readonly NullableBooleanProperty _inMatrix = new NullableBooleanProperty("InMatrix");
+        private readonly NullableBooleanProperty _inMatrixHeading = new NullableBooleanProperty("InMatrixHeading");
         private readonly StringProperty _name = new StringProperty("Name");
 
         private readonly NullableUnsignedIntegerProperty _parentControl =
             new NullableUnsignedIntegerProperty("ParentControl");
 
-        private readonly MultiLanguageProperty _toolTipMl = new MultiLanguageProperty("ToolTipML");
         private readonly VertGlueProperty _vertGlue = new VertGlueProperty("VertGlue");
         private readonly NullableBooleanProperty _visible = new NullableBooleanProperty("Visible");
         private readonly NullableUnsignedIntegerProperty _width = new NullableUnsignedIntegerProperty("Width");
@@ -35,14 +37,16 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_name);
             innerList.Add(_editable);
             innerList.Add(_focusable);
+            innerList.Add(_visible);
             innerList.Add(_height);
             innerList.Add(_horzGlue);
             innerList.Add(_parentControl);
             innerList.Add(_inFrame);
+            innerList.Add(_inColumn);
+            innerList.Add(_inMatrix);
+            innerList.Add(_inMatrixHeading);
             innerList.Add(_inPage);
-            innerList.Add(_toolTipMl);
             innerList.Add(_vertGlue);
-            innerList.Add(_visible);
             innerList.Add(_width);
             innerList.Add(_xPos);
             innerList.Add(_yPos);
@@ -75,6 +79,24 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             get => _inFrame.Value;
             set => _inFrame.Value = value;
+        }
+
+        public bool? InColumn
+        {
+            get => _inColumn.Value;
+            set => _inColumn.Value = value;
+        }
+
+        public bool? InMatrix
+        {
+            get => _inMatrix.Value;
+            set => _inMatrix.Value = value;
+        }
+
+        public bool? InMatrixHeading
+        {
+            get => _inMatrixHeading.Value;
+            set => _inMatrixHeading.Value = value;
         }
 
         public string Name
@@ -130,8 +152,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             get => _parentControl.Value;
             set => _parentControl.Value = value;
         }
-
-        public MultiLanguageValue ToolTipML => _toolTipMl.Value;
 
         public HorzAlign? HorzAlign
         {

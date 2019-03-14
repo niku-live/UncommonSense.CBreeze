@@ -7,9 +7,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
     public class CheckBoxProperties : BaseButtonProperties, ICheckBox
     {
         private readonly NullableBooleanProperty _autoCalcField = new NullableBooleanProperty("AutoCalcField");
-        private readonly NullableBooleanProperty _inColumn = new NullableBooleanProperty("InColumn");
-        private readonly NullableBooleanProperty _inMatrix = new NullableBooleanProperty("InMatrix");
-        private readonly NullableBooleanProperty _inMatrixHeading = new NullableBooleanProperty("InMatrixHeading");
         private readonly StringProperty _maxValue = new StringProperty("MaxValue");
         private readonly StringProperty _minValue = new StringProperty("MinValue");
         private readonly StringProperty _sourceExpr = new StringProperty("SourceExpr");
@@ -19,32 +16,11 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         public CheckBoxProperties(FormControl control) : base(control)
         {
             innerList.Add(_autoCalcField);
-            innerList.Add(_inColumn);
-            innerList.Add(_inMatrix);
-            innerList.Add(_inMatrixHeading);
             innerList.Add(_maxValue);
             innerList.Add(_minValue);
             innerList.Add(_sourceExpr);
             innerList.Add(_updateOnAction);
             innerList.Add(_valuesAllowed);
-        }
-
-        public bool? InColumn
-        {
-            get => _inColumn.Value;
-            set => _inColumn.Value = value;
-        }
-
-        public bool? InMatrix
-        {
-            get => _inMatrix.Value;
-            set => _inMatrix.Value = value;
-        }
-
-        public bool? InMatrixHeading
-        {
-            get => _inMatrixHeading.Value;
-            set => _inMatrixHeading.Value = value;
         }
 
         public string SourceExpr

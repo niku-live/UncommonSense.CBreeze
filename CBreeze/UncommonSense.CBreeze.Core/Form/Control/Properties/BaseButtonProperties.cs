@@ -8,12 +8,10 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
     public abstract class BaseButtonProperties : BaseControlBaseProperties2, IButton
     {
-        private readonly StringProperty _bitmap = new StringProperty("Bitmap");
         private readonly BitmapPosProperty _bitmapPos = new BitmapPosProperty("BitmapPos");
         private readonly NullableBooleanProperty _focusOnClick = new NullableBooleanProperty("FocusOnClick");
-        private readonly PushActionProperty _pushAction = new PushActionProperty("PushAction");
         private readonly StringProperty _runCommand = new StringProperty("RunCommand");
-        private readonly StringProperty _runFormLink = new StringProperty("RunFormLink");
+        private readonly RunObjectLinkProperty _runFormLink = new RunObjectLinkProperty("RunFormLink");
         private readonly RunFormLinkTypeProperty _runFormLinkType = new RunFormLinkTypeProperty("RunFormLinkType");
         private readonly NullableBooleanProperty _runFormOnRec = new NullableBooleanProperty("RunFormOnRec");
         private readonly StringProperty _runFormView = new StringProperty("RunFormView");
@@ -21,16 +19,14 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         protected BaseButtonProperties(FormControl control) : base(control)
         {
-            innerList.Add(_bitmap);
             innerList.Add(_bitmapPos);
             innerList.Add(_focusOnClick);
-            innerList.Add(_pushAction);
             innerList.Add(_runCommand);
-            innerList.Add(_runFormLink);
+            innerList.Add(_runObject);
             innerList.Add(_runFormLinkType);
+            innerList.Add(_runFormLink);
             innerList.Add(_runFormOnRec);
             innerList.Add(_runFormView);
-            innerList.Add(_runObject);
         }
 
         public string CaptionClass { get; set; }
@@ -41,22 +37,10 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _focusOnClick.Value = value;
         }
 
-        public BitmapPos BitmapPos
+        public BitmapPos? BitmapPos
         {
             get => _bitmapPos.Value;
             set => _bitmapPos.Value = value;
-        }
-
-        public string Bitmap
-        {
-            get => _bitmap.Value;
-            set => _bitmap.Value = value;
-        }
-
-        public PushAction? PushAction
-        {
-            get => _pushAction.Value;
-            set => _pushAction.Value = value;
         }
 
         public RunObject RunObject => _runObject.Value;
@@ -67,13 +51,13 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _runFormView.Value = value;
         }
 
-        public string RunFormLink
+        public RunObjectLink RunFormLink
         {
             get => _runFormLink.Value;
-            set => _runFormLink.Value = value;
+            //set => _runFormLink.Value = value;
         }
 
-        public RunFormLinkType RunFormLinkType
+        public RunFormLinkType? RunFormLinkType
         {
             get => _runFormLinkType.Value;
             set => _runFormLinkType.Value = value;

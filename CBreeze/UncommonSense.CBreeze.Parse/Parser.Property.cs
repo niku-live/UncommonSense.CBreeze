@@ -31,7 +31,7 @@ namespace UncommonSense.CBreeze.Parse
             }
 
             var stringBuilder = new StringBuilder(propertyValueFirstLine);
-            if (propertyName.EndsWith("ML")|| (propertyName == "CalcFormula") || (propertyName == "Permissions") || (propertyName == "TableRelation") || (propertyName == "DataItemLink"))
+            if (propertyName.EndsWith("ML")|| (propertyName == "CalcFormula") || (propertyName == "Permissions") || (propertyName == "TableRelation") || (propertyName == "DataItemLink") || (propertyName == "RunFormLink"))
             {
                 //lines.Unindent(propertyName.Length + 1);
                 

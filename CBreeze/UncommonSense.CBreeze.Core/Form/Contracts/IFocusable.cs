@@ -5,6 +5,6 @@ namespace UncommonSense.CBreeze.Core.Form.Contracts
     public interface IFocusable : IFormControlProperties
     {
         bool? FocusOnClick { get; set; }
-        BitmapPos BitmapPos { get; set; }
+        BitmapPos? BitmapPos { get; set; }
     }
 }

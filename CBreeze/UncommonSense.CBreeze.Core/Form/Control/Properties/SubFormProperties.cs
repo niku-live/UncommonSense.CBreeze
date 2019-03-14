@@ -5,9 +5,8 @@ using UncommonSense.CBreeze.Core.Property.Implementation;
 
 namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
-    public class SubFormProperties : FormControlProperties, ISubForm
+    public class SubFormProperties : ControlBasePropertiesWithFont, ISubForm
     {
-        private readonly NullableBooleanProperty _border = new NullableBooleanProperty("Border");
         private readonly ColorProperty _borderColor = new ColorProperty("BorderColor");
         private readonly BorderWidthProperty _borderWidth = new BorderWidthProperty("BorderWidth");
         private readonly BorderStyleProperty _borderStyle = new BorderStyleProperty("BorderStyle");
@@ -21,7 +20,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public SubFormProperties(FormControl control) : base(control)
         {
-            innerList.Add(_border);
             innerList.Add(_borderColor);
             innerList.Add(_borderWidth);
             innerList.Add(_borderStyle);
@@ -32,12 +30,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_subFormLink);
             innerList.Add(_subFormView);
             innerList.Add(_captionMl);
-        }
-
-        public bool? Border
-        {
-            get => _border.Value;
-            set => _border.Value = value;
         }
 
         public string Description

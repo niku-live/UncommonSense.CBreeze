@@ -8,8 +8,8 @@ namespace UncommonSense.CBreeze.Core.Form.Contracts
         PushAction? PushAction { get; set; }
         RunObject RunObject { get; }
         string RunFormView { get; set; }
-        string RunFormLink { get; set; }
-        RunFormLinkType RunFormLinkType { get; set; }
+        RunObjectLink RunFormLink { get; }
+        RunFormLinkType? RunFormLinkType { get; set; }
         bool? RunFormOnRec { get; set; }
         string RunCommand { get; set; }
         bool? UpdateOnAction { get; set; }

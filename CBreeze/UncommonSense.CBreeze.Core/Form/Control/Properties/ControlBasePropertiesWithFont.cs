@@ -1,10 +1,11 @@
 ﻿using System.Drawing;
 using UncommonSense.CBreeze.Core.Form.Contracts;
+using UncommonSense.CBreeze.Core.Property.Enumeration;
 using UncommonSense.CBreeze.Core.Property.Implementation;
 
 namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
-    public abstract class ControlBasePropertiesWithFont : FormControlProperties
+    public abstract class ControlBasePropertiesWithFont : FormControlProperties, IFormControlProperties
     {
         private readonly NullableBooleanProperty _fontBold = new NullableBooleanProperty("FontBold");
         private readonly NullableBooleanProperty _fontItalic = new NullableBooleanProperty("FontItalic");
@@ -18,6 +19,11 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly ColorProperty _foreColor = new ColorProperty("ForeColor");
         private readonly NullableBooleanProperty _leaderDots = new NullableBooleanProperty("LeaderDots");
         private readonly NullableBooleanProperty _showCaption = new NullableBooleanProperty("ShowCaption");
+        private readonly StringProperty _bitmap = new StringProperty("Bitmap");
+        private readonly MultiLanguageProperty _toolTipMl = new MultiLanguageProperty("ToolTipML");
+        private readonly NullableBooleanProperty _cancel = new NullableBooleanProperty("Cancel");
+        private readonly NullableBooleanProperty _default = new NullableBooleanProperty("Default");
+        private readonly PushActionProperty _pushAction = new PushActionProperty("PushAction");
 
         protected ControlBasePropertiesWithFont(FormControl control) : base(control)
         {
@@ -25,6 +31,11 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_foreColor);
             innerList.Add(_backColor);
             innerList.Add(_backTransparent);
+            innerList.Add(_cancel);
+            innerList.Add(_default);
+            innerList.Add(_pushAction);
+            innerList.Add(_bitmap);
+            innerList.Add(_toolTipMl);
             innerList.Add(_border);
             innerList.Add(_fontBold);
             innerList.Add(_fontItalic);
@@ -40,6 +51,8 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             get => _showCaption.Value;
             set => _showCaption.Value = value;
         }
+
+        public MultiLanguageValue ToolTipML => _toolTipMl.Value;
 
         public bool? Border
         {
@@ -105,6 +118,30 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             get => _leaderDots.Value;
             set => _leaderDots.Value = value;
+        }
+
+        public bool? Default
+        {
+            get => _default.Value;
+            set => _default.Value = value;
+        }
+
+        public bool? Cancel
+        {
+            get => _cancel.Value;
+            set => _cancel.Value = value;
+        }
+
+        public PushAction? PushAction
+        {
+            get => _pushAction.Value;
+            set => _pushAction.Value = value;
+        }
+
+        public string Bitmap
+        {
+            get => _bitmap.Value;
+            set => _bitmap.Value = value;
         }
     }
 }
