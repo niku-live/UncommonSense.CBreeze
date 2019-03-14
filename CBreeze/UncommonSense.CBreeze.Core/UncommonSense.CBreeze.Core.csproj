@@ -54,6 +54,7 @@
     <Compile Include="Base\DefaultRanges.cs" />
     <Compile Include="Base\GuidKeyedContainer.cs" />
     <Compile Include="Code\Parameter\DataClassificationParameter.cs" />
+    <Compile Include="Property\Implementation\ClassicMenuProperty.cs" />
     <Compile Include="Property\Implementation\DataClassificationProperty.cs" />
     <Compile Include="Code\Variable\DataClassificationVariable.cs" />
     <Compile Include="Base\IntegerKeyedAndNamedContainer.cs" />

@@ -24,6 +24,10 @@ namespace UncommonSense.CBreeze.Core.Form.Control
 
         protected override void InsertItem(int index, FormMenuItemBase itemBase)
         {
+            if (itemBase.ID > 0)
+            {
+                (itemBase as Generic.KeyedItem<int>).ID = itemBase.ID;
+            }
             base.InsertItem(index, itemBase);
             itemBase.Container = this;
         }

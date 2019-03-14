@@ -22,7 +22,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly StringProperty _name = new StringProperty("Name");
         private readonly PushActionProperty _pushAction = new PushActionProperty("PushAction");
         private readonly StringProperty _runCommand = new StringProperty("RunCommand");
-        private readonly StringProperty _runFormLink = new StringProperty("RunFormLink");
+        private readonly RunObjectLinkProperty _runFormLink = new RunObjectLinkProperty("RunFormLink");
         private readonly RunFormLinkTypeProperty _runFormLinkType = new RunFormLinkTypeProperty("RunFormLinkType");
         private readonly NullableBooleanProperty _runFormOnRec = new NullableBooleanProperty("RunFormOnRec");
         private readonly StringProperty _runFormView = new StringProperty("RunFormView");
@@ -38,24 +38,24 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         public MenuItemProperties(FormMenuItemBase menuItemBase)
         {
             this.menuItemBase = menuItemBase;
+            innerList.Add(_id);
+            innerList.Add(_pushAction);
+            innerList.Add(_shortCutKey);
+            innerList.Add(_menuItemType);
+            innerList.Add(_menuLevel);
             innerList.Add(_captionClass);
             innerList.Add(_captionMl);
             innerList.Add(_description);
             innerList.Add(_ellipsis);
             innerList.Add(_enabled);
-            innerList.Add(_id);
             innerList.Add(_invalidActionAppearance);
-            innerList.Add(_menuItemType);
-            innerList.Add(_menuLevel);
             innerList.Add(_name);
-            innerList.Add(_pushAction);
             innerList.Add(_runCommand);
-            innerList.Add(_runFormLink);
-            innerList.Add(_runFormLinkType);
-            innerList.Add(_runFormOnRec);
-            innerList.Add(_runFormView);
             innerList.Add(_runObject);
-            innerList.Add(_shortCutKey);
+            innerList.Add(_runFormView);
+            innerList.Add(_runFormLinkType);
+            innerList.Add(_runFormLink);
+            innerList.Add(_runFormOnRec);
             innerList.Add(_sourceExpr);
             innerList.Add(_tooltipMl);
             innerList.Add(_updateOnAction);
@@ -79,10 +79,9 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _runFormView.Value = value;
         }
 
-        public string RunFormLink
+        public RunObjectLink RunFormLink
         {
             get => _runFormLink.Value;
-            set => _runFormLink.Value = value;
         }
 
         public RunFormLinkType? RunFormLinkType

@@ -8,7 +8,8 @@ namespace UncommonSense.CBreeze.Core.Form.Control
         public FormMenuButtonControl(int id, int posX, int posY, int width, int height) : base(id, posX, posY, width,
             height)
         {
-            Properties = new FormMenuButtonProperties(this);
+            MenuItems = new FormMenuItems();
+            Properties = new FormMenuButtonProperties(this);           
         }
 
         public FormMenuItems MenuItems { get; set; }

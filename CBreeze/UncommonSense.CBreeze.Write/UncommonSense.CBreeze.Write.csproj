@@ -67,6 +67,7 @@
     <Compile Include="Formatters.cs" />
     <Compile Include="FormControlsWriter.cs" />
     <Compile Include="FormControlWriter.cs" />
+    <Compile Include="FormMenuItemWriter.cs" />
     <Compile Include="FormPropertiesWriter.cs" />
     <Compile Include="FormWriter.cs" />
     <Compile Include="FunctionWriter.cs" />

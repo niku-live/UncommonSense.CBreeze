@@ -127,6 +127,8 @@ namespace UncommonSense.CBreeze.Write
                 TypeSwitch.Case<BitmapPosProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<RunFormLinkTypeProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<BorderStyleProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
+                TypeSwitch.Case<ClassicMenuProperty>(p => p.Write(isLastProperty, style, writer)),
+                TypeSwitch.Case<MenuItemTypeProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
 #endif
                 TypeSwitch.Case<NullableBooleanProperty>(p => p.Write(isLastProperty, style, writer)),
                 TypeSwitch.Case<NullableDateTimeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(writer.CodeStyle.DateTimeFormat), isLastProperty, writer)),
@@ -148,6 +150,7 @@ namespace UncommonSense.CBreeze.Write
                 TypeSwitch.Case<ObsoleteStateProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<DataClassificationProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
 #endif
+                TypeSwitch.Case<IntegerProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
             TypeSwitch.Default(() => throw new ArgumentOutOfRangeException($"Don't know how to write property type {property.GetType().FullName}."))
             );
         }
@@ -166,6 +169,21 @@ namespace UncommonSense.CBreeze.Write
             }
         }
 
+#if NAV2009
+        public static void Write(this ClassicMenuProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
+        {
+            writer.WriteLine("{0}=MENUITEMS", property.Name);
+            writer.WriteLine("{");
+            writer.Indent();
+            foreach (var item in property.Items)
+            {
+                item.Write(writer);
+            }
+            writer.Unindent();
+            writer.WriteLine("}");
+            writer.Write(" ");
+        }
+#endif
         public static void Write(this RunObjectLinkProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
             writer.Write("{0}=", property.Name);

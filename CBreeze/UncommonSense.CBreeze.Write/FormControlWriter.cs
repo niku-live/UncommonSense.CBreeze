@@ -31,11 +31,51 @@ namespace UncommonSense.CBreeze.Write
                 /*TypeSwitch.Case<PageControlContainer>(c => c.Write(writer, propertyIndentation)),
                 TypeSwitch.Case<PageControlGroup>(c => c.Write(writer, propertyIndentation)),
                 TypeSwitch.Case<PageControlPart>(c => c.Write(writer, propertyIndentation)),*/
+                //TypeSwitch.Case<FormMenuButtonControl>(m => m.Write(writer, propertyIndentation)),
                 TypeSwitch.Case<FormControl>(c => c.Write(writer, propertyIndentation)));
         }
 
-        /*public static void Write(this PageControlContainer containerPageControl, CSideWriter writer, int propertyIndentation)
+        public static void Write(this FormMenuButtonControl menuItem, CSideWriter writer, int propertyIndentation)
         {
+            var debt = 0;
+            var fieldFormControl = menuItem as FormControl;
+            var controlID = BuildControlPart(fieldFormControl.ID.ToString(), 4, ref debt);
+            var controlType = BuildControlPart(fieldFormControl.Type.ToString(), 13, ref debt);
+            var controlXPos = BuildControlPart(fieldFormControl.PosX.ToString(), 5, ref debt);
+            var controlYPos = BuildControlPart(fieldFormControl.PosY.ToString(), 5, ref debt);
+            var controlWidth = BuildControlPart(fieldFormControl.Width.ToString(), 5, ref debt);
+            var controlHeight = BuildControlPart(fieldFormControl.Height.ToString(), 5, ref debt);
+
+            var relevantProperties = fieldFormControl.Properties.Where(p => p.HasValue);
+            var declaration = string.Format("{{ {0};{1};{2};{3};{4};{5}", controlID, controlType, controlXPos, controlYPos, controlWidth, controlHeight);
+            writer.Write(declaration);
+            writer.Write(relevantProperties.Any() ? ";" : " ");
+
+            if ((writer.Column > propertyIndentation) && (relevantProperties.Any()))
+            {
+                writer.Indent(propertyIndentation);
+                writer.WriteLine("");
+            }
+            else
+            {
+                writer.Indent(writer.Column);
+            }
+
+            relevantProperties.Write(PropertiesStyle.Field, writer);
+
+            //var lastProperty = relevantProperties.LastOrDefault();
+            //if (lastProperty != null)
+            //    if (lastProperty is TriggerProperty)
+            //        writer.Write(new string(' ', lastProperty.Name.Length + 2));
+            if (menuItem.MenuItems.Any())
+            {
+                writer.Write("Menu=MENUITEMS");
+                writer.Write("{");
+                writer.Write("}");
+            }
+            writer.WriteLine("}");
+            writer.Unindent();
+            /*
             var debt = 0;
             var controlID = BuildControlPart(containerPageControl.ID.ToString(), 4, ref debt);
             var controlIndentation = BuildControlPart(containerPageControl.IndentationLevel.AsString(), 4, ref debt);
@@ -48,9 +88,9 @@ namespace UncommonSense.CBreeze.Write
             containerPageControl.Properties.Write(PropertiesStyle.Field, writer);
             writer.WriteLine("}");
             writer.Unindent();
-            writer.InnerWriter.WriteLine();
+            writer.InnerWriter.WriteLine();*/
         }
-
+/*
         public static void Write(this PageControlGroup groupPageControl, CSideWriter writer, int propertyIndentation)
         {
             var debt = 0;
@@ -145,35 +185,6 @@ namespace UncommonSense.CBreeze.Write
 
             writer.WriteLine("}");
             writer.Unindent();
-
-            /*switch (relevantProperties.Any())
-            {
-                case false:
-                    writer.WriteLine("{{ {0};{1};{2};{3};{4};{5} }}", controlID, controlType, controlXPos, controlYPos, controlWidth, controlHeight);
-                    break;
-                default:
-                    if (debt == 0)
-                    {
-                        writer.WriteLine("{{ {0};{1};{2};{3};{4};{5};", controlID, controlType, controlXPos, controlYPos, controlWidth, controlHeight);
-                    }
-                    else
-                    {
-                        writer.Write("{{ {0};{1};{2};{3};{4};{5};", controlID, controlType, controlXPos, controlYPos, controlWidth, controlHeight);
-                    }
-                    writer.Indent(propertyIndentation);
-                    fieldFormControl.Properties.Write(PropertiesStyle.Field, writer);
-
-                    var lastProperty = relevantProperties.LastOrDefault();
-                    if (lastProperty != null)
-                        if (lastProperty is TriggerProperty)
-                            writer.Write(new string(' ', lastProperty.Name.Length + 2));
-
-                    writer.WriteLine("}");
-                    writer.Unindent();
-                    break;
-            }*/
-
-            //writer.InnerWriter.WriteLine();
         }
     }
 }

@@ -47,6 +47,7 @@ namespace UncommonSense.CBreeze.Read
         private DataportField currentDataportField;
         private Event currentEvent;
         private string currentFileName;
+        private FormMenuItem currentFormMenuItem;
         private FormControl currentFormControl;
         private FormControls currentFormControls;
         private Function currentFunction;
@@ -1996,14 +1997,16 @@ namespace UncommonSense.CBreeze.Read
                 return;
 
             if (menuControl.MenuItems == null)
-                menuControl.MenuItems = new FormMenuItems();
+                menuControl.MenuItems = new FormMenuItems() { Form = currentObject as Form };
 
-            var menuItem = new FormMenuItem(menuControl);
-            currentProperties.Push(menuItem.Properties);
+            currentFormMenuItem = new FormMenuItem(menuControl);
+            currentProperties.Push(currentFormMenuItem.Properties);
         }
 
         public override void OnEndFormMenuItem()
         {
+            (currentFormControl as FormMenuButtonControl)?.MenuItems.Add(currentFormMenuItem);
+            currentFormMenuItem = null;
             currentProperties.Pop();
         }
 
