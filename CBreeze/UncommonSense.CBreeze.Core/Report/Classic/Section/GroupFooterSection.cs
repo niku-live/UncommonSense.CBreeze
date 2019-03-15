@@ -12,7 +12,7 @@ namespace UncommonSense.CBreeze.Core.Report.Classic.Section
             Properties = new GroupFooterSectionProperties(this);
         }
 
-        public override SectionType Type => SectionType.Header;
+        public override SectionType Type => SectionType.GroupFooter;
 
         public override Property.Properties AllProperties => Properties;
 

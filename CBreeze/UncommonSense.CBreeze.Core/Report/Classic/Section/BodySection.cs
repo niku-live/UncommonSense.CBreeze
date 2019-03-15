@@ -12,7 +12,7 @@ namespace UncommonSense.CBreeze.Core.Report.Classic.Section
             Properties = new BodySectionProperties(this);
         }
 
-        public override SectionType Type => SectionType.Header;
+        public override SectionType Type => SectionType.Body;
 
         public override Property.Properties AllProperties => Properties;
 
