@@ -6,13 +6,11 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
     public class FormShapeControlProperties : ShapeProperties, IPushAble
     {
-        private readonly TriggerProperty _onPush = new TriggerProperty("OnPush");
-
         public FormShapeControlProperties(FormControl control) : base(control)
         {
         }
 
 
-        public Trigger OnPush => _onPush.Value;
+        public Trigger OnPush => InternalOnPush;
     }
 }

@@ -6,16 +6,11 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
     public class FormSubFormProperties : SubFormProperties, IActivate
     {
-        private readonly TriggerProperty _onActivate = new TriggerProperty("OnActivate");
-        private readonly TriggerProperty _onDeactivate = new TriggerProperty("OnDeactivate");
-
         public FormSubFormProperties(FormControl control) : base(control)
         {
-            innerList.Add(_onActivate);
-            innerList.Add(_onDeactivate);
         }
 
-        public Trigger OnActivate => _onActivate.Value;
-        public Trigger OnDeactivate => _onDeactivate.Value;
+        public Trigger OnActivate => InternalOnActivate;
+        public Trigger OnDeactivate => InternalOnDeactivate;
     }
 }

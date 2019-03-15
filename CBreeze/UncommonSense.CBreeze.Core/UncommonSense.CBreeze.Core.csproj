@@ -54,6 +54,7 @@
     <Compile Include="Base\DefaultRanges.cs" />
     <Compile Include="Base\GuidKeyedContainer.cs" />
     <Compile Include="Code\Parameter\DataClassificationParameter.cs" />
+    <Compile Include="Property\Implementation\ClassicControlBorderStyleProperty.cs" />
     <Compile Include="Property\Implementation\ClassicMenuProperty.cs" />
     <Compile Include="Property\Implementation\DataClassificationProperty.cs" />
     <Compile Include="Code\Variable\DataClassificationVariable.cs" />
@@ -247,8 +248,6 @@
     <Compile Include="Form\Control\FormMenuItems.cs" />
     <Compile Include="Form\Control\FormMenuItem.cs" />
     <Compile Include="Form\Control\FormMenuItemBase.cs" />
-    <Compile Include="Form\Control\Properties\ClassicControlBorderStyleProperty.cs" />
-    <Compile Include="Form\Control\Properties\ControlBasePropertiesWithFont.cs" />
     <Compile Include="Form\Control\Properties\MenuItemProperties.cs" />
     <Compile Include="Property\Enumeration\ClassicReportOrientation.cs" />
     <Compile Include="Property\Enumeration\DataClassification.cs" />

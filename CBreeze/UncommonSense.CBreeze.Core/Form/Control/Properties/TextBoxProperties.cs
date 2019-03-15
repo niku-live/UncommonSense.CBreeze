@@ -7,7 +7,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
     public class TextBoxProperties : TextPropertiesBase, ITextBox
     {
         private readonly NullableBooleanProperty _assistEdit = new NullableBooleanProperty("AssistEdit");
-        private readonly NullableBooleanProperty _autoCalcField = new NullableBooleanProperty("AutoCalcField");
         private readonly NullableBooleanProperty _autoEnter = new NullableBooleanProperty("AutoEnter");
         private readonly StringProperty _autoFormatExpr = new StringProperty("AutoFormatExpr");
         private readonly StringProperty _autoFormatType = new StringProperty("AutoFormatType");
@@ -16,23 +15,17 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly StringProperty _dateFormula = new StringProperty("DateFormula");
         private readonly DecimalPlacesProperty _decimalPlaces = new DecimalPlacesProperty("DecimalPlaces");
         private readonly StringProperty _divisor = new StringProperty("Divisor");
-        private readonly NullableBooleanProperty _enabled = new NullableBooleanProperty("Enabled");
         private readonly StringProperty _format = new StringProperty("Format");
         private readonly NullableBooleanProperty _lookup = new NullableBooleanProperty("Lookup");
         private readonly StringProperty _lookupFormID = new StringProperty("LookupFormID");
         private readonly NullableIntegerProperty _maxLength = new NullableIntegerProperty("MaxLength");
-        private readonly StringProperty _maxValue = new StringProperty("MaxValue");
-        private readonly StringProperty _minValue = new StringProperty("MinValue");
         private readonly NullableBooleanProperty _notBlank = new NullableBooleanProperty("NotBlank");
         private readonly NullableBooleanProperty _numeric = new NullableBooleanProperty("Numeric");
-        private readonly MultiLanguageProperty _optionCaptionML = new MultiLanguageProperty("OptionCaptionML");
-        private readonly StringProperty _optionString = new StringProperty("OptionString");
         private readonly NullableBooleanProperty _passwordText = new NullableBooleanProperty("PasswordText");
         private readonly NullableBooleanProperty _permanentAssist = new NullableBooleanProperty("PermanentAssist");
         private readonly NullableBooleanProperty _signDisplacement = new NullableBooleanProperty("SignDisplacement");
         private readonly StringProperty _tableRelation = new StringProperty("TableRelation");
         private readonly StringProperty _title = new StringProperty("Title");
-        private readonly NullableBooleanProperty _inColumnHeading = new NullableBooleanProperty("InColumnHeading");
 
         private readonly NullableBooleanProperty _validateTableRelation =
             new NullableBooleanProperty("ValidateTableRelation");
@@ -50,13 +43,8 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_divisor);
             innerList.Add(_format);
             innerList.Add(_maxLength);
-            innerList.Add(_maxValue);
-            innerList.Add(_minValue);
             innerList.Add(_notBlank);
             innerList.Add(_numeric);
-            innerList.Add(_optionString);
-            innerList.Add(_optionCaptionML);
-            innerList.Add(_autoCalcField);
             innerList.Add(_passwordText);
             innerList.Add(_permanentAssist);
             innerList.Add(_autoFormatType);
@@ -65,41 +53,38 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_lookupFormID);
             innerList.Add(_tableRelation);
             innerList.Add(_title);
-            innerList.Add(_optionString);
-            innerList.Add(_enabled);
             innerList.Add(_validateTableRelation);
             innerList.Add(_valuesAllowed);
-            innerList.Add(_inColumnHeading);
         }
 
         public bool? AutoCalcField
         {
-            get => _autoCalcField.Value;
-            set => _autoCalcField.Value = value;
+            get => InternalAutoCalcField;
+            set => InternalAutoCalcField = value;
         }
 
         public string MinValue
         {
-            get => _minValue.Value;
-            set => _minValue.Value = value;
+            get => InternalMinValue;
+            set => InternalMinValue = value;
         }
 
         public string MaxValue
         {
-            get => _maxValue.Value;
-            set => _maxValue.Value = value;
+            get => InternalMaxValue;
+            set => InternalMaxValue = value;
         }
 
         public string ValuesAllowed
         {
-            get => _valuesAllowed.Value;
-            set => _valuesAllowed.Value = value;
+            get => InternalValuesAllowed;
+            set => InternalValuesAllowed = value;
         }
 
         public bool? Enabled
         {
-            get => _enabled.Value;
-            set => _enabled.Value = value;
+            get => InternalEnabled;
+            set => InternalEnabled = value;
         }
 
         public int? MaxLength
@@ -138,13 +123,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _permanentAssist.Value = value;
         }
 
-        public string OptionString
-        {
-            get => _optionString.Value;
-            set => _optionString.Value = value;
-        }
-
-        public MultiLanguageValue OptionCaptionML => _optionCaptionML.Value;
         public DecimalPlaces DecimalPlaces => _decimalPlaces.Value;
 
         public string Title
@@ -233,8 +211,8 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public bool? InColumnHeading
         {
-            get => _inColumnHeading.Value;
-            set => _inColumnHeading.Value = value;
+            get => InternalInColumnHeading;
+            set => InternalInColumnHeading = value;
         }
     }
 }

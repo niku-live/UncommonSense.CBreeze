@@ -8,71 +8,57 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
     public abstract class BaseButtonProperties : BaseControlBaseProperties2, IButton
     {
-        private readonly BitmapPosProperty _bitmapPos = new BitmapPosProperty("BitmapPos");
-        private readonly NullableBooleanProperty _focusOnClick = new NullableBooleanProperty("FocusOnClick");
-        private readonly StringProperty _runCommand = new StringProperty("RunCommand");
-        private readonly RunObjectLinkProperty _runFormLink = new RunObjectLinkProperty("RunFormLink");
-        private readonly RunFormLinkTypeProperty _runFormLinkType = new RunFormLinkTypeProperty("RunFormLinkType");
-        private readonly NullableBooleanProperty _runFormOnRec = new NullableBooleanProperty("RunFormOnRec");
-        private readonly StringProperty _runFormView = new StringProperty("RunFormView");
-        private readonly RunObjectProperty _runObject = new RunObjectProperty("RunObject");
-
         protected BaseButtonProperties(FormControl control) : base(control)
         {
-            innerList.Add(_bitmapPos);
-            innerList.Add(_focusOnClick);
-            innerList.Add(_runCommand);
-            innerList.Add(_runObject);
-            innerList.Add(_runFormLinkType);
-            innerList.Add(_runFormLink);
-            innerList.Add(_runFormOnRec);
-            innerList.Add(_runFormView);
         }
-
-        public string CaptionClass { get; set; }
 
         public bool? FocusOnClick
         {
-            get => _focusOnClick.Value;
-            set => _focusOnClick.Value = value;
+            get => InternalFocusOnClick;
+            set => InternalFocusOnClick = value;
         }
 
         public BitmapPos? BitmapPos
         {
-            get => _bitmapPos.Value;
-            set => _bitmapPos.Value = value;
+            get => InternalBitmapPos;
+            set => InternalBitmapPos = value;
         }
 
-        public RunObject RunObject => _runObject.Value;
+        public string CaptionClass
+        {
+            get => InternalCaptionClass;
+            set => InternalCaptionClass = value;
+        }
+
+        public RunObject RunObject => InternalRunObject;
 
         public string RunFormView
         {
-            get => _runFormView.Value;
-            set => _runFormView.Value = value;
+            get => InternalRunFormView;
+            set => InternalRunFormView = value;
         }
 
         public RunObjectLink RunFormLink
         {
-            get => _runFormLink.Value;
-            //set => _runFormLink.Value = value;
+            get => InternalRunFormLink;
         }
 
         public RunFormLinkType? RunFormLinkType
         {
-            get => _runFormLinkType.Value;
-            set => _runFormLinkType.Value = value;
+            get => InternalRunFormLinkType;
+            set => InternalRunFormLinkType = value;
         }
 
         public bool? RunFormOnRec
         {
-            get => _runFormOnRec.Value;
-            set => _runFormOnRec.Value = value;
+            get => InternalRunFormOnRec;
+            set => InternalRunFormOnRec = value;
         }
 
         public string RunCommand
         {
-            get => _runCommand.Value;
-            set => _runCommand.Value = value;
+            get => InternalRunCommand;
+            set => InternalRunCommand = value;
         }
 
     }

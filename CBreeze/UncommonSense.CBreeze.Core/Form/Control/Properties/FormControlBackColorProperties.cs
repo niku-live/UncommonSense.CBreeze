@@ -4,15 +4,12 @@ using UncommonSense.CBreeze.Core.Property.Implementation;
 
 namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
-    public abstract class FormControlBackColorProperties : ControlBasePropertiesWithFont, IFormControlBackColorProperties
+    public abstract class FormControlBackColorProperties : FormControlProperties, IFormControlBackColorProperties
     {
-        private readonly MultiLanguageProperty _captionMl = new MultiLanguageProperty("CaptionML");
-
         protected FormControlBackColorProperties(FormControl control) : base(control)
         {
-            innerList.Add(_captionMl);
         }
 
-        public MultiLanguageValue CaptionMl => _captionMl.Value;
+        public MultiLanguageValue CaptionMl => InternalCaptionMl;
     }
 }

@@ -7,27 +7,23 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
     public class FrameProperties : BaseControlBaseProperties2, IFrame
     {
-        private readonly ColorProperty _borderColor = new ColorProperty("BorderColor");
-        private readonly BorderWidthProperty _borderWidth = new BorderWidthProperty("BorderWidth");
         private readonly NullableBooleanProperty _topLineOnly = new NullableBooleanProperty("TopLineOnly");
 
         public FrameProperties(FormControl control) : base(control)
         {
-            innerList.Add(_borderColor);
-            innerList.Add(_borderWidth);
             innerList.Add(_topLineOnly);
         }
 
         public Color? BorderColor
         {
-            get => _borderColor.Value;
-            set => _borderColor.Value = value;
+            get => InternalBorderColor;
+            set => InternalBorderColor = value;
         }
 
-        public BorderWidth BorderWidth
+        public BorderWidth? BorderWidth
         {
-            get => _borderWidth.Value;
-            set => _borderWidth.Value = value;
+            get => InternalBorderWidth;
+            set => InternalBorderWidth = value;
         }
 
         public bool? TopLineOnly
