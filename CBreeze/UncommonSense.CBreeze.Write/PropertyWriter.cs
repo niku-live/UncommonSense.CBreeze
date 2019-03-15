@@ -118,7 +118,7 @@ namespace UncommonSense.CBreeze.Write
                 TypeSwitch.Case<VertGlueProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<HorzAlignProperty>(p => { if (p.HasValue) WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer); }),
                 TypeSwitch.Case<HorzGlueProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
-                TypeSwitch.Case<ShapeStyleProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
+                TypeSwitch.Case<ShapeStyleProperty>(p => WriteSimpleProperty(p.Name, p.GetValueName(), isLastProperty, writer)),
                 TypeSwitch.Case<ColorProperty>(p => p.Write(isLastProperty, style, writer)),
                 TypeSwitch.Case<AutoPositionProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<SourceTablePlacementProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),

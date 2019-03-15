@@ -8,7 +8,22 @@ namespace UncommonSense.CBreeze.Core.Property.Implementation
         {
         }
 
-        //public override bool HasValue { get; }
+        public string GetValueName()
+        {
+            if (!HasValue)
+            {
+                return null;
+            }
+            switch (Value)
+            {
+                case ShapeStyle.NELine:
+                    return "NE-Line";
+                case ShapeStyle.NWLine:
+                    return "NW-Line";
+                default:
+                    return Value.ToString();
+            }
+        }
         public override void Reset()
         {
             Value = ShapeStyle.Rectangle;
