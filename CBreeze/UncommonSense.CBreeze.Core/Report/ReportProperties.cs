@@ -316,7 +316,7 @@ namespace UncommonSense.CBreeze.Core.Report
         }
 #endif
 #if NAV2009
-        public ClassicReportOrientation Orientation
+        public ClassicReportOrientation? Orientation
         {
             get => orientation.Value;
             set => orientation.Value = value;
