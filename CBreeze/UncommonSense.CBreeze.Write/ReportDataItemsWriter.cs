@@ -39,10 +39,7 @@ namespace UncommonSense.CBreeze.Write
             writer.BeginSection("PROPERTIES");
             reportDataItem.Properties.Write(PropertiesStyle.Object, writer);
             writer.EndSection();
-            if (reportDataItem.Sections != null && reportDataItem.Sections.Any())
-            {
-                reportDataItem.Sections.Write(writer);
-            }
+            reportDataItem.Sections.Write(writer);
             writer.WriteLine(" }");
             writer.Unindent();
         }
@@ -51,9 +48,12 @@ namespace UncommonSense.CBreeze.Write
         {
             writer.BeginSection("SECTIONS");
 
-            foreach (var reportDataItemSection in reportDataItemSections)
+            if (reportDataItemSections != null)
             {
-                reportDataItemSection.Write(writer);
+                foreach (var reportDataItemSection in reportDataItemSections)
+                {
+                    reportDataItemSection.Write(writer);
+                }
             }
 
             writer.EndSection();
