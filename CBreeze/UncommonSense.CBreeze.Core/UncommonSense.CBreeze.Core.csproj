@@ -56,6 +56,7 @@
     <Compile Include="Code\Parameter\DataClassificationParameter.cs" />
     <Compile Include="Property\Implementation\ClassicControlBorderStyleProperty.cs" />
     <Compile Include="Property\Implementation\ClassicMenuProperty.cs" />
+    <Compile Include="Property\Implementation\ClassicSectionTypeProperty.cs" />
     <Compile Include="Property\Implementation\DataClassificationProperty.cs" />
     <Compile Include="Code\Variable\DataClassificationVariable.cs" />
     <Compile Include="Base\IntegerKeyedAndNamedContainer.cs" />

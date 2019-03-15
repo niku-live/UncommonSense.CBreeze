@@ -130,6 +130,7 @@ namespace UncommonSense.CBreeze.Write
                 TypeSwitch.Case<ClassicMenuProperty>(p => p.Write(isLastProperty, style, writer)),
                 TypeSwitch.Case<MenuItemTypeProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<BorderWidthProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
+                TypeSwitch.Case<ClassicSectionTypeProperty>(p => WriteSimpleProperty(p.Name, p.GetValue().ToString(), isLastProperty, writer)),
 #endif
                 TypeSwitch.Case<NullableBooleanProperty>(p => p.Write(isLastProperty, style, writer)),
                 TypeSwitch.Case<NullableDateTimeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(writer.CodeStyle.DateTimeFormat), isLastProperty, writer)),
@@ -141,7 +142,7 @@ namespace UncommonSense.CBreeze.Write
                 TypeSwitch.Case<NullableUnsignedIntegerProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<NullableTimeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString("c"), isLastProperty, writer)),
                 TypeSwitch.Case<XmlPortNodeDataTypeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
-                TypeSwitch.Case<DataClassificationProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
+                TypeSwitch.Case<DataClassificationProperty>(p => WriteSimpleProperty(p.Name, p.GetValue().ToString(), isLastProperty, writer)),
 #if NAV2017
                 TypeSwitch.Case<TagListProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<GestureProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),

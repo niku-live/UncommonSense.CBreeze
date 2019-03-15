@@ -82,6 +82,7 @@
     <Compile Include="QueryPropertiesWriter.cs" />
     <Compile Include="QueryWriter.cs" />
     <Compile Include="RdlDataWriter.cs" />
+    <Compile Include="ReportDataItemsWriter.cs" />
     <Compile Include="ReportElementExtensionMethods.cs" />
     <Compile Include="ReportWriter.cs" />
     <Compile Include="TableFieldGroupWriter.cs" />

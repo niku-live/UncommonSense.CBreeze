@@ -14,7 +14,13 @@ namespace UncommonSense.CBreeze.Write
             writer.BeginSection(report.GetObjectSignature());
 			report.ObjectProperties.Write(writer);
 			report.Properties.Write(writer);
-			report.Elements.Write(writer);
+#if NAV2009
+            if (report.DataItems.Any())
+            {
+                report.DataItems.Write(writer);
+            }
+#endif
+            report.Elements.Write(writer);
 			report.RequestPage.Write(writer);
 			report.Labels.Write(writer);
 			report.Code.Write(writer);
