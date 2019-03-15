@@ -24,7 +24,10 @@ namespace UncommonSense.CBreeze.Write
             {
                 report.Elements.Write(writer);
             }
-			report.RequestPage.Write(writer);
+#if NAV2009
+            report.RequestForm.Write(writer);
+#endif
+            report.RequestPage.Write(writer);
             if (report.Labels.Any() || !writer.CodeStyle.DoNotPrintEmptyLabels)
             {
                 report.Labels.Write(writer);
