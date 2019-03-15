@@ -7,34 +7,26 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
     public class CommandButtonProperties : BaseButtonProperties, ICommandButton
     {
-        private readonly NullableBooleanProperty _autoRepeat = new NullableBooleanProperty("AutoRepeat");
-        private readonly NullableBooleanProperty _ellipsis = new NullableBooleanProperty("Ellipsis");
-        private readonly InvalidActionAppearanceProperty _invalidActionAppearance =
-            new InvalidActionAppearanceProperty("InvalidActionAppearance");
-
         public CommandButtonProperties(FormControl control) : base(control)
         {
-            innerList.Add(_autoRepeat);
-            innerList.Add(_ellipsis);
-            innerList.Add(_invalidActionAppearance);
         }
 
         public bool? AutoRepeat
         {
-            get => _autoRepeat.Value;
-            set => _autoRepeat.Value = value;
+            get => InternalAutoRepeat;
+            set => InternalAutoRepeat = value;
         }
 
         public InvalidActionAppearance? InvalidActionAppearance
         {
-            get => _invalidActionAppearance.Value;
-            set => _invalidActionAppearance.Value = value;
+            get => InternalInvalidActionAppearance;
+            set => InternalInvalidActionAppearance = value;
         }
 
         public bool? Ellipsis
         {
-            get => _ellipsis.Value;
-            set => _ellipsis.Value = value;
+            get => InternalEllipsis;
+            set => InternalEllipsis = value;
         }
 
     }

@@ -7,11 +7,8 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
     public class ShapeProperties : BaseControlBaseProperties, IShape
     {        
-        private readonly ShapeStyleProperty _shapeStyle = new ShapeStyleProperty("ShapeStyle");
-
         public ShapeProperties(FormControl control) : base(control)
         {
-            innerList.Add(_shapeStyle);
         }
 
         public Color? BorderColor
@@ -34,8 +31,8 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public ShapeStyle? ShapeStyle
         {
-            get => _shapeStyle.Value;
-            set => _shapeStyle.Value = value;
+            get => InternalShapeStyle;
+            set => InternalShapeStyle = value;
         }
     }
 }

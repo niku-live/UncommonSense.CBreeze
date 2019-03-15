@@ -10,7 +10,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
         }
 
-
         public Trigger OnPush => InternalOnPush;
     }
 }

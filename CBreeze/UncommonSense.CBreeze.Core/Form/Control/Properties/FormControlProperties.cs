@@ -97,6 +97,71 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly NullableBooleanProperty _updateOnAction = new NullableBooleanProperty("UpdateOnAction");
         private readonly StringProperty _valuesAllowed = new StringProperty("ValuesAllowed");
 
+        private readonly NullableBooleanProperty _assistEdit = new NullableBooleanProperty("AssistEdit");
+        private readonly NullableBooleanProperty _autoEnter = new NullableBooleanProperty("AutoEnter");
+        private readonly StringProperty _autoFormatExpr = new StringProperty("AutoFormatExpr");
+        private readonly StringProperty _autoFormatType = new StringProperty("AutoFormatType");
+        private readonly StringProperty _charAllowed = new StringProperty("CharAllowed");
+        private readonly NullableBooleanProperty _closingDates = new NullableBooleanProperty("ClosingDates");
+        private readonly StringProperty _dateFormula = new StringProperty("DateFormula");
+        private readonly DecimalPlacesProperty _decimalPlaces = new DecimalPlacesProperty("DecimalPlaces");
+        private readonly StringProperty _divisor = new StringProperty("Divisor");
+        private readonly StringProperty _format = new StringProperty("Format");
+        private readonly NullableBooleanProperty _lookup = new NullableBooleanProperty("Lookup");
+        private readonly StringProperty _lookupFormID = new StringProperty("LookupFormID");
+        private readonly NullableIntegerProperty _maxLength = new NullableIntegerProperty("MaxLength");
+        private readonly NullableBooleanProperty _notBlank = new NullableBooleanProperty("NotBlank");
+        private readonly NullableBooleanProperty _numeric = new NullableBooleanProperty("Numeric");
+        private readonly NullableBooleanProperty _passwordText = new NullableBooleanProperty("PasswordText");
+        private readonly NullableBooleanProperty _permanentAssist = new NullableBooleanProperty("PermanentAssist");
+        private readonly NullableBooleanProperty _signDisplacement = new NullableBooleanProperty("SignDisplacement");
+        private readonly StringProperty _tableRelation = new StringProperty("TableRelation");
+        private readonly StringProperty _title = new StringProperty("Title");
+
+        private readonly NullableBooleanProperty _validateTableRelation =
+            new NullableBooleanProperty("ValidateTableRelation");
+
+        private readonly StringProperty _optionValue = new StringProperty("OptionValue");
+
+        private readonly TriggerProperty _onAfterInput = new TriggerProperty("OnAfterInput");
+        private readonly TriggerProperty _onAssistEdit = new TriggerProperty("OnAssistEdit");
+        private readonly TriggerProperty _onBeforeInput = new TriggerProperty("OnBeforeInput");
+        private readonly TriggerProperty _onDrillDown = new TriggerProperty("OnDrillDown");
+        private readonly TriggerProperty _onFormat = new TriggerProperty("OnFormat");
+        private readonly TriggerProperty _onInputChange = new TriggerProperty("OnInputChange");
+        private readonly TriggerProperty _onLookup = new TriggerProperty("OnLookup");
+
+        private readonly NullableBooleanProperty _autoRepeat = new NullableBooleanProperty("AutoRepeat");
+        private readonly NullableBooleanProperty _ellipsis = new NullableBooleanProperty("Ellipsis");
+        private readonly InvalidActionAppearanceProperty _invalidActionAppearance =
+            new InvalidActionAppearanceProperty("InvalidActionAppearance");
+
+        private readonly NullableIntegerProperty _headingHeight = new NullableIntegerProperty("HeadingHeight");
+        private readonly NullableBooleanProperty _inlineEditing = new NullableBooleanProperty("InlineEditing");
+        private readonly NullableIntegerProperty _rowHeight = new NullableIntegerProperty("RowHeight");
+
+        private readonly MultiLanguageProperty _pageNamesMl = new MultiLanguageProperty("PageNamesML");
+
+        private readonly StringProperty _subFormId = new StringProperty("SubFormID");
+        private readonly RunObjectLinkProperty _subFormLink = new RunObjectLinkProperty("SubFormLink");
+        private readonly StringProperty _subFormView = new StringProperty("SubFormView");
+
+        private readonly ShapeStyleProperty _shapeStyle = new ShapeStyleProperty("ShapeStyle");
+
+        private readonly NullableIntegerProperty _matrixColumnWidth = new NullableIntegerProperty("MatrixColumnWidth");
+        private readonly StringProperty _matrixSourceTable = new StringProperty("MatrixSourceTable");
+
+        private readonly OrientationProperty _orientation = new OrientationProperty("Orientation");
+        private readonly NullableIntegerProperty _percentage = new NullableIntegerProperty("Percentage");
+
+        private readonly NullableBooleanProperty _topLineOnly = new NullableBooleanProperty("TopLineOnly");
+
+        private readonly TriggerProperty _onAfterGetCurrRecord = new TriggerProperty("OnAfterGetCurrRecord");
+        private readonly TriggerProperty _onAfterGetRecord = new TriggerProperty("OnAfterGetRecord");
+        private readonly TriggerProperty _onBeforePutRecord = new TriggerProperty("OnBeforePutRecord");
+        private readonly TriggerProperty _onFindRecord = new TriggerProperty("OnFindRecord");
+        private readonly TriggerProperty _onNextRecord = new TriggerProperty("OnNextRecord");
+
         protected FormControlProperties(FormControl control)
         {
             Control = control;
@@ -109,6 +174,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_focusable);
             innerList.Add(_enabled);
             innerList.Add(_height);
+            innerList.Add(_validateTableRelation);
             innerList.Add(_parentControl);
             innerList.Add(_inFrame);
             innerList.Add(_inColumn);
@@ -119,9 +185,9 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_width);
             innerList.Add(_xPos);
             innerList.Add(_yPos);
+            innerList.Add(_showCaption);
             innerList.Add(_horzAlign);
             innerList.Add(_vertAlign);
-            innerList.Add(_showCaption);
             innerList.Add(_foreColor);
             innerList.Add(_backColor);
             innerList.Add(_backTransparent);
@@ -144,27 +210,48 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_multiLine);
             innerList.Add(_leaderDots);
 
+            innerList.Add(_lookup);
             innerList.Add(_drillDown);
-            innerList.Add(_drillDownFormID);
+            innerList.Add(_assistEdit);
             innerList.Add(_dropDown);
             innerList.Add(_focusOnClick);
+            innerList.Add(_maxLength);
+            innerList.Add(_autoEnter);
+            innerList.Add(_invalidActionAppearance);
             innerList.Add(_captionMl);
             innerList.Add(_toolTipMl);
             innerList.Add(_description);
 
+            innerList.Add(_decimalPlaces);
+            innerList.Add(_blankNumbers);
+            innerList.Add(_blankZero);
             innerList.Add(_nextControl);
             innerList.Add(_bitmapList);
             innerList.Add(_clearOnLookup);
-            innerList.Add(_blankNumbers);
-            innerList.Add(_blankZero);
             innerList.Add(_optionCaptionML);
             innerList.Add(_optionString);
+            innerList.Add(_dateFormula);
+            innerList.Add(_passwordText);
+            innerList.Add(_notBlank);
+            innerList.Add(_permanentAssist);
             innerList.Add(_sourceExpr);
+            innerList.Add(_drillDownFormID);
             innerList.Add(_captionClass);
+            innerList.Add(_tableRelation);
+            innerList.Add(_lookupFormID);
+            innerList.Add(_optionValue);
+            innerList.Add(_subFormId);
+            innerList.Add(_subFormView);
+            innerList.Add(_subFormLink);
             innerList.Add(_onActivate);
             innerList.Add(_onDeactivate);
             innerList.Add(_onPush);
+            innerList.Add(_onInputChange);
+            innerList.Add(_onFormat);
+            innerList.Add(_onBeforeInput);
             innerList.Add(_onValidate);
+            innerList.Add(_onLookup);
+            innerList.Add(_onAfterInput);
             innerList.Add(_onAfterValidate);
 
             innerList.Add(_runCommand);
@@ -183,6 +270,43 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_minValue);
             innerList.Add(_updateOnAction);
             innerList.Add(_valuesAllowed);
+
+            innerList.Add(_charAllowed);
+            innerList.Add(_closingDates);
+            innerList.Add(_divisor);
+            innerList.Add(_format);
+            innerList.Add(_numeric);
+            innerList.Add(_autoFormatType);
+            innerList.Add(_autoFormatExpr);
+            innerList.Add(_title);
+
+            innerList.Add(_onAssistEdit);
+            innerList.Add(_onDrillDown);
+
+            innerList.Add(_autoRepeat);
+            innerList.Add(_ellipsis);
+
+            innerList.Add(_matrixColumnWidth);
+            innerList.Add(_headingHeight);
+            innerList.Add(_inlineEditing);
+            innerList.Add(_rowHeight);
+
+            innerList.Add(_pageNamesMl);
+
+            innerList.Add(_shapeStyle);
+
+            innerList.Add(_matrixSourceTable);
+
+            innerList.Add(_orientation);
+            innerList.Add(_percentage);
+
+            innerList.Add(_topLineOnly);
+
+            innerList.Add(_onFindRecord);
+            innerList.Add(_onNextRecord);
+            innerList.Add(_onAfterGetRecord);
+            innerList.Add(_onAfterGetCurrRecord);
+            innerList.Add(_onBeforePutRecord);
         }
 
         public FormControl Control { get; }
@@ -596,5 +720,235 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             get => _updateOnAction.Value;
             set => _updateOnAction.Value = value;
         }
+
+        protected int? InternalMaxLength
+        {
+            get => _maxLength.Value;
+            set => _maxLength.Value = value;
+        }
+
+        protected bool? InternalPasswordText
+        {
+            get => _passwordText.Value;
+            set => _passwordText.Value = value;
+        }
+
+        protected bool? InternalAutoEnter
+        {
+            get => _autoEnter.Value;
+            set => _autoEnter.Value = value;
+        }
+
+        protected bool? InternalLookup
+        {
+            get => _lookup.Value;
+            set => _lookup.Value = value;
+        }
+
+        protected bool? InternalAssistEdit
+        {
+            get => _assistEdit.Value;
+            set => _assistEdit.Value = value;
+        }
+
+        protected bool? InternalPermanentAssist
+        {
+            get => _permanentAssist.Value;
+            set => _permanentAssist.Value = value;
+        }
+
+        protected DecimalPlaces InternalDecimalPlaces => _decimalPlaces.Value;
+
+        protected string InternalTitle
+        {
+            get => _title.Value;
+            set => _title.Value = value;
+        }
+
+        protected bool? InternalNotBlank
+        {
+            get => _notBlank.Value;
+            set => _notBlank.Value = value;
+        }
+
+        protected bool? InternalNumeric
+        {
+            get => _numeric.Value;
+            set => _numeric.Value = value;
+        }
+
+        protected string InternalCharAllowed
+        {
+            get => _charAllowed.Value;
+            set => _charAllowed.Value = value;
+        }
+
+        protected string InternalDateFormula
+        {
+            get => _dateFormula.Value;
+            set => _dateFormula.Value = value;
+        }
+
+        protected bool? InternalClosingDates
+        {
+            get => _closingDates.Value;
+            set => _closingDates.Value = value;
+        }
+
+        protected string InternalFormat
+        {
+            get => _format.Value;
+            set => _format.Value = value;
+        }
+
+        protected bool? InternalSignDisplacement
+        {
+            get => _signDisplacement.Value;
+            set => _signDisplacement.Value = value;
+        }
+
+        protected string InternalAutoFormatType
+        {
+            get => _autoFormatType.Value;
+            set => _autoFormatType.Value = value;
+        }
+
+        protected string InternalAutoFormatExpr
+        {
+            get => _autoFormatExpr.Value;
+            set => _autoFormatExpr.Value = value;
+        }
+
+        protected string InternalDivisor
+        {
+            get => _divisor.Value;
+            set => _divisor.Value = value;
+        }
+
+        protected string InternalTableRelation
+        {
+            get => _tableRelation.Value;
+            set => _tableRelation.Value = value;
+        }
+
+        protected bool? InternalValidateTableRelation
+        {
+            get => _validateTableRelation.Value;
+            set => _validateTableRelation.Value = value;
+        }
+
+        protected string InternalLookupFormID
+        {
+            get => _lookupFormID.Value;
+            set => _lookupFormID.Value = value;
+        }
+
+        protected string InternalOptionValue
+        {
+            get => _optionValue.Value;
+            set => _optionValue.Value = value;
+        }
+
+        protected Trigger InternalOnLookup => _onLookup.Value;
+        protected Trigger InternalOnAssistEdit => _onAssistEdit.Value;
+        protected Trigger InternalOnDrillDown => _onDrillDown.Value;
+        protected Trigger InternalOnFormat => _onFormat.Value;
+        protected Trigger InternalOnBeforeInput => _onBeforeInput.Value;
+        protected Trigger InternalOnInputChange => _onInputChange.Value;
+        protected Trigger InternalOnAfterInput => _onAfterInput.Value;
+
+        protected InvalidActionAppearance? InternalInvalidActionAppearance
+        {
+            get => _invalidActionAppearance.Value;
+            set => _invalidActionAppearance.Value = value;
+        }
+
+        protected bool? InternalEllipsis
+        {
+            get => _ellipsis.Value;
+            set => _ellipsis.Value = value;
+        }
+
+        protected bool? InternalAutoRepeat
+        {
+            get => _autoRepeat.Value;
+            set => _autoRepeat.Value = value;
+        }
+
+        protected int? InternalRowHeight
+        {
+            get => _rowHeight.Value;
+            set => _rowHeight.Value = value;
+        }
+
+        protected bool? InternalInlineEditing
+        {
+            get => _inlineEditing.Value;
+            set => _inlineEditing.Value = value;
+        }
+
+        protected int? InternalHeadingHeight
+        {
+            get => _headingHeight.Value;
+            set => _headingHeight.Value = value;
+        }
+
+        protected MultiLanguageValue InternalPageNamesMl { get => _pageNamesMl.Value; }
+
+        protected string InternalSubFormId
+        {
+            get => _subFormId.Value;
+            set => _subFormId.Value = value;
+        }
+
+        protected string InternalSubFormView
+        {
+            get => _subFormView.Value;
+            set => _subFormView.Value = value;
+        }
+
+        protected RunObjectLink InternalSubFormLink => _subFormLink.Value;
+
+        protected ShapeStyle? InternalShapeStyle
+        {
+            get => _shapeStyle.Value;
+            set => _shapeStyle.Value = value;
+        }
+
+        protected int? InternalMatrixColumnWidth
+        {
+            get => _matrixColumnWidth.Value;
+            set => _matrixColumnWidth.Value = value;
+        }
+
+        protected string InternalMatrixSourceTable
+        {
+            get => _matrixSourceTable.Value;
+            set => _matrixSourceTable.Value = value;
+        }
+
+        protected Orientation InternalOrientation
+        {
+            get => _orientation.Value;
+            set => _orientation.Value = value;
+        }
+
+        protected int? InternalPercentage
+        {
+            get => _percentage.Value;
+            set => _percentage.Value = value;
+        }
+
+        protected bool? InternalTopLineOnly
+        {
+            get => _topLineOnly.Value;
+            set => _topLineOnly.Value = value;
+        }
+
+        protected Trigger InternalOnFindRecord => _onFindRecord.Value;
+        protected Trigger InternalOnNextRecord => _onNextRecord.Value;
+        protected Trigger InternalOnAfterGetRecord => _onAfterGetRecord.Value;
+        protected Trigger InternalOnAfterGetCurrRecord => _onAfterGetCurrRecord.Value;
+        protected Trigger InternalOnBeforePutRecord => _onBeforePutRecord.Value;
     }
 }

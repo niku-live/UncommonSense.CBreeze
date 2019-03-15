@@ -6,10 +6,8 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
     public class FormIndicatorProperties : IndicatorProperties, IActivate, IValidate, IPushAble
     {
-
         public FormIndicatorProperties(FormControl control) : base(control)
         {
         }
-
     }
 }

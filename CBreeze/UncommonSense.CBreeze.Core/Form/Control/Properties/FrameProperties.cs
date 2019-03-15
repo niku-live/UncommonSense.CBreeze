@@ -6,12 +6,9 @@ using UncommonSense.CBreeze.Core.Property.Implementation;
 namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
     public class FrameProperties : BaseControlBaseProperties2, IFrame
-    {
-        private readonly NullableBooleanProperty _topLineOnly = new NullableBooleanProperty("TopLineOnly");
-
+    {        
         public FrameProperties(FormControl control) : base(control)
         {
-            innerList.Add(_topLineOnly);
         }
 
         public Color? BorderColor
@@ -28,8 +25,8 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public bool? TopLineOnly
         {
-            get => _topLineOnly.Value;
-            set => _topLineOnly.Value = value;
+            get => InternalTopLineOnly;
+            set => InternalTopLineOnly = value;
         }
     }
 }

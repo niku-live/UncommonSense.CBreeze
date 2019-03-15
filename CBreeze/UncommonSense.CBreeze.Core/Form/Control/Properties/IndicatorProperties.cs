@@ -7,9 +7,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
     public class IndicatorProperties : BaseControlBaseProperties2, IIndicator
     {
-        private readonly OrientationProperty _orientation = new OrientationProperty("Orientation");
-        private readonly NullableIntegerProperty _percentage = new NullableIntegerProperty("Percentage");
-
         public IndicatorProperties(FormControl control) : base(control)
         {
         }
@@ -46,14 +43,14 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public Orientation Orientation
         {
-            get => _orientation.Value;
-            set => _orientation.Value = value;
+            get => InternalOrientation;
+            set => InternalOrientation = value;
         }
 
         public int? Percentage
         {
-            get => _percentage.Value;
-            set => _percentage.Value = value;
+            get => InternalPercentage;
+            set => InternalPercentage = value;
         }
     }
 }

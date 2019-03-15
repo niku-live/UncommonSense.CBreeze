@@ -45,6 +45,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_menuLevel);
             innerList.Add(_captionClass);
             innerList.Add(_ellipsis);
+            innerList.Add(_visible);
             innerList.Add(_captionMl);
             innerList.Add(_description);
             innerList.Add(_enabled);
@@ -59,7 +60,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_sourceExpr);
             innerList.Add(_tooltipMl);
             innerList.Add(_updateOnAction);
-            innerList.Add(_visible);
             innerList.Add(_onPush);
         }
 

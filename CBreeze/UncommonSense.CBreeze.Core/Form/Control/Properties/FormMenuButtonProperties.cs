@@ -9,6 +9,5 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         public FormMenuButtonProperties(FormControl control) : base(control)
         {
         }
-
     }
 }

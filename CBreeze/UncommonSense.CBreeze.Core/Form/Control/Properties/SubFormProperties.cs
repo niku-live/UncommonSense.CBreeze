@@ -7,15 +7,8 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
     public class SubFormProperties : FormControlProperties, ISubForm
     {
-        private readonly StringProperty _subFormId = new StringProperty("SubFormID");
-        private readonly StringProperty _subFormLink = new StringProperty("SubFormLink");
-        private readonly StringProperty _subFormView = new StringProperty("SubFormView");
-
         public SubFormProperties(FormControl control) : base(control)
         {
-            innerList.Add(_subFormId);
-            innerList.Add(_subFormView);
-            innerList.Add(_subFormLink);
         }
 
         public string Description
@@ -57,21 +50,17 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public string SubFormId
         {
-            get => _subFormId.Value;
-            set => _subFormId.Value = value;
+            get => InternalSubFormId;
+            set => InternalSubFormId = value;
         }
 
         public string SubFormView
         {
-            get => _subFormView.Value;
-            set => _subFormView.Value = value;
+            get => InternalSubFormView;
+            set => InternalSubFormView = value;
         }
 
-        public string SubFormLink
-        {
-            get => _subFormLink.Value;
-            set => _subFormLink.Value = value;
-        }
+        public RunObjectLink SubFormLink => InternalSubFormLink;
 
         public MultiLanguageValue CaptionMl => InternalCaptionMl;
     }

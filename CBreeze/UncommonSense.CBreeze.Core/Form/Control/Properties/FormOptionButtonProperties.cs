@@ -6,10 +6,8 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
     public class FormOptionButtonProperties : OptionButtonProperties, IActivate, IPushAble, IValidate
     {
-
         public FormOptionButtonProperties(FormControl control) : base(control)
         {
         }
-
     }
 }

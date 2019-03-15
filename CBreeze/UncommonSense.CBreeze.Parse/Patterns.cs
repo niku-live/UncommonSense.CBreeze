@@ -99,7 +99,7 @@ namespace UncommonSense.CBreeze.Parse
         public static readonly Regex EndFieldGroup = new Regex(@"\s}$", RegexOptions.Compiled);
 
         // Control
-        public static readonly Regex FormControl = new Regex(@"^{\s*(\d+)\s*;([^;]*);\s*(\d+)\s*;\s*(\d+)\s*;\s*(\d+)\s*;\s*(\d+)\s*([;}])", RegexOptions.Compiled);
+        public static readonly Regex FormControl = new Regex(@"^{\s*(\d+)\s*;([^;]*);\s*(-{0,1}\d+)\s*;\s*(-{0,1}\d+)\s*;\s*(-{0,1}\d+)\s*;\s*(-{0,1}\d+)\s*([;}])", RegexOptions.Compiled);
         public static readonly Regex PageControl = new Regex(@"^{\s*(\d+)\s*;([^;]*);([^;]*)([;}])$", RegexOptions.Compiled);
 
         public static readonly Regex EndPageControl = new Regex(@"\s}$", RegexOptions.Compiled);

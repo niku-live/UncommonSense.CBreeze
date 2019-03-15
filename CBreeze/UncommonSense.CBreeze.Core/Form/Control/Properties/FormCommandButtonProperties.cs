@@ -6,10 +6,8 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
     public class FormCommandButtonProperties : CommandButtonProperties, IActivate, IPushAble
     {
-
         public FormCommandButtonProperties(FormControl control) : base(control)
         {
         }
-
     }
 }
