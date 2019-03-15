@@ -49,11 +49,18 @@ namespace UncommonSense.CBreeze.Parse
                 int dedent = 0;
                 foreach (var line in lines.Skip(1))
                 {
+                    var trimmedLine = line.TrimStart();
+                    if (trimmedLine.EndsWith("=BEGIN") || trimmedLine.EndsWith("=VAR") || trimmedLine.EndsWith("=MENUITEMS"))
+                    {
+                        dedent = line.Length - trimmedLine.Length;
+                        break;
+                    }
+
                     if (dedent == 0)
                     {
-                        dedent = line.Length - line.TrimStart().Length;
+                        dedent = line.Length - trimmedLine.Length;
                     }
-                    int diff = line.Length - line.TrimStart().Length;
+                    int diff = line.Length - trimmedLine.Length;
                     if ((diff > 0) && (diff < dedent))
                     {
                         dedent = diff;
