@@ -20,13 +20,25 @@ namespace UncommonSense.CBreeze.Write
                 report.DataItems.Write(writer);
             }
 #endif
-            report.Elements.Write(writer);
+            if (report.Elements.Any() || !writer.CodeStyle.DoNotPrintEmptyDatasets)
+            {
+                report.Elements.Write(writer);
+            }
 			report.RequestPage.Write(writer);
-			report.Labels.Write(writer);
+            if (report.Labels.Any() || !writer.CodeStyle.DoNotPrintEmptyLabels)
+            {
+                report.Labels.Write(writer);
+            }
 			report.Code.Write(writer);
-            report.RdlData.Write(writer);
+            if (report.RdlData.CodeLines.Any() || !writer.CodeStyle.DoNotPrintEmptyRdlReportLayout)
+            {
+                report.RdlData.Write(writer);
+            }
 #if NAV2015
-            report.WordLayout.Write(writer);
+            if (report.WordLayout.CodeLines.Any() || !writer.CodeStyle.DoNotPrintEmptyWordReportLayout)
+            {
+                report.WordLayout.Write(writer);
+            }
 #endif
             writer.EndSection();
 			writer.InnerWriter.WriteLine();
