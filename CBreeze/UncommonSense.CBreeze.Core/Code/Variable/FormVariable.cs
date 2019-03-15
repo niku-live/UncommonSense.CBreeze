@@ -1,4 +1,5 @@
-﻿using UncommonSense.CBreeze.Common;
+﻿#if NAV2009
+using UncommonSense.CBreeze.Common;
 using UncommonSense.CBreeze.Core.Contracts;
 
 namespace UncommonSense.CBreeze.Core.Code.Variable
@@ -38,3 +39,4 @@ namespace UncommonSense.CBreeze.Core.Code.Variable
         }
     }
 }
+#endif

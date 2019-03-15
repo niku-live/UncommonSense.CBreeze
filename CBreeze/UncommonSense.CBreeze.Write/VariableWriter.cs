@@ -78,6 +78,7 @@ namespace UncommonSense.CBreeze.Write
 #endif
 #if NAV2009
                 TypeSwitch.Case<FormVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
+                TypeSwitch.Case<DataportVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
 #endif
                 TypeSwitch.Case<TextVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, false, p.IncludeInDataset.GetValueOrDefault(false), false, false, null, writer)),
                 TypeSwitch.Case<TimeVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
