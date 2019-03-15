@@ -12,19 +12,24 @@ namespace UncommonSense.CBreeze.Write
     {
         public static void Write(this WordLayout wordLayout, CSideWriter writer)
         {
-            if (wordLayout.CodeLines.Any())
+            if (writer.CodeStyle.DoNotPrintEmptyWordReportLayout)
             {
-                writer.BeginSection("WORDLAYOUT");
-
-                foreach (var line in wordLayout.CodeLines)
+                if (!wordLayout.CodeLines.Any())
                 {
-                    writer.WriteLine(line);
+                    return;
                 }
-
-                writer.InnerWriter.WriteLine("    END_OF_WORDLAYOUT");
-
-                writer.EndSection();
             }
+            writer.BeginSection("WORDLAYOUT");
+
+            foreach (var line in wordLayout.CodeLines)
+            {
+                writer.WriteLine(line);
+            }
+
+            writer.InnerWriter.WriteLine("    END_OF_WORDLAYOUT");
+
+            writer.EndSection();
+
         }
     }
 #endif

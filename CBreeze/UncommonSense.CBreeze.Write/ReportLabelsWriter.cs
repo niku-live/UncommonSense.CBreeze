@@ -9,6 +9,14 @@ namespace UncommonSense.CBreeze.Write
     {
         public static void Write(this ReportLabels reportLabels, CSideWriter writer)
         {
+            if (writer.CodeStyle.DoNotPrintEmptyLabels)
+            {
+                if (!reportLabels.Any())
+                {
+                    return;
+                }
+            }
+
             writer.BeginSection("LABELS");
 
             foreach (var reportLabel in reportLabels)

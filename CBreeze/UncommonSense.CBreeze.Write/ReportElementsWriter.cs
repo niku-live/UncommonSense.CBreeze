@@ -12,6 +12,14 @@ namespace UncommonSense.CBreeze.Write
     {
         public static void Write(this ReportElements reportElements, CSideWriter writer)
         {
+            if (writer.CodeStyle.DoNotPrintEmptyDatasets)
+            {
+                if (!reportElements.Any())
+                {
+                    return;
+                }
+            }
+
             writer.BeginSection("DATASET");
 
             foreach (var reportElement in reportElements)

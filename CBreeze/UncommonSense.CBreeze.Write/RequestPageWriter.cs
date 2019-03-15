@@ -11,6 +11,14 @@ namespace UncommonSense.CBreeze.Write
     {
         public static void Write(this RequestPage requestPage, CSideWriter writer)
         {
+            if (writer.CodeStyle.DoNotPrintEmptyRequestPage)
+            {
+                if (!requestPage.Controls.Any() && !requestPage.Properties.Any(p => p.HasValue))
+                {
+                    return;
+                }
+            }
+
             writer.BeginSection("REQUESTPAGE");
             requestPage.Properties.Write(PropertiesStyle.Object, writer);
 

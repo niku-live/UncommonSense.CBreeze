@@ -12,6 +12,14 @@ namespace UncommonSense.CBreeze.Write
     {
         public static void Write(this RdlData rdlData, CSideWriter writer)
         {
+            if (writer.CodeStyle.DoNotPrintEmptyRdlReportLayout)
+            {
+                if (!rdlData.CodeLines.Any())
+                {
+                    return;
+                }
+            }
+
             writer.BeginSection("RDLDATA");
 
             if (rdlData.CodeLines.Any())

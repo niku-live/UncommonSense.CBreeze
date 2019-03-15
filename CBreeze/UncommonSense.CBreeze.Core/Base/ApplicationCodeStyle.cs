@@ -14,9 +14,12 @@ namespace UncommonSense.CBreeze.Core.Base
         public bool TextConstIsAlwaysMultiLine { get; set; }
         public bool NewLineBeforeTextConst { get; set; }
         public bool DoNotPrintEmptyFieldGroups { get; set; }
+        public bool DoNotPrintEmptyReportDataItems { get; set; } = true;
         public bool DoNotPrintEmptyDatasets { get; set; }
         public bool DoNotPrintEmptyLabels { get; set; }
         public bool DoNotPrintEmptyRdlReportLayout { get; set; }
-        public bool DoNotPrintEmptyWordReportLayout { get; set; }
+        public bool DoNotPrintEmptyWordReportLayout { get; set; } = true;
+        public bool DoNotPrintEmptyRequestPage { get; set; }
+        public bool DoNotPrintEmptyRequestForm { get; set; } = true;
     }
 }
