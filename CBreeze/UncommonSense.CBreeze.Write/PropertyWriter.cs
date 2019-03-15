@@ -129,7 +129,7 @@ namespace UncommonSense.CBreeze.Write
                 TypeSwitch.Case<BorderStyleProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<ClassicMenuProperty>(p => p.Write(isLastProperty, style, writer)),
                 TypeSwitch.Case<MenuItemTypeProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
-                TypeSwitch.Case<BorderWidthProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
+                TypeSwitch.Case<BorderWidthProperty>(p => WriteSimpleProperty(p.Name, p.GetValueName(), isLastProperty, writer)),
                 TypeSwitch.Case<ClassicSectionTypeProperty>(p => WriteSimpleProperty(p.Name, p.GetValue().ToString(), isLastProperty, writer)),
 #endif
                 TypeSwitch.Case<NullableBooleanProperty>(p => p.Write(isLastProperty, style, writer)),

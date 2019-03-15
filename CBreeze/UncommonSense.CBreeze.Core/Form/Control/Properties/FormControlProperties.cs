@@ -201,10 +201,10 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_bitmapPos);
             innerList.Add(_bitmap);
 
+            innerList.Add(_fontSize);
             innerList.Add(_fontBold);
             innerList.Add(_fontItalic);
             innerList.Add(_fontName);
-            innerList.Add(_fontSize);
             innerList.Add(_fontStrikethru);
             innerList.Add(_fontUnderline);
             innerList.Add(_multiLine);
