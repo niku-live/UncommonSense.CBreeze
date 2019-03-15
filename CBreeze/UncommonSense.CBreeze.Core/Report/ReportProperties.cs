@@ -57,6 +57,13 @@ namespace UncommonSense.CBreeze.Core.Report
             innerList.Add(description);
             innerList.Add(showPrintStatus);
             innerList.Add(useSystemPrinter);
+#if NAV2009
+            innerList.Add(topMargin);
+            innerList.Add(bottomMargin);
+            innerList.Add(leftMargin);
+            innerList.Add(rightMargin);
+            innerList.Add(useReqForm);
+#endif
             innerList.Add(processingOnly);
             innerList.Add(enableExternalImages);
             innerList.Add(enableHyperlinks);
@@ -74,15 +81,10 @@ namespace UncommonSense.CBreeze.Core.Report
 #endif
             innerList.Add(useRequestPage);
 #if NAV2009
-            innerList.Add(useReqForm);
-            innerList.Add(topMargin);
-            innerList.Add(bottomMargin);
-            innerList.Add(leftMargin);
-            innerList.Add(rightMargin);
-            innerList.Add(horzGrid);
-            innerList.Add(vertGrid);
             innerList.Add(orientation);
             innerList.Add(paperSize);
+            innerList.Add(horzGrid);
+            innerList.Add(vertGrid);
 #endif
         }
 

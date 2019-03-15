@@ -103,6 +103,7 @@ namespace UncommonSense.CBreeze.Core.Form
             innerList.Add(_maximizable);
             innerList.Add(_maximizedOnOpen);
             innerList.Add(_sizeable);
+            innerList.Add(_activeControlOnOpen);
             innerList.Add(_saveValues);
             innerList.Add(_multipleNewLines);
             innerList.Add(_insertAllowed);
@@ -111,7 +112,6 @@ namespace UncommonSense.CBreeze.Core.Form
             innerList.Add(_linksAllowed);
             innerList.Add(_tableBoxId);
             innerList.Add(_lookupMode);
-            innerList.Add(_activeControlOnOpen);
             innerList.Add(_sourceTable);
             innerList.Add(_autoSplitKey);
             innerList.Add(_dataCaptionExpr);

@@ -22,9 +22,9 @@ namespace UncommonSense.CBreeze.Core.Report.Classic.Section.Properties
             _sectionType = new ClassicSectionTypeProperty("SectionType", section);
             innerList.Add(_sectionType);
             innerList.Add(_printOnEveryPage);
-            innerList.Add(_keepWithNext);
             innerList.Add(_sectionWidth);
             innerList.Add(_sectionHeight);
+            innerList.Add(_keepWithNext);
             innerList.Add(_placeInBottom);
             innerList.Add(_onPostSection);
             innerList.Add(_onPreSection);

@@ -29,8 +29,12 @@ namespace UncommonSense.CBreeze.Core.Report.Classic
         internal DataItemProperties(DataItem dataItem)
         {
             DataItem = dataItem;
+            innerList.Add(_dataItemIndent);
             innerList.Add(dataItemTable);
             innerList.Add(dataItemTableView);
+            innerList.Add(_newPagePerGroup);
+            innerList.Add(_newPagePerRecord);
+            innerList.Add(_dataItemVarName);
             innerList.Add(maxIteration);
             innerList.Add(printOnlyIfDetail);
             innerList.Add(reqFilterHeadingML);
@@ -42,11 +46,7 @@ namespace UncommonSense.CBreeze.Core.Report.Classic
             innerList.Add(dataItemLinkReference);
             innerList.Add(dataItemLink);
             innerList.Add(_groupTotalFields);
-            innerList.Add(_newPagePerGroup);
-            innerList.Add(_newPagePerRecord);
             innerList.Add(_totalFields);
-            innerList.Add(_dataItemIndent);
-            innerList.Add(_dataItemVarName);
         }
 
         public bool? NewPagePerGroup

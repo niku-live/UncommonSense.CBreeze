@@ -201,10 +201,10 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_bitmapPos);
             innerList.Add(_bitmap);
 
+            innerList.Add(_fontName);
             innerList.Add(_fontSize);
             innerList.Add(_fontBold);
             innerList.Add(_fontItalic);
-            innerList.Add(_fontName);
             innerList.Add(_fontStrikethru);
             innerList.Add(_fontUnderline);
             innerList.Add(_multiLine);
@@ -223,16 +223,17 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_description);
 
             innerList.Add(_decimalPlaces);
+            innerList.Add(_optionCaptionML);
+            innerList.Add(_optionString);
             innerList.Add(_blankNumbers);
             innerList.Add(_blankZero);
             innerList.Add(_nextControl);
             innerList.Add(_bitmapList);
-            innerList.Add(_clearOnLookup);
-            innerList.Add(_optionCaptionML);
-            innerList.Add(_optionString);
             innerList.Add(_dateFormula);
             innerList.Add(_passwordText);
             innerList.Add(_notBlank);
+            innerList.Add(_numeric);
+            innerList.Add(_clearOnLookup);
             innerList.Add(_permanentAssist);
             innerList.Add(_sourceExpr);
             innerList.Add(_drillDownFormID);
@@ -266,8 +267,8 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
             innerList.Add(_autoCalcField);
 
-            innerList.Add(_maxValue);
             innerList.Add(_minValue);
+            innerList.Add(_maxValue);
             innerList.Add(_updateOnAction);
             innerList.Add(_valuesAllowed);
 
@@ -275,7 +276,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_closingDates);
             innerList.Add(_divisor);
             innerList.Add(_format);
-            innerList.Add(_numeric);
             innerList.Add(_autoFormatType);
             innerList.Add(_autoFormatExpr);
             innerList.Add(_title);
