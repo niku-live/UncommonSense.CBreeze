@@ -10,7 +10,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control
             Properties = new FormShapeControlProperties(this);
         }
 
-
         public override ClassicControlType Type => ClassicControlType.Shape;
     }
 }

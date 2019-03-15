@@ -10,7 +10,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control
             Properties = new FormImageProperties(this);
         }
 
-
         public override ClassicControlType Type => ClassicControlType.Image;
     }
 }

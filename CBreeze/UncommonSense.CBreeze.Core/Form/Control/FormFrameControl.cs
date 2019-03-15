@@ -10,7 +10,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control
             Properties = new FrameProperties(this);
         }
 
-
         public override ClassicControlType Type => ClassicControlType.Frame;
     }
 }

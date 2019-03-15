@@ -5,8 +5,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control
 {
     public class FormMatrixBoxControl : FormControl
     {
-        public FormMatrixBoxControl(int id, int posX, int posY, int width, int height) : base(id, posX, posY, width,
-            height)
+        public FormMatrixBoxControl(int id, int posX, int posY, int width, int height) : base(id, posX, posY, width, height)
         {
             Properties = new FormMatrixBoxProperties(this);
         }

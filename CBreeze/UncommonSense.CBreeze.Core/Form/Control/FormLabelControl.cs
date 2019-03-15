@@ -10,7 +10,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control
             Properties = new FormLabelProperties(this);
         }
 
-
         public override ClassicControlType Type => ClassicControlType.Label;
     }
 }
