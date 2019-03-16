@@ -17,6 +17,9 @@ namespace UncommonSense.CBreeze.Write
             application.Forms.Write(writer);
 #endif
             application.Reports.Write(writer);
+#if NAV2009
+            application.Dataports.Write(writer);
+#endif
             application.Codeunits.Write(writer);
             application.XmlPorts.Write(writer);
             application.MenuSuites.Write(writer);

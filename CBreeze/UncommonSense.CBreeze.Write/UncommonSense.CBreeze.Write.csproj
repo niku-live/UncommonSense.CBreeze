@@ -58,6 +58,10 @@
     <Compile Include="CodeunitWriter.cs" />
     <Compile Include="CodeWriter.cs" />
     <Compile Include="CSideWriterExtensionMethods.cs" />
+    <Compile Include="DataportDataItemsWriter.cs" />
+    <Compile Include="DataportFieldWriter.cs" />
+    <Compile Include="DataportPropertiesWriters.cs" />
+    <Compile Include="DataportWriter.cs" />
     <Compile Include="DateTimeExtensionMethods.cs" />
     <Compile Include="DocumentationWriter.cs" />
     <Compile Include="EventsWriter.cs" />

@@ -5,6 +5,7 @@ using System.Text;
 using UncommonSense.CBreeze.Common;
 using UncommonSense.CBreeze.Core;
 using UncommonSense.CBreeze.Core.Codeunit;
+using UncommonSense.CBreeze.Core.Dataport;
 #if NAV2009
 using UncommonSense.CBreeze.Core.Form;
 #endif
@@ -82,6 +83,14 @@ namespace UncommonSense.CBreeze.Write
             foreach (var form in forms.OrderBy(f=>f.ID))
             {
                 form.Write(writer);
+            }
+        }
+
+        public static void Write(this Dataports dataports, CSideWriter writer)
+        {
+            foreach (var dataport in dataports.OrderBy(f => f.ID))
+            {
+                dataport.Write(writer);
             }
         }
 #endif
