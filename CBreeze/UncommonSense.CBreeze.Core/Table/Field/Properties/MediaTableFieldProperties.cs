@@ -57,14 +57,14 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
 #endif
             innerList.Add(captionML);
             innerList.Add(notBlank);
+#if NAV2009
+            innerList.Add(sqlDataType);
+#endif
             innerList.Add(description);
             innerList.Add(editable);
             innerList.Add(autoFormatType);
             innerList.Add(autoFormatExpr);
             innerList.Add(captionClass);
-#if NAV2009
-            innerList.Add(sqlDataType);
-#endif
         }
 
         public AccessByPermission AccessByPermission => accessByPermission.Value;

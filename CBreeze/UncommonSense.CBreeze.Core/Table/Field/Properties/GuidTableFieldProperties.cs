@@ -75,14 +75,14 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             innerList.Add(captionML);
             innerList.Add(notBlank);
             innerList.Add(valuesAllowed);
+#if NAV2009
+            innerList.Add(sqlDataType);
+#endif
             innerList.Add(description);
             innerList.Add(editable);
             innerList.Add(autoFormatType);
             innerList.Add(autoFormatExpr);
             innerList.Add(captionClass);
-#if NAV2009
-            innerList.Add(sqlDataType);
-#endif
         }
 
         public GuidTableField Field { get; protected set; }

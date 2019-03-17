@@ -85,14 +85,14 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             innerList.Add(blankNumbers);
             innerList.Add(valuesAllowed);
             innerList.Add(signDisplacement);
+#if NAV2009
+            innerList.Add(sqlDataType);
+#endif
             innerList.Add(description);
             innerList.Add(editable);
             innerList.Add(autoFormatType);
             innerList.Add(autoFormatExpr);
             innerList.Add(captionClass);
-#if NAV2009
-            innerList.Add(sqlDataType);
-#endif
         }
 
         public TimeTableField Field { get; protected set; }

@@ -44,10 +44,10 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             innerList.Add(dataClassification);
 #endif
             innerList.Add(captionML);
-            innerList.Add(description);
 #if NAV2009
             innerList.Add(sqlDataType);
 #endif
+            innerList.Add(description);
         }
 
         public TableFilterTableField Field { get; protected set; }

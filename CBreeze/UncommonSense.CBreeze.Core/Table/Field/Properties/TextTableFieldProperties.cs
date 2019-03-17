@@ -87,14 +87,14 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             innerList.Add(dateFormula);
             innerList.Add(title);
             innerList.Add(valuesAllowed);
+#if NAV2009
+            innerList.Add(sqlDataType);
+#endif
             innerList.Add(description);
             innerList.Add(editable);
             innerList.Add(autoFormatType);
             innerList.Add(autoFormatExpr);
             innerList.Add(captionClass);
-#if NAV2009
-            innerList.Add(sqlDataType);
-#endif
         }
 
         public TextTableField Field { get; protected set; }
