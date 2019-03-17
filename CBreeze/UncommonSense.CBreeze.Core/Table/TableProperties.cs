@@ -15,6 +15,7 @@ namespace UncommonSense.CBreeze.Core.Table
         private DataClassificationProperty dataClassification = new DataClassificationProperty("DataClassification");
 #endif
         private NullableBooleanProperty dataPerCompany = new NullableBooleanProperty("DataPerCompany");
+        private NullableBooleanProperty includeDataInDesc = new NullableBooleanProperty("IncludeDataInDesc");
         private StringProperty description = new StringProperty("Description");
         private PageReferenceProperty drillDownPageID = new PageReferenceProperty("DrillDownPageID");
         private NullableBooleanProperty linkedInTransaction = new NullableBooleanProperty("LinkedInTransaction");
@@ -66,6 +67,7 @@ namespace UncommonSense.CBreeze.Core.Table
             innerList.Add(obsoleteReason);
             innerList.Add(dataClassification);
 #endif
+            innerList.Add(includeDataInDesc);
             innerList.Add(captionML); // 8629
             innerList.Add(description); // 15386
             innerList.Add(pasteIsValid); // 15423
@@ -315,6 +317,12 @@ namespace UncommonSense.CBreeze.Core.Table
             {
                 this.drillDownFormID.Value = value;
             }
+        }
+
+        public bool? IncludeDataInDesc
+        {
+            get => includeDataInDesc.Value;
+            set => includeDataInDesc.Value = value;
         }
 #endif
     }
