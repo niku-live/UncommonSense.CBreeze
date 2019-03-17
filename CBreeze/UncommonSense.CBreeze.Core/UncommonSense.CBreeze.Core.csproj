@@ -687,7 +687,7 @@
     <Compile Include="Table\Field\Properties\BooleanTableFieldProperties.cs" />
     <Compile Include="Table\Field\Properties\CalcFormulaTableFilter.cs" />
     <Compile Include="Table\Field\Properties\CodeTableFieldProperties.cs" />
-    <Compile Include="Table\Field\Properties\DataItemReportElementProperties.cs" />
+    <Compile Include="Report\DataItemReportElementProperties.cs" />
     <Compile Include="Table\Field\Properties\DateFormulaTableFieldProperties.cs" />
     <Compile Include="Table\Field\Properties\DateTableFieldProperties.cs" />
     <Compile Include="Table\Field\Properties\DateTimeTableFieldProperties.cs" />
@@ -712,7 +712,7 @@
     <Compile Include="Table\Field\TableFilterLine.cs" />
     <Compile Include="Table\Field\TableFilterTableField.cs" />
     <Compile Include="Table\Field\TextTableField.cs" />
-    <Compile Include="Table\Field\TextTableFieldProperties.cs" />
+    <Compile Include="Table\Field\Properties\TextTableFieldProperties.cs" />
     <Compile Include="Table\Field\TimeTableField.cs" />
     <Compile Include="Table\Key\SIFTLevel.cs" />
     <Compile Include="Table\Key\SIFTLevelComponent.cs" />

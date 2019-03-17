@@ -6,7 +6,7 @@ using UncommonSense.CBreeze.Core.Property.Type;
 using UncommonSense.CBreeze.Core.Table.Relation;
 using UncommonSense.CBreeze.Common;
 
-namespace UncommonSense.CBreeze.Core.Table.Field
+namespace UncommonSense.CBreeze.Core.Table.Field.Properties
 {
         public class TextTableFieldProperties : Property.Properties
     {
@@ -48,6 +48,9 @@ namespace UncommonSense.CBreeze.Core.Table.Field
         private NullableBooleanProperty validateTableRelation = new NullableBooleanProperty("ValidateTableRelation");
         private SemiColonSeparatedStringProperty valuesAllowed = new SemiColonSeparatedStringProperty("ValuesAllowed");
         private NullableIntegerProperty width = new NullableIntegerProperty("Width");
+#if NAV2009
+        private StringProperty sqlDataType = new StringProperty("SQL Data Type");
+#endif
 
         internal TextTableFieldProperties(TextTableField field)
         {
@@ -89,6 +92,9 @@ namespace UncommonSense.CBreeze.Core.Table.Field
             innerList.Add(autoFormatType);
             innerList.Add(autoFormatExpr);
             innerList.Add(captionClass);
+#if NAV2009
+            innerList.Add(sqlDataType);
+#endif
         }
 
         public TextTableField Field { get; protected set; }

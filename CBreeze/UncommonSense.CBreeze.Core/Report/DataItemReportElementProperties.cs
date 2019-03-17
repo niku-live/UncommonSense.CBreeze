@@ -3,7 +3,7 @@ using UncommonSense.CBreeze.Core.Contracts;
 using UncommonSense.CBreeze.Core.Property.Implementation;
 using UncommonSense.CBreeze.Core.Report;
 
-namespace UncommonSense.CBreeze.Core.Table.Field.Properties
+namespace UncommonSense.CBreeze.Core.Report
 {
     public class DataItemReportElementProperties : Property.Properties
     {
