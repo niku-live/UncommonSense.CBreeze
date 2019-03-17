@@ -281,13 +281,13 @@ namespace UncommonSense.CBreeze.Read
             switch (propertyName)
             {
                 case "Date":
-                    currentObject.ObjectProperties.DateTime =
-                        currentObject.ObjectProperties.DateTime.SetDateComponent(propertyValue, Application.CodeStyle.DateFormat);
+                    currentObject.ObjectProperties.Date = propertyValue.ToFormattedDate(Application.CodeStyle.DateFormat);
+                    currentObject.ObjectProperties.HasDateComponent = !String.IsNullOrEmpty(propertyValue);
                     break;
 
                 case "Time":
-                    currentObject.ObjectProperties.DateTime =
-                        currentObject.ObjectProperties.DateTime.SetTimeComponent(propertyValue);
+                    currentObject.ObjectProperties.Time = propertyValue.ToFormattedTimeSpan();
+                    currentObject.ObjectProperties.HasTimeComponent = !String.IsNullOrEmpty(propertyValue);
                     break;
 
                 case "Modified":
