@@ -162,19 +162,24 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly TriggerProperty _onFindRecord = new TriggerProperty("OnFindRecord");
         private readonly TriggerProperty _onNextRecord = new TriggerProperty("OnNextRecord");
 
+        private ClassicMenuProperty _menu;
+
         protected FormControlProperties(FormControl control)
         {
             Control = control;
-
+            _menu = new ClassicMenuProperty("Menu", control);
             innerList.Add(_name);
             innerList.Add(_horzGlue);
             innerList.Add(_vertGlue);
+            innerList.Add(_validateTableRelation);
             innerList.Add(_visible);
+            innerList.Add(_enabled);
             innerList.Add(_editable);
             innerList.Add(_focusable);
-            innerList.Add(_enabled);
             innerList.Add(_height);
-            innerList.Add(_validateTableRelation);
+            innerList.Add(_cancel);
+            innerList.Add(_default);
+            innerList.Add(_focusOnClick);
             innerList.Add(_parentControl);
             innerList.Add(_inFrame);
             innerList.Add(_inColumn);
@@ -191,12 +196,10 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_foreColor);
             innerList.Add(_backColor);
             innerList.Add(_backTransparent);
-            innerList.Add(_cancel);
-            innerList.Add(_default);
             innerList.Add(_pushAction);
             innerList.Add(_border);
-            innerList.Add(_borderStyle);
             innerList.Add(_borderColor);
+            innerList.Add(_borderStyle);
             innerList.Add(_borderWidth);
             innerList.Add(_bitmapPos);
             innerList.Add(_bitmap);
@@ -214,45 +217,48 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_drillDown);
             innerList.Add(_assistEdit);
             innerList.Add(_dropDown);
-            innerList.Add(_focusOnClick);
             innerList.Add(_maxLength);
             innerList.Add(_autoEnter);
             innerList.Add(_invalidActionAppearance);
+            innerList.Add(_bitmapList);
+            innerList.Add(_permanentAssist);
             innerList.Add(_captionMl);
             innerList.Add(_toolTipMl);
-            innerList.Add(_description);
-
-            innerList.Add(_decimalPlaces);
             innerList.Add(_optionCaptionML);
             innerList.Add(_optionString);
+            innerList.Add(_notBlank);
+            innerList.Add(_numeric);
+            innerList.Add(_decimalPlaces);
             innerList.Add(_blankNumbers);
             innerList.Add(_blankZero);
             innerList.Add(_nextControl);
-            innerList.Add(_bitmapList);
+            innerList.Add(_clearOnLookup);
+            innerList.Add(_menu);
+            innerList.Add(_description);
+            
             innerList.Add(_dateFormula);
             innerList.Add(_passwordText);
-            innerList.Add(_notBlank);
-            innerList.Add(_numeric);
-            innerList.Add(_clearOnLookup);
-            innerList.Add(_permanentAssist);
             innerList.Add(_sourceExpr);
-            innerList.Add(_drillDownFormID);
             innerList.Add(_captionClass);
             innerList.Add(_tableRelation);
             innerList.Add(_lookupFormID);
+            innerList.Add(_drillDownFormID);
             innerList.Add(_optionValue);
             innerList.Add(_subFormId);
             innerList.Add(_subFormView);
             innerList.Add(_subFormLink);
+            innerList.Add(_minValue);
+            innerList.Add(_maxValue);
+            innerList.Add(_valuesAllowed);
             innerList.Add(_onActivate);
             innerList.Add(_onDeactivate);
             innerList.Add(_onPush);
             innerList.Add(_onInputChange);
             innerList.Add(_onFormat);
             innerList.Add(_onBeforeInput);
+            innerList.Add(_onAfterInput);
             innerList.Add(_onValidate);
             innerList.Add(_onLookup);
-            innerList.Add(_onAfterInput);
             innerList.Add(_onAfterValidate);
 
             innerList.Add(_runCommand);
@@ -267,10 +273,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
             innerList.Add(_autoCalcField);
 
-            innerList.Add(_minValue);
-            innerList.Add(_maxValue);
             innerList.Add(_updateOnAction);
-            innerList.Add(_valuesAllowed);
 
             innerList.Add(_charAllowed);
             innerList.Add(_closingDates);
@@ -950,5 +953,10 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         protected Trigger InternalOnAfterGetRecord => _onAfterGetRecord.Value;
         protected Trigger InternalOnAfterGetCurrRecord => _onAfterGetCurrRecord.Value;
         protected Trigger InternalOnBeforePutRecord => _onBeforePutRecord.Value;
+
+        protected FormMenuItems InternalMenu
+        {
+            get => _menu.Value;
+        }
     }
 }

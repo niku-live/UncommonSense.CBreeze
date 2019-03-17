@@ -32,7 +32,6 @@ namespace UncommonSense.CBreeze.Core.Dataport
             innerList.Add(permissions);
             innerList.Add(captionML);
             innerList.Add(description);
-            innerList.Add(useReqForm);
             innerList.Add(import);
             innerList.Add(fileFormat);
             innerList.Add(fieldStartDelimiter);
@@ -40,6 +39,7 @@ namespace UncommonSense.CBreeze.Core.Dataport
             innerList.Add(fieldSeparator);
             innerList.Add(recordSeparator);
             innerList.Add(dataItemSeparator);
+            innerList.Add(useReqForm);
             innerList.Add(showStatus);
             innerList.Add(onInitDataport);
             innerList.Add(onPreDataport);

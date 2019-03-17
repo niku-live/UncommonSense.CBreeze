@@ -34,8 +34,8 @@ namespace UncommonSense.CBreeze.Core.Report.Classic
             innerList.Add(dataItemTableView);
             innerList.Add(_newPagePerGroup);
             innerList.Add(_newPagePerRecord);
-            innerList.Add(_dataItemVarName);
             innerList.Add(maxIteration);
+            innerList.Add(_dataItemVarName);
             innerList.Add(printOnlyIfDetail);
             innerList.Add(reqFilterHeadingML);
             innerList.Add(onPreDataItem);

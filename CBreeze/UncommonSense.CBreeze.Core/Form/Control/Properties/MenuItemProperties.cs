@@ -46,11 +46,11 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_captionClass);
             innerList.Add(_ellipsis);
             innerList.Add(_visible);
+            innerList.Add(_name);
             innerList.Add(_captionMl);
             innerList.Add(_description);
             innerList.Add(_enabled);
             innerList.Add(_invalidActionAppearance);
-            innerList.Add(_name);
             innerList.Add(_runCommand);
             innerList.Add(_runObject);
             innerList.Add(_runFormLinkType);

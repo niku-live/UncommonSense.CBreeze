@@ -184,7 +184,10 @@ namespace UncommonSense.CBreeze.Write
             }
             writer.Unindent();
             writer.WriteLine("}");
-            writer.Write(" ");
+            if (isLastProperty)
+            {
+                writer.Write(" ");
+            }
         }
 #endif
         public static void Write(this RunObjectLinkProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
