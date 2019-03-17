@@ -36,6 +36,10 @@ namespace UncommonSense.CBreeze.Core.Page.Control
         private UpdatePropagationProperty updatePropagation = new UpdatePropagationProperty("UpdatePropagation");
 #endif
         private StringProperty visible = new StringProperty("Visible");
+#if NAV2009
+        private RunObjectLinkProperty subFormLink = new RunObjectLinkProperty("SubFormLink");
+        private TableViewProperty subFormView = new TableViewProperty("SubFormView");
+#endif
 
         internal PageControlPartProperties(PageControlPart partPageControl)
         {
@@ -53,6 +57,10 @@ namespace UncommonSense.CBreeze.Core.Page.Control
             innerList.Add(description);
             innerList.Add(subPageView);
             innerList.Add(subPageLink);
+#if NAV2009
+            innerList.Add(subFormView);
+            innerList.Add(subFormLink);
+#endif
             innerList.Add(pagePartID);
             innerList.Add(providerID);
 #if NAV2018
@@ -286,5 +294,23 @@ namespace UncommonSense.CBreeze.Core.Page.Control
                 this.visible.Value = value;
             }
         }
+
+#if NAV2009
+        public RunObjectLink SubFormLink
+        {
+            get
+            {
+                return this.subFormLink.Value;
+            }
+        }
+
+        public TableView SubFormView
+        {
+            get
+            {
+                return this.subFormView.Value;
+            }
+        }
+#endif
     }
 }

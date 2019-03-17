@@ -55,6 +55,10 @@ namespace UncommonSense.CBreeze.Core.Page
         private TableReferenceProperty sourceTable = new TableReferenceProperty("SourceTable");
         private NullableBooleanProperty sourceTableTemporary = new NullableBooleanProperty("SourceTableTemporary");
         private TableViewProperty sourceTableView = new TableViewProperty("SourceTableView");
+#if NAV2009
+        private NullableIntegerProperty timerUpdate = new NullableIntegerProperty("TimerUpdate");
+#endif
+
 
         internal PageProperties(Page page)
         {
@@ -85,6 +89,9 @@ namespace UncommonSense.CBreeze.Core.Page
             innerList.Add(cardPageID);
             innerList.Add(instructionalTextML);
             innerList.Add(autoSplitKey);
+#if NAV2009
+            innerList.Add(timerUpdate);
+#endif
             innerList.Add(refreshOnActivate);
             innerList.Add(promotedActionCategoriesML);
             innerList.Add(showFilter);
@@ -508,5 +515,13 @@ namespace UncommonSense.CBreeze.Core.Page
                 return this.sourceTableView.Value;
             }
         }
+
+#if NAV2009
+        public int? TimerUpdate
+        {
+            get => timerUpdate.Value;
+            set => timerUpdate.Value = value;
+        }
+#endif
     }
 }

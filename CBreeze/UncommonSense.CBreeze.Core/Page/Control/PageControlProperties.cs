@@ -75,6 +75,10 @@ namespace UncommonSense.CBreeze.Core.Page.Control
         private SemiColonSeparatedStringProperty valuesAllowed = new SemiColonSeparatedStringProperty("ValuesAllowed");
         private StringProperty visible = new StringProperty("Visible");
         private NullableIntegerProperty width = new NullableIntegerProperty("Width");
+#if NAV2009
+        private StringProperty lookupFormID = new StringProperty("LookupFormID");
+        private StringProperty drillDownFormID = new StringProperty("DrillDownFormID");
+#endif
 
         internal PageControlProperties(PageControl control)
         {
@@ -122,6 +126,10 @@ namespace UncommonSense.CBreeze.Core.Page.Control
 #endif
             innerList.Add(lookupPageID);
             innerList.Add(drillDownPageID);
+#if NAV2009
+            innerList.Add(lookupFormID);
+            innerList.Add(drillDownFormID);
+#endif
             innerList.Add(multiLine);
             innerList.Add(hideValue);
             innerList.Add(style);
@@ -748,5 +756,30 @@ namespace UncommonSense.CBreeze.Core.Page.Control
                 this.width.Value = value;
             }
         }
+#if NAV2009
+        public string DrillDownFormID
+        {
+            get
+            {
+                return this.drillDownFormID.Value;
+            }
+            set
+            {
+                this.drillDownFormID.Value = value;
+            }
+        }
+
+        public string LookupFormID
+        {
+            get
+            {
+                return this.lookupFormID.Value;
+            }
+            set
+            {
+                this.lookupFormID.Value = value;
+            }
+        }
+#endif
     }
 }

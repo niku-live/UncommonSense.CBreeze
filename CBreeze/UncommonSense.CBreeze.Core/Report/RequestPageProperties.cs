@@ -41,6 +41,7 @@ namespace UncommonSense.CBreeze.Core.Report
         private TableReferenceProperty sourceTable = new TableReferenceProperty("SourceTable");
         private NullableBooleanProperty sourceTableTemporary = new NullableBooleanProperty("SourceTableTemporary");
         private TableViewProperty sourceTableView = new TableViewProperty("SourceTableView");
+        private NullableBooleanProperty refreshOnActivate = new NullableBooleanProperty("RefreshOnActivate");
 
         internal RequestPageProperties(RequestPage requestPage)
         {
@@ -66,6 +67,7 @@ namespace UncommonSense.CBreeze.Core.Report
             innerList.Add(instructionalTextML);
             innerList.Add(autoSplitKey);
             innerList.Add(showFilter);
+            innerList.Add(refreshOnActivate);
             innerList.Add(onInit);
             innerList.Add(onOpenPage);
             innerList.Add(onClosePage);
@@ -407,6 +409,12 @@ namespace UncommonSense.CBreeze.Core.Report
             {
                 return this.sourceTableView.Value;
             }
+        }
+
+        public bool? RefreshOnActivate
+        {
+            get => refreshOnActivate.Value;
+            set => refreshOnActivate.Value = value;
         }
     }
 }

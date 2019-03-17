@@ -43,6 +43,10 @@ namespace UncommonSense.CBreeze.Core.Page.Action
         private StringProperty shortCutKey = new StringProperty("ShortCutKey");
         private MultiLanguageProperty toolTipML = new MultiLanguageProperty("ToolTipML");
         private StringProperty visible = new StringProperty("Visible");
+#if NAV2009
+        private RunObjectLinkProperty runFormLink = new RunObjectLinkProperty("RunFormLink");
+        private TableViewProperty runFormView = new TableViewProperty("RunFormView");
+#endif
 
         internal PageActionProperties(PageAction pageAction)
         {
@@ -64,6 +68,10 @@ namespace UncommonSense.CBreeze.Core.Page.Action
             innerList.Add(runPageOnRec);
             innerList.Add(runPageView);
             innerList.Add(runPageLink);
+#if NAV2009
+            innerList.Add(runFormView);
+            innerList.Add(runFormLink);
+#endif
             innerList.Add(promoted);
             innerList.Add(visible);
             innerList.Add(enabled);
@@ -335,5 +343,22 @@ namespace UncommonSense.CBreeze.Core.Page.Action
                 this.visible.Value = value;
             }
         }
+#if NAV2009
+        public RunObjectLink RunFormLink
+        {
+            get
+            {
+                return this.runFormLink.Value;
+            }
+        }
+
+        public TableView RunFormView
+        {
+            get
+            {
+                return this.runFormView.Value;
+            }
+        }
+#endif
     }
 }
