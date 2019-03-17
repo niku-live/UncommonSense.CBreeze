@@ -41,6 +41,23 @@ namespace UncommonSense.CBreeze.Core.Base
             };
         }
 
+        public static ApplicationCodeStyle CreateNav2009CodeStyle()
+        {
+            return new ApplicationCodeStyle()
+            {
+                TextConstIsAlwaysMultiLine = false,
+                NewLineBeforeTextConst = false,
+                DoNotPrintEmptyReportDataItems = false,
+                DoNotPrintEmptyRequestForm = false,
+                DoNotPrintEmptyRequestPage = false,
+                DoNotPrintEmptyFieldGroups = false,
+                DoNotPrintEmptyDatasets = true,
+                DoNotPrintEmptyLabels = true,
+                DoNotPrintEmptyRdlReportLayout = false,
+                DoNotPrintEmptyWordReportLayout = true
+            };
+        }
+
         public ApplicationCodeStyle()
         {
             DateFormat = "dd-MM-yy";
