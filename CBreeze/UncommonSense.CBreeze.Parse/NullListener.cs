@@ -257,5 +257,9 @@ namespace UncommonSense.CBreeze.Parse
         public void OnEndDataportDataItem()
         {
         }
+
+        public void OnInvalidTrigger()
+        {
+        }
     }
 }

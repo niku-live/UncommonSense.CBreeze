@@ -31,6 +31,7 @@ namespace UncommonSense.CBreeze.Parse
 
         // Triggers
         void OnBeginTrigger(string triggerName);
+        void OnInvalidTrigger();
         void OnEndTrigger();
 
         // Table fields

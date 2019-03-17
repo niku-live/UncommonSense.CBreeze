@@ -15,6 +15,7 @@ namespace UncommonSense.CBreeze.Core.XmlPort
         private OccurrenceProperty occurrence = new OccurrenceProperty("Occurrence"); // 54096
         private ScopedTriggerProperty onAfterAssignField = new ScopedTriggerProperty("OnAfterAssignField");
         private ScopedTriggerProperty onBeforePassField = new ScopedTriggerProperty("OnBeforePassField");
+        private ScopedTriggerProperty onBeforePassVariable = new ScopedTriggerProperty("OnBeforePassVariable");
         private SourceFieldProperty sourceField = new SourceFieldProperty("SourceField"); // 54081
         private NullableIntegerProperty width = new NullableIntegerProperty("Width"); // 5010
 
@@ -27,6 +28,7 @@ namespace UncommonSense.CBreeze.Core.XmlPort
             innerList.Add(occurrence);
             innerList.Add(onAfterAssignField);
             innerList.Add(onBeforePassField);
+            innerList.Add(onBeforePassVariable);
             innerList.Add(width);
         }
 

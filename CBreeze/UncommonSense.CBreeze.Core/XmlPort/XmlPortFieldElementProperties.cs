@@ -19,6 +19,7 @@ namespace UncommonSense.CBreeze.Core.XmlPort
 #endif
         private ScopedTriggerProperty onAfterAssignField = new ScopedTriggerProperty("OnAfterAssignField");
         private ScopedTriggerProperty onBeforePassField = new ScopedTriggerProperty("OnBeforePassField");
+        private ScopedTriggerProperty onBeforePassVariable = new ScopedTriggerProperty("OnBeforePassVariable");
         private SourceFieldProperty sourceField = new SourceFieldProperty("SourceField");
 #if NAV2013R2
         private NullableBooleanProperty unbound = new NullableBooleanProperty("Unbound");
@@ -43,6 +44,7 @@ namespace UncommonSense.CBreeze.Core.XmlPort
 #endif
             innerList.Add(onAfterAssignField);
             innerList.Add(onBeforePassField);
+            innerList.Add(onBeforePassVariable);
             innerList.Add(width);
         }
 

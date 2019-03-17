@@ -33,6 +33,7 @@ namespace UncommonSense.CBreeze.Parse
 
         public static readonly Regex PropertySignature = new Regex(@"^((\w[^=]{3,})|ID)=(.*)$", RegexOptions.Compiled);
         public static readonly Regex TriggerSignature = new Regex(@"^((Import::|Export::)?On[^=]+)=(.*)$", RegexOptions.Compiled);
+        public static readonly Regex InvalidTriggerSignature = new Regex(@"^[0-9]{2}$", RegexOptions.Compiled);
         public static readonly Regex DecimalPlaces = new Regex(@"^(\d*):(\d*)$", RegexOptions.Compiled);
         public static readonly Regex AccessByPermission = new Regex(@"^(TableData|Table|Form|Report|Codeunit|Dataport|XmlPort|Page|Query|System)\s(\d+)=([RIMDX]*)$", RegexOptions.Compiled);
 

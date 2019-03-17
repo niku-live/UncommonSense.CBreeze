@@ -556,6 +556,15 @@ namespace UncommonSense.CBreeze.Read
             }
         }
 
+        public override void OnInvalidTrigger()
+        {
+            if (currentTrigger == null)
+            {
+                return;
+            }
+            currentTrigger.InvalidTrigger = true;
+        }
+
         public override void OnEndTrigger()
         {
             currentTrigger = null;
