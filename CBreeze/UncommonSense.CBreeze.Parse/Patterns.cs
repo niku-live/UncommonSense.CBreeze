@@ -144,5 +144,7 @@ namespace UncommonSense.CBreeze.Parse
 
         public static readonly Regex Whitespace = new Regex(@"^\s*", RegexOptions.Compiled);
         public static readonly Regex Any = new Regex(@"^(.*)$", RegexOptions.Compiled);
+
+        public static readonly Regex EndOfCodeLine = new Regex(@";$", RegexOptions.Compiled);
     }
 }

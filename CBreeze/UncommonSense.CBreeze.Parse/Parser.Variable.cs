@@ -56,6 +56,10 @@ namespace UncommonSense.CBreeze.Parse
                     stringBuilder.AppendFormat("{0}={1};", languageCode, languageValue);
                 }
                 variableConstValue = stringBuilder.ToString();
+                if (String.IsNullOrEmpty(variableConstValue))
+                {
+                    lines.FirstLineTryMatch(Patterns.EndOfCodeLine, true);
+                }
             }
 
             Listener.OnVariable(
