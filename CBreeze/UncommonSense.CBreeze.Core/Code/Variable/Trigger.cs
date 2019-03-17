@@ -35,5 +35,6 @@ namespace UncommonSense.CBreeze.Core.Code.Variable
         }
 
         public bool InvalidTrigger { get; set; }
+        public string InvalidTriggerValue { get; set; }
     }
 }

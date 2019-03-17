@@ -258,7 +258,7 @@ namespace UncommonSense.CBreeze.Parse
         {
         }
 
-        public void OnInvalidTrigger()
+        public void OnInvalidTrigger(string invalidTriggerValue)
         {
         }
     }

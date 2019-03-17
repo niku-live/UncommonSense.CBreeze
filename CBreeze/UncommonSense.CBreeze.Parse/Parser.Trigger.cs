@@ -23,7 +23,7 @@ namespace UncommonSense.CBreeze.Parse
             Listener.OnBeginTrigger(triggerName);
             if (Patterns.InvalidTriggerSignature.IsMatch(firstStatement))
             {
-                Listener.OnInvalidTrigger();
+                Listener.OnInvalidTrigger(firstStatement.Trim());
                 invalidTrigger = true;
             }
 

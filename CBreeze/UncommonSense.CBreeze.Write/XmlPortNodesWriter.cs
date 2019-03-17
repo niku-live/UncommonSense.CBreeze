@@ -76,8 +76,8 @@ namespace UncommonSense.CBreeze.Write
             {
                 TypeSwitch.Do(
                     lastProperty,
-                    TypeSwitch.Case<ScopedTriggerProperty>(p => result = new string(' ', p.ScopedName().Length + 2)),
-                    TypeSwitch.Case<TriggerProperty>(p => result = new string(' ', p.Name.Length + 2)));
+                    TypeSwitch.Case<ScopedTriggerProperty>(p => result = p.Value.InvalidTrigger? String.Empty : new string(' ', p.ScopedName().Length + 2)),
+                    TypeSwitch.Case<TriggerProperty>(p => result = p.Value.InvalidTrigger ? String.Empty : new string(' ', p.Name.Length + 2)));
             }
 
             return result;

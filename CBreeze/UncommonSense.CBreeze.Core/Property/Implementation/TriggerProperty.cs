@@ -14,7 +14,7 @@ namespace UncommonSense.CBreeze.Core.Property.Implementation
         {
             get
             {
-                return Value.CodeLines.Any() || Value.Variables.Any();
+                return Value.CodeLines.Any() || Value.Variables.Any() || Value.InvalidTrigger;
             }
         }
     }

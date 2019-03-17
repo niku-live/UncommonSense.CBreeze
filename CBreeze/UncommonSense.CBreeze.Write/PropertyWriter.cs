@@ -371,6 +371,22 @@ namespace UncommonSense.CBreeze.Write
         public static void Write(this TriggerProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
             writer.Write("{0}=", property.Name);
+            if (property.Value.InvalidTrigger)
+            {
+                var value = property.Value.InvalidTriggerValue;
+
+                switch (isLastProperty)
+                {
+                    case true:
+                        writer.Write("{0} ", value);
+                        break;
+
+                    case false:
+                        writer.WriteLine("{0};", value);
+                        break;
+                }
+                return;
+            }
             writer.Indent(writer.Column);
             property.Value.Variables.Write(writer);
 
@@ -389,6 +405,22 @@ namespace UncommonSense.CBreeze.Write
         public static void Write(this ScopedTriggerProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
             writer.Write("{0}=", property.ScopedName());
+            if (property.Value.InvalidTrigger)
+            {
+                var value = property.Value.InvalidTriggerValue;
+
+                switch (isLastProperty)
+                {
+                    case true:
+                        writer.Write("{0} ", value);
+                        break;
+
+                    case false:
+                        writer.WriteLine("{0};", value);
+                        break;
+                }
+                return;
+            }
             writer.Indent(writer.Column);
             property.Value.Variables.Write(writer);
 
