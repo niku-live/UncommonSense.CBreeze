@@ -34,6 +34,9 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         private TriggerProperty onValidate = new TriggerProperty("OnValidate");
         private TableRelationProperty tableRelation = new TableRelationProperty("TableRelation");
         private NullableBooleanProperty validateTableRelation = new NullableBooleanProperty("ValidateTableRelation");
+#if NAV2009
+        private StringProperty sqlDataType = new StringProperty("SQL Data Type");
+#endif
 
         internal MediaSetTableFieldProperties(MediaSetTableField field)
         {
@@ -59,6 +62,9 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             innerList.Add(autoFormatType);
             innerList.Add(autoFormatExpr);
             innerList.Add(captionClass);
+#if NAV2009
+            innerList.Add(sqlDataType);
+#endif
         }
 
         public AccessByPermission AccessByPermission => accessByPermission.Value;

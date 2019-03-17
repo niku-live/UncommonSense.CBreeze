@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UncommonSense.CBreeze.Common;
 using UncommonSense.CBreeze.Core.Contracts;
+using UncommonSense.CBreeze.Core.Table.Field.Properties;
 
 namespace UncommonSense.CBreeze.Core.Table.Field
 {

@@ -54,7 +54,9 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         private SemiColonSeparatedStringProperty valuesAllowed = new SemiColonSeparatedStringProperty("ValuesAllowed");
         private NullableBooleanProperty @volatile = new NullableBooleanProperty("Volatile");
         private NullableIntegerProperty width = new NullableIntegerProperty("Width");
-
+#if NAV2009
+        private StringProperty sqlDataType = new StringProperty("SQL Data Type");
+#endif
         internal BigIntegerTableFieldProperties(BigIntegerTableField field)
         {
             Field = field;
@@ -100,6 +102,9 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             innerList.Add(autoFormatType);
             innerList.Add(autoFormatExpr);
             innerList.Add(captionClass);
+#if NAV2009
+            innerList.Add(sqlDataType);
+#endif
         }
 
         public BigIntegerTableField Field { get; protected set; }

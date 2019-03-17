@@ -50,6 +50,9 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         private NullableBooleanProperty validateTableRelation = new NullableBooleanProperty("ValidateTableRelation");
         private SemiColonSeparatedStringProperty valuesAllowed = new SemiColonSeparatedStringProperty("ValuesAllowed");
         private NullableIntegerProperty width = new NullableIntegerProperty("Width");
+#if NAV2009
+        private StringProperty sqlDataType = new StringProperty("SQL Data Type");
+#endif
 
         internal DecimalTableFieldProperties(DecimalTableField field)
         {
@@ -91,6 +94,9 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             innerList.Add(autoFormatType);
             innerList.Add(autoFormatExpr);
             innerList.Add(captionClass);
+#if NAV2009
+            innerList.Add(sqlDataType);
+#endif
         }
 
         public DecimalTableField Field { get; protected set; }

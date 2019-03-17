@@ -23,6 +23,9 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
 #endif
         private TriggerProperty onLookup = new TriggerProperty("OnLookup");
         private TriggerProperty onValidate = new TriggerProperty("OnValidate");
+#if NAV2009
+        private StringProperty sqlDataType = new StringProperty("SQL Data Type");
+#endif
 
         internal BinaryTableFieldProperties(BinaryTableField field)
         {
@@ -40,6 +43,9 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
 #endif
             innerList.Add(captionML);
             innerList.Add(description);
+#if NAV2009
+            innerList.Add(sqlDataType);
+#endif
         }
 
         public BinaryTableField Field { get; }

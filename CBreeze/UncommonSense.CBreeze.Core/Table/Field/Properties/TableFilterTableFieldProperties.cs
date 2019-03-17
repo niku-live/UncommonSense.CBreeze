@@ -24,6 +24,9 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         private TriggerProperty onLookup = new TriggerProperty("OnLookup");
         private TriggerProperty onValidate = new TriggerProperty("OnValidate");
         private StringProperty tableIDExpr = new StringProperty("TableIDExpr");
+#if NAV2009
+        private StringProperty sqlDataType = new StringProperty("SQL Data Type");
+#endif
 
         internal TableFilterTableFieldProperties(TableFilterTableField field)
         {
@@ -42,6 +45,9 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
 #endif
             innerList.Add(captionML);
             innerList.Add(description);
+#if NAV2009
+            innerList.Add(sqlDataType);
+#endif
         }
 
         public TableFilterTableField Field { get; protected set; }

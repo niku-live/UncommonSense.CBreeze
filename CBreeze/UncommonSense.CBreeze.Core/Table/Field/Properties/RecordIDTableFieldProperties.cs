@@ -43,6 +43,9 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         private NullableBooleanProperty testTableRelation = new NullableBooleanProperty("TestTableRelation");
         private NullableBooleanProperty validateTableRelation = new NullableBooleanProperty("ValidateTableRelation");
         private SemiColonSeparatedStringProperty valuesAllowed = new SemiColonSeparatedStringProperty("ValuesAllowed");
+#if NAV2009
+        private StringProperty sqlDataType = new StringProperty("SQL Data Type");
+#endif
 
         internal RecordIDTableFieldProperties(RecordIDTableField field)
         {
@@ -79,6 +82,9 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             innerList.Add(autoFormatType);
             innerList.Add(autoFormatExpr);
             innerList.Add(captionClass);
+#if NAV2009
+            innerList.Add(sqlDataType);
+#endif
         }
 
         public RecordIDTableField Field { get; protected set; }
