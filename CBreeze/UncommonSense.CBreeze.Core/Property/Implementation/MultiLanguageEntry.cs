@@ -35,10 +35,12 @@ namespace UncommonSense.CBreeze.Core.Property.Implementation
         {
             get
             {
-                return 
+                return
                     Value != Value.Trim() ||
                     Value.Contains(';') ||
-                    Value.Contains('=') ||    
+                    Value.Contains('=') ||
+                    Value.StartsWith("\"\"") ||
+                    //(Value.Count(c => c == '\"') > 2) ||
                     Value == string.Empty;
             }
         }
