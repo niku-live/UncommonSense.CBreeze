@@ -54,7 +54,9 @@
     <Compile Include="Base\DefaultRanges.cs" />
     <Compile Include="Base\GuidKeyedContainer.cs" />
     <Compile Include="Code\Parameter\DataClassificationParameter.cs" />
+    <Compile Include="Property\Enumeration\ClassicDataportFileFormat.cs" />
     <Compile Include="Property\Implementation\ClassicControlBorderStyleProperty.cs" />
+    <Compile Include="Property\Implementation\ClassicDataportFileFormatProperty.cs" />
     <Compile Include="Property\Implementation\ClassicMenuProperty.cs" />
     <Compile Include="Property\Implementation\ClassicSectionTypeProperty.cs" />
     <Compile Include="Property\Implementation\DataClassificationProperty.cs" />

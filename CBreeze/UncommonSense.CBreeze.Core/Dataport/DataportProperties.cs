@@ -18,9 +18,11 @@ namespace UncommonSense.CBreeze.Core.Dataport
         private NullableBooleanProperty useReqForm = new NullableBooleanProperty("UseReqForm");
         private NullableBooleanProperty import = new NullableBooleanProperty("Import");
         private NullableBooleanProperty showStatus = new NullableBooleanProperty("ShowStatus");
+        private ClassicDataportFileFormatProperty fileFormat = new ClassicDataportFileFormatProperty("FileFormat");
         private StringProperty fieldStartDelimiter = new StringProperty("FieldStartDelimiter");
         private StringProperty fieldEndDelimiter = new StringProperty("FieldEndDelimiter");
         private StringProperty fieldSeparator = new StringProperty("FieldSeparator");
+        private StringProperty recordSeparator = new StringProperty("RecordSeparator");
         private StringProperty dataItemSeparator = new StringProperty("DataItemSeparator");
 
         internal DataportProperties(Dataport dataport)
@@ -32,9 +34,11 @@ namespace UncommonSense.CBreeze.Core.Dataport
             innerList.Add(description);
             innerList.Add(useReqForm);
             innerList.Add(import);
+            innerList.Add(fileFormat);
             innerList.Add(fieldStartDelimiter);
             innerList.Add(fieldEndDelimiter);
             innerList.Add(fieldSeparator);
+            innerList.Add(recordSeparator);
             innerList.Add(dataItemSeparator);
             innerList.Add(showStatus);
             innerList.Add(onInitDataport);
@@ -108,6 +112,10 @@ namespace UncommonSense.CBreeze.Core.Dataport
         public string FieldStartDelimiter { get => fieldStartDelimiter.Value; set => fieldStartDelimiter.Value = value; }
         public string FieldEndDelimiter { get => fieldEndDelimiter.Value; set => fieldEndDelimiter.Value = value; }
         public string FieldSeparator { get => fieldSeparator.Value; set => fieldSeparator.Value = value; }
+
+        public string RecordSeparator { get => recordSeparator.Value; set => recordSeparator.Value = value; }
         public string DataItemSeparator { get => dataItemSeparator.Value; set => dataItemSeparator.Value = value; }
+
+        public ClassicDataportFileFormat? FileFormat { get => fileFormat.Value; set => fileFormat.Value = value; }
     }
 }

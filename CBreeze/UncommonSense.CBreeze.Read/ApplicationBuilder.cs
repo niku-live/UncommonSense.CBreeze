@@ -454,6 +454,7 @@ namespace UncommonSense.CBreeze.Read
                 TypeSwitch.Case<SourceTablePlacementProperty>(p => p.Value = propertyValue.ToEnum<ClassicControlSourceTablePlacement>()),
                 TypeSwitch.Case<OrientationProperty>(p => p.Value = propertyValue.ToEnum<Orientation>()),
                 TypeSwitch.Case<ClassicReportOrientationProperty>(p => p.Value = propertyValue.ToEnum<ClassicReportOrientation>()),
+                TypeSwitch.Case<ClassicDataportFileFormatProperty>(p => p.Value = propertyValue.ToEnum<ClassicDataportFileFormat>()),
 #endif
                 TypeSwitch.Case<PageTypeProperty>(p => p.Value = propertyValue.ToEnum<PageType>()),
                 TypeSwitch.Case<PaperSourceProperty>(p => p.Value = propertyValue.ToEnum<PaperSource>()),

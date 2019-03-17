@@ -50,7 +50,7 @@ namespace UncommonSense.CBreeze.Parse
                 foreach (var line in lines.Skip(1))
                 {
                     var trimmedLine = line.TrimStart();
-                    if (trimmedLine.EndsWith("=BEGIN") || trimmedLine.EndsWith("=VAR") || trimmedLine.EndsWith("=MENUITEMS"))
+                    if (trimmedLine.EndsWith("=BEGIN") || trimmedLine.EndsWith("=VAR") || trimmedLine.EndsWith("=MENUITEMS") || trimmedLine.Contains("RunFormLink="))
                     {
                         dedent = line.Length - trimmedLine.Length;
                         break;

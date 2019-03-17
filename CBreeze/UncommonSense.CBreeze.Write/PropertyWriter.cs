@@ -131,6 +131,7 @@ namespace UncommonSense.CBreeze.Write
                 TypeSwitch.Case<MenuItemTypeProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<BorderWidthProperty>(p => WriteSimpleProperty(p.Name, p.GetValueName(), isLastProperty, writer)),
                 TypeSwitch.Case<ClassicSectionTypeProperty>(p => WriteSimpleProperty(p.Name, p.GetValue().ToString(), isLastProperty, writer)),
+                TypeSwitch.Case<ClassicDataportFileFormatProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
 #endif
                 TypeSwitch.Case<NullableBooleanProperty>(p => p.Write(isLastProperty, style, writer)),
                 TypeSwitch.Case<NullableDateTimeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(writer.CodeStyle.DateTimeFormat), isLastProperty, writer)),
