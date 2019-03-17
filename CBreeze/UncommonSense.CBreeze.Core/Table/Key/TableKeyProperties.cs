@@ -18,6 +18,7 @@ namespace UncommonSense.CBreeze.Core.Table.Key
         private SIFTLevelsProperty siftLevelsToMaintain = new SIFTLevelsProperty("SIFTLevelsToMaintain");
         private FieldListProperty sqlIndex = new FieldListProperty("SQLIndex");
         private FieldListProperty sumIndexFields = new FieldListProperty("SumIndexFields");
+        private StringProperty backupKey = new StringProperty("BackupKey");
 
         internal TableKeyProperties(TableKey tableKey)
         {
@@ -34,6 +35,7 @@ namespace UncommonSense.CBreeze.Core.Table.Key
             innerList.Add(obsoleteReason);
 #endif
             innerList.Add(siftLevelsToMaintain);
+            innerList.Add(backupKey);
         }
 
         public TableKey TableKey { get; protected set; }
