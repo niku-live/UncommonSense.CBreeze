@@ -127,7 +127,7 @@ namespace UncommonSense.CBreeze.Parse
         public static readonly Regex ReportElement = new Regex(@"^{([^;]+);([^;]*);([^;]+);([^;}]+)([;}])$", RegexOptions.Compiled);
 
         public static readonly Regex EndReportElement = new Regex(@"\s}$", RegexOptions.Compiled);
-        public static readonly Regex EndRdlData = new Regex("^    END_OF_RDLDATA$", RegexOptions.Compiled);
+        public static readonly Regex EndRdlData = new Regex("^    END_OF_RDLD[aA][tT][aA]$", RegexOptions.Compiled);
         /*     { 2   ;PostingDateCaption  ;CaptionML=[ENU=Posting Date;
                                            NLD=Boekingsdatum] }*/
         public static readonly Regex ReportLabel = new Regex(@"^{([^;]+);([^;]+)([;}])", RegexOptions.Compiled);
