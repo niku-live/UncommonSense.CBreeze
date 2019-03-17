@@ -4,6 +4,31 @@ namespace UncommonSense.CBreeze.Parse
 {
     public partial class Parser
     {
+        private bool IsMultiLineProperty(string propertyName)
+        {
+            if (propertyName.EndsWith("ML"))
+            {
+                return true;
+            }                
+                    
+            if (propertyName.EndsWith("View"))
+            {
+                return true;
+            }
+
+            if (propertyName.EndsWith("Link"))
+            {
+                return true;
+            }
+            
+            if ((propertyName == "CalcFormula") || (propertyName == "Permissions") || (propertyName == "TableRelation"))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         internal void ParseProperty(Lines lines, bool mayHaveTriggers)
         {
             if (mayHaveTriggers)
@@ -31,20 +56,12 @@ namespace UncommonSense.CBreeze.Parse
             }
 
             var stringBuilder = new StringBuilder(propertyValueFirstLine);
-            if (propertyName.EndsWith("ML")|| (propertyName == "CalcFormula") || (propertyName == "Permissions") || (propertyName == "TableRelation") || (propertyName == "DataItemLink") || (propertyName == "RunFormLink") || (propertyName == "SubFormLink") || (propertyName.EndsWith("TableView")))
-            {
-                //lines.Unindent(propertyName.Length + 1);
-                
+            if (IsMultiLineProperty(propertyName))
+            {               
                 foreach (var line in lines)
                 {
-                    //if (line.Length - line.TrimStart().Length <= 3)//propertyName.Length)
-                    //{
-                    //    break;
-                    //}
                     stringBuilder.AppendFormat(" {0}", line.TrimStart());
-                    // stringBuilder.Append(line.TrimStart());
-                }
-                
+                }                
             }
             var propertyValue = stringBuilder.ToString().TrimEnd(";".ToCharArray());
 

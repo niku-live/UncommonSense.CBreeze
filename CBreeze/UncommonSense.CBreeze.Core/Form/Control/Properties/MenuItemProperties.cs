@@ -25,7 +25,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly RunObjectLinkProperty _runFormLink = new RunObjectLinkProperty("RunFormLink");
         private readonly RunFormLinkTypeProperty _runFormLinkType = new RunFormLinkTypeProperty("RunFormLinkType");
         private readonly NullableBooleanProperty _runFormOnRec = new NullableBooleanProperty("RunFormOnRec");
-        private readonly StringProperty _runFormView = new StringProperty("RunFormView");
+        private readonly TableViewProperty _runFormView = new TableViewProperty("RunFormView");
         private readonly RunObjectProperty _runObject = new RunObjectProperty("RunObject");
         private readonly StringProperty _shortCutKey = new StringProperty("ShortCutKey");
         private readonly StringProperty _sourceExpr = new StringProperty("SourceExpr");
@@ -73,11 +73,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public RunObject RunObject => _runObject.Value;
 
-        public string RunFormView
-        {
-            get => _runFormView.Value;
-            set => _runFormView.Value = value;
-        }
+        public TableView RunFormView => _runFormView.Value;
 
         public RunObjectLink RunFormLink
         {

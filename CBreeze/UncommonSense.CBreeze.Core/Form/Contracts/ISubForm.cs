@@ -6,7 +6,7 @@ namespace UncommonSense.CBreeze.Core.Form.Contracts
         IExtendedFormBorder, IEditable, IControlList
     {
         string SubFormId { get; set; }
-        string SubFormView { get; set; }
+        TableView SubFormView { get; }
         RunObjectLink SubFormLink { get; }
     }
 }

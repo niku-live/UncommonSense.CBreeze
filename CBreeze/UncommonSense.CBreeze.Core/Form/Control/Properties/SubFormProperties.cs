@@ -54,11 +54,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => InternalSubFormId = value;
         }
 
-        public string SubFormView
-        {
-            get => InternalSubFormView;
-            set => InternalSubFormView = value;
-        }
+        public TableView SubFormView => InternalSubFormView;
 
         public RunObjectLink SubFormLink => InternalSubFormLink;
 

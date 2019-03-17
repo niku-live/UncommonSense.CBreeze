@@ -73,7 +73,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly RunObjectLinkProperty _runFormLink = new RunObjectLinkProperty("RunFormLink");
         private readonly RunFormLinkTypeProperty _runFormLinkType = new RunFormLinkTypeProperty("RunFormLinkType");
         private readonly NullableBooleanProperty _runFormOnRec = new NullableBooleanProperty("RunFormOnRec");
-        private readonly StringProperty _runFormView = new StringProperty("RunFormView");
+        private readonly TableViewProperty _runFormView = new TableViewProperty("RunFormView");
         private readonly RunObjectProperty _runObject = new RunObjectProperty("RunObject");
 
         private readonly ColorProperty _borderColor = new ColorProperty("BorderColor");
@@ -144,7 +144,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         private readonly StringProperty _subFormId = new StringProperty("SubFormID");
         private readonly RunObjectLinkProperty _subFormLink = new RunObjectLinkProperty("SubFormLink");
-        private readonly StringProperty _subFormView = new StringProperty("SubFormView");
+        private readonly TableViewProperty _subFormView = new TableViewProperty("SubFormView");
 
         private readonly ShapeStyleProperty _shapeStyle = new ShapeStyleProperty("ShapeStyle");
 
@@ -597,11 +597,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         protected RunObject InternalRunObject => _runObject.Value;
 
-        protected string InternalRunFormView
-        {
-            get => _runFormView.Value;
-            set => _runFormView.Value = value;
-        }
+        protected TableView InternalRunFormView => _runFormView.Value;
 
         protected RunObjectLink InternalRunFormLink
         {
@@ -904,11 +900,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _subFormId.Value = value;
         }
 
-        protected string InternalSubFormView
-        {
-            get => _subFormView.Value;
-            set => _subFormView.Value = value;
-        }
+        protected TableView InternalSubFormView => _subFormView.Value;
 
         protected RunObjectLink InternalSubFormLink => _subFormLink.Value;
 

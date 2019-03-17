@@ -32,11 +32,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public RunObject RunObject => InternalRunObject;
 
-        public string RunFormView
-        {
-            get => InternalRunFormView;
-            set => InternalRunFormView = value;
-        }
+        public TableView RunFormView => InternalRunFormView;
 
         public RunObjectLink RunFormLink
         {
