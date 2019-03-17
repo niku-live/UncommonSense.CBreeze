@@ -137,7 +137,7 @@ namespace UncommonSense.CBreeze.Parse
 
         public static readonly Regex EndMenuSuiteNode = new Regex(@"\s}$", RegexOptions.Compiled);
         // Dataport
-        public static readonly Regex DataportField = new Regex(@"^{\s*(\d+)?\s*;\s*(\d+)?\s*;([^;}]+)([;}])", RegexOptions.Compiled);
+        public static readonly Regex DataportField = new Regex(@"^{\s*(\d+)?\s*;\s*(\d+)?\s*;((\[.+\]\s{0,1})|([^;}]+))([;}])", RegexOptions.Compiled);
         public static readonly Regex EndDataportField = new Regex(@"\s}$", RegexOptions.Compiled);
         // Misc
         public static readonly Regex BlankLine = new Regex(@"^$", RegexOptions.Compiled);

@@ -32,12 +32,8 @@ namespace UncommonSense.CBreeze.Core.Dataport
         {
             DataItem = dataItem;
             innerList.Add(dataItemTable);
-            innerList.Add(dataItemTableView);
             innerList.Add(maxIteration);
             innerList.Add(reqFilterHeadingML);
-            innerList.Add(onPreDataItem);
-            innerList.Add(onAfterGetRecord);
-            innerList.Add(onPostDataItem);
             innerList.Add(reqFilterFields);
             innerList.Add(calcFields);
             innerList.Add(dataItemLinkReference);
@@ -46,6 +42,10 @@ namespace UncommonSense.CBreeze.Core.Dataport
             innerList.Add(_dataItemVarName);
             innerList.Add(_autoSave);
             innerList.Add(_autoUpdate);
+            innerList.Add(dataItemTableView);
+            innerList.Add(onPreDataItem);
+            innerList.Add(onAfterGetRecord);
+            innerList.Add(onPostDataItem);
             innerList.Add(onBeforeExportRecord);
             innerList.Add(onAfterExportRecord);
             innerList.Add(onBeforeImportRecord);

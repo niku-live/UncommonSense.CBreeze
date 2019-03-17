@@ -55,6 +55,7 @@ namespace UncommonSense.CBreeze.Parse
                             ParsePageControlsSection(lines);
                             break;
                         case ObjectType.Form:
+                        case ObjectType.Dataport:
                             ParseFormControlsSection(lines);
                             break;
                         case ObjectType.Report:

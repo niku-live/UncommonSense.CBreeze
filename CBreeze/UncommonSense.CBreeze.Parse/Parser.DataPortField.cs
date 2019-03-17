@@ -12,7 +12,7 @@ namespace UncommonSense.CBreeze.Parse
 			var startPos = match.Groups [1].Value.ToNullableInteger();
 		    var width = match.Groups[2].Value.ToNullableInteger();
 			var sourceExpr = match.Groups [3].Value.TrimEnd();
-			var separator = match.Groups [4].Value;
+			var separator = match.Groups [6].Value;
 
 		    Listener.OnBeginDataPortField(startPos, width, sourceExpr);
 

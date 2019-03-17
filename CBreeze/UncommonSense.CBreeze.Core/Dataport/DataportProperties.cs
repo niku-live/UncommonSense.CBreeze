@@ -30,16 +30,16 @@ namespace UncommonSense.CBreeze.Core.Dataport
             innerList.Add(permissions);
             innerList.Add(captionML);
             innerList.Add(description);
-            innerList.Add(onInitDataport);
-            innerList.Add(onPreDataport);
-            innerList.Add(onPostDataport);
             innerList.Add(useReqForm);
             innerList.Add(import);
-            innerList.Add(showStatus);
             innerList.Add(fieldStartDelimiter);
             innerList.Add(fieldEndDelimiter);
             innerList.Add(fieldSeparator);
             innerList.Add(dataItemSeparator);
+            innerList.Add(showStatus);
+            innerList.Add(onInitDataport);
+            innerList.Add(onPreDataport);
+            innerList.Add(onPostDataport);
         }
 
         public Dataport Dataport { get; protected set; }

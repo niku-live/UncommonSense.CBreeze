@@ -16,6 +16,7 @@ namespace UncommonSense.CBreeze.Write
             dataport.ObjectProperties.Write(writer);
             dataport.Properties.Write(writer);
             dataport.DataItems.Write(writer);
+            dataport.RequestForm.Write(writer);
             dataport.Code.Write(writer);
             writer.EndSection();
             writer.InnerWriter.WriteLine();

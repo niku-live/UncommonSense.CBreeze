@@ -27,7 +27,7 @@ namespace UncommonSense.CBreeze.Write
             var debt = 0;
             var startPos = BuildControlPart(dataportField.StartPosition.HasValue? dataportField.StartPosition.Value.ToString() : "", 5, ref debt);
             var width = BuildControlPart(dataportField.Width.HasValue? dataportField.Width.Value.ToString() : "", 5, ref debt);
-            var sourceExp = BuildControlPart(dataportField.SourceExpr, 21, ref debt);
+            var sourceExp = BuildControlPart(dataportField.SourceExpr, 20, ref debt);
             var relevantProperties = dataportField.Properties.Where(p => p.HasValue);
             var declaration = string.Format("{{ {0};{1};{2}", startPos, width, sourceExp);
 
