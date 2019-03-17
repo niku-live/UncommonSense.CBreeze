@@ -292,7 +292,7 @@ namespace UncommonSense.CBreeze.Write
                 case CalcFormulaMethod.Max:
                 case CalcFormulaMethod.Min:
                 case CalcFormulaMethod.Sum:
-                    writer.Write("{0}.{1}", property.Value.TableName.QuotedExcept('-', '/', '.'), property.Value.FieldName.QuotedExcept('-', '/', '.'));
+                    writer.Write("{0}.{1}", property.Value.TableName.QuotedExcept('-', '/', '.'), property.Value.FieldName.QuotedExcept('-', '/', '.', '_'));
                     break;
             }
 
