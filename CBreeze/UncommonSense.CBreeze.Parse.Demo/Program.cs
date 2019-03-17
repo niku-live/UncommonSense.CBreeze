@@ -29,20 +29,8 @@ namespace UncommonSense.CBreeze.Parse.Demo
             else
             {                
                 var encoding = Encoding.GetEncoding(775);
-                var codeStyle = new ApplicationCodeStyle()
-                {
-                    DateFormat = "yy-MM-dd",
-                    TextConstIsAlwaysMultiLine = true,
-                    NewLineBeforeTextConst = true,
-                    DoNotPrintEmptyReportDataItems = false,
-                    DoNotPrintEmptyRequestForm = false,
-                    DoNotPrintEmptyRequestPage = true,
-                    DoNotPrintEmptyFieldGroups = true,
-                    DoNotPrintEmptyDatasets = true,
-                    DoNotPrintEmptyLabels = true,
-                    DoNotPrintEmptyRdlReportLayout = true,
-                    DoNotPrintEmptyWordReportLayout = true
-                };
+                var codeStyle = ApplicationCodeStyle.CreateNav5CodeStyle();
+                codeStyle.DateFormat = "yy-MM-dd";
                 var application = ApplicationBuilder.ReadFromFolder(sourceFolderName, encoding, codeStyle);
                 ApplicationWriter.WriteToFile(application, outputFile, encoding);
             }
