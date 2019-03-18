@@ -58,7 +58,7 @@ namespace UncommonSense.CBreeze.Core.Code.Variable
 
         public static string TextConstantValue(this string text, bool isComment, int noOfValues)
         {
-            var needsQuotes = (text.Trim() != text) || (text.Contains(';') || text.Contains("=") || text.StartsWith("\""));
+            var needsQuotes = (text.Trim() != text) || (text.Contains(';') || text.Contains("=") || text.StartsWith("\"") || String.IsNullOrEmpty(text));
 
             if (isComment && noOfValues < 2)
                 needsQuotes = false;

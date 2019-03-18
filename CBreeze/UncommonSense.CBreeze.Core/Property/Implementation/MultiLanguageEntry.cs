@@ -40,7 +40,8 @@ namespace UncommonSense.CBreeze.Core.Property.Implementation
                     Value.Contains(';') ||
                     Value.Contains('=') ||
                     Value.StartsWith("\"\"") ||
-                    //(Value.Count(c => c == '\"') > 2) ||
+                    Value.Equals("\"\"") ||
+                    Value == "" ||
                     Value == string.Empty;
             }
         }
