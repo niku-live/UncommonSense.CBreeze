@@ -26,7 +26,7 @@ namespace UncommonSense.CBreeze.Parse
                 return true;
             }
             
-            if ((propertyName == "CalcFormula") || (propertyName == "Permissions") || (propertyName == "TableRelation") || (propertyName == "OrderBy"))
+            if ((propertyName == "CalcFormula") || (propertyName == "Permissions") || (propertyName == "TableRelation") || (propertyName == "OrderBy") || (propertyName == "LinkFields"))
             {
                 return true;
             }
