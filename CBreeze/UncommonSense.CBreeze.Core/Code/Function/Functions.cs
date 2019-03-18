@@ -28,7 +28,7 @@ namespace UncommonSense.CBreeze.Core.Code.Function
         public override void ValidateName(Variable.Function item)
         {
             TestNameNotNullOrEmpty(item);
-            TestNameUnique(item);
+            //TestNameUnique(item);
         }
 
         protected override void InsertItem(int index, Variable.Function item)

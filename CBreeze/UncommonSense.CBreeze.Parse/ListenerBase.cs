@@ -176,7 +176,7 @@ namespace UncommonSense.CBreeze.Parse
         {
         }
 
-        public virtual void OnParameter(bool parameterVar, int parameterID, string parameterName, Common.ParameterType parameterType, string parameterSubType, int? parameterLength, string parameterOptionString, bool parameterTemporary, string parameterDimensions, bool parameterRunOnClient, string parameterSecurityFiltering, bool parameterSuppressDispose)
+        public virtual void OnParameter(bool parameterVar, int parameterID, string parameterName, Common.ParameterType parameterType, string parameterSubType, int? parameterLength, string parameterOptionString, bool parameterTemporary, string parameterDimensions, bool parameterRunOnClient, string parameterSecurityFiltering, bool parameterSuppressDispose, bool parameterInDataSet = false)
         {
         }
 
@@ -184,7 +184,7 @@ namespace UncommonSense.CBreeze.Parse
         {
         }
 
-        public virtual void OnVariable(int variableID, string variableName, Common.VariableType variableType, string variableSubType, int? variableLength, string variableOptionString, string variableConstValue, bool variableTemporary, string variableDimensions, bool variableRunOnClient, bool variableWithEvents, string variableSecurityFiltering, bool variableInDataSet)
+        public virtual void OnVariable(int variableID, string variableName, Common.VariableType variableType, string variableSubType, int? variableLength, string variableOptionString, string variableConstValue, bool variableTemporary, string variableDimensions, bool variableRunOnClient, bool variableWithEvents, string variableSecurityFiltering, bool variableInDataSet, bool suppressDispose)
         {
         }
 

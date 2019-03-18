@@ -48,5 +48,11 @@ namespace UncommonSense.CBreeze.Core.Code.Variable
             get;
             set;
         }
+
+        public bool? SuppressDispose
+        {
+            get;
+            set;
+        }
     }
 }

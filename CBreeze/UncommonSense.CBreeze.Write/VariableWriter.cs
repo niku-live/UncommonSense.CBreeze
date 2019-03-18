@@ -20,18 +20,18 @@ namespace UncommonSense.CBreeze.Write
             TypeSwitch.Do(
                 variable,
                 TypeSwitch.Case<ActionVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
-                TypeSwitch.Case<AutomationVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, false, false, p.WithEvents.GetValueOrDefault(false), false, null, writer)),
+                TypeSwitch.Case<AutomationVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, false, false, p.WithEvents.GetValueOrDefault(false), false, null, false, writer)),
                 TypeSwitch.Case<BigIntegerVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
                 TypeSwitch.Case<BigTextVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
                 TypeSwitch.Case<BinaryVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
-                TypeSwitch.Case<BooleanVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, false, p.IncludeInDataset.GetValueOrDefault(false), false, false, null, writer)),
+                TypeSwitch.Case<BooleanVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, false, p.IncludeInDataset.GetValueOrDefault(false), false, false, null, false, writer)),
                 TypeSwitch.Case<ByteVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
                 TypeSwitch.Case<CharVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
 #if NAV2017
                 TypeSwitch.Case<ClientTypeVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
 #endif
                 TypeSwitch.Case<CodeunitVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
-                TypeSwitch.Case<CodeVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, false, p.IncludeInDataset.GetValueOrDefault(false), false, false, null, writer)),
+                TypeSwitch.Case<CodeVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, false, p.IncludeInDataset.GetValueOrDefault(false), false, false, null, false, writer)),
 #if NAV2018
                 TypeSwitch.Case<DataClassificationVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
 #endif
@@ -40,7 +40,7 @@ namespace UncommonSense.CBreeze.Write
                 TypeSwitch.Case<DateVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
                 TypeSwitch.Case<DecimalVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
                 TypeSwitch.Case<DialogVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
-                TypeSwitch.Case<DotNetVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, false, false, p.WithEvents.GetValueOrDefault(false), p.RunOnClient.GetValueOrDefault(false), null, writer)),
+                TypeSwitch.Case<DotNetVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, false, false, p.WithEvents.GetValueOrDefault(false), p.RunOnClient.GetValueOrDefault(false), null, p.SuppressDispose.GetValueOrDefault(false), writer)),
                 TypeSwitch.Case<DurationVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
                 TypeSwitch.Case<ExecutionModeVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
                 TypeSwitch.Case<FieldRefVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
@@ -50,7 +50,7 @@ namespace UncommonSense.CBreeze.Write
 #endif
                 TypeSwitch.Case<GuidVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
                 TypeSwitch.Case<InStreamVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
-                TypeSwitch.Case<IntegerVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, false, p.IncludeInDataset.GetValueOrDefault(false), false, false, null, writer)),
+                TypeSwitch.Case<IntegerVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, false, p.IncludeInDataset.GetValueOrDefault(false), false, false, null,false,  writer)),
                 TypeSwitch.Case<KeyRefVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
 #if NAV2017
                 TypeSwitch.Case<NotificationVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
@@ -59,10 +59,10 @@ namespace UncommonSense.CBreeze.Write
                 TypeSwitch.Case<OptionVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
                 TypeSwitch.Case<OutStreamVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
                 TypeSwitch.Case<PageVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
-                TypeSwitch.Case<QueryVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, false, false, false, false, p.SecurityFiltering.HasValue ? p.SecurityFiltering.Value.ToString() : null, writer)),
-                TypeSwitch.Case<RecordVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, p.Temporary, false, false, false, p.SecurityFiltering.HasValue ? p.SecurityFiltering.Value.ToString() : null, writer)),
+                TypeSwitch.Case<QueryVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, false, false, false, false, p.SecurityFiltering.HasValue ? p.SecurityFiltering.Value.ToString() : null, false, writer)),
+                TypeSwitch.Case<RecordVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, p.Temporary, false, false, false, p.SecurityFiltering.HasValue ? p.SecurityFiltering.Value.ToString() : null, false, writer)),
                 TypeSwitch.Case<RecordIDVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
-                TypeSwitch.Case<RecordRefVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, false, false, false, false, p.SecurityFiltering.HasValue ? p.SecurityFiltering.Value.ToString() : null, writer)),
+                TypeSwitch.Case<RecordRefVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, false, false, false, false, p.SecurityFiltering.HasValue ? p.SecurityFiltering.Value.ToString() : null, false, writer)),
                 TypeSwitch.Case<ReportVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
 #if NAV2016
                 TypeSwitch.Case<ReportFormatVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
@@ -80,7 +80,7 @@ namespace UncommonSense.CBreeze.Write
                 TypeSwitch.Case<FormVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
                 TypeSwitch.Case<DataportVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
 #endif
-                TypeSwitch.Case<TextVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, false, p.IncludeInDataset.GetValueOrDefault(false), false, false, null, writer)),
+                TypeSwitch.Case<TextVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, false, p.IncludeInDataset.GetValueOrDefault(false), false, false, null, false, writer)),
                 TypeSwitch.Case<TimeVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
                 TypeSwitch.Case<TransactionTypeVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
                 TypeSwitch.Case<VariantVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
@@ -93,10 +93,10 @@ namespace UncommonSense.CBreeze.Write
 
         private static void DoWrite(string name, int id, string type, string dimensions, CSideWriter writer)
         {
-            DoWrite(name, id, type, dimensions, false, false, false, false, null, writer);
+            DoWrite(name, id, type, dimensions, false, false, false, false, null, false, writer);
         }
 
-        private static void DoWrite(string name, int id, string type, string dimensions, bool temporary, bool includeInDataset, bool withEvents, bool runOnClient, string securityFiltering, CSideWriter writer)
+        private static void DoWrite(string name, int id, string type, string dimensions, bool temporary, bool includeInDataset, bool withEvents, bool runOnClient, string securityFiltering, bool suppressDispose, CSideWriter writer)
         {
             var stringBuilder = new StringBuilder();
 
@@ -109,6 +109,8 @@ namespace UncommonSense.CBreeze.Write
                 stringBuilder.Append("TEMPORARY ");
 
             stringBuilder.Append(type);
+            if (suppressDispose)
+                stringBuilder.Append(" SUPPRESSDISPOSE");
 
             if (withEvents)
                 stringBuilder.Append(" WITHEVENTS");

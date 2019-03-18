@@ -29,7 +29,7 @@ namespace UncommonSense.CBreeze.Parse.Demo
             else
             {                
                 var encoding = Encoding.GetEncoding(775);
-                var codeStyle = ApplicationCodeStyle.CreateNav5CodeStyle();
+                var codeStyle = ApplicationCodeStyle.CreateNav2013CodeStyle();
                 codeStyle.DateFormat = "yy-MM-dd";
                 var application = ApplicationBuilder.ReadFromFolder(sourceFolderName, encoding, codeStyle);
                 ApplicationWriter.WriteToFile(application, outputFile, encoding);

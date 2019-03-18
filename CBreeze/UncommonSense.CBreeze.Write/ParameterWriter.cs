@@ -10,7 +10,7 @@ namespace UncommonSense.CBreeze.Write
 {
     public static class ParameterWriter
     {
-        private static void DoWrite(bool var, string name, int uid, bool temporary, string typeName, string dimensions, CSideWriter writer)
+        private static void DoWrite(bool var, string name, int uid, bool temporary, string typeName, string dimensions, bool inDataSet, CSideWriter writer)
         {
             if (var)
                 writer.Write("VAR ");
@@ -24,14 +24,17 @@ namespace UncommonSense.CBreeze.Write
                 writer.Write("TEMPORARY ");
 
             writer.Write(typeName);
+
+            if (inDataSet)
+                writer.Write(" INDATASET");
         }
 
         public static void Write(this Parameter parameter, CSideWriter writer)
         {
             switch (parameter)
             {
-                case RecordParameter recordParameter: DoWrite(recordParameter.Var, recordParameter.Name, recordParameter.ID, recordParameter.Temporary.GetValueOrDefault(false), recordParameter.TypeName, recordParameter.Dimensions, writer); break;
-                default: DoWrite(parameter.Var, parameter.Name, parameter.ID, false, parameter.TypeName, parameter.Dimensions, writer); break;
+                case RecordParameter recordParameter: DoWrite(recordParameter.Var, recordParameter.Name, recordParameter.ID, recordParameter.Temporary.GetValueOrDefault(false), recordParameter.TypeName, recordParameter.Dimensions, recordParameter.InDataSet, writer); break;
+                default: DoWrite(parameter.Var, parameter.Name, parameter.ID, false, parameter.TypeName, parameter.Dimensions, parameter.InDataSet, writer); break;
             }
         }
     }

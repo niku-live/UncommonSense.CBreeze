@@ -44,8 +44,16 @@ namespace UncommonSense.CBreeze.Write
 
             writer.Write("{{ {0};", idAndIndentation.PadRight(13));
             writer.Indent(writer.Column);
-            writer.WriteLine("ActionGroup;");
-            action.Properties.Write(PropertiesStyle.Field, writer);
+            writer.Write("ActionGroup");
+            if (action.Properties.Any(p => p.HasValue))
+            {
+                writer.WriteLine(";");
+                action.Properties.Write(PropertiesStyle.Field, writer);
+            }
+            else
+            {
+                writer.Write(" ");
+            }
             writer.WriteLine("}");
             writer.Unindent();
         }

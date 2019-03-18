@@ -75,7 +75,8 @@ namespace UncommonSense.CBreeze.Parse
                 variableRunOnClient, 
                 variableWithEvents, 
                 variableSecurityFiltering, 
-                variableInDataSet);
+                variableInDataSet,
+                variableSuppressDispose);
 
             return true;
         }

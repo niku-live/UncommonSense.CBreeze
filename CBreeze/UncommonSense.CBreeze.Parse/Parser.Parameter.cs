@@ -18,13 +18,14 @@ namespace UncommonSense.CBreeze.Parse
             var parameterSuppressDispose = ParseSuppressDispose(ref parameterType);
             var parameterRunOnClient = ParseRunOnClient(ref parameterType);
             var parameterSecurityFiltering = ParseSecurityFiltering(ref parameterType);
+            var parameterInDataSet = ParseInDataSet(ref parameterType);
             var parameterDimensions = ParseDimensions(ref parameterType);
             var parameterTemporary = ParseTemporary(ref parameterType);
             var parameterSubType = ParseVariableSubType(ref parameterType);
             var parameterLength = ParseVariableLength(ref parameterType);
             var parameterOptionString = ParseOptionString(ref parameterType);
 
-            Listener.OnParameter(parameterVar, parameterID, parameterName, parameterType.ToEnum<ParameterType>(),  parameterSubType, parameterLength, parameterOptionString, parameterTemporary, parameterDimensions, parameterRunOnClient, parameterSecurityFiltering, parameterSuppressDispose);
+            Listener.OnParameter(parameterVar, parameterID, parameterName, parameterType.ToEnum<ParameterType>(),  parameterSubType, parameterLength, parameterOptionString, parameterTemporary, parameterDimensions, parameterRunOnClient, parameterSecurityFiltering, parameterSuppressDispose, parameterInDataSet);
         }
 
         internal bool ParseSuppressDispose(ref string parameterType)

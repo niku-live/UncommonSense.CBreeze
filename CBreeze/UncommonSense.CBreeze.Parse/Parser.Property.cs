@@ -20,8 +20,13 @@ namespace UncommonSense.CBreeze.Parse
             {
                 return true;
             }
+
+            if (propertyName.EndsWith("Filter"))
+            {
+                return true;
+            }
             
-            if ((propertyName == "CalcFormula") || (propertyName == "Permissions") || (propertyName == "TableRelation"))
+            if ((propertyName == "CalcFormula") || (propertyName == "Permissions") || (propertyName == "TableRelation") || (propertyName == "OrderBy"))
             {
                 return true;
             }

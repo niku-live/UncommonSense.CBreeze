@@ -42,5 +42,7 @@ namespace UncommonSense.CBreeze.Core.Code.Parameter
         {
             return Name;
         }
+
+        public bool InDataSet { get; set; }
     }
 }
