@@ -1,6 +1,7 @@
 ﻿using UncommonSense.CBreeze.Core.Form.Contracts;
 using UncommonSense.CBreeze.Core.Property.Enumeration;
 using UncommonSense.CBreeze.Core.Property.Implementation;
+using UncommonSense.CBreeze.Core.Table.Relation;
 
 namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
@@ -144,11 +145,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => InternalDivisor = value;
         }
 
-        public string TableRelation
-        {
-            get => InternalTableRelation;
-            set => InternalTableRelation = value;
-        }
+        public TableRelation TableRelation => InternalTableRelation;
 
         public bool? ValidateTableRelation
         {

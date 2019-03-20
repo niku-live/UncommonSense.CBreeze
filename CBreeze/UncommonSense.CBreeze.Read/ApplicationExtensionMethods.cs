@@ -78,6 +78,13 @@ namespace UncommonSense.CBreeze.Read
 
 #endif
 
+        internal static void SetMultiLanguageProperty(this MultiLanguageProperty property, string propertyValue)
+        {
+            property.EmptyValueIsSet = true;
+            property.Value.SetMultiLanguageValue(propertyValue);
+        }
+
+
         internal static void SetLinkFieldsProperty(this LinkFieldsProperty property, string propertyValue)
         {
             do
@@ -91,8 +98,7 @@ namespace UncommonSense.CBreeze.Read
 
         internal static void SetMultiLanguageValue(this MultiLanguageValue multiLanguageValue, string value)
         {
-            value = RemoveSurroundingSquareBrackets(value);
-
+            value = RemoveSurroundingSquareBrackets(value);            
             while (value.Length > 0)
             {
                 var languageCode = Parsing.MustMatch(ref value, @"^([A-Z@]{3})=").Groups[1].Value;
@@ -142,9 +148,11 @@ namespace UncommonSense.CBreeze.Read
         internal static void SetObjectLinkProperty(this RunObjectLinkProperty property, string propertyValue)
         {
             //			Payment Term=FIELD(Code);
+            property.EmptyValueIsSet = true;
 
             while (propertyValue.Length > 0)
             {
+                property.EmptyValueIsSet = false;
                 var fieldName = Parsing.MustMatch(ref propertyValue, @"^([^=]+)=").Groups[1].Value;
                 var type = Parsing.MustMatch(ref propertyValue, @"(CONST|FILTER|FIELD)").Groups[1].Value.ToEnum<TableFilterType>();
                 Parsing.MustMatch(ref propertyValue, @"^\(");
@@ -163,11 +171,13 @@ namespace UncommonSense.CBreeze.Read
 
         internal static void SetPermissionProperty(this PermissionsProperty property, string propertyValue)
         {
+            property.EmptyValueIsSet = true;
             // TableData 21=r
             while (propertyValue.Length > 0)
             {
                 var match = Parsing.MustMatch(ref propertyValue, @"^TableData\s(\d+)=(r?)(i?)(m?)(d?)(,\s)?");
                 property.Value.Set(match.Groups[1].Value.ToInteger(), match.Groups[2].Value == "r", match.Groups[3].Value == "i", match.Groups[4].Value == "m", match.Groups[5].Value == "d");
+                property.EmptyValueIsSet = false;
             }
         }
 
@@ -197,10 +207,12 @@ namespace UncommonSense.CBreeze.Read
 
         internal static void SetSIFTLevelsProperty(this SIFTLevelsProperty property, string propertyValue)
         {
+            property.EmptyValueIsSet = true;
             propertyValue = RemoveSurroundingSquareBrackets(propertyValue);
 
             while (!string.IsNullOrEmpty(propertyValue))
             {
+                property.EmptyValueIsSet = false;
                 var siftLevelLine = Parsing.MustMatch(ref propertyValue, @"^\{(.*?)\}").Groups[1].Value;
                 var fields = siftLevelLine.Split(",".ToCharArray());
                 var siftLevel = property.Value.Add(new SIFTLevel());
@@ -487,13 +499,23 @@ namespace UncommonSense.CBreeze.Read
             return Parsing.TryMatch(ref value, @"^\(UPPERLIMIT");
         }
 
+        internal static void SetNullableIntegerProperty(this NullableIntegerProperty property, string propertyValue)
+        {
+            property.Value = propertyValue.ToNullableInteger();
+            if (!property.Value.HasValue)
+            {
+                property.InvalidValueIsSet = true;
+                property.InvalidValue = propertyValue;
+            }
+        }
+
         internal static void SetTableViewProperty(this TableViewProperty property, string propertyValue)
         {
             //			SourceTableView=SORTING(Search Description)
             //				ORDER(Ascending)
             //				WHERE(No. 2=CONST(FOO),
             //					Description=FILTER(<>''));
-
+            property.EmptyValueIsSet = String.IsNullOrEmpty(propertyValue);
             propertyValue = RemoveSurroundingSquareBrackets(propertyValue);
 
             property.Value.Key = GetTableViewSorting(ref propertyValue);

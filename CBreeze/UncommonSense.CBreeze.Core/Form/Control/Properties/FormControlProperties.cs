@@ -4,6 +4,7 @@ using UncommonSense.CBreeze.Core.Contracts;
 using UncommonSense.CBreeze.Core.Form.Contracts;
 using UncommonSense.CBreeze.Core.Property.Enumeration;
 using UncommonSense.CBreeze.Core.Property.Implementation;
+using UncommonSense.CBreeze.Core.Table.Relation;
 
 namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 {
@@ -115,7 +116,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly NullableBooleanProperty _passwordText = new NullableBooleanProperty("PasswordText");
         private readonly NullableBooleanProperty _permanentAssist = new NullableBooleanProperty("PermanentAssist");
         private readonly NullableBooleanProperty _signDisplacement = new NullableBooleanProperty("SignDisplacement");
-        private readonly StringProperty _tableRelation = new StringProperty("TableRelation");
+        private readonly TableRelationProperty _tableRelation = new TableRelationProperty("TableRelation");
         private readonly StringProperty _title = new StringProperty("Title");
 
         private readonly NullableBooleanProperty _validateTableRelation =
@@ -224,6 +225,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_bitmapList);
             innerList.Add(_permanentAssist);
             innerList.Add(_ellipsis);
+            innerList.Add(_percentage);
             innerList.Add(_captionMl);
             innerList.Add(_toolTipMl);
             innerList.Add(_optionCaptionML);
@@ -299,7 +301,6 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_matrixSourceTable);
 
             innerList.Add(_orientation);
-            innerList.Add(_percentage);
 
             innerList.Add(_topLineOnly);
 
@@ -822,11 +823,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             set => _divisor.Value = value;
         }
 
-        protected string InternalTableRelation
-        {
-            get => _tableRelation.Value;
-            set => _tableRelation.Value = value;
-        }
+        protected TableRelation InternalTableRelation => _tableRelation.Value;
 
         protected bool? InternalValidateTableRelation
         {

@@ -13,7 +13,7 @@ namespace UncommonSense.CBreeze.Core.Property.Implementation
         {
             get
             {
-                return Value.Key != null || Value.Order.HasValue || Value.TableFilter.Any();
+                return Value.Key != null || Value.Order.HasValue || Value.TableFilter.Any() || EmptyValueIsSet;
             }
         }
     }

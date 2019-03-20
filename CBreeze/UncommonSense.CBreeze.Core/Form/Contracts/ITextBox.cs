@@ -1,5 +1,6 @@
 ﻿using UncommonSense.CBreeze.Core.Property.Enumeration;
 using UncommonSense.CBreeze.Core.Property.Implementation;
+using UncommonSense.CBreeze.Core.Table.Relation;
 
 namespace UncommonSense.CBreeze.Core.Form.Contracts
 {
@@ -42,7 +43,7 @@ namespace UncommonSense.CBreeze.Core.Form.Contracts
         string AutoFormatExpr { get; set; }
 
         string Divisor { get; set; }
-        string TableRelation { get; set; }
+        TableRelation TableRelation { get; }
         bool? ValidateTableRelation { get; set; }
         string LookupFormID { get; set; }
         string DrillDownFormID { get; set; }

@@ -6,5 +6,16 @@ namespace UncommonSense.CBreeze.Core.Property.Implementation
             : base(name)
         {
         }
+
+        public override bool HasValue => base.HasValue || InvalidValueIsSet;
+
+        public string GetValueForPrinting()
+        {
+            if (InvalidValueIsSet)
+            {
+                return InvalidValue;
+            }
+            return Value.GetValueOrDefault().ToString();
+        }
     }
 }

@@ -29,5 +29,8 @@ namespace UncommonSense.CBreeze.Core.Property.Implementation
         /// </summary>
         /// <returns></returns>
         public abstract object GetValue();
+
+        public bool InvalidValueIsSet { get; set; }
+        public string InvalidValue { get; set; }
     }
 }

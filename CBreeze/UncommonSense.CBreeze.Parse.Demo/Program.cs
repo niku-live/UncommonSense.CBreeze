@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using UncommonSense.CBreeze.Core.Base;
+using UncommonSense.CBreeze.Core.Common;
 using UncommonSense.CBreeze.Read;
 using UncommonSense.CBreeze.Write;
 
@@ -29,8 +30,28 @@ namespace UncommonSense.CBreeze.Parse.Demo
             else
             {                
                 var encoding = Encoding.GetEncoding(775);
-                var codeStyle = ApplicationCodeStyle.CreateNav2013CodeStyle();
-                codeStyle.DateFormat = "yy-MM-dd";
+                var codeStyle = ApplicationCodeStyle.CreateNav5CodeStyle();
+                codeStyle.DateFormat = "yy.MM.dd";
+                codeStyle.TimeFormat = @"HH\:mm\:ss";
+                codeStyle.UseEnclosedTimeFormat = true;
+                codeStyle.CustomPropertyMappings.AddMap("Data", "Date");
+                codeStyle.CustomPropertyMappings.AddMap("Laikas", "Time");
+                codeStyle.CustomPropertyMappings.AddMap("Versijos", "Version List");
+                codeStyle.CustomPropertyMappings.AddMap("Pakeista", "Modified");
+                var blobTypeMap = codeStyle.GetEnumMapping<Core.Property.Type.BlobSubType>();
+                var blobTypeTextMap = codeStyle.GetEnumMapping<Core.Property.Type.BlobSubType>(true);
+                blobTypeMap.AddMap("Paveikslėlis", "Bitmap");
+                blobTypeTextMap.AddMap("Paveikslėlis", "Bitmap");
+                blobTypeMap.AddMap("Memolaukas", "Memo");
+                blobTypeTextMap.AddMap("Memo laukas", "Memo");
+                blobTypeMap.AddMap("Vartotojoapibr", "UserDefined");
+                blobTypeTextMap.AddMap("Vartotojo apibr.", "User-Defined");
+
+                codeStyle.DecimalFormat = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.Clone() as System.Globalization.NumberFormatInfo;
+                codeStyle.DecimalFormat.NumberGroupSeparator = ".";                
+                codeStyle.LocalizedYes = "Taip";
+                codeStyle.LocalizedNo = "Ne";
+                codeStyle.EmptyCaptionIsNotQuited = true;                
                 var application = ApplicationBuilder.ReadFromFolder(sourceFolderName, encoding, codeStyle);
                 ApplicationWriter.WriteToFile(application, outputFile, encoding);
             }

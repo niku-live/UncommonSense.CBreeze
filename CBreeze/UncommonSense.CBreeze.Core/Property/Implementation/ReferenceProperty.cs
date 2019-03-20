@@ -13,6 +13,8 @@
             protected set;
         }
 
+        public bool EmptyValueIsSet { get; set; }
+
         public override void Reset() => Value = new T();
 
         public override object GetValue() => Value;

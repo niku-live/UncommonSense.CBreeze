@@ -16,6 +16,6 @@ namespace UncommonSense.CBreeze.Core.Code.Parameter
         }
 
         public override ParameterType Type => ParameterType.Automation;
-        public override string TypeName => $"Automation \"{SubType}\"";
+        public override string TypeName => string.IsNullOrEmpty(SubType)? "Automation" : $"Automation \"{SubType}\"";
     }
 }

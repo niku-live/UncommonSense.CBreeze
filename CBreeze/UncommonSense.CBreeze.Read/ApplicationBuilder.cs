@@ -436,7 +436,7 @@ namespace UncommonSense.CBreeze.Read
                 TypeSwitch.Case<MenuItemRunObjectTypeProperty>(p =>
                     p.Value = propertyValue.ToEnum<MenuItemRunObjectType>()),
                 TypeSwitch.Case<MinOccursProperty>(p => p.Value = propertyValue.ToEnum<MinOccurs>()),
-                TypeSwitch.Case<MultiLanguageProperty>(p => p.Value.SetMultiLanguageValue(propertyValue)),
+                TypeSwitch.Case<MultiLanguageProperty>(p => p.SetMultiLanguageProperty(propertyValue)),
 #if NAV2016
                 TypeSwitch.Case<XmlPortNamespacesProperty>(p => p.Value.SetNamespacesValue(propertyValue)),
 #endif
@@ -499,7 +499,7 @@ namespace UncommonSense.CBreeze.Read
                 TypeSwitch.Case<NullableDecimalProperty>(p => p.Value = propertyValue.ToNullableDecimal(Application.CodeStyle.DecimalFormat)),
                 TypeSwitch.Case<NullableGuidProperty>(p => p.Value = propertyValue.ToNullableGuid()),
                 TypeSwitch.Case<NullableBigIntegerProperty>(p => p.Value = propertyValue.ToNullableBigInteger()),
-                TypeSwitch.Case<NullableIntegerProperty>(p => p.Value = propertyValue.ToNullableInteger()),
+                TypeSwitch.Case<NullableIntegerProperty>(p => p.SetNullableIntegerProperty(propertyValue)),
                 TypeSwitch.Case<NullableDateProperty>(p => p.Value = propertyValue.ToNullableDateTime()),
                 TypeSwitch.Case<AutoPositionProperty>(p =>
                     p.Value = propertyValue.ToEnum<ClassicControlAutoPosition>()),

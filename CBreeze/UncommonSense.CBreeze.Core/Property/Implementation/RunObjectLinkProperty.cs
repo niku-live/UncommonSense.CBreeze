@@ -13,7 +13,7 @@ namespace UncommonSense.CBreeze.Core.Property.Implementation
         {
             get
             {
-                return Value.Any();
+                return Value.Any() || EmptyValueIsSet;
             }
         }
     }

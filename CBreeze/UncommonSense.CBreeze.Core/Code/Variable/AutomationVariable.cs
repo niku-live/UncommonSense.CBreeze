@@ -9,7 +9,7 @@ namespace UncommonSense.CBreeze.Core.Code.Variable
         public AutomationVariable(int id, string name, string subType) : base(id, name) { SubType = subType; }
         public string Dimensions { get; set; }
         public string SubType { get; }
-        public override string TypeName => $"Automation \"{SubType}\"";
+        public override string TypeName => string.IsNullOrEmpty(SubType)? "Automation" : $"Automation \"{SubType}\"";
         public override VariableType Type => VariableType.Automation;
         public bool? WithEvents { get; set; }
     }

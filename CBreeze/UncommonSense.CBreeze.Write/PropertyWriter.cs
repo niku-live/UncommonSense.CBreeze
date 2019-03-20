@@ -136,10 +136,10 @@ namespace UncommonSense.CBreeze.Write
                 TypeSwitch.Case<NullableBooleanProperty>(p => p.Write(isLastProperty, style, writer)),
                 TypeSwitch.Case<NullableDateTimeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(writer.CodeStyle.DateTimeFormat), isLastProperty, writer)),
                 TypeSwitch.Case<NullableDateProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(writer.CodeStyle.DateFormat), isLastProperty, writer)),
-                TypeSwitch.Case<NullableDecimalProperty>(p => WriteSimpleProperty(p.Name, writer.CodeStyle.DecimalFormat != null ? p.Value.GetValueOrDefault().ToString(writer.CodeStyle.DecimalFormat) : p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
+                TypeSwitch.Case<NullableDecimalProperty>(p => p.Write(isLastProperty, writer)),
                 TypeSwitch.Case<NullableBigIntegerProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<NullableGuidProperty>(p => WriteSimpleProperty(p.Name, string.Format("[{0}]", p.Value.GetValueOrDefault().ToString("B").ToUpper()), isLastProperty, writer)),
-                TypeSwitch.Case<NullableIntegerProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
+                TypeSwitch.Case<NullableIntegerProperty>(p => WriteSimpleProperty(p.Name, p.GetValueForPrinting(), isLastProperty, writer)),
                 TypeSwitch.Case<NullableUnsignedIntegerProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<NullableTimeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString("c"), isLastProperty, writer)),
                 TypeSwitch.Case<XmlPortNodeDataTypeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
@@ -194,6 +194,11 @@ namespace UncommonSense.CBreeze.Write
 #endif
         public static void Write(this RunObjectLinkProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
+            if (property.EmptyValueIsSet)
+            {
+                WriteSimpleProperty(property.Name, "", isLastProperty, writer);
+                return;
+            }
             var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
             writer.Write("{0}=", propertyName);
             writer.Indent(writer.Column);
@@ -222,6 +227,11 @@ namespace UncommonSense.CBreeze.Write
         public static void Write(this PermissionsProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
             var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
+            if (property.EmptyValueIsSet)
+            {
+                WriteSimpleProperty(property.Name, "", isLastProperty, writer);
+                return;
+            }
             writer.Write("{0}=", propertyName);
             writer.Indent(writer.Column);
 
@@ -336,6 +346,11 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this TableViewProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
+            if (property.EmptyValueIsSet)
+            {
+                WriteSimpleProperty(property.Name, "", isLastProperty, writer);
+                return;
+            }
             var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
             var requiresSquareBrackets = property.Value.TableFilter.Any(f => f.Value.Any(c => "{}".Contains(c)));
             var openingBracket = requiresSquareBrackets ? "[" : "";
@@ -898,8 +913,31 @@ namespace UncommonSense.CBreeze.Write
             writer.Unindent();
         }
 
+        public static void Write(this NullableDecimalProperty property, bool isLastProperty, CSideWriter writer)
+        {
+            var value = property.Value.GetValueOrDefault();
+            var stringValue = value.ToString();
+            if (writer.CodeStyle.DecimalFormat != null)
+            {
+                if (value % 1 == 0)
+                {
+                    stringValue = value.ToString("N0", writer.CodeStyle.DecimalFormat);
+                }
+                else
+                {
+                    stringValue = value.ToString();// "N2", writer.CodeStyle.DecimalFormat);
+                }
+            }
+            WriteSimpleProperty(property.Name, stringValue, isLastProperty, writer);
+        }
+
         public static void Write(this SIFTLevelsProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
+            if (property.EmptyValueIsSet)
+            {
+                WriteSimpleProperty(property.Name, "", isLastProperty, writer);
+                return;
+            }
             //SIFTLevelsToMaintain=[{G/L Account No.,Global Dimension 1 Code},
             //          {G/L Account No.,Global Dimension 1 Code,Global Dimension 2 Code},
             //          {G/L Account No.,Global Dimension 1 Code,Global Dimension 2 Code,Posting Date:Year},
