@@ -54,9 +54,9 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_runCommand);
             innerList.Add(_runObject);
             innerList.Add(_runFormLinkType);
+            innerList.Add(_runFormOnRec);
             innerList.Add(_updateOnAction);
             innerList.Add(_runFormView);
-            innerList.Add(_runFormOnRec);
             innerList.Add(_runFormLink);
             innerList.Add(_sourceExpr);
             innerList.Add(_tooltipMl);
