@@ -135,5 +135,7 @@ namespace UncommonSense.CBreeze.Core.Common
 
         public bool UseEnclosedTimeFormat { get; set; }
 
+        public bool EmptyCaptionIsNotQuited { get; set; }
+
     }
 }
