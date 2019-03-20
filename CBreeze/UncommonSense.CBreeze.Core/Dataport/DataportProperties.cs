@@ -24,6 +24,9 @@ namespace UncommonSense.CBreeze.Core.Dataport
         private StringProperty fieldSeparator = new StringProperty("FieldSeparator");
         private StringProperty recordSeparator = new StringProperty("RecordSeparator");
         private StringProperty dataItemSeparator = new StringProperty("DataItemSeparator");
+#if NAV3
+        private readonly NullableBooleanProperty _xmlIncludeTextConst = new NullableBooleanProperty("XMLIncludeTextConst");
+#endif
 
         internal DataportProperties(Dataport dataport)
         {
@@ -41,6 +44,9 @@ namespace UncommonSense.CBreeze.Core.Dataport
             innerList.Add(dataItemSeparator);
             innerList.Add(useReqForm);
             innerList.Add(showStatus);
+#if NAV3
+            innerList.Add(_xmlIncludeTextConst);
+#endif
             innerList.Add(onInitDataport);
             innerList.Add(onPreDataport);
             innerList.Add(onPostDataport);
@@ -117,5 +123,13 @@ namespace UncommonSense.CBreeze.Core.Dataport
         public string DataItemSeparator { get => dataItemSeparator.Value; set => dataItemSeparator.Value = value; }
 
         public ClassicDataportFileFormat? FileFormat { get => fileFormat.Value; set => fileFormat.Value = value; }
+
+#if NAV3
+        public bool? XmlIncludeTextConst
+        {
+            get => _xmlIncludeTextConst.Value;
+            set => _xmlIncludeTextConst.Value = value;
+        }
+#endif
     }
 }

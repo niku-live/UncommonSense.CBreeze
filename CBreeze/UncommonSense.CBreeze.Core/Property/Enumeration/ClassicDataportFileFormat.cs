@@ -4,7 +4,10 @@ namespace UncommonSense.CBreeze.Core.Property.Enumeration
     public enum ClassicDataportFileFormat
     {
         Variable,
-        Fixed
+        Fixed,
+#if NAV3
+        UPXML
+#endif
     }
 }
 #endif

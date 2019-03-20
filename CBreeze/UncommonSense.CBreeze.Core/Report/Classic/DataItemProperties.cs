@@ -23,6 +23,7 @@ namespace UncommonSense.CBreeze.Core.Report.Classic
         private readonly NullableBooleanProperty printOnlyIfDetail = new NullableBooleanProperty("PrintOnlyIfDetail");
         private readonly FieldListProperty reqFilterFields = new FieldListProperty("ReqFilterFields");
         private readonly MultiLanguageProperty reqFilterHeadingML = new MultiLanguageProperty("ReqFilterHeadingML");
+        private readonly MultiLanguageProperty captionML = new MultiLanguageProperty("CaptionML");
         private readonly NullableIntegerProperty _dataItemIndent = new NullableIntegerProperty("DataItemIndent");
         private readonly StringProperty _dataItemVarName = new StringProperty("DataItemVarName");
 
@@ -38,6 +39,7 @@ namespace UncommonSense.CBreeze.Core.Report.Classic
             innerList.Add(_dataItemVarName);
             innerList.Add(printOnlyIfDetail);
             innerList.Add(reqFilterHeadingML);
+            innerList.Add(captionML);
             innerList.Add(onPreDataItem);
             innerList.Add(onAfterGetRecord);
             innerList.Add(onPostDataItem);

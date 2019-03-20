@@ -23,10 +23,15 @@ namespace UncommonSense.CBreeze.Core.Dataport
         private readonly StringProperty _dataItemVarName = new StringProperty("DataItemVarName");
         private readonly NullableBooleanProperty _autoSave = new NullableBooleanProperty("AutoSave");
         private readonly NullableBooleanProperty _autoUpdate = new NullableBooleanProperty("AutoUpdate");
+        private readonly NullableBooleanProperty _autoReplace = new NullableBooleanProperty("AutoReplace");
         private readonly TriggerProperty onBeforeExportRecord = new TriggerProperty("OnBeforeExportRecord");
         private readonly TriggerProperty onAfterExportRecord = new TriggerProperty("OnAfterExportRecord");
         private readonly TriggerProperty onBeforeImportRecord = new TriggerProperty("OnBeforeImportRecord");
         private readonly TriggerProperty onAfterImportRecord = new TriggerProperty("OnAfterImportRecord");
+#if NAV3
+        private readonly StringProperty _xmlDataItemName = new StringProperty("XMLDataItemName");
+#endif
+
 
         internal DataportDataItemProperties(DataportDataItem dataItem)
         {
@@ -42,7 +47,11 @@ namespace UncommonSense.CBreeze.Core.Dataport
             innerList.Add(_dataItemVarName);
             innerList.Add(_autoSave);
             innerList.Add(_autoUpdate);
+            innerList.Add(_autoReplace);
             innerList.Add(dataItemTableView);
+#if NAV3
+            innerList.Add(_xmlDataItemName);
+#endif
             innerList.Add(onPreDataItem);
             innerList.Add(onAfterGetRecord);
             innerList.Add(onPostDataItem);
@@ -114,6 +123,12 @@ namespace UncommonSense.CBreeze.Core.Dataport
             set => _autoUpdate.Value = value;
         }
 
+        public bool? AutoReplace
+        {
+            get => _autoReplace.Value;
+            set => _autoReplace.Value = value;
+        }
+
         public Trigger OnBeforeExportRecord
         {
             get => onBeforeExportRecord.Value;
@@ -133,5 +148,13 @@ namespace UncommonSense.CBreeze.Core.Dataport
         {
             get => onAfterImportRecord.Value;
         }
+
+#if NAV3
+        public string XmlDataItemName
+        {
+            get => _xmlDataItemName.Value;
+            set => _xmlDataItemName.Value = value;
+        }
+#endif
     }
 }

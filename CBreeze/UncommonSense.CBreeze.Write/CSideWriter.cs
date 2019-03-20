@@ -3,6 +3,7 @@ using System.IO;
 using System.Globalization;
 using System.Collections.Generic;
 using UncommonSense.CBreeze.Core.Base;
+using UncommonSense.CBreeze.Core.Common;
 
 namespace UncommonSense.CBreeze.Write
 {
