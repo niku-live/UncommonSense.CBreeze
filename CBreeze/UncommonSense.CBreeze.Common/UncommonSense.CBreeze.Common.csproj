@@ -39,12 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationCodeStyle.cs" />
     <Compile Include="DataClassification.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="FunctionVisibility.cs" />
     <Compile Include="ObsoleteState.cs" />
+    <Compile Include="PropertyMapCollection.cs" />
     <Compile Include="QueryType.cs" />
-    <Compile Include="ClassicControlType.cs" />    
+    <Compile Include="ClassicControlType.cs" />
     <Compile Include="XmlPortNodeDataType.cs" />
     <Compile Include="FunctionReturnValueType.cs" />
     <Compile Include="MenuSuiteNodeType.cs" />
