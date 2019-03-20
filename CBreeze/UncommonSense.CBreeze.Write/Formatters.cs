@@ -130,6 +130,27 @@ namespace UncommonSense.CBreeze.Write
             return string.Join(" ", components);
         }
 
+        public static string EqualPad(this string value, int length)
+        {
+            int diff = length - value.Length;
+            if (diff <= 0)
+            {
+                return value;
+            }
+            int right = diff / 2;
+            int left = diff - right;            
+            return value.PadLeft(left + value.Length).PadRight(length);
+        }
+
+        public static string ToLocalizedString<T>(this string value, Core.Common.ApplicationCodeStyle codeStyle)
+        {
+            var mapping = codeStyle.GetEnumMapping<T>(true) ?? codeStyle.GetEnumMapping<T>(false);
+            if (mapping == null)
+            {
+                return value;
+            }
+            return mapping.GetDisplayName(value);
+        }
         public static string AsString(this BlobSubType value)
         {
             switch (value)

@@ -12,10 +12,15 @@ namespace UncommonSense.CBreeze.Write
 		public static void Write(this ObjectProperties objectProperties, CSideWriter writer)
 		{
 			writer.BeginSection("OBJECT-PROPERTIES");
-            writer.WriteLineIf(objectProperties.DateTime.HasValue, "Date={0};", objectProperties.HasDateComponent? objectProperties.DateTime.ToShortDateString(writer.CodeStyle.DateFormat) : "");
-            writer.WriteLineIf(objectProperties.DateTime.HasValue, "Time={0};", objectProperties.HasTimeComponent? objectProperties.DateTime.ToShortTimeString(writer.CodeStyle.TimeFormat) : "");
-            writer.WriteLineIf(objectProperties.Modified, "Modified=Yes;");
-            writer.WriteLineIf(objectProperties.VersionList != null, "Version List={0};", objectProperties.VersionList); 
+            var dateFieldName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName("Date");
+            var timeFieldName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName("Time");
+            var modifiedFieldName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName("Modified");
+            var versionListFieldName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName("Version List");
+
+            writer.WriteLineIf(objectProperties.DateTime.HasValue, "{1}={0};", objectProperties.HasDateComponent? objectProperties.DateTime.ToShortDateString(writer.CodeStyle.DateFormat) : "", dateFieldName);
+            writer.WriteLineIf(objectProperties.DateTime.HasValue, "{1}={0};", objectProperties.HasTimeComponent? objectProperties.DateTime.ToShortTimeString(writer.CodeStyle.TimeFormat, writer.CodeStyle.UseEnclosedTimeFormat) : "", timeFieldName);
+            writer.WriteLineIf(objectProperties.Modified, "{1}={0};", writer.CodeStyle.LocalizedYes, modifiedFieldName);
+            writer.WriteLineIf(objectProperties.VersionList != null, "{1}={0};", objectProperties.VersionList, versionListFieldName); 
 			writer.EndSection();
 		}
 	}

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UncommonSense.CBreeze.Core.Codeunit;
+using UncommonSense.CBreeze.Core.Common;
 using UncommonSense.CBreeze.Core.Contracts;
 #if NAV2009
 using UncommonSense.CBreeze.Core.Dataport;

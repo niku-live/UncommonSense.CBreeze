@@ -10,6 +10,7 @@ using UncommonSense.CBreeze.Core.Code.Function;
 using UncommonSense.CBreeze.Core.Code.Parameter;
 using UncommonSense.CBreeze.Core.Code.Variable;
 using UncommonSense.CBreeze.Core.Codeunit;
+using UncommonSense.CBreeze.Core.Common;
 using UncommonSense.CBreeze.Core.Dataport;
 using UncommonSense.CBreeze.Core.Form;
 using UncommonSense.CBreeze.Core.Form.Control;
@@ -102,11 +103,11 @@ namespace UncommonSense.CBreeze.Read
         public static Application ReadFromFiles(IEnumerable<string> fileNames, Action<string> reportProgress = null, Encoding fileEncoding = null, ApplicationCodeStyle codeStyle = null)
         {
             var parser = new Parser();
-            var application = new Application();
             if (codeStyle != null)
             {
-                application.CodeStyle = codeStyle;
+                parser.CodeStyle = codeStyle;
             }
+            var application = new Application() { CodeStyle = parser.CodeStyle };
             var applicationBuilder = new ApplicationBuilder(application);
 
             parser.Listener = applicationBuilder;
@@ -119,11 +120,11 @@ namespace UncommonSense.CBreeze.Read
         public static Application ReadFromLines(IEnumerable<string> lines, ApplicationCodeStyle codeStyle = null)
         {
             var parser = new Parser();
-            var application = new Application();
             if (codeStyle != null)
             {
-                application.CodeStyle = codeStyle;
+                parser.CodeStyle = codeStyle;
             }
+            var application = new Application() { CodeStyle = parser.CodeStyle };
             var applicationBuilder = new ApplicationBuilder(application);
 
             parser.Listener = applicationBuilder;
@@ -286,12 +287,12 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case "Time":
-                    currentObject.ObjectProperties.Time = propertyValue.ToFormattedTimeSpan();
+                    currentObject.ObjectProperties.Time = propertyValue.ToFormattedTimeSpan(Application.CodeStyle.TimeFormat);
                     currentObject.ObjectProperties.HasTimeComponent = !String.IsNullOrEmpty(propertyValue);
                     break;
 
                 case "Modified":
-                    currentObject.ObjectProperties.Modified = propertyValue.ToBoolean();
+                    currentObject.ObjectProperties.Modified = propertyValue.ToBoolean(Application.CodeStyle.LocalizedYes);
                     break;
 
                 case "Version List":
@@ -476,7 +477,7 @@ namespace UncommonSense.CBreeze.Read
                 TypeSwitch.Case<StringProperty>(p => p.Value = propertyValue),
                 TypeSwitch.Case<StyleProperty>(p => p.Value = propertyValue.ToEnum<Style>()),
                 TypeSwitch.Case<SystemPartIDProperty>(p => p.Value = propertyValue.ToEnum<SystemPartID>()),
-                TypeSwitch.Case<BlobSubTypeProperty>(p => p.Value = propertyValue.ToEnum<BlobSubType>()),
+                TypeSwitch.Case<BlobSubTypeProperty>(p => p.Value = propertyValue.ToEnum<BlobSubType>(app: Application)),
                 TypeSwitch.Case<TableFieldTypeProperty>(p => p.Value = propertyValue.ToEnum<TableFieldType>()),
                 TypeSwitch.Case<TableReferenceProperty>(p => p.Value = propertyValue.ToTableReference()),
                 TypeSwitch.Case<TableRelationProperty>(p => p.SetTableRelationProperty(propertyValue)),
@@ -494,8 +495,8 @@ namespace UncommonSense.CBreeze.Read
                     p.Value = propertyValue.ToEnum<XmlPortNodeDataType>()),
                 TypeSwitch.Case<XmlPortFormatProperty>(p => p.Value = propertyValue.ToEnum<XmlPortFormat>()),
                 TypeSwitch.Case<NullableTimeProperty>(p => p.Value = propertyValue.ToNullableTime()),
-                TypeSwitch.Case<NullableBooleanProperty>(p => p.Value = propertyValue.ToNullableBoolean()),
-                TypeSwitch.Case<NullableDecimalProperty>(p => p.Value = propertyValue.ToNullableDecimal()),
+                TypeSwitch.Case<NullableBooleanProperty>(p => p.Value = propertyValue.ToNullableBoolean(Application.CodeStyle.LocalizedYes, Application.CodeStyle.LocalizedNo)),
+                TypeSwitch.Case<NullableDecimalProperty>(p => p.Value = propertyValue.ToNullableDecimal(Application.CodeStyle.DecimalFormat)),
                 TypeSwitch.Case<NullableGuidProperty>(p => p.Value = propertyValue.ToNullableGuid()),
                 TypeSwitch.Case<NullableBigIntegerProperty>(p => p.Value = propertyValue.ToNullableBigInteger()),
                 TypeSwitch.Case<NullableIntegerProperty>(p => p.Value = propertyValue.ToNullableInteger()),

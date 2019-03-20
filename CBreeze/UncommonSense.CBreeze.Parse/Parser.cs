@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
+using UncommonSense.CBreeze.Core.Common;
 
 namespace UncommonSense.CBreeze.Parse
 {
@@ -63,6 +64,8 @@ namespace UncommonSense.CBreeze.Parse
                 fileEncoding = value;
             }
         }
+
+        public ApplicationCodeStyle CodeStyle { get; set; } = ApplicationCodeStyle.CreateNav2013CodeStyle();
     }
 }
 

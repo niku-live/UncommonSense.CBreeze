@@ -15,11 +15,16 @@ namespace UncommonSense.CBreeze.Write
             return dateTime.Value.ToString(dateFormat);
         }
 
-        public static string ToShortTimeString(this DateTime? dateTime, string timeFormat = "HH:mm:ss")
+        public static string ToShortTimeString(this DateTime? dateTime, string timeFormat = "HH:mm:ss", bool useEnclosedFormat = false)
         {
             if (!dateTime.HasValue)
                 return null;
-            return dateTime.Value.ToString(timeFormat);
+            var result = dateTime.Value.ToString(timeFormat);
+            if (result.StartsWith("0") && useEnclosedFormat)
+            {
+                result = "[ " + result.Substring(1) + "]";
+            }
+            return result;
         }
     }
 }

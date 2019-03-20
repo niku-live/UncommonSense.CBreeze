@@ -10,7 +10,7 @@ namespace UncommonSense.CBreeze.Parse
 		{
 			var match = lines.FirstLineMustMatch(Patterns.TableField);
 			var fieldNo = match.Groups [1].Value.ToInteger();
-			var fieldEnabled = match.Groups [2].Value.ToNullableBoolean();
+			var fieldEnabled = match.Groups [2].Value.ToNullableBoolean(CodeStyle.LocalizedYes, CodeStyle.LocalizedNo);
 			var fieldName = match.Groups [3].Value.TrimEnd();
 			var fieldType = match.Groups [4].Value.TrimEnd();
 			var fieldLength = ParseFieldLength(ref fieldType);

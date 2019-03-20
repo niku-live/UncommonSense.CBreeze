@@ -11,6 +11,7 @@ namespace UncommonSense.CBreeze.Parse
         {
             var match = lines.FirstLineMustMatch(Patterns.ObjectPropertySignature);
             var propertyName = match.Groups[1].Value;
+            propertyName = CodeStyle.CustomPropertyMappings.GetRealName(propertyName);
             var propertyValue = match.Groups[2].Value;
 
             Listener.OnObjectProperty(propertyName, propertyValue);

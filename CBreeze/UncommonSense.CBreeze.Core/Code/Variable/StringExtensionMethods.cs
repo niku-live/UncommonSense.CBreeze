@@ -43,14 +43,14 @@ namespace UncommonSense.CBreeze.Core.Code.Variable
             return ForceQuoted(text);
         }
 
-        public static string QuotedExcept(this string text, params char[] exceptions)
+        public static string QuotedExcept(this string text, bool onlyAnsiLetters, params char[] exceptions)
         {
             // In e.g. CalcFormulas, table names containing no other special characters than a hyphen
             // (e.g. "To-do") should not be quoted In e.g. TableRelations, table names containing no
             // other special characters than a slash (e.g. "Country/Region") should not be quoted In
             // e.g. TableRelations, field names containing no other special characters than a dot
             // (e.g. "No.") should not be quoted
-            if (text.All(c => char.IsLetterOrDigit(c) || exceptions.Contains(c)))
+            if (text.All(c => (char.IsLetterOrDigit(c) && (!onlyAnsiLetters || (c < 'z'))) || exceptions.Contains(c)))
                 return text;
 
             return text.ForceQuoted();

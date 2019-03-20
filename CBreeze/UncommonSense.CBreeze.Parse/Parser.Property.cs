@@ -26,7 +26,7 @@ namespace UncommonSense.CBreeze.Parse
                 return true;
             }
             
-            if ((propertyName == "CalcFormula") || (propertyName == "Permissions") || (propertyName == "TableRelation") || (propertyName == "OrderBy") || (propertyName == "LinkFields"))
+            if ((propertyName == "CalcFormula") || (propertyName == "Permissions") || (propertyName == "TableRelation") || (propertyName == "OrderBy") || (propertyName == "LinkFields") || (propertyName == "SIFTLevelsToMaintain"))
             {
                 return true;
             }
@@ -42,6 +42,7 @@ namespace UncommonSense.CBreeze.Parse
 
             var match = lines.FirstLineMustMatch(Patterns.PropertySignature);
             var propertyName = match.Groups[1].Value;
+            //propertyName = CodeStyle.CustomPropertyMappings.GetRealName(propertyName);
             var propertyValueFirstLine = match.Groups[3].Value;
 
             switch (propertyName)

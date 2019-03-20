@@ -20,7 +20,12 @@ namespace UncommonSense.CBreeze.Read
             {
                 return null;
             }
-            return TimeSpan.ParseExact(text, timeFormat, CultureInfo.InvariantCulture);
+            if (text.StartsWith("["))
+            {
+                text = "0" + text.Substring(1, text.Length - 2).Trim();
+            }
+            return DateTime.ParseExact(text, timeFormat, CultureInfo.InvariantCulture).TimeOfDay;
+            //return TimeSpan.ParseExact(text, timeFormat, CultureInfo.InvariantCulture);
         }
 
         internal static DateTime? SetDateComponent(this DateTime? dateTime, string text, string dateFormat = "dd-MM-yy")
@@ -35,12 +40,12 @@ namespace UncommonSense.CBreeze.Read
             return dateTime;
 		}
 
-        internal static DateTime? SetTimeComponent(this DateTime? dateTime, string text)
+        internal static DateTime? SetTimeComponent(this DateTime? dateTime, string text, string timeFormat = @"hh\:mm\:ss")
 		{
             if (!string.IsNullOrEmpty(text))
             {
                 var date = dateTime.GetValueOrDefault(DateTime.MinValue).Date;
-                var time = text.ToFormattedTimeSpan().GetValueOrDefault(new System.TimeSpan(0, 0, 0, 0, 0));
+                var time = text.ToFormattedTimeSpan(timeFormat).GetValueOrDefault(new System.TimeSpan(0, 0, 0, 0, 0));
                 return date.Add(time);
             }
 

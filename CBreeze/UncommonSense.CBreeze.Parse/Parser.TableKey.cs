@@ -10,7 +10,7 @@ namespace UncommonSense.CBreeze.Parse
         internal void ParseTableKey(Lines lines)
         {
             var match = lines.FirstLineMustMatch(Patterns.TableKey);
-            var keyEnabled = match.Groups[1].Value.ToNullableBoolean();
+            var keyEnabled = match.Groups[1].Value.ToNullableBoolean(CodeStyle.LocalizedYes, CodeStyle.LocalizedNo);
             var keyFields = match.Groups[2].Value.TrimEnd().Split(",".ToCharArray());
             var separator = match.Groups[3].Value;
 

@@ -122,6 +122,11 @@ namespace UncommonSense.CBreeze.Read
 
         internal static string GetLanguageValue(ref string value)
         {
+            if (value.StartsWith(";") || String.IsNullOrEmpty(value))
+            {                
+                return string.Empty;
+            }
+
             switch (value.StartsWith("\""))
             {
                 case true:

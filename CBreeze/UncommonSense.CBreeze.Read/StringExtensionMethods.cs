@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Text.RegularExpressions;
+using UncommonSense.CBreeze.Core.Base;
+using UncommonSense.CBreeze.Core.Common;
 using UncommonSense.CBreeze.Core.Property.Enumeration;
 using UncommonSense.CBreeze.Core.Property.Type;
 
@@ -17,12 +19,18 @@ namespace UncommonSense.CBreeze.Read
             return ToEnum<BorderWidth>(text);
         }
 
-        public static T ToEnum<T>(this string text, bool ignoreCase = true, bool normalize = true) where T : struct
+        public static T ToEnum<T>(this string text, bool ignoreCase = true, bool normalize = true, Application app = null) where T : struct
         {
             if (!typeof(T).IsEnum)
                 throw new ArgumentException("T must be an enumerated type.");
 
             if (normalize) text = Regex.Replace(text, @"[\s-\.]", string.Empty);
+
+            var mappings = app?.CodeStyle.GetEnumMapping<T>();
+            if (mappings != null)
+            {
+                text = mappings.GetRealName(text);
+            }
 
             return (T) Enum.Parse(typeof(T), text, ignoreCase);
         }
@@ -74,9 +82,9 @@ namespace UncommonSense.CBreeze.Read
             }
         }
 
-        public static bool ToBoolean(this string text)
+        public static bool ToBoolean(this string text, string localizedYes = "Yes")
         {
-            return text == "Yes";
+            return text == localizedYes;
         }
 
         public static int ToInteger(this string text)
@@ -84,9 +92,19 @@ namespace UncommonSense.CBreeze.Read
             return int.Parse(text);
         }
 
-        public static bool? ToNullableBoolean(this string text)
+        public static bool? ToNullableBoolean(this string text, string localYes = "Yes", string localNo = "No")
         {
-            switch (text.Trim().ToLowerInvariant())
+            var value = text.Trim().ToLowerInvariant();
+            if (value == localYes.ToLowerInvariant())
+            {
+                return true;
+            }
+            if (value == localNo.ToLowerInvariant())
+            {
+                return false;
+            }
+
+            switch (value)
             {
                 case "yes":
                     return true;
@@ -101,11 +119,15 @@ namespace UncommonSense.CBreeze.Read
             }
         }
 
-        public static decimal? ToNullableDecimal(this string text)
+        public static decimal? ToNullableDecimal(this string text, System.Globalization.NumberFormatInfo formatInfo = null)
         {
             if (string.IsNullOrWhiteSpace(text))
                 return null;
 
+            if (formatInfo != null)
+            {
+                return decimal.Parse(text, formatInfo);
+            }
             return decimal.Parse(text);
         }
 
@@ -132,7 +154,12 @@ namespace UncommonSense.CBreeze.Read
             if (string.IsNullOrWhiteSpace(text))
                 return null;
 
-            return int.Parse(text);
+            int value = 0;
+            if (!int.TryParse(text, out value))
+            {
+                return null;
+            }
+            return value;
         }
 
         public static TimeSpan? ToNullableTime(this string text)

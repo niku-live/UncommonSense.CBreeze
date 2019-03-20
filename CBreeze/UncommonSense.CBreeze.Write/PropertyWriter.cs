@@ -95,7 +95,7 @@ namespace UncommonSense.CBreeze.Write
                 TypeSwitch.Case<SqlDataTypeProperty>(p => WriteSimpleProperty("SQL Data Type", p.Value.Value.AsString(), isLastProperty, writer)),
                 TypeSwitch.Case<BlankNumbersProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<StandardDayTimeUnitProperty>(p => WriteSimpleProperty("Standard Day/Time Unit", p.Value.GetValueOrDefault().AsString(), isLastProperty, writer)),
-                TypeSwitch.Case<BlobSubTypeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().AsString(), isLastProperty, writer)),
+                TypeSwitch.Case<BlobSubTypeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().AsString().ToLocalizedString<BlobSubType>(writer.CodeStyle), isLastProperty, writer)),
                 TypeSwitch.Case<FormatEvaluateProperty>(p => WriteSimpleProperty("Format/Evaluate", p.Value.Value.AsString(), isLastProperty, writer)),
                 TypeSwitch.Case<MinOccursProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<MaxOccursProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
@@ -160,6 +160,7 @@ namespace UncommonSense.CBreeze.Write
 
         public static void WriteSimpleProperty(string propertyName, string propertyValue, bool isLastProperty, CSideWriter writer)
         {
+            propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(propertyName);
             switch (isLastProperty)
             {
                 case true:
@@ -175,7 +176,8 @@ namespace UncommonSense.CBreeze.Write
 #if NAV2009
         public static void Write(this ClassicMenuProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
-            writer.WriteLine("{0}=MENUITEMS", property.Name);
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
+            writer.WriteLine("{0}=MENUITEMS", propertyName);
             writer.WriteLine("{");
             writer.Indent();
             foreach (var item in property.Items)
@@ -192,7 +194,8 @@ namespace UncommonSense.CBreeze.Write
 #endif
         public static void Write(this RunObjectLinkProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
-            writer.Write("{0}=", property.Name);
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
+            writer.Write("{0}=", propertyName);
             writer.Indent(writer.Column);
 
             foreach (var line in property.Value)
@@ -218,7 +221,8 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this PermissionsProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
-            writer.Write("{0}=", property.Name);
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
+            writer.Write("{0}=", propertyName);
             writer.Indent(writer.Column);
 
             foreach (var permission in property.Value)
@@ -238,7 +242,8 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this ActionListProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
-            writer.WriteLine("{0}=ACTIONS", property.Name);
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
+            writer.WriteLine("{0}=ACTIONS", propertyName);
             writer.WriteLine("{");
             writer.Indent();
 
@@ -253,7 +258,8 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this LinkFieldsProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
-            writer.Write("{0}=", property.Name);
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
+            writer.Write("{0}=", propertyName);
             writer.Indent(writer.Column);
 
             foreach (var linkField in property.Value)
@@ -276,18 +282,19 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this CalcFormulaProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
             var requiresSquareBrackets = property.Value.TableFilter.Any(f => f.Value.Any(c => "{}".Contains(c)));
             var openingBracket = requiresSquareBrackets ? "[" : "";
             var closingBracket = requiresSquareBrackets ? "]" : "";
             var sign = property.Value.ReverseSign ? "-" : "";
 
-            writer.Write($"{property.Name}={openingBracket}{sign}{property.Value.Method}(");
+            writer.Write($"{propertyName}={openingBracket}{sign}{property.Value.Method}(");
 
             switch (property.Value.Method.Value)
             {
                 case CalcFormulaMethod.Exist:
                 case CalcFormulaMethod.Count:
-                    writer.Write(property.Value.TableName.QuotedExcept('-', '/', '.'));
+                    writer.Write(property.Value.TableName.QuotedExcept(true, '-', '/', '.'));
                     break;
 
                 case CalcFormulaMethod.Lookup:
@@ -295,7 +302,7 @@ namespace UncommonSense.CBreeze.Write
                 case CalcFormulaMethod.Max:
                 case CalcFormulaMethod.Min:
                 case CalcFormulaMethod.Sum:
-                    writer.Write("{0}.{1}", property.Value.TableName.QuotedExcept('-', '/', '.'), property.Value.FieldName.QuotedExcept('-', '/', '.', '_'));
+                    writer.Write("{0}.{1}", property.Value.TableName.QuotedExcept(true, '-', '/', '.'), property.Value.FieldName.QuotedExcept(false, '-', '/', '.', '_'));
                     break;
             }
 
@@ -329,6 +336,7 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this TableViewProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
             var requiresSquareBrackets = property.Value.TableFilter.Any(f => f.Value.Any(c => "{}".Contains(c)));
             var openingBracket = requiresSquareBrackets ? "[" : "";
             var closingBracket = requiresSquareBrackets ? "]" : "";
@@ -344,7 +352,7 @@ namespace UncommonSense.CBreeze.Write
             if (property.Value.TableFilter.Any())
                 components.AddRange(property.Value.TableFilter.AsStrings());
 
-            writer.Write("{0}={1}", property.Name, openingBracket);
+            writer.Write("{0}={1}", propertyName, openingBracket);
             writer.Indent(writer.Column);
 
             foreach (var component in components)
@@ -370,7 +378,8 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this TriggerProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
-            writer.Write("{0}=", property.Name);
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
+            writer.Write("{0}=", propertyName);
             if (property.Value.InvalidTrigger)
             {
                 var value = property.Value.InvalidTriggerValue;
@@ -438,16 +447,17 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this OptionStringProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
             var value = (property.Value.Trim() != property.Value) ? string.Format("[{0}]", property.Value) : property.Value;
 
             switch (isLastProperty)
             {
                 case true:
-                    writer.Write("{0}={1} ", property.Name, value);
+                    writer.Write("{0}={1} ", propertyName, value);
                     break;
 
                 case false:
-                    writer.WriteLine("{0}={1};", property.Name, value);
+                    writer.WriteLine("{0}={1};", propertyName, value);
                     break;
             }
         }
@@ -455,6 +465,7 @@ namespace UncommonSense.CBreeze.Write
 #if NAV2009
         public static void Write(this ColorProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
             var color = property.Value.Value;
             var red = (byte)color.R;
             var green = (byte)color.G;
@@ -467,11 +478,11 @@ namespace UncommonSense.CBreeze.Write
             switch (isLastProperty)
             {
                 case true:
-                    writer.Write("{0}={1} ", property.Name, value);
+                    writer.Write("{0}={1} ", propertyName, value);
                     break;
 
                 case false:
-                    writer.WriteLine("{0}={1};", property.Name, value);
+                    writer.WriteLine("{0}={1};", propertyName, value);
                     break;
             }
         }
@@ -479,14 +490,17 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this NullableBooleanProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
+            var resultValue = property.Value.Value ? writer.CodeStyle.LocalizedYes : writer.CodeStyle.LocalizedNo;
+
             switch (isLastProperty)
             {
                 case true:
-                    writer.Write("{0}={1} ", property.Name, property.Value.Value ? "Yes" : "No");
+                    writer.Write("{0}={1} ", propertyName, resultValue);
                     break;
 
                 case false:
-                    writer.WriteLine("{0}={1};", property.Name, property.Value.Value ? "Yes" : "No");
+                    writer.WriteLine("{0}={1};", propertyName, resultValue);
                     break;
             }
         }
@@ -495,9 +509,10 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this XmlPortNamespacesProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
             var requiresBrackets = (property.Value.Count() > 1); // ?
 
-            writer.Write("{0}=", property.Name);
+            writer.Write("{0}=", propertyName);
             if (requiresBrackets)
                 writer.Write("[");
 
@@ -532,12 +547,13 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this MultiLanguageProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
             var requiresBrackets = (
                 property.Value.Count() > 1 ||
                 property.Value.Any(e => e.Value.Contains('{') ||
                 property.Value.Any(f => f.Value.Contains(';'))));
 
-            writer.Write("{0}=", property.Name);
+            writer.Write("{0}=", propertyName);
             if (requiresBrackets)
                 writer.Write("[");
             writer.Indent(writer.Column);
@@ -571,9 +587,10 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this TableRelationProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
             var indentations = 0;
 
-            writer.Write("{0}=", property.Name);
+            writer.Write("{0}=", propertyName);
             writer.Indent(writer.Column);
             indentations++;
 
@@ -610,11 +627,11 @@ namespace UncommonSense.CBreeze.Write
                     writer.Write(") ");
                 }
 
-                writer.Write(tableRelationLine.TableName.QuotedExcept('/', '.', '-'));
+                writer.Write(tableRelationLine.TableName.QuotedExcept(true, '/', '.', '-'));
 
                 if (!string.IsNullOrEmpty(tableRelationLine.FieldName))
                 {
-                    writer.Write(".{0}", tableRelationLine.FieldName.QuotedExcept('/', '.', '-'));
+                    writer.Write(".{0}", tableRelationLine.FieldName.QuotedExcept(false, '/', '.', '-'));
                 }
 
                 if (tableRelationLine.TableFilter.Any())
@@ -671,56 +688,60 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this TableReferenceProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
             switch (isLastProperty)
             {
                 case true:
-                    writer.Write("{0}=Table{1} ", property.Name, property.Value.Value);
+                    writer.Write("{0}=Table{1} ", propertyName, property.Value.Value);
                     break;
 
                 case false:
-                    writer.WriteLine("{0}=Table{1};", property.Name, property.Value.Value);
+                    writer.WriteLine("{0}=Table{1};", propertyName, property.Value.Value);
                     break;
             }
         }
 
         public static void Write(this PageReferenceProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
             switch (isLastProperty)
             {
                 case true:
-                    writer.Write("{0}=Page{1} ", property.Name, property.Value.Value);
+                    writer.Write("{0}=Page{1} ", propertyName, property.Value.Value);
                     break;
 
                 case false:
-                    writer.WriteLine("{0}=Page{1};", property.Name, property.Value.Value);
+                    writer.WriteLine("{0}=Page{1};", propertyName, property.Value.Value);
                     break;
             }
         }
 
         public static void Write(this RunObjectProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
             switch (isLastProperty)
             {
                 case true:
-                    writer.Write("{0}={1} {2} ", property.Name, FormatRunObjectType(property.Value.Type.Value), property.Value.ID);
+                    writer.Write("{0}={1} {2} ", propertyName, FormatRunObjectType(property.Value.Type.Value), property.Value.ID);
                     break;
 
                 case false:
-                    writer.WriteLine("{0}={1} {2};", property.Name, FormatRunObjectType(property.Value.Type.Value), property.Value.ID);
+                    writer.WriteLine("{0}={1} {2};", propertyName, FormatRunObjectType(property.Value.Type.Value), property.Value.ID);
                     break;
             }
         }
 
         public static void Write(this FormReferenceProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
             switch (isLastProperty)
             {
                 case true:
-                    writer.Write("{0}=Form{1} ", property.Name, property.Value.Value);
+                    writer.Write("{0}=Form{1} ", propertyName, property.Value.Value);
                     break;
 
                 case false:
-                    writer.WriteLine("{0}=Form{1};", property.Name, property.Value.Value);
+                    writer.WriteLine("{0}=Form{1};", propertyName, property.Value.Value);
                     break;
             }
         }
@@ -739,7 +760,8 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this MenuItemRunObjectTypeProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
-            writer.Write("{0}={1}", property.Name, FormatMenuItemRunObjectType(property.Value.Value));
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
+            writer.Write("{0}={1}", propertyName, FormatMenuItemRunObjectType(property.Value.Value));
             writer.WriteIf(isLastProperty, " ");
             writer.WriteLineIf(!isLastProperty, ";");
         }
@@ -758,7 +780,8 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this QueryOrderByLinesProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
-            writer.Write("{0}=", property.Name);
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
+            writer.Write("{0}=", propertyName);
             writer.Indent(writer.Column);
 
             foreach (var line in property.Value)
@@ -772,7 +795,8 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this DataItemQueryElementTableFilterProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
-            writer.Write("{0}=", property.Name);
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
+            writer.Write("{0}=", propertyName);
             writer.Indent(writer.Column);
 
             foreach (var line in property.Value)
@@ -805,7 +829,8 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this ColumnFilterProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
-            writer.Write("{0}=", property.Name);
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
+            writer.Write("{0}=", propertyName);
             writer.Indent(writer.Column);
 
             foreach (var line in property.Value)
@@ -819,7 +844,8 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this QueryDataItemLinkProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
-            writer.Write("{0}=", property.Name);
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
+            writer.Write("{0}=", propertyName);
             writer.Indent(writer.Column);
 
             foreach (var line in property.Value)
@@ -843,7 +869,8 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this ReportDataItemLinkProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
-            writer.Write("{0}=", property.Name);
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
+            writer.Write("{0}=", propertyName);
             writer.Indent(writer.Column);
 
             foreach (var line in property.Value)
@@ -872,8 +899,8 @@ namespace UncommonSense.CBreeze.Write
             //          {G/L Account No.,Global Dimension 1 Code,Global Dimension 2 Code,Posting Date:Year},
             //          {G/L Account No.,Global Dimension 1 Code,Global Dimension 2 Code,Posting Date:Month},
             //          {G/L Account No.,Global Dimension 1 Code,Global Dimension 2 Code,Posting Date:Day}] }
-
-            writer.Write("{0}=[", property.Name);
+            var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
+            writer.Write("{0}=[", propertyName);
             writer.Indent(writer.Column);
 
             foreach (var siftLevel in property.Value)

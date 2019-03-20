@@ -12,12 +12,12 @@ namespace UncommonSense.CBreeze.Write
         public static void Write(this TableKey key, CSideWriter writer)
         {
             writer.Write("{");
-
+            
             switch (key.Enabled)
             {
                 case null: writer.Write("    "); break;
-                case true: writer.Write(" Yes"); break;
-                case false: writer.Write(" No "); break;
+                case true: writer.Write(writer.CodeStyle.LocalizedYes.EqualPad(4)); break;
+                case false: writer.Write(writer.CodeStyle.LocalizedNo.EqualPad(4)); break;
             }
 
             writer.Write(";");

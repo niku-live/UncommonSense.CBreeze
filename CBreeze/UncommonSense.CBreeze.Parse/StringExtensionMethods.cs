@@ -52,9 +52,19 @@ namespace UncommonSense.CBreeze.Parse
 			return int.Parse(text);
 		}
 
-		internal static bool? ToNullableBoolean(this string text)
+		internal static bool? ToNullableBoolean(this string text, string localizedYes = "Yes", string localizedNo = "No")
 		{
-			switch (text.Trim().ToLowerInvariant())
+            var value = text.Trim().ToLowerInvariant();
+            if (value == localizedYes.ToLowerInvariant())
+            {
+                return true;
+            }
+            if (value == localizedNo.ToLowerInvariant())
+            {
+                return false;
+            }
+
+            switch (value)
 			{
 				case "yes":
 					return true;
