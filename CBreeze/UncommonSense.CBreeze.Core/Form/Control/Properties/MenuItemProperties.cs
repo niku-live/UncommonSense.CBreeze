@@ -42,24 +42,24 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_pushAction);
             innerList.Add(_shortCutKey);
             innerList.Add(_menuItemType);
+            innerList.Add(_ellipsis);
             innerList.Add(_menuLevel);
             innerList.Add(_captionClass);
-            innerList.Add(_ellipsis);
             innerList.Add(_visible);
             innerList.Add(_name);
+            innerList.Add(_enabled);
             innerList.Add(_captionMl);
             innerList.Add(_description);
-            innerList.Add(_enabled);
             innerList.Add(_invalidActionAppearance);
             innerList.Add(_runCommand);
             innerList.Add(_runObject);
             innerList.Add(_runFormLinkType);
+            innerList.Add(_updateOnAction);
             innerList.Add(_runFormView);
-            innerList.Add(_runFormLink);
             innerList.Add(_runFormOnRec);
+            innerList.Add(_runFormLink);
             innerList.Add(_sourceExpr);
             innerList.Add(_tooltipMl);
-            innerList.Add(_updateOnAction);
             innerList.Add(_onPush);
         }
 

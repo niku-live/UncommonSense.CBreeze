@@ -36,19 +36,20 @@ namespace UncommonSense.CBreeze.Core.Dataport
         internal DataportDataItemProperties(DataportDataItem dataItem)
         {
             DataItem = dataItem;
+            innerList.Add(_dataItemIndent);
             innerList.Add(dataItemTable);
             innerList.Add(maxIteration);
-            innerList.Add(reqFilterHeadingML);
-            innerList.Add(reqFilterFields);
+
             innerList.Add(calcFields);
-            innerList.Add(dataItemLinkReference);
-            innerList.Add(dataItemLink);
-            innerList.Add(_dataItemIndent);
             innerList.Add(_dataItemVarName);
             innerList.Add(_autoSave);
             innerList.Add(_autoUpdate);
             innerList.Add(_autoReplace);
+            innerList.Add(dataItemLinkReference);
+            innerList.Add(reqFilterHeadingML);
             innerList.Add(dataItemTableView);
+            innerList.Add(dataItemLink);
+            innerList.Add(reqFilterFields);
 #if NAV3
             innerList.Add(_xmlDataItemName);
 #endif

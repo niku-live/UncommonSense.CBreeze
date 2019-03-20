@@ -58,11 +58,11 @@ namespace UncommonSense.CBreeze.Core.Report
             innerList.Add(showPrintStatus);
             innerList.Add(useSystemPrinter);
 #if NAV2009
+            innerList.Add(useReqForm);
             innerList.Add(topMargin);
             innerList.Add(bottomMargin);
             innerList.Add(leftMargin);
             innerList.Add(rightMargin);
-            innerList.Add(useReqForm);
 #endif
             innerList.Add(processingOnly);
             innerList.Add(enableExternalImages);

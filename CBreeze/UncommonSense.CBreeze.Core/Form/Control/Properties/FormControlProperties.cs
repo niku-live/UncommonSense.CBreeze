@@ -177,8 +177,8 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_editable);
             innerList.Add(_focusable);
             innerList.Add(_height);
-            innerList.Add(_cancel);
             innerList.Add(_default);
+            innerList.Add(_cancel);
             innerList.Add(_focusOnClick);
             innerList.Add(_parentControl);
             innerList.Add(_inFrame);
@@ -196,12 +196,13 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_foreColor);
             innerList.Add(_backColor);
             innerList.Add(_backTransparent);
-            innerList.Add(_pushAction);
             innerList.Add(_border);
             innerList.Add(_borderColor);
             innerList.Add(_borderStyle);
             innerList.Add(_borderWidth);
             innerList.Add(_bitmapPos);
+            innerList.Add(_pushAction);
+            innerList.Add(_autoRepeat);
             innerList.Add(_bitmap);
 
             innerList.Add(_fontName);
@@ -222,23 +223,29 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_invalidActionAppearance);
             innerList.Add(_bitmapList);
             innerList.Add(_permanentAssist);
+            innerList.Add(_ellipsis);
             innerList.Add(_captionMl);
             innerList.Add(_toolTipMl);
             innerList.Add(_optionCaptionML);
             innerList.Add(_optionString);
+            innerList.Add(_decimalPlaces);
             innerList.Add(_notBlank);
             innerList.Add(_numeric);
-            innerList.Add(_decimalPlaces);
             innerList.Add(_blankNumbers);
             innerList.Add(_blankZero);
+            innerList.Add(_dateFormula);
             innerList.Add(_nextControl);
             innerList.Add(_clearOnLookup);
             innerList.Add(_menu);
             innerList.Add(_description);
             
-            innerList.Add(_dateFormula);
             innerList.Add(_passwordText);
+            innerList.Add(_divisor);
+            innerList.Add(_closingDates);
+            innerList.Add(_padChar);
             innerList.Add(_sourceExpr);
+            innerList.Add(_autoFormatType);
+            innerList.Add(_autoFormatExpr);
             innerList.Add(_captionClass);
             innerList.Add(_tableRelation);
             innerList.Add(_lookupFormID);
@@ -250,6 +257,15 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_minValue);
             innerList.Add(_maxValue);
             innerList.Add(_valuesAllowed);
+            innerList.Add(_runCommand);
+            innerList.Add(_runObject);
+            innerList.Add(_autoCalcField);
+
+            innerList.Add(_runFormLinkType);
+            innerList.Add(_runFormOnRec);
+            innerList.Add(_runFormLink);
+            innerList.Add(_runFormView);
+
             innerList.Add(_onActivate);
             innerList.Add(_onDeactivate);
             innerList.Add(_onPush);
@@ -259,40 +275,22 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_onAfterInput);
             innerList.Add(_onValidate);
             innerList.Add(_onLookup);
+            innerList.Add(_onDrillDown);
+            innerList.Add(_onAssistEdit);
             innerList.Add(_onAfterValidate);
 
-            innerList.Add(_runCommand);
-            innerList.Add(_runObject);
-            innerList.Add(_runFormLinkType);
-            innerList.Add(_runFormLink);
-            innerList.Add(_runFormOnRec);
-            innerList.Add(_runFormView);
-
             innerList.Add(_dataSetFieldName);
-            innerList.Add(_padChar);
-
-            innerList.Add(_autoCalcField);
 
             innerList.Add(_updateOnAction);
 
             innerList.Add(_charAllowed);
-            innerList.Add(_closingDates);
-            innerList.Add(_divisor);
             innerList.Add(_format);
-            innerList.Add(_autoFormatType);
-            innerList.Add(_autoFormatExpr);
             innerList.Add(_title);
 
-            innerList.Add(_onAssistEdit);
-            innerList.Add(_onDrillDown);
-
-            innerList.Add(_autoRepeat);
-            innerList.Add(_ellipsis);
-
+            innerList.Add(_rowHeight);
             innerList.Add(_matrixColumnWidth);
             innerList.Add(_headingHeight);
             innerList.Add(_inlineEditing);
-            innerList.Add(_rowHeight);
 
             innerList.Add(_pageNamesMl);
 
