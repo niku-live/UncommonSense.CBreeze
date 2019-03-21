@@ -31,8 +31,8 @@ namespace UncommonSense.CBreeze.Parse.Demo
             {                
                 var encoding = Encoding.GetEncoding(775);
                 var codeStyle = ApplicationCodeStyle.CreateNav5CodeStyle();
-                codeStyle.DateFormat = "yy.MM.dd";
-                codeStyle.TimeFormat = @"HH\:mm\:ss";
+                codeStyle.Localization.DateFormat = "yy.MM.dd";
+                codeStyle.Localization.TimeFormat = @"HH\:mm\:ss";
                 codeStyle.UseEnclosedTimeFormat = true;
                 codeStyle.CustomPropertyMappings.AddMap("Data", "Date");
                 codeStyle.CustomPropertyMappings.AddMap("Laikas", "Time");
@@ -47,14 +47,14 @@ namespace UncommonSense.CBreeze.Parse.Demo
                 blobTypeMap.AddMap("Vartotojoapibr", "UserDefined");
                 blobTypeTextMap.AddMap("Vartotojo apibr.", "User-Defined");
 
-                codeStyle.DecimalFormat = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.Clone() as System.Globalization.NumberFormatInfo;
-                codeStyle.DecimalFormat.NumberGroupSeparator = ".";                
-                codeStyle.LocalizedYes = "Taip";
-                codeStyle.LocalizedNo = "Ne";
+                codeStyle.Localization.DecimalFormat = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.Clone() as System.Globalization.NumberFormatInfo;
+                codeStyle.Localization.DecimalFormat.NumberGroupSeparator = ".";                
+                codeStyle.Localization.LocalizedYes = "Taip";
+                codeStyle.Localization.LocalizedNo = "Ne";
                 codeStyle.EmptyCaptionIsNotQuited = true;
                 codeStyle.NoVariableIds = true;
                 codeStyle.NonAnsiLettersAllowedInTableName = true;
-                codeStyle.TableNameExceptions = new [] { '-', '.' };
+                codeStyle.TableNameExceptions = new [] { '-' };
                 var application = ApplicationBuilder.ReadFromFolder(sourceFolderName, encoding, codeStyle);
                 ApplicationWriter.WriteToFile(application, outputFile, encoding);
             }

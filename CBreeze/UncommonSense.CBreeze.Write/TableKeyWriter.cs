@@ -16,8 +16,8 @@ namespace UncommonSense.CBreeze.Write
             switch (key.Enabled)
             {
                 case null: writer.Write("    "); break;
-                case true: writer.Write(writer.CodeStyle.LocalizedYes.EqualPad(4)); break;
-                case false: writer.Write(writer.CodeStyle.LocalizedNo.EqualPad(4)); break;
+                case true: writer.Write(writer.CodeStyle.Localization.LocalizedYes.EqualPad(4)); break;
+                case false: writer.Write(writer.CodeStyle.Localization.LocalizedNo.EqualPad(4)); break;
             }
 
             writer.Write(";");

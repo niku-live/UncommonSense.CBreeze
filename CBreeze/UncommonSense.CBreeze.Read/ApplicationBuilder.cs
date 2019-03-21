@@ -282,17 +282,17 @@ namespace UncommonSense.CBreeze.Read
             switch (propertyName)
             {
                 case "Date":
-                    currentObject.ObjectProperties.Date = propertyValue.ToFormattedDate(Application.CodeStyle.DateFormat);
+                    currentObject.ObjectProperties.Date = propertyValue.ToFormattedDate(Application.CodeStyle.Localization);
                     currentObject.ObjectProperties.HasDateComponent = !String.IsNullOrEmpty(propertyValue);
                     break;
 
                 case "Time":
-                    currentObject.ObjectProperties.Time = propertyValue.ToFormattedTimeSpan(Application.CodeStyle.TimeFormat);
+                    currentObject.ObjectProperties.Time = propertyValue.ToFormattedTimeSpan(Application.CodeStyle.Localization);
                     currentObject.ObjectProperties.HasTimeComponent = !String.IsNullOrEmpty(propertyValue);
                     break;
 
                 case "Modified":
-                    currentObject.ObjectProperties.Modified = propertyValue.ToBoolean(Application.CodeStyle.LocalizedYes);
+                    currentObject.ObjectProperties.Modified = propertyValue.ToBoolean(Application.CodeStyle.Localization);
                     break;
 
                 case "Version List":
@@ -495,8 +495,8 @@ namespace UncommonSense.CBreeze.Read
                     p.Value = propertyValue.ToEnum<XmlPortNodeDataType>()),
                 TypeSwitch.Case<XmlPortFormatProperty>(p => p.Value = propertyValue.ToEnum<XmlPortFormat>()),
                 TypeSwitch.Case<NullableTimeProperty>(p => p.Value = propertyValue.ToNullableTime()),
-                TypeSwitch.Case<NullableBooleanProperty>(p => p.Value = propertyValue.ToNullableBoolean(Application.CodeStyle.LocalizedYes, Application.CodeStyle.LocalizedNo)),
-                TypeSwitch.Case<NullableDecimalProperty>(p => p.Value = propertyValue.ToNullableDecimal(Application.CodeStyle.DecimalFormat)),
+                TypeSwitch.Case<NullableBooleanProperty>(p => p.Value = propertyValue.ToNullableBoolean(Application.CodeStyle.Localization)),
+                TypeSwitch.Case<NullableDecimalProperty>(p => p.Value = propertyValue.ToNullableDecimal(Application.CodeStyle.Localization.DecimalFormat)),
                 TypeSwitch.Case<NullableGuidProperty>(p => p.Value = propertyValue.ToNullableGuid()),
                 TypeSwitch.Case<NullableBigIntegerProperty>(p => p.Value = propertyValue.ToNullableBigInteger()),
                 TypeSwitch.Case<NullableIntegerProperty>(p => p.SetNullableIntegerProperty(propertyValue)),
@@ -760,14 +760,14 @@ namespace UncommonSense.CBreeze.Read
                 case "Business":
                     currentFunction.Event = EventPublisherSubscriber.Publisher;
                     currentFunction.EventType = EventType.Business;
-                    currentFunction.IncludeSender = values[0].ToNullableBoolean();
+                    currentFunction.IncludeSender = values[0].ToNullableBoolean(Application.CodeStyle.Localization);
                     break;
 
                 case "Integration":
                     currentFunction.Event = EventPublisherSubscriber.Publisher;
                     currentFunction.EventType = EventType.Integration;
-                    currentFunction.IncludeSender = values[0].ToNullableBoolean();
-                    currentFunction.GlobalVarAccess = values[1].ToNullableBoolean();
+                    currentFunction.IncludeSender = values[0].ToNullableBoolean(Application.CodeStyle.Localization);
+                    currentFunction.GlobalVarAccess = values[1].ToNullableBoolean(Application.CodeStyle.Localization);
                     break;
 
                 case "EventSubscriber":

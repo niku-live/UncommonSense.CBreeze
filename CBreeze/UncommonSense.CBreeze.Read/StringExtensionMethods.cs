@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Text.RegularExpressions;
+using UncommonSense.CBreeze.Common;
 using UncommonSense.CBreeze.Core.Base;
 using UncommonSense.CBreeze.Core.Common;
 using UncommonSense.CBreeze.Core.Property.Enumeration;
@@ -82,9 +83,9 @@ namespace UncommonSense.CBreeze.Read
             }
         }
 
-        public static bool ToBoolean(this string text, string localizedYes = "Yes")
+        public static bool ToBoolean(this string text, Localization localization)
         {
-            return text == localizedYes;
+            return localization.IsYesText(text);
         }
 
         public static int ToInteger(this string text)
@@ -92,14 +93,14 @@ namespace UncommonSense.CBreeze.Read
             return int.Parse(text);
         }
 
-        public static bool? ToNullableBoolean(this string text, string localYes = "Yes", string localNo = "No")
+        public static bool? ToNullableBoolean(this string text, Localization localization)
         {
             var value = text.Trim().ToLowerInvariant();
-            if (value == localYes.ToLowerInvariant())
+            if (localization.IsYesText(text))
             {
                 return true;
             }
-            if (value == localNo.ToLowerInvariant())
+            if (localization.IsNoText(text))
             {
                 return false;
             }

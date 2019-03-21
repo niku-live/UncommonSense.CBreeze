@@ -57,14 +57,14 @@ namespace UncommonSense.CBreeze.Parse
             return result;
 		}
 
-		internal static bool? ToNullableBoolean(this string text, string localizedYes = "Yes", string localizedNo = "No")
+		internal static bool? ToNullableBoolean(this string text, Localization localization)
 		{
             var value = text.Trim().ToLowerInvariant();
-            if (value == localizedYes.ToLowerInvariant())
+            if (localization.IsYesText(value))
             {
                 return true;
             }
-            if (value == localizedNo.ToLowerInvariant())
+            if (localization.IsNoText(value))
             {
                 return false;
             }

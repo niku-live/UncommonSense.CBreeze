@@ -43,6 +43,7 @@
     <Compile Include="DataClassification.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="FunctionVisibility.cs" />
+    <Compile Include="Localization.cs" />
     <Compile Include="ObsoleteState.cs" />
     <Compile Include="PropertyMapCollection.cs" />
     <Compile Include="QueryType.cs" />
