@@ -341,7 +341,13 @@ namespace UncommonSense.CBreeze.Write
             writer.Write(closingBracket);
 
             if (!isLastProperty)
+            {
                 writer.WriteLine(";");
+            }
+            else
+            {
+                writer.Write(" ");
+            }
         }
 
         public static void Write(this TableViewProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
