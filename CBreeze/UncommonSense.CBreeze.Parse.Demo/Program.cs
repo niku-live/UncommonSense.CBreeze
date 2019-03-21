@@ -51,7 +51,10 @@ namespace UncommonSense.CBreeze.Parse.Demo
                 codeStyle.DecimalFormat.NumberGroupSeparator = ".";                
                 codeStyle.LocalizedYes = "Taip";
                 codeStyle.LocalizedNo = "Ne";
-                codeStyle.EmptyCaptionIsNotQuited = true;                
+                codeStyle.EmptyCaptionIsNotQuited = true;
+                codeStyle.NoVariableIds = true;
+                codeStyle.NonAnsiLettersAllowedInTableName = true;
+                codeStyle.TableNameExceptions = new [] { '-', '.' };
                 var application = ApplicationBuilder.ReadFromFolder(sourceFolderName, encoding, codeStyle);
                 ApplicationWriter.WriteToFile(application, outputFile, encoding);
             }

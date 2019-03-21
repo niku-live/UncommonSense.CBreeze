@@ -100,7 +100,14 @@ namespace UncommonSense.CBreeze.Write
         {
             var stringBuilder = new StringBuilder();
 
-            stringBuilder.AppendFormat("{0}@{1} : ", name, id);
+            if (writer.CodeStyle.NoVariableIds)
+            {
+                stringBuilder.AppendFormat("{0} : ", name);
+            }
+            else
+            {
+                stringBuilder.AppendFormat("{0}@{1} : ", name, id);
+            }
 
             if (!string.IsNullOrEmpty(dimensions))
                 stringBuilder.AppendFormat("ARRAY [{0}] OF ", dimensions.Replace(';', ','));

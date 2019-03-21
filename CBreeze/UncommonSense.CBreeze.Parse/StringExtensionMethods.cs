@@ -49,7 +49,12 @@ namespace UncommonSense.CBreeze.Parse
 
 		internal static int ToInteger(this string text)
 		{
-			return int.Parse(text);
+            int result = 0;
+			if (!int.TryParse(text, out result))
+            {
+                return 0;
+            }
+            return result;
 		}
 
 		internal static bool? ToNullableBoolean(this string text, string localizedYes = "Yes", string localizedNo = "No")

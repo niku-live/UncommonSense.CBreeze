@@ -137,5 +137,11 @@ namespace UncommonSense.CBreeze.Core.Common
 
         public bool EmptyCaptionIsNotQuited { get; set; }
 
+        public bool NoVariableIds { get; set; }
+
+        public bool NonAnsiLettersAllowedInTableName { get; set; }
+
+        public char[] TableNameExceptions { get; set; } = { '-', '/', '.' };
+        public char[] FieldNameExceptions { get; set; } = { '-', '/', '.', '_' };
     }
 }

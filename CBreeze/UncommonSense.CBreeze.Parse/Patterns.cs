@@ -41,6 +41,7 @@ namespace UncommonSense.CBreeze.Parse
         public static readonly Regex Variables = new Regex(@"^VAR$", RegexOptions.Compiled);
 
         public static readonly Regex Variable = new Regex(@"^\s*([^@]+)@(\d+)\s:\s(.*);$", RegexOptions.Compiled);
+        public static readonly Regex VariableNoId = new Regex(@"^\s*([^:]+)(\s*:)\s(.*);$", RegexOptions.Compiled);
         public static readonly Regex MultiLineTextConst = new Regex(@"^\s*([^@]+)@(\d+)\s:\sTextConst", RegexOptions.Compiled);
         public static readonly Regex MultiLineTextConstValue = new Regex(@"^\s*'(.{3})=(.*)(('[,;]){1,1})$", RegexOptions.Compiled);
         public static readonly Regex EndMultiLineTextConstValue = new Regex(@"^'[,;]$", RegexOptions.Compiled);
@@ -78,6 +79,7 @@ namespace UncommonSense.CBreeze.Parse
         public static readonly Regex ProcedureSignature = new Regex(@"^\s*(LOCAL\s)?PROCEDURE\s([^@]+)@(\d+)", RegexOptions.Compiled);
         public static readonly Regex ProcedureParameters = new Regex(@"^\((.*)\)", RegexOptions.Compiled);
         public static readonly Regex ProcedureParameter = new Regex(@"^(VAR\s)?([^@]+)@(\d+)\s:\s(.*)$", RegexOptions.Compiled);
+        public static readonly Regex ProcedureParameterNoIds = new Regex(@"^(VAR\s)?([^:]+)(\s*:)\s(.*)$", RegexOptions.Compiled);
         public static readonly Regex ProcedureNoReturnValue = new Regex(@"^;$", RegexOptions.Compiled);
         public static readonly Regex ProcedureReturnValue = new Regex(@"^\s(((\S+)|(""[^""]*""))\s)?:\s(.*);$", RegexOptions.Compiled);
         public static readonly Regex EventSignature = new Regex(@"^EVENT\s([^@]+)@(-?\d+)::([^@]+)@(-?\d+)", RegexOptions.Compiled);

@@ -15,7 +15,14 @@ namespace UncommonSense.CBreeze.Write
             if (var)
                 writer.Write("VAR ");
 
-            writer.Write("{0}@{1} : ", name, uid);
+            if (writer.CodeStyle.NoVariableIds)
+            {
+                writer.Write("{0} : ", name, uid);
+            }
+            else
+            {
+                writer.Write("{0}@{1} : ", name, uid);
+            }
 
             if (!string.IsNullOrEmpty(dimensions))
                 writer.Write("ARRAY [{0}] OF ", dimensions.Replace(';', ','));

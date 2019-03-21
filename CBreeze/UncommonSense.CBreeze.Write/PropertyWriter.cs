@@ -304,7 +304,7 @@ namespace UncommonSense.CBreeze.Write
             {
                 case CalcFormulaMethod.Exist:
                 case CalcFormulaMethod.Count:
-                    writer.Write(property.Value.TableName.QuotedExcept(true, '-', '/', '.'));
+                    writer.Write(property.Value.TableName.QuotedTableName(writer.CodeStyle));
                     break;
 
                 case CalcFormulaMethod.Lookup:
@@ -312,7 +312,7 @@ namespace UncommonSense.CBreeze.Write
                 case CalcFormulaMethod.Max:
                 case CalcFormulaMethod.Min:
                 case CalcFormulaMethod.Sum:
-                    writer.Write("{0}.{1}", property.Value.TableName.QuotedExcept(true, '-', '/', '.'), property.Value.FieldName.QuotedExcept(false, '-', '/', '.', '_'));
+                    writer.Write("{0}.{1}", property.Value.TableName.QuotedTableName(writer.CodeStyle), property.Value.FieldName.QuotedFieldName(writer.CodeStyle));
                     break;
             }
 
@@ -648,11 +648,11 @@ namespace UncommonSense.CBreeze.Write
                     writer.Write(") ");
                 }
 
-                writer.Write(tableRelationLine.TableName.QuotedExcept(true, '/', '.', '-'));
+                writer.Write(tableRelationLine.TableName.QuotedTableName(writer.CodeStyle));
 
                 if (!string.IsNullOrEmpty(tableRelationLine.FieldName))
                 {
-                    writer.Write(".{0}", tableRelationLine.FieldName.QuotedExcept(false, '/', '.', '-'));
+                    writer.Write(".{0}", tableRelationLine.FieldName.QuotedFieldName(writer.CodeStyle));
                 }
 
                 if (tableRelationLine.TableFilter.Any())

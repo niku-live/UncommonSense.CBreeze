@@ -16,6 +16,11 @@ namespace UncommonSense.CBreeze.Parse
 
             while (true)
             {
+                if (lines.FirstLineTryMatch(Patterns.ProcedureSignature, false))
+                {
+                    break;
+                }
+
                 if (!lines.FirstLineTryMatch(Patterns.BlankLine))
                     if (!ParseVariable(lines))
                         if (!ParseMultiLineTextConstant(lines))

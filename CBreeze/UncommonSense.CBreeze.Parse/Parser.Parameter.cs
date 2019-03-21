@@ -10,9 +10,9 @@ namespace UncommonSense.CBreeze.Parse
     {
         internal void ParseParameter(string parameter)
         {
-            var match = Patterns.ProcedureParameter.Match(parameter);
+            var match = CodeStyle.NoVariableIds? Patterns.ProcedureParameterNoIds.Match(parameter) : Patterns.ProcedureParameter.Match(parameter);
             var parameterVar = match.Groups[1].Value == "VAR ";
-            var parameterName = match.Groups[2].Value;
+            var parameterName = match.Groups[2].Value.TrimEnd();
             var parameterID = match.Groups[3].Value.ToInteger();
             var parameterType = match.Groups[4].Value;
             var parameterSuppressDispose = ParseSuppressDispose(ref parameterType);

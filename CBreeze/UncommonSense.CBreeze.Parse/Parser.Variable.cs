@@ -11,13 +11,14 @@ namespace UncommonSense.CBreeze.Parse
     {
         internal bool ParseVariable(Lines lines)
         {
+            var variablePattern = CodeStyle.NoVariableIds ? Patterns.VariableNoId : Patterns.Variable;
             Match match = null;
             lines.FirstLineTryMatch(Patterns.BlankLine);
             if (!lines.FirstLineTryMatch(Patterns.MultiLineTextConst, out match))
-                if (!lines.FirstLineTryMatch(Patterns.Variable, out match))
+                if (!lines.FirstLineTryMatch(variablePattern, out match))
                     return false;
 
-            var variableName = match.Groups[1].Value;
+            var variableName = match.Groups[1].Value.TrimEnd();
             var variableID = match.Groups[2].Value.ToInteger();
             var variableType = match.Groups[3].Value;
             if (String.IsNullOrEmpty(variableType))
