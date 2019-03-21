@@ -90,6 +90,8 @@ namespace UncommonSense.CBreeze.Core.Form
             Form = form;
 
             innerList.Add(_permissions);
+            innerList.Add(_xPos);
+            innerList.Add(_yPos);
             innerList.Add(_width);
             innerList.Add(_height);
             innerList.Add(_editable);
@@ -137,8 +139,6 @@ namespace UncommonSense.CBreeze.Core.Form
             innerList.Add(_vertGrid);
             innerList.Add(_saveColumnWidths);
             innerList.Add(_visible);
-            innerList.Add(_xPos);
-            innerList.Add(_yPos);
             innerList.Add(_onInit);
             innerList.Add(_onOpenForm);
             innerList.Add(_onCloseForm);
