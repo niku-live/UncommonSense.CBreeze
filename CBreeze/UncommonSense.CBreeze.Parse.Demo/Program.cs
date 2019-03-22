@@ -29,34 +29,16 @@ namespace UncommonSense.CBreeze.Parse.Demo
             }
             else
             {                
-                var encoding = Encoding.GetEncoding(775);
-                var codeStyle = ApplicationCodeStyle.CreateNav5CodeStyle();
-                codeStyle.Localization.DateFormat = "yy.MM.dd";
-                codeStyle.Localization.TimeFormat = @"HH\:mm\:ss";
+                var codeStyle = ApplicationCodeStyle.CreateNav2CodeStyle();
+                codeStyle.Localization = Localization.Localizations.GetLocalization("lt-LT", true);
+                /*
                 codeStyle.UseEnclosedTimeFormat = true;
-                codeStyle.CustomPropertyMappings.AddMap("Data", "Date");
-                codeStyle.CustomPropertyMappings.AddMap("Laikas", "Time");
-                codeStyle.CustomPropertyMappings.AddMap("Versijos", "Version List");
-                codeStyle.CustomPropertyMappings.AddMap("Pakeista", "Modified");
-                var blobTypeMap = codeStyle.GetEnumMapping<Core.Property.Type.BlobSubType>();
-                var blobTypeTextMap = codeStyle.GetEnumMapping<Core.Property.Type.BlobSubType>(true);
-                blobTypeMap.AddMap("Paveikslėlis", "Bitmap");
-                blobTypeTextMap.AddMap("Paveikslėlis", "Bitmap");
-                blobTypeMap.AddMap("Memolaukas", "Memo");
-                blobTypeTextMap.AddMap("Memo laukas", "Memo");
-                blobTypeMap.AddMap("Vartotojoapibr", "UserDefined");
-                blobTypeTextMap.AddMap("Vartotojo apibr.", "User-Defined");
-
-                codeStyle.Localization.DecimalFormat = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.Clone() as System.Globalization.NumberFormatInfo;
-                codeStyle.Localization.DecimalFormat.NumberGroupSeparator = ".";                
-                codeStyle.Localization.LocalizedYes = "Taip";
-                codeStyle.Localization.LocalizedNo = "Ne";
                 codeStyle.EmptyCaptionIsNotQuited = true;
                 codeStyle.NoVariableIds = true;
                 codeStyle.NonAnsiLettersAllowedInTableName = true;
-                codeStyle.TableNameExceptions = new [] { '-' };
-                var application = ApplicationBuilder.ReadFromFolder(sourceFolderName, encoding, codeStyle);
-                ApplicationWriter.WriteToFile(application, outputFile, encoding);
+                codeStyle.TableNameExceptions = new [] { '-' };*/
+                var application = ApplicationBuilder.ReadFromFolder(sourceFolderName, codeStyle);
+                ApplicationWriter.WriteToFile(application, outputFile);
             }
         }
     }

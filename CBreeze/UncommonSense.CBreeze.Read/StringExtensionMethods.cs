@@ -83,54 +83,16 @@ namespace UncommonSense.CBreeze.Read
             }
         }
 
-        public static bool ToBoolean(this string text, Localization localization)
-        {
-            return localization.IsYesText(text);
-        }
+        public static bool ToBoolean(this string text, Localization localization) => localization.ConvertTextToBool(text, strict: true).GetValueOrDefault();
 
         public static int ToInteger(this string text)
         {
             return int.Parse(text);
         }
 
-        public static bool? ToNullableBoolean(this string text, Localization localization)
-        {
-            var value = text.Trim().ToLowerInvariant();
-            if (localization.IsYesText(text))
-            {
-                return true;
-            }
-            if (localization.IsNoText(text))
-            {
-                return false;
-            }
+        public static bool? ToNullableBoolean(this string text, Localization localization) => localization.ConvertTextToBool(text);
 
-            switch (value)
-            {
-                case "yes":
-                    return true;
-                case "no":
-                    return false;
-                case "true":
-                    return true;
-                case "false":
-                    return false;
-                default:
-                    return null;
-            }
-        }
-
-        public static decimal? ToNullableDecimal(this string text, System.Globalization.NumberFormatInfo formatInfo = null)
-        {
-            if (string.IsNullOrWhiteSpace(text))
-                return null;
-
-            if (formatInfo != null)
-            {
-                return decimal.Parse(text, formatInfo);
-            }
-            return decimal.Parse(text);
-        }
+        public static decimal? ToNullableDecimal(this string text, Localization localization) => localization.ConvertTextToNullableDecimal(text);
 
         public static Guid? ToNullableGuid(this string text)
         {

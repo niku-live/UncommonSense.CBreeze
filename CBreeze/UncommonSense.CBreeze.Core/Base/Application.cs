@@ -36,6 +36,8 @@ namespace UncommonSense.CBreeze.Core.Base
 
         public ApplicationCodeStyle CodeStyle { get; set; }
 
+        public System.Text.Encoding TextEncoding => (CodeStyle?.Localization?.TextEncoding) ?? CBreeze.Common.Localization.Default.TextEncoding;
+
         public Codeunits Codeunits { get; protected set; }
 
         public MenuSuites MenuSuites { get; protected set; }

@@ -27,10 +27,9 @@ namespace UncommonSense.CBreeze.Write
             application.Queries.Write(writer);
         }
 
-        public static FileInfo WriteToFile(this Application application, string fileName, Encoding fileEncoding)
+        public static FileInfo WriteToFile(this Application application, string fileName)
         {
-            fileEncoding = fileEncoding ?? Encoding.GetEncoding("ibm850");
-            using (var streamWriter = new StreamWriter(fileName, false, fileEncoding))
+            using (var streamWriter = new StreamWriter(fileName, false, application.TextEncoding))
             {
                 application.WriteToTextWriter(streamWriter);
             }
@@ -43,10 +42,9 @@ namespace UncommonSense.CBreeze.Write
             application.WriteToTextWriter(Console.Out);
         }
 
-        public static void WriteToStream(this Application application, Stream stream, Encoding fileEncoding)
-        {
-            fileEncoding = fileEncoding ?? Encoding.GetEncoding("ibm850");
-            using (var streamWriter = new StreamWriter(stream, fileEncoding))
+        public static void WriteToStream(this Application application, Stream stream)
+        {            
+            using (var streamWriter = new StreamWriter(stream, application.TextEncoding))
             {
                 application.WriteToTextWriter(streamWriter);
             }

@@ -85,23 +85,24 @@ namespace UncommonSense.CBreeze.Read
 
         public Application Application { get; }
 
-        public static Application ReadFromFolder(string folderName, Encoding fileEncoding = null, ApplicationCodeStyle codeStyle = null)
+        public static Application ReadFromFolder(string folderName, ApplicationCodeStyle codeStyle = null)
         {
-            return ReadFromFiles(Directory.EnumerateFiles(folderName, "*.txt"), fileEncoding: fileEncoding, codeStyle: codeStyle);
+            return ReadFromFiles(Directory.EnumerateFiles(folderName, "*.txt"), codeStyle: codeStyle);
         }
 
         public static Application ReadFromFile(string fileName, Encoding fileEncoding = null, ApplicationCodeStyle codeStyle = null)
         {
-            return ReadFromFiles(fileEncoding, codeStyle, fileName);
+            return ReadFromFiles(codeStyle, fileName);
         }
 
-        public static Application ReadFromFiles(Encoding fileEncoding = null, ApplicationCodeStyle codeStyle = null, params string[] fileNames)
+        public static Application ReadFromFiles(ApplicationCodeStyle codeStyle = null, params string[] fileNames)
         {
-            return ReadFromFiles((IEnumerable<string>) fileNames, fileEncoding: fileEncoding, codeStyle: codeStyle);
+            return ReadFromFiles((IEnumerable<string>) fileNames, codeStyle: codeStyle);
         }
 
-        public static Application ReadFromFiles(IEnumerable<string> fileNames, Action<string> reportProgress = null, Encoding fileEncoding = null, ApplicationCodeStyle codeStyle = null)
+        public static Application ReadFromFiles(IEnumerable<string> fileNames, Action<string> reportProgress = null, ApplicationCodeStyle codeStyle = null)
         {
+            codeStyle = codeStyle ?? ApplicationCodeStyle.CreateNav2013CodeStyle();
             var parser = new Parser();
             if (codeStyle != null)
             {
@@ -111,7 +112,7 @@ namespace UncommonSense.CBreeze.Read
             var applicationBuilder = new ApplicationBuilder(application);
 
             parser.Listener = applicationBuilder;
-            parser.FileEncoding = fileEncoding;
+            parser.FileEncoding = codeStyle.Localization.TextEncoding;
             parser.ParseFiles(fileNames, reportProgress);
 
             return application;
@@ -496,7 +497,7 @@ namespace UncommonSense.CBreeze.Read
                 TypeSwitch.Case<XmlPortFormatProperty>(p => p.Value = propertyValue.ToEnum<XmlPortFormat>()),
                 TypeSwitch.Case<NullableTimeProperty>(p => p.Value = propertyValue.ToNullableTime()),
                 TypeSwitch.Case<NullableBooleanProperty>(p => p.Value = propertyValue.ToNullableBoolean(Application.CodeStyle.Localization)),
-                TypeSwitch.Case<NullableDecimalProperty>(p => p.Value = propertyValue.ToNullableDecimal(Application.CodeStyle.Localization.DecimalFormat)),
+                TypeSwitch.Case<NullableDecimalProperty>(p => p.Value = propertyValue.ToNullableDecimal(Application.CodeStyle.Localization)),
                 TypeSwitch.Case<NullableGuidProperty>(p => p.Value = propertyValue.ToNullableGuid()),
                 TypeSwitch.Case<NullableBigIntegerProperty>(p => p.Value = propertyValue.ToNullableBigInteger()),
                 TypeSwitch.Case<NullableIntegerProperty>(p => p.SetNullableIntegerProperty(propertyValue)),

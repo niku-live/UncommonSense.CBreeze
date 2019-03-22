@@ -6,28 +6,9 @@ namespace UncommonSense.CBreeze.Read
 {
 	internal static class DateTimeExtensionMethods
 	{
-        internal static DateTime? ToFormattedDate(this string text, Localization localization)
-        {
-            if (String.IsNullOrEmpty(text))
-            {
-                return null;
-            }
-            return DateTime.ParseExact(text, localization.DateFormat, CultureInfo.InvariantCulture).Date;
-        }
+        internal static DateTime? ToFormattedDate(this string text, Localization localization) => localization.ConvertTextToDate(text);
 
-        internal static TimeSpan? ToFormattedTimeSpan(this string text, Localization localization)
-        {
-            if (String.IsNullOrEmpty(text))
-            {
-                return null;
-            }
-            if (text.StartsWith("["))
-            {
-                text = "0" + text.Substring(1, text.Length - 2).Trim();
-            }
-            return DateTime.ParseExact(text, localization.TimeFormat, CultureInfo.InvariantCulture).TimeOfDay;
-            //return TimeSpan.ParseExact(text, timeFormat, CultureInfo.InvariantCulture);
-        }
+        internal static TimeSpan? ToFormattedTimeSpan(this string text, Localization localization) => localization.ConvertTextToTimeSpan(text);
 
         internal static DateTime? SetDateComponent(this DateTime? dateTime, string text, Localization localization)
 		{

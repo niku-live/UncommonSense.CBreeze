@@ -134,8 +134,8 @@ namespace UncommonSense.CBreeze.Write
                 TypeSwitch.Case<ClassicDataportFileFormatProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
 #endif
                 TypeSwitch.Case<NullableBooleanProperty>(p => p.Write(isLastProperty, style, writer)),
-                TypeSwitch.Case<NullableDateTimeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(writer.CodeStyle.Localization.DateTimeFormat), isLastProperty, writer)),
-                TypeSwitch.Case<NullableDateProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(writer.CodeStyle.Localization.DateFormat), isLastProperty, writer)),
+                TypeSwitch.Case<NullableDateTimeProperty>(p => WriteSimpleProperty(p.Name, writer.CodeStyle.Localization.ConvertDateTimeToLongDateString(p.Value), isLastProperty, writer)),
+                TypeSwitch.Case<NullableDateProperty>(p => WriteSimpleProperty(p.Name, writer.CodeStyle.Localization.ConvertDateTimeToShortDateString(p.Value, false), isLastProperty, writer)),
                 TypeSwitch.Case<NullableDecimalProperty>(p => p.Write(isLastProperty, writer)),
                 TypeSwitch.Case<NullableBigIntegerProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<NullableGuidProperty>(p => WriteSimpleProperty(p.Name, string.Format("[{0}]", p.Value.GetValueOrDefault().ToString("B").ToUpper()), isLastProperty, writer)),
@@ -512,7 +512,7 @@ namespace UncommonSense.CBreeze.Write
         public static void Write(this NullableBooleanProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
             var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
-            var resultValue = property.Value.Value ? writer.CodeStyle.Localization.LocalizedYes : writer.CodeStyle.Localization.LocalizedNo;
+            var resultValue = writer.CodeStyle.Localization.ConvertBoolToString(property.Value);
 
             switch (isLastProperty)
             {
@@ -921,19 +921,7 @@ namespace UncommonSense.CBreeze.Write
 
         public static void Write(this NullableDecimalProperty property, bool isLastProperty, CSideWriter writer)
         {
-            var value = property.Value.GetValueOrDefault();
-            var stringValue = value.ToString();
-            if (writer.CodeStyle.Localization.DecimalFormat != null)
-            {
-                if (value % 1 == 0)
-                {
-                    stringValue = value.ToString("N0", writer.CodeStyle.Localization.DecimalFormat);
-                }
-                else
-                {
-                    stringValue = value.ToString();// "N2", writer.CodeStyle.DecimalFormat);
-                }
-            }
+            var stringValue = writer.CodeStyle.Localization.ConvertDecimalToString(property.Value);
             WriteSimpleProperty(property.Name, stringValue, isLastProperty, writer);
         }
 

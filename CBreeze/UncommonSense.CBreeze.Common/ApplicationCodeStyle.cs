@@ -25,7 +25,8 @@ namespace UncommonSense.CBreeze.Core.Common
                 EmptyCaptionIsNotQuited = true,
                 NoVariableIds = true,
                 NonAnsiLettersAllowedInTableName = true,
-                TableNameExceptions = new[] { '-' }
+                TableNameExceptions = new[] { '-' },
+                UseEnclosedTimeFormat = true
             };
         }
 

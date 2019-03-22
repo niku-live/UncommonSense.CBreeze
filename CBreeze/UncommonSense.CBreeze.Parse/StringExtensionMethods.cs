@@ -57,32 +57,7 @@ namespace UncommonSense.CBreeze.Parse
             return result;
 		}
 
-		internal static bool? ToNullableBoolean(this string text, Localization localization)
-		{
-            var value = text.Trim().ToLowerInvariant();
-            if (localization.IsYesText(value))
-            {
-                return true;
-            }
-            if (localization.IsNoText(value))
-            {
-                return false;
-            }
-
-            switch (value)
-			{
-				case "yes":
-					return true;
-                case "true":
-                    return true;
-				case "no":
-					return false;
-                case "false":
-                    return false;
-				default:
-					return null;
-			}
-		}
+        internal static bool? ToNullableBoolean(this string text, Localization localization) => localization.ConvertTextToBool(text);
 
         internal static int? ToNullableInteger(this string text)
         {
