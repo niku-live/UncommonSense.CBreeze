@@ -2,6 +2,7 @@
 <#@ assembly name="System.Core" #>
 <#@ assembly name="System.Management.Automation" #>
 <#@ assembly name="$(Core)\UncommonSense.CBreeze.Core.dll" #>
+<#@ assembly name="$(Core)\UncommonSense.CBreeze.Common.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Reflection" #>
@@ -9,6 +10,8 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Management.Automation" #>
 <#@ import namespace="UncommonSense.CBreeze.Core" #>
+<#@ import namespace="UncommonSense.CBreeze.Common" #>
+<#@ import namespace="UncommonSense.CBreeze.Core.Table.Field" #>
 <#@ output extension=".cs" #>
 <#
 	var types = AppDomain
@@ -39,6 +42,13 @@ using System.Collections;
 using System.Linq;
 using UncommonSense.CBreeze.Core;
 using UncommonSense.CBreeze.Common;
+using UncommonSense.CBreeze.Core.Code.Variable;
+using UncommonSense.CBreeze.Core.Table.Relation;
+using UncommonSense.CBreeze.Core.Table.Field;
+using UncommonSense.CBreeze.Core.Table;
+using UncommonSense.CBreeze.Core.Property.Enumeration;
+using UncommonSense.CBreeze.Core.Property.Type;
+using UncommonSense.CBreeze.Core.Extension;
 using System.Management.Automation;
 using System.Collections.Generic;
 
@@ -114,7 +124,7 @@ namespace UncommonSense.CBreeze.Automation
 			new {
 				Name = "AccessByPermission",
 				// Cannot use Type= typeof(AccessByPermission) in pre-2015 code...
-				Type = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a=>a.GetTypes()).Single(t => t.FullName == "UncommonSense.CBreeze.Core.AccessByPermission"),				
+				Type = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a=>a.GetTypes()).Single(t => t.FullName == "UncommonSense.CBreeze.Core.Property.Type.AccessByPermission"),				
 				Mandatory = false,
 				Assignment = string.Format("{0}.Properties.AccessByPermission.Set(AccessByPermission);", variableName)
 			}

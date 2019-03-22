@@ -1,11 +1,13 @@
-﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+﻿<#@ template debug="true" hostspecific="false" language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="$(Core)\UncommonSense.CBreeze.Core.dll" #>
+<#@ assembly name="$(Core)\UncommonSense.CBreeze.Common.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="UncommonSense.CBreeze.Core" #>
+<#@ import namespace="UncommonSense.CBreeze.Core.MenuSuite" #>
 <#@ output extension=".cs" #>
 <#
 	// FIXME: Should we support ChildNodes for MenuSuiteNodes?
@@ -58,6 +60,8 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UncommonSense.CBreeze.Core;
+using UncommonSense.CBreeze.Core.MenuSuite;
+using UncommonSense.CBreeze.Core.Property.Type;
 using System.Management.Automation;
 
 // FIXME: For item nodes, allow AccessByPermission to be set directly, e.g. using New-CBreezeAccessByPermission
@@ -100,7 +104,7 @@ namespace UncommonSense.CBreeze.Automation
 		relevantProperties.Add(new {
 			Name = "AccessByPermission",
 			// Cannot use Type= typeof(AccessByPermission) in pre-2015 code...
-			Type = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a=>a.GetTypes()).Single(t => t.FullName == "UncommonSense.CBreeze.Core.AccessByPermission"),
+			Type = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a=>a.GetTypes()).Single(t => t.FullName == "UncommonSense.CBreeze.Core.Property.Type.AccessByPermission"),
 			Assignment = $"{variableName}.Properties.AccessByPermission.Set(AccessByPermission);",
 			RangeMin = "",
 			RangeMax = "",
