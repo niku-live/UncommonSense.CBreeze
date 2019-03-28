@@ -112,7 +112,6 @@ namespace UncommonSense.CBreeze.Read
             var applicationBuilder = new ApplicationBuilder(application);
 
             parser.Listener = applicationBuilder;
-            parser.FileEncoding = codeStyle.Localization.TextEncoding;
             parser.ParseFiles(fileNames, reportProgress);
 
             return application;

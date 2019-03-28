@@ -19,18 +19,18 @@ namespace UncommonSense.CBreeze.Parse.Demo
             string folderFromArgs = (args != null) && (args.Length > 0) ? args[0] : null;
             var sourceFolderName = folderFromArgs ?? Path.Combine(desktopFolderName, "be");
             string outputFile = (args != null) && (args.Length > 1) ? args[1] : null;
+            var codeStyle = ApplicationCodeStyle.CreateNav2CodeStyle();
+            codeStyle.Localization = Localization.Localizations.GetLocalization("lt-LT", true);
 
             if (String.IsNullOrEmpty(outputFile))
             {
                 var parser = new Parser();
                 parser.Listener = myListener;
-                parser.FileEncoding = Encoding.GetEncoding(775);
+                parser.CodeStyle = codeStyle;
                 parser.ParseFiles(Directory.GetFiles(sourceFolderName, "*.txt", SearchOption.AllDirectories));
             }
             else
             {                
-                var codeStyle = ApplicationCodeStyle.CreateNav2CodeStyle();
-                codeStyle.Localization = Localization.Localizations.GetLocalization("lt-LT", true);
                 /*
                 codeStyle.UseEnclosedTimeFormat = true;
                 codeStyle.EmptyCaptionIsNotQuited = true;

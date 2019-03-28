@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 using UncommonSense.CBreeze.Core.Common;
+using UncommonSense.CBreeze.Common;
 
 namespace UncommonSense.CBreeze.Parse
 {
@@ -53,17 +54,9 @@ namespace UncommonSense.CBreeze.Parse
             }
         }
 
-        public Encoding FileEncoding
-        {
-            get
-            {
-                return fileEncoding ?? Encoding.GetEncoding("ibm850");
-            }
-            set
-            {
-                fileEncoding = value;
-            }
-        }
+        public Localization Localization => CodeStyle?.Localization ?? Localization.Default;
+
+        public Encoding FileEncoding => Localization?.TextEncoding ?? Encoding.GetEncoding("ibm850");
 
         public ApplicationCodeStyle CodeStyle { get; set; } = ApplicationCodeStyle.CreateNav2013CodeStyle();
     }
