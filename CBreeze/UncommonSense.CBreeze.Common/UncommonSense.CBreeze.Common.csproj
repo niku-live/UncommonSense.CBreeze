@@ -45,6 +45,7 @@
     <Compile Include="FunctionVisibility.cs" />
     <Compile Include="Localization.cs" />
     <Compile Include="ObsoleteState.cs" />
+    <Compile Include="PlatformVersion.cs" />
     <Compile Include="PropertyMapCollection.cs" />
     <Compile Include="QueryType.cs" />
     <Compile Include="ClassicControlType.cs" />

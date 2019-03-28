@@ -26,9 +26,30 @@ namespace UncommonSense.CBreeze.Core.Common
                 NoVariableIds = true,
                 NonAnsiLettersAllowedInTableName = true,
                 TableNameExceptions = new[] { '-' },
-                UseEnclosedTimeFormat = true
+                UseEnclosedTimeFormat = true,
+                PlatformVersion = new PlatformVersion("NAV2")
             };
         }
+
+        public static ApplicationCodeStyle CreateNav3CodeStyle()
+        {
+            return new ApplicationCodeStyle()
+            {
+                TextConstIsAlwaysMultiLine = false,
+                NewLineBeforeTextConst = false,
+                DoNotPrintEmptyReportDataItems = false,
+                DoNotPrintEmptyRequestForm = false,
+                DoNotPrintEmptyRequestPage = true,
+                DoNotPrintEmptyFieldGroups = true,
+                DoNotPrintEmptyDatasets = true,
+                DoNotPrintEmptyLabels = true,
+                DoNotPrintEmptyRdlReportLayout = true,
+                DoNotPrintEmptyWordReportLayout = true,
+                EmptyCaptionIsNotQuited = true,
+                PlatformVersion = new PlatformVersion("NAV3")
+            };
+        }
+
 
 
         public static ApplicationCodeStyle CreateNav4CodeStyle()
@@ -44,7 +65,8 @@ namespace UncommonSense.CBreeze.Core.Common
                 DoNotPrintEmptyDatasets = true,
                 DoNotPrintEmptyLabels = true,
                 DoNotPrintEmptyRdlReportLayout = true,
-                DoNotPrintEmptyWordReportLayout = true
+                DoNotPrintEmptyWordReportLayout = true,
+                PlatformVersion = new PlatformVersion("NAV4")
             };
         }
 
@@ -61,7 +83,8 @@ namespace UncommonSense.CBreeze.Core.Common
                 DoNotPrintEmptyDatasets = true,
                 DoNotPrintEmptyLabels = true,
                 DoNotPrintEmptyRdlReportLayout = true,
-                DoNotPrintEmptyWordReportLayout = true
+                DoNotPrintEmptyWordReportLayout = true,
+                PlatformVersion = new PlatformVersion("NAV5")
             };
         }
 
@@ -78,7 +101,8 @@ namespace UncommonSense.CBreeze.Core.Common
                 DoNotPrintEmptyDatasets = true,
                 DoNotPrintEmptyLabels = true,
                 DoNotPrintEmptyRdlReportLayout = false,
-                DoNotPrintEmptyWordReportLayout = true
+                DoNotPrintEmptyWordReportLayout = true,
+                PlatformVersion = new PlatformVersion("NAV2009")
             };
         }
 
@@ -95,8 +119,38 @@ namespace UncommonSense.CBreeze.Core.Common
                 DoNotPrintEmptyDatasets = false,
                 DoNotPrintEmptyLabels = false,
                 DoNotPrintEmptyRdlReportLayout = false,
-                DoNotPrintEmptyWordReportLayout = true
+                DoNotPrintEmptyWordReportLayout = true,
+                PlatformVersion = new PlatformVersion("NAV2013")
             };
+        }
+
+        public static ApplicationCodeStyle CreateNavCodeStyle(string versionName = "NAV2018")
+        {
+            PlatformVersion version = new PlatformVersion(versionName);
+            ApplicationCodeStyle resultStyle = null;
+            switch (version.MajorVersion)
+            {
+                case 2:
+                    resultStyle = CreateNav2CodeStyle();
+                    break;
+                case 3:
+                    resultStyle = CreateNav3CodeStyle();
+                    break;
+                case 4:
+                    resultStyle = CreateNav4CodeStyle();
+                    break;
+                case 5:
+                    resultStyle = CreateNav5CodeStyle();
+                    break;
+                case 6:
+                    resultStyle = CreateNav2009CodeStyle();
+                    break;
+                default:
+                    resultStyle = CreateNav2013CodeStyle();
+                    break;
+            }
+            resultStyle.PlatformVersion = version;
+            return resultStyle;
         }
 
 
@@ -105,6 +159,7 @@ namespace UncommonSense.CBreeze.Core.Common
             DoNotPrintEmptyReportDataItems = true;
             DoNotPrintEmptyWordReportLayout = true;
             DoNotPrintEmptyRequestForm = true;
+            PlatformVersion = new PlatformVersion("NAV2013");
         }
 
         public bool TextConstIsAlwaysMultiLine { get; set; }
@@ -134,6 +189,13 @@ namespace UncommonSense.CBreeze.Core.Common
         public char[] FieldNameExceptions { get; set; } = { '-', '/', '.', '_' };
 
         public Localization Localization { get; set; } = Localization.Default;
+
+        public PlatformVersion PlatformVersion { get; set; }
+
+        public override string ToString()
+        {
+            return $"Codestyle for {PlatformVersion} (locale: {Localization})";
+        }
 
     }
 }

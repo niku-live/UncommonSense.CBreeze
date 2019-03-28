@@ -33,6 +33,7 @@ namespace UncommonSense.CBreeze.Localization.Implementation
             blobTypeMap.AddMap("Vartotojoapibr", "UserDefined");
             blobTypeTextMap.AddMap("Vartotojo apibr.", "User-Defined");
 
+            LocaleName = "Lithuanian (lt-Lt)";
         }
     }
 }

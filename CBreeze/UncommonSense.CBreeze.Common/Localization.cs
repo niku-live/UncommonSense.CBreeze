@@ -10,6 +10,8 @@ namespace UncommonSense.CBreeze.Common
     {
         public static readonly Localization Default = new Localization();
 
+        public string LocaleName { get; protected set; } = "default locale";
+
         public Encoding TextEncoding { get; protected set; } = Encoding.GetEncoding("ibm850");
 
         public string DateFormat { get; protected set; } = "dd-MM-yy";
@@ -176,6 +178,8 @@ namespace UncommonSense.CBreeze.Common
                     return null;
             }
         }
+
+        public override string ToString() => LocaleName;
 
     }
 }

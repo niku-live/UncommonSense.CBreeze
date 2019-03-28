@@ -19,9 +19,8 @@ namespace UncommonSense.CBreeze.Parse.Demo
             string folderFromArgs = (args != null) && (args.Length > 0) ? args[0] : null;
             var sourceFolderName = folderFromArgs ?? Path.Combine(desktopFolderName, "be");
             string outputFile = (args != null) && (args.Length > 1) ? args[1] : null;
-            var codeStyle = ApplicationCodeStyle.CreateNav2CodeStyle();
-            codeStyle.Localization = Localization.Localizations.GetLocalization("lt-LT", true);
-
+            var codeStyle = Localization.Localizations.GetLocalizedCodeStyle("NAV3", "lt-LT", true);
+            Console.WriteLine(codeStyle);
             if (String.IsNullOrEmpty(outputFile))
             {
                 var parser = new Parser();
@@ -31,12 +30,6 @@ namespace UncommonSense.CBreeze.Parse.Demo
             }
             else
             {                
-                /*
-                codeStyle.UseEnclosedTimeFormat = true;
-                codeStyle.EmptyCaptionIsNotQuited = true;
-                codeStyle.NoVariableIds = true;
-                codeStyle.NonAnsiLettersAllowedInTableName = true;
-                codeStyle.TableNameExceptions = new [] { '-' };*/
                 var application = ApplicationBuilder.ReadFromFolder(sourceFolderName, codeStyle);
                 ApplicationWriter.WriteToFile(application, outputFile);
             }
