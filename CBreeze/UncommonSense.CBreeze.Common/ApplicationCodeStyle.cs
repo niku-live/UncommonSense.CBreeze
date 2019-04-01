@@ -8,6 +8,28 @@ namespace UncommonSense.CBreeze.Core.Common
 {
     public class ApplicationCodeStyle
     {
+        public static ApplicationCodeStyle CreateNav1CodeStyle()
+        {
+            return new ApplicationCodeStyle()
+            {
+                TextConstIsAlwaysMultiLine = false,
+                NewLineBeforeTextConst = false,
+                DoNotPrintEmptyReportDataItems = false,
+                DoNotPrintEmptyRequestForm = false,
+                DoNotPrintEmptyRequestPage = true,
+                DoNotPrintEmptyFieldGroups = true,
+                DoNotPrintEmptyDatasets = true,
+                DoNotPrintEmptyLabels = true,
+                DoNotPrintEmptyRdlReportLayout = true,
+                DoNotPrintEmptyWordReportLayout = true,
+                EmptyCaptionIsNotQuited = true,
+                NoVariableIds = true,
+                NonAnsiLettersAllowedInTableName = true,
+                UseEnclosedTimeFormat = true,
+                PlatformVersion = new PlatformVersion("NAV1")
+            };
+        }
+
         public static ApplicationCodeStyle CreateNav2CodeStyle()
         {
             return new ApplicationCodeStyle()
@@ -25,7 +47,6 @@ namespace UncommonSense.CBreeze.Core.Common
                 EmptyCaptionIsNotQuited = true,
                 NoVariableIds = true,
                 NonAnsiLettersAllowedInTableName = true,
-                TableNameExceptions = new[] { '-' },
                 UseEnclosedTimeFormat = true,
                 PlatformVersion = new PlatformVersion("NAV2")
             };
@@ -130,6 +151,9 @@ namespace UncommonSense.CBreeze.Core.Common
             ApplicationCodeStyle resultStyle = null;
             switch (version.MajorVersion)
             {
+                case 1:
+                    resultStyle = CreateNav1CodeStyle();
+                    break;
                 case 2:
                     resultStyle = CreateNav2CodeStyle();
                     break;
@@ -185,8 +209,8 @@ namespace UncommonSense.CBreeze.Core.Common
         public bool NoVariableIds { get; set; }
         public bool NonAnsiLettersAllowedInTableName { get; set; }
 
-        public char[] TableNameExceptions { get; set; } = { '-', '/', '.' };
-        public char[] FieldNameExceptions { get; set; } = { '-', '/', '.', '_' };
+        public char[] TableNameExceptions => Localization?.TableNameExceptions ?? new [] { '-', '/', '.' };
+        public char[] FieldNameExceptions => Localization?.FieldNameExceptions ?? new [] { '-', '/', '.', '_' };
 
         public Localization Localization { get; set; } = Localization.Default;
 

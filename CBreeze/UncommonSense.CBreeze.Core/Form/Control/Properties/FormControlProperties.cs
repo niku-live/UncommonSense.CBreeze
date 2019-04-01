@@ -47,6 +47,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly NullableBooleanProperty _showCaption = new NullableBooleanProperty("ShowCaption");
         private readonly StringProperty _bitmap = new StringProperty("Bitmap");
         private readonly MultiLanguageProperty _toolTipMl = new MultiLanguageProperty("ToolTipML");
+        private readonly StringProperty _toolTip = new StringProperty("ToolTip");
         private readonly NullableBooleanProperty _cancel = new NullableBooleanProperty("Cancel");
         private readonly NullableBooleanProperty _default = new NullableBooleanProperty("Default");
         private readonly PushActionProperty _pushAction = new PushActionProperty("PushAction");
@@ -56,6 +57,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly StringProperty _description = new StringProperty("Description");
         private readonly NullableBooleanProperty _dropDown = new NullableBooleanProperty("DropDown");
         private readonly NullableBooleanProperty _focusOnClick = new NullableBooleanProperty("FocusOnClick");
+        private readonly StringProperty _caption = new StringProperty("Caption");
         private readonly MultiLanguageProperty _captionMl = new MultiLanguageProperty("CaptionML");
         private readonly BorderStyleProperty _borderStyle = new BorderStyleProperty("BorderStyle");
 
@@ -142,6 +144,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly NullableIntegerProperty _rowHeight = new NullableIntegerProperty("RowHeight");
 
         private readonly MultiLanguageProperty _pageNamesMl = new MultiLanguageProperty("PageNamesML");
+        private readonly StringProperty _pageNames = new StringProperty("PageNames");
 
         private readonly StringProperty _subFormId = new StringProperty("SubFormID");
         private readonly RunObjectLinkProperty _subFormLink = new RunObjectLinkProperty("SubFormLink");
@@ -191,6 +194,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_width);
             innerList.Add(_xPos);
             innerList.Add(_yPos);
+            innerList.Add(_caption);
             innerList.Add(_showCaption);
             innerList.Add(_horzAlign);
             innerList.Add(_vertAlign);
@@ -227,6 +231,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_ellipsis);
             innerList.Add(_percentage);
             innerList.Add(_captionMl);
+            innerList.Add(_toolTip);
             innerList.Add(_toolTipMl);
             innerList.Add(_optionCaptionML);
             innerList.Add(_optionString);
@@ -294,6 +299,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_headingHeight);
             innerList.Add(_inlineEditing);
 
+            innerList.Add(_pageNames);
             innerList.Add(_pageNamesMl);
 
             innerList.Add(_shapeStyle);
@@ -430,6 +436,8 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public MultiLanguageValue ToolTipML => _toolTipMl.Value;
 
+        public string ToolTip { get => _toolTip.Value; set => _toolTip.Value = value; }
+
         public bool? Border
         {
             get => _border.Value;
@@ -527,6 +535,12 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         }
 
         protected MultiLanguageValue InternalCaptionMl => _captionMl.Value;
+
+        protected string InternalCaption
+        {
+            get => _caption.Value;
+            set => _caption.Value = value;
+        }
 
         protected string InternalDescription
         {
@@ -888,6 +902,12 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         }
 
         protected MultiLanguageValue InternalPageNamesMl { get => _pageNamesMl.Value; }
+
+        protected string InternalPageNames
+        {
+            get => _pageNames.Value;
+            set => _pageNames.Value = value;
+        }
 
         protected string InternalSubFormId
         {

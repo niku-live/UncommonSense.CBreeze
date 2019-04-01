@@ -9,6 +9,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
     {
         private readonly StringProperty _captionClass = new StringProperty("CaptionClass");
         private readonly MultiLanguageProperty _captionMl = new MultiLanguageProperty("CaptionML");
+        private readonly StringProperty _caption = new StringProperty("Caption");
         private readonly StringProperty _description = new StringProperty("Description");
         private readonly NullableBooleanProperty _ellipsis = new NullableBooleanProperty("Ellipsis");
         private readonly NullableBooleanProperty _enabled = new NullableBooleanProperty("Enabled");
@@ -30,6 +31,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         private readonly StringProperty _shortCutKey = new StringProperty("ShortCutKey");
         private readonly StringProperty _sourceExpr = new StringProperty("SourceExpr");
         private readonly MultiLanguageProperty _tooltipMl = new MultiLanguageProperty("TooltipML");
+        private readonly StringProperty _tooltip = new StringProperty("Tooltip");
         private readonly NullableBooleanProperty _updateOnAction = new NullableBooleanProperty("UpdateOnAction");
         private readonly NullableBooleanProperty _visible = new NullableBooleanProperty("Visible");
         private readonly TriggerProperty _onPush = new TriggerProperty("OnPush");
@@ -39,6 +41,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         {
             this.menuItemBase = menuItemBase;
             innerList.Add(_id);
+            innerList.Add(_caption);
             innerList.Add(_pushAction);
             innerList.Add(_shortCutKey);
             innerList.Add(_menuItemType);
@@ -59,6 +62,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
             innerList.Add(_runFormView);
             innerList.Add(_runFormLink);
             innerList.Add(_sourceExpr);
+            innerList.Add(_tooltip);
             innerList.Add(_tooltipMl);
             innerList.Add(_onPush);
         }
@@ -130,6 +134,12 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
 
         public MultiLanguageValue CaptionMl => _captionMl.Value;
 
+        public string Caption
+        {
+            get => _caption.Value;
+            set => _caption.Value = value;
+        }
+
         public InvalidActionAppearance? InvalidActionAppearance
         {
             get => _invalidActionAppearance.Value;
@@ -161,6 +171,12 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         }
 
         public MultiLanguageValue TooltipMl => _tooltipMl.Value;
+
+        public string Tooltip
+        {
+            get => _tooltip.Value;
+            set => _tooltip.Value = value;
+        }
 
         public string Description
         {

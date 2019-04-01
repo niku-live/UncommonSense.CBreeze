@@ -14,13 +14,18 @@ namespace UncommonSense.CBreeze.Common
 
         public Encoding TextEncoding { get; protected set; } = Encoding.GetEncoding("ibm850");
 
-        public string DateFormat { get; protected set; } = "dd-MM-yy";
-        public string DateTimeFormat { get; protected set; } = "dd-MM-yy HH:mm";
-        public string TimeFormat { get; protected set; } = "HH:mm:ss";
+        public string DateFormat { get; set; } = "dd-MM-yy";
+        public string DateTimeFormat { get; set; } = "dd-MM-yy HH:mm";
+        public string TimeFormat { get; set; } = "HH:mm:ss";
         public System.Globalization.NumberFormatInfo DecimalFormat { get; protected set; }
+
+        public System.Globalization.CultureInfo ActiveCultureInfo { get; set; } = System.Globalization.CultureInfo.InvariantCulture;
 
         public string LocalizedYes { get; protected set; } = "Yes";
         public string LocalizedNo { get; protected set; } = "No";
+
+        public char[] TableNameExceptions { get; set; } = { '-', '/', '.' };
+        public char[] FieldNameExceptions { get; set; } = { '-', '/', '.', '_' };
 
         public PropertyMapCollection CustomPropertyMappings { get; private set; } = new PropertyMapCollection();
         internal Dictionary<Type, PropertyMapCollection> EnumCustomMapping { get; private set; } = new Dictionary<Type, PropertyMapCollection>();
@@ -65,7 +70,7 @@ namespace UncommonSense.CBreeze.Common
             {
                 return null;
             }
-            return DateTime.ParseExact(text, DateFormat, System.Globalization.CultureInfo.InvariantCulture).Date;
+            return DateTime.ParseExact(text, DateFormat, ActiveCultureInfo).Date;
         }
 
         public TimeSpan? ConvertTextToTimeSpan(string text)
@@ -78,7 +83,7 @@ namespace UncommonSense.CBreeze.Common
             {
                 text = "0" + text.Substring(1, text.Length - 2).Trim();
             }
-            return DateTime.ParseExact(text, TimeFormat, System.Globalization.CultureInfo.InvariantCulture).TimeOfDay;
+            return DateTime.ParseExact(text, TimeFormat, ActiveCultureInfo).TimeOfDay;
         }
 
         public string ConvertDateTimeToLongDateString(DateTime? dateTime, bool isNullable = true)

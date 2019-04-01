@@ -11,5 +11,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         }
 
         public MultiLanguageValue CaptionMl => InternalCaptionMl;
+
+        public string Caption { get => InternalCaption; set => InternalCaption = value; }
     }
 }

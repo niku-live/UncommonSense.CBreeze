@@ -15,7 +15,7 @@ namespace UncommonSense.CBreeze.Core.Code.Variable
             SubType = subType;
         }
 
-        public override string TypeName => $"OCX \"{SubType}\"";
+        public override string TypeName => string.IsNullOrEmpty(SubType) ? "OCX" : $"OCX \"{SubType}\"";
 
         public string Dimensions
         {

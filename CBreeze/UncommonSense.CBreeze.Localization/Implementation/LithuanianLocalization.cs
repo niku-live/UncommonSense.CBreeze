@@ -4,8 +4,12 @@ namespace UncommonSense.CBreeze.Localization.Implementation
 {
     internal class LithuanianLocalization : Common.Localization
     {
-        internal LithuanianLocalization(bool translateProperties) : base()
+        internal LithuanianLocalization(int majorVersion, bool translateProperties) : base()
         {
+            if (majorVersion < 3)
+            {
+                TableNameExceptions = new[] { '-' };
+            }
             TextEncoding = Encoding.GetEncoding(775);            
             DateFormat = "yy.MM.dd";
             TimeFormat = @"HH\:mm\:ss";

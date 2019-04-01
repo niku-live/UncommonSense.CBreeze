@@ -17,6 +17,7 @@ namespace UncommonSense.CBreeze.Core.Form
         private readonly FieldListProperty _calcFields = new FieldListProperty("CalcFields");
         private readonly CaptionBarProperty _captionBar = new CaptionBarProperty("CaptionBar");
         private readonly MultiLanguageProperty _captionMl = new MultiLanguageProperty("CaptionML");
+        private readonly StringProperty _caption = new StringProperty("Caption");
         private readonly StringProperty _dataCaptionExpr = new StringProperty("DataCaptionExpr");
         private readonly FieldListProperty _dataCaptionFields = new FieldListProperty("DataCaptionFields");
         private readonly NullableBooleanProperty _delayedInsert = new NullableBooleanProperty("DelayedInsert");
@@ -96,6 +97,7 @@ namespace UncommonSense.CBreeze.Core.Form
             innerList.Add(_height);
             innerList.Add(_editable);
             innerList.Add(_backColor);
+            innerList.Add(_caption);
             innerList.Add(_captionMl);
             innerList.Add(_borderStyle);
             innerList.Add(_captionBar);
@@ -171,6 +173,13 @@ namespace UncommonSense.CBreeze.Core.Form
         }
 
         public MultiLanguageValue CaptionML => _captionMl.Value;
+
+        public string Caption
+        {
+            get => _caption.Value;
+            set => _caption.Value = value;
+        }
+
 
         public string DataCaptionExpr
         {

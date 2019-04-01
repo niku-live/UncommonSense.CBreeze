@@ -11,5 +11,7 @@ namespace UncommonSense.CBreeze.Core.Form.Control.Properties
         }
 
         public MultiLanguageValue PageNamesMl => InternalPageNamesMl;
+
+        public string PageNames => InternalPageNames;
     }
 }

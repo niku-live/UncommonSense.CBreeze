@@ -22,6 +22,7 @@ namespace UncommonSense.CBreeze.Core.Report.Classic
         private readonly TriggerProperty onPreDataItem = new TriggerProperty("OnPreDataItem");
         private readonly NullableBooleanProperty printOnlyIfDetail = new NullableBooleanProperty("PrintOnlyIfDetail");
         private readonly FieldListProperty reqFilterFields = new FieldListProperty("ReqFilterFields");
+        private readonly StringProperty reqFilterHeading = new StringProperty("ReqFilterHeading");
         private readonly MultiLanguageProperty reqFilterHeadingML = new MultiLanguageProperty("ReqFilterHeadingML");
         private readonly MultiLanguageProperty captionML = new MultiLanguageProperty("CaptionML");
         private readonly NullableIntegerProperty _dataItemIndent = new NullableIntegerProperty("DataItemIndent");
@@ -37,6 +38,7 @@ namespace UncommonSense.CBreeze.Core.Report.Classic
             innerList.Add(_newPagePerGroup);
             innerList.Add(_newPagePerRecord);
             innerList.Add(maxIteration);
+            innerList.Add(reqFilterHeading);
             innerList.Add(_dataItemVarName);
             innerList.Add(printOnlyIfDetail);
             innerList.Add(reqFilterHeadingML);
@@ -111,6 +113,13 @@ namespace UncommonSense.CBreeze.Core.Report.Classic
         public FieldList ReqFilterFields => reqFilterFields.Value;
 
         public MultiLanguageValue ReqFilterHeadingML => reqFilterHeadingML.Value;
+
+        public string ReqFilterHeading
+        {
+            get => reqFilterHeading.Value;
+            set => reqFilterHeading.Value = value;
+        }
+
 
         public int? DataItemIndent
         {
