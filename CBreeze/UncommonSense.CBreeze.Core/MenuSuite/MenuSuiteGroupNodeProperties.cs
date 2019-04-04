@@ -15,6 +15,9 @@ namespace UncommonSense.CBreeze.Core.MenuSuite
         private NullableGuidProperty nextNodeID = new NullableGuidProperty("NextNodeID");
         private NullableGuidProperty parentNodeID = new NullableGuidProperty("ParentNodeID");
         private NullableBooleanProperty visible = new NullableBooleanProperty("Visible");
+#if NAV2017
+        private TagListProperty applicationArea = new TagListProperty("ApplicationArea");
+#endif
 
         internal MenuSuiteGroupNodeProperties(GroupNode node)
         {
@@ -22,6 +25,9 @@ namespace UncommonSense.CBreeze.Core.MenuSuite
 
             innerList.Add(name);
             innerList.Add(captionML);
+#if NAV2017
+            innerList.Add(applicationArea);
+#endif
             innerList.Add(memberOfMenu);
             innerList.Add(parentNodeID);
             innerList.Add(visible);
@@ -30,6 +36,10 @@ namespace UncommonSense.CBreeze.Core.MenuSuite
             innerList.Add(isDepartmentPage);
             innerList.Add(deleted);
         }
+
+#if NAV2017
+        public TagList ApplicationArea => applicationArea.Value;
+#endif
 
         public GroupNode Node { get; protected set; }
 

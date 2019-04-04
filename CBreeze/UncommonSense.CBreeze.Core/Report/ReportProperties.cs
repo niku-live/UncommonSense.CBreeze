@@ -1,5 +1,6 @@
 using UncommonSense.CBreeze.Core.Code.Variable;
 using UncommonSense.CBreeze.Core.Contracts;
+using UncommonSense.CBreeze.Core.MenuSuite;
 using UncommonSense.CBreeze.Core.Property;
 using UncommonSense.CBreeze.Core.Property.Enumeration;
 using UncommonSense.CBreeze.Core.Property.Implementation;
@@ -46,6 +47,11 @@ namespace UncommonSense.CBreeze.Core.Report
         private StringProperty paperSize = new StringProperty("PaperSize");
         private NullableBooleanProperty useReqForm = new NullableBooleanProperty("UseReqForm");
 #endif
+#if NAV2019
+        private TagListProperty applicationArea = new TagListProperty("ApplicationArea");
+        private MenuItemDepartmentCategoryProperty usageCategory = new MenuItemDepartmentCategoryProperty("UsageCategory");
+        private AccessByPermissionProperty accessByPermission = new AccessByPermissionProperty("AccessByPermission");
+#endif
 
         internal ReportProperties(Report report)
         {
@@ -68,6 +74,10 @@ namespace UncommonSense.CBreeze.Core.Report
             innerList.Add(enableExternalImages);
             innerList.Add(enableHyperlinks);
             innerList.Add(enableExternalAssemblies);
+#if NAV2019
+            innerList.Add(accessByPermission);
+            innerList.Add(applicationArea);
+#endif
             innerList.Add(onInitReport);
             innerList.Add(onPreReport);
             innerList.Add(onPostReport);
@@ -85,6 +95,9 @@ namespace UncommonSense.CBreeze.Core.Report
             innerList.Add(paperSize);
             innerList.Add(horzGrid);
             innerList.Add(vertGrid);
+#endif
+#if NAV2019
+            innerList.Add(usageCategory);
 #endif
         }
 
@@ -370,6 +383,30 @@ namespace UncommonSense.CBreeze.Core.Report
         {
             get => useReqForm.Value;
             set => useReqForm.Value = value;
+        }
+#endif
+
+#if NAV2019
+        public TagList ApplicationArea => applicationArea.Value;
+
+        public MenuItemDepartmentCategory? UsageCategory
+        {
+            get
+            {
+                return this.usageCategory.Value;
+            }
+            set
+            {
+                this.usageCategory.Value = value;
+            }
+        }
+
+        public AccessByPermission AccessByPermission
+        {
+            get
+            {
+                return this.accessByPermission.Value;
+            }
         }
 #endif
     }

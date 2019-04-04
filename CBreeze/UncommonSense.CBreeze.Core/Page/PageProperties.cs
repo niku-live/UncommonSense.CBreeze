@@ -1,8 +1,10 @@
 using UncommonSense.CBreeze.Core.Code.Variable;
 using UncommonSense.CBreeze.Core.Contracts;
+using UncommonSense.CBreeze.Core.MenuSuite;
 using UncommonSense.CBreeze.Core.Page.Action;
 using UncommonSense.CBreeze.Core.Property;
 using UncommonSense.CBreeze.Core.Property.Implementation;
+using UncommonSense.CBreeze.Core.Property.Type;
 
 namespace UncommonSense.CBreeze.Core.Page
 {
@@ -58,6 +60,14 @@ namespace UncommonSense.CBreeze.Core.Page
 #if NAV2009
         private NullableIntegerProperty timerUpdate = new NullableIntegerProperty("TimerUpdate");
 #endif
+#if NAV2019
+        private TagListProperty applicationArea = new TagListProperty("ApplicationArea");
+        private MenuItemDepartmentCategoryProperty usageCategory = new MenuItemDepartmentCategoryProperty("UsageCategory");
+        private AccessByPermissionProperty accessByPermission = new AccessByPermissionProperty("AccessByPermission");
+        private StringProperty apiPublisher = new StringProperty("APIPublisher");
+        private StringProperty apiGroup = new StringProperty("APIGroup");
+        private NullableBooleanProperty changeTrackingAllowed = new NullableBooleanProperty("ChangeTrackingAllowed");
+#endif
 
 
         internal PageProperties(Page page)
@@ -82,6 +92,11 @@ namespace UncommonSense.CBreeze.Core.Page
             innerList.Add(dataCaptionFields);
             innerList.Add(pageType);
             innerList.Add(sourceTableTemporary);
+#if NAV2019
+            innerList.Add(changeTrackingAllowed);
+            innerList.Add(apiPublisher);
+            innerList.Add(apiGroup);
+#endif
 #if NAV2018
             innerList.Add(entitySetName);
             innerList.Add(entityName);
@@ -112,6 +127,11 @@ namespace UncommonSense.CBreeze.Core.Page
             innerList.Add(apiVersion);
 #endif
             innerList.Add(actionList);
+#if NAV2019
+            innerList.Add(accessByPermission);
+            innerList.Add(applicationArea);
+            innerList.Add(usageCategory);
+#endif
         }
 
         public Page Page { get; protected set; }
@@ -521,6 +541,48 @@ namespace UncommonSense.CBreeze.Core.Page
         {
             get => timerUpdate.Value;
             set => timerUpdate.Value = value;
+        }
+#endif
+
+#if NAV2019
+        public TagList ApplicationArea => applicationArea.Value;
+
+        public MenuItemDepartmentCategory? UsageCategory
+        {
+            get
+            {
+                return this.usageCategory.Value;
+            }
+            set
+            {
+                this.usageCategory.Value = value;
+            }
+        }
+
+        public AccessByPermission AccessByPermission
+        {
+            get
+            {
+                return this.accessByPermission.Value;
+            }
+        }
+
+        public string ApiPublisher
+        {
+            get => apiPublisher.Value;
+            set => apiPublisher.Value = value;
+        }
+
+        public string ApiGroup
+        {
+            get => apiGroup.Value;
+            set => apiGroup.Value = value;
+        }
+
+        public bool? ChangeTrackingAllowed
+        {
+            get => changeTrackingAllowed.Value;
+            set => changeTrackingAllowed.Value = value;
         }
 #endif
     }

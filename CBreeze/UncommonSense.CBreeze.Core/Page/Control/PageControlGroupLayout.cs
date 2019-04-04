@@ -4,6 +4,9 @@ namespace UncommonSense.CBreeze.Core.Page.Control
     {
         Rows,
         Columns,
+#if NAV2019
+        Wide
+#endif
     }
 
 }

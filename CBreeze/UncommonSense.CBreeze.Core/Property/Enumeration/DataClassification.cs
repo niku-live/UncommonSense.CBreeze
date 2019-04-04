@@ -10,7 +10,7 @@ namespace UncommonSense.CBreeze.Core.Property.Enumeration
         CustomerContent,
         EndUserIdentifiableInformation,
         AccountData,
-        EndUsePseudonymousIdentifiers,
+        EndUserPseudonymousIdentifiers,
         OrganizationIdentifiableInformation,
         SystemMetadata,
         ToBeClassified

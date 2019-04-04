@@ -279,7 +279,7 @@ namespace UncommonSense.CBreeze.Write
             }
         }
 
-        public static string AsString(this MenuItemDepartmentCategory value)
+        public static string AsString(this MenuItemDepartmentCategory value, bool noSpaces = false)
         {
             switch (value)
             {
@@ -290,7 +290,7 @@ namespace UncommonSense.CBreeze.Write
                 case MenuItemDepartmentCategory.Tasks:
                     return value.ToString();
                 case MenuItemDepartmentCategory.ReportsAndAnalysis:
-                    return "Reports and Analysis";
+                    return noSpaces? "ReportsAndAnalysis" : "Reports and Analysis";
                 default:
                     throw new ArgumentOutOfRangeException("value");
             }

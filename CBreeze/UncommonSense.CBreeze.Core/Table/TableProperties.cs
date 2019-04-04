@@ -41,6 +41,9 @@ namespace UncommonSense.CBreeze.Core.Table
         private FormReferenceProperty lookupFormID = new FormReferenceProperty("LookupFormID");
         private FormReferenceProperty drillDownFormID = new FormReferenceProperty("DrillDownFormID");
 #endif
+#if NAV2019
+        private NullableBooleanProperty replicateData = new NullableBooleanProperty("ReplicateData");
+#endif
         internal TableProperties(Table table)
         {
             Table = table;
@@ -68,6 +71,9 @@ namespace UncommonSense.CBreeze.Core.Table
             innerList.Add(dataClassification);
 #endif
             innerList.Add(includeDataInDesc);
+#if NAV2019
+            innerList.Add(replicateData);
+#endif
             innerList.Add(captionML); // 8629
             innerList.Add(description); // 15386
             innerList.Add(pasteIsValid); // 15423
@@ -77,7 +83,7 @@ namespace UncommonSense.CBreeze.Core.Table
             innerList.Add(lookupFormID);
             innerList.Add(drillDownFormID);
 #endif
-    }
+        }
 
     public Table Table { get; protected set; }
 
@@ -323,6 +329,13 @@ namespace UncommonSense.CBreeze.Core.Table
         {
             get => includeDataInDesc.Value;
             set => includeDataInDesc.Value = value;
+        }
+#endif
+#if NAV2019
+        public bool? ReplicateData
+        {
+            get => replicateData.Value;
+            set => replicateData.Value = value;
         }
 #endif
     }
