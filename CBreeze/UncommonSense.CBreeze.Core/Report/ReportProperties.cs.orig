@@ -1,3 +1,4 @@
+<<<<<<< HEAD:CBreeze/UncommonSense.CBreeze.Core/Report/ReportProperties.cs
 using UncommonSense.CBreeze.Core.Code.Variable;
 using UncommonSense.CBreeze.Core.Contracts;
 using UncommonSense.CBreeze.Core.Property;
@@ -6,6 +7,9 @@ using UncommonSense.CBreeze.Core.Property.Implementation;
 using UncommonSense.CBreeze.Core.Property.Type;
 
 namespace UncommonSense.CBreeze.Core.Report
+=======
+namespace UncommonSense.CBreeze.Core
+>>>>>>> jhoek/master:CBreeze/UncommonSense.CBreeze.Core/ReportProperties.cs
 {
     public class ReportProperties : Properties
     {
@@ -93,18 +97,20 @@ namespace UncommonSense.CBreeze.Core.Report
             innerList.Add(defaultLayout);
 #endif
             innerList.Add(useRequestPage);
+<<<<<<< HEAD:CBreeze/UncommonSense.CBreeze.Core/Report/ReportProperties.cs
+#if NAV2009
+            innerList.Add(orientation);
+            innerList.Add(paperSize);
+            innerList.Add(horzGrid);
+            innerList.Add(vertGrid);
+=======
 #if NAV2015
             innerList.Add(wordMergeDataItem);
 #endif
 #if NAVBC
             innerList.Add(pdfFontEmbedding);
             innerList.Add(usageCategory);
-#endif
-#if NAV2009
-            innerList.Add(orientation);
-            innerList.Add(paperSize);
-            innerList.Add(horzGrid);
-            innerList.Add(vertGrid);
+>>>>>>> jhoek/master:CBreeze/UncommonSense.CBreeze.Core/ReportProperties.cs
 #endif
         }
 

@@ -1,12 +1,14 @@
+<<<<<<< HEAD:CBreeze/UncommonSense.CBreeze.Core/Page/PageProperties.cs
 using UncommonSense.CBreeze.Core.Code.Variable;
 using UncommonSense.CBreeze.Core.Contracts;
 using UncommonSense.CBreeze.Core.Page.Action;
 using UncommonSense.CBreeze.Core.Property;
-using UncommonSense.CBreeze.Core.Property.Enumeration;
 using UncommonSense.CBreeze.Core.Property.Implementation;
-using UncommonSense.CBreeze.Core.Property.Type;
 
 namespace UncommonSense.CBreeze.Core.Page
+=======
+namespace UncommonSense.CBreeze.Core
+>>>>>>> jhoek/master:CBreeze/UncommonSense.CBreeze.Core/PageProperties.cs
 {
     public class PageProperties : Properties
     {
@@ -70,12 +72,16 @@ namespace UncommonSense.CBreeze.Core.Page
         private TableReferenceProperty sourceTable = new TableReferenceProperty("SourceTable");
         private NullableBooleanProperty sourceTableTemporary = new NullableBooleanProperty("SourceTableTemporary");
         private TableViewProperty sourceTableView = new TableViewProperty("SourceTableView");
+<<<<<<< HEAD:CBreeze/UncommonSense.CBreeze.Core/Page/PageProperties.cs
 #if NAV2009
         private NullableIntegerProperty timerUpdate = new NullableIntegerProperty("TimerUpdate");
 #endif
+
+=======
 #if NAVBC
         private UsageCategoryProperty usageCategory = new UsageCategoryProperty("UsageCategory");
 #endif
+>>>>>>> jhoek/master:CBreeze/UncommonSense.CBreeze.Core/PageProperties.cs
 
         internal PageProperties(Page page)
         {
@@ -575,19 +581,19 @@ namespace UncommonSense.CBreeze.Core.Page
             }
         }
 
+<<<<<<< HEAD:CBreeze/UncommonSense.CBreeze.Core/Page/PageProperties.cs
 #if NAV2009
         public int? TimerUpdate
         {
             get => timerUpdate.Value;
             set => timerUpdate.Value = value;
-        }
-#endif
-
+=======
 #if NAVBC
         public UsageCategory? UsageCategory
         {
             get => usageCategory.Value;
             set => usageCategory.Value = value;
+>>>>>>> jhoek/master:CBreeze/UncommonSense.CBreeze.Core/PageProperties.cs
         }
 #endif
     }

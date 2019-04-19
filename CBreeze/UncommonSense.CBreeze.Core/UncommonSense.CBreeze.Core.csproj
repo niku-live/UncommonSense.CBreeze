@@ -25,7 +25,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NAV3;NAV2009;NAV2013;NAV2013R2;NAV2015;NAV2016;NAV2017;NAV2018</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NAV3;NAV2009;NAV2013;NAV2013R2;NAV2015;NAV2016;NAV2017;NAV2018;NAVBC</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>true</UseVSHostingProcess>
@@ -60,6 +60,8 @@
     <Compile Include="Property\Implementation\ClassicSectionTypeProperty.cs" />
     <Compile Include="Property\Implementation\DataClassificationProperty.cs" />
     <Compile Include="Code\Variable\DataClassificationVariable.cs" />
+    <Compile Include="Code\Parameter\DataScopeParameter.cs" />
+    <Compile Include="Code\Variable\DataScopeVariable.cs" />
     <Compile Include="Base\IntegerKeyedAndNamedContainer.cs" />
     <Compile Include="Base\IntegerKeyedContainer.cs" />
     <Compile Include="Extension\LanguageExtensionMethods.cs" />
@@ -159,6 +161,8 @@
     <Compile Include="Code\Variable\DataportVariable.cs" />
     <Compile Include="Code\Variable\DateFormulaVariable.cs" />
     <Compile Include="Code\Variable\DateTimeVariable.cs" />
+    <Compile Include="Property\Enumeration\UsageCategory.cs" />
+    <Compile Include="Property\Implementation\UsageCategoryProperty.cs" />
     <Compile Include="Code\Parameter\VerbosityParameter.cs" />
     <Compile Include="Code\Variable\VerbosityVariable.cs" />
     <Compile Include="Code\Variable\DateVariable.cs" />

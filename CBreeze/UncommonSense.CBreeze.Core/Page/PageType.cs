@@ -14,7 +14,10 @@ namespace UncommonSense.CBreeze.Core.Page
         NavigatePage,
         StandardDialog,
 #if NAV2018
-        API
+        API,
+#endif
+#if NAVBC
+            HeadlinePart
 #endif
     }
 }

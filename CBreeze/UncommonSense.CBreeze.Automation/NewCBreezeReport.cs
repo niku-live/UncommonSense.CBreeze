@@ -23,6 +23,10 @@ namespace UncommonSense.CBreeze.Automation
     [Alias("Report", "Add-CBreezeReport")]
     public class NewCBreezeReport : NewCBreezeObjectWithRequestPage<Report>
     {
+#if NAVBC
+        [Parameter()] public AccessByPermission AccessByPermission { get; set; }
+        [Parameter()] public string[] ApplicationArea { get; set; }
+#endif
 #if NAV2015
         [Parameter()] public DefaultLayout? DefaultLayout { get; set; }
 #endif
@@ -37,6 +41,9 @@ namespace UncommonSense.CBreeze.Automation
         [Parameter()] public PaperSource? PaperSourceDefaultPage { get; set; }
         [Parameter()] public PaperSource? PaperSourceFirstPage { get; set; }
         [Parameter()] public PaperSource? PaperSourceLastPage { get; set; }
+#if NAVBC
+        [Parameter()] public SwitchParameter PDFFontEmbedding { get; set; }
+#endif
         [Parameter()] public Permission[] Permissions { get; set; }
 #if NAV2015
         [Parameter()] public PreviewMode? PreviewMode { get; set; }
@@ -45,6 +52,9 @@ namespace UncommonSense.CBreeze.Automation
         [Parameter()] public PSObject RdlData { get; set; }
         [Parameter()] public SwitchParameter ShowPrintStatus { get; set; }
         [Parameter()] public TransactionType? TransactionType { get; set; }
+#if NAVBC
+        [Parameter()] public UsageCategory? UsageCategory { get; set; }
+#endif
         [Parameter()] public SwitchParameter UseRequestPage { get; set; }
         [Parameter()] public SwitchParameter UseSystemPrinter { get; set; }
 #if NAV2015
@@ -63,6 +73,10 @@ namespace UncommonSense.CBreeze.Automation
             SetObjectProperties(report);
 
             report.Properties.CaptionML.Set(CaptionML);
+#if NAVBC
+            report.Properties.AccessByPermission.Set(AccessByPermission);
+            report.Properties.ApplicationArea.Set(ApplicationArea);
+#endif
 #if NAV2015
             report.Properties.DefaultLayout = DefaultLayout;
 #endif
@@ -76,6 +90,9 @@ namespace UncommonSense.CBreeze.Automation
             report.Properties.PaperSourceDefaultPage = PaperSourceDefaultPage;
             report.Properties.PaperSourceFirstPage = PaperSourceFirstPage;
             report.Properties.PaperSourceLastPage = PaperSourceLastPage;
+#if NAVBC
+            report.Properties.PDFFontEmbedding = NullableBooleanFromSwitch(nameof(PDFFontEmbedding));
+#endif
             report.Properties.Permissions.Set(Permissions);
 #if NAV2015
             report.Properties.PreviewMode = PreviewMode;
@@ -83,6 +100,9 @@ namespace UncommonSense.CBreeze.Automation
             report.Properties.ProcessingOnly = NullableBooleanFromSwitch(nameof(ProcessingOnly));
             report.Properties.ShowPrintStatus = NullableBooleanFromSwitch(nameof(ShowPrintStatus));
             report.Properties.TransactionType = TransactionType;
+#if NAVBC
+            report.Properties.UsageCategory = UsageCategory;
+#endif
             report.Properties.UseRequestPage = NullableBooleanFromSwitch(nameof(UseRequestPage));
             report.Properties.UseSystemPrinter = NullableBooleanFromSwitch(nameof(UseSystemPrinter));
 #if NAV2015

@@ -16,9 +16,13 @@ namespace UncommonSense.CBreeze.Parse.Demo
         {
             var myListener = new MyListener();
             var desktopFolderName = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+<<<<<<< HEAD
             string folderFromArgs = (args != null) && (args.Length > 0) ? args[0] : null;
-            var sourceFolderName = folderFromArgs ?? Path.Combine(desktopFolderName, "objects");
+            var sourceFolderName = folderFromArgs ?? Path.Combine(desktopFolderName, "be");
             string outputFile = (args != null) && (args.Length > 1) ? args[1] : null;
+=======
+            var sourceFolderName = Path.Combine(desktopFolderName, "objects");
+>>>>>>> jhoek/master
 
             if (String.IsNullOrEmpty(outputFile))
             {

@@ -6,6 +6,9 @@ namespace UncommonSense.CBreeze.Core.MenuSuite
 {
     public class MenuSuiteGroupNodeProperties : Properties
     {
+#if NAV2018
+        private TagListProperty applicationArea = new TagListProperty("ApplicationArea");
+#endif
         private MultiLanguageProperty captionML = new MultiLanguageProperty("CaptionML");
         private NullableBooleanProperty deleted = new NullableBooleanProperty("Deleted");
         private NullableGuidProperty firstChild = new NullableGuidProperty("FirstChild");
@@ -22,6 +25,9 @@ namespace UncommonSense.CBreeze.Core.MenuSuite
 
             innerList.Add(name);
             innerList.Add(captionML);
+#if NAV2018
+            innerList.Add(applicationArea);
+#endif
             innerList.Add(memberOfMenu);
             innerList.Add(parentNodeID);
             innerList.Add(visible);
@@ -34,6 +40,10 @@ namespace UncommonSense.CBreeze.Core.MenuSuite
         public GroupNode Node { get; protected set; }
 
         public override INode ParentNode => Node;
+
+#if NAV2018
+        public TagList ApplicationArea => applicationArea.Value;
+#endif
 
         public MultiLanguageValue CaptionML
         {

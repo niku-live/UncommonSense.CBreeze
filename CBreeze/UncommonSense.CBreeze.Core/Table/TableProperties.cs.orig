@@ -70,10 +70,13 @@ namespace UncommonSense.CBreeze.Core.Table
             innerList.Add(obsoleteReason);
             innerList.Add(dataClassification);
 #endif
+<<<<<<< HEAD:CBreeze/UncommonSense.CBreeze.Core/Table/TableProperties.cs
+            innerList.Add(includeDataInDesc);
+=======
 #if NAVBC
             innerList.Add(replicateData);
 #endif
-            innerList.Add(includeDataInDesc);
+>>>>>>> jhoek/master:CBreeze/UncommonSense.CBreeze.Core/TableProperties.cs
             innerList.Add(captionML); // 8629
             innerList.Add(description); // 15386
             innerList.Add(pasteIsValid); // 15423

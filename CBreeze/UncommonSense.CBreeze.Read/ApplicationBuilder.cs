@@ -376,7 +376,16 @@ namespace UncommonSense.CBreeze.Read
             Parsing.TryMatch(ref propertyName, @"^Import::");
             Parsing.TryMatch(ref propertyName, @"^Export::");
 
-            var property = properties.First(p => p.Name == propertyName);
+            Property property;
+
+            try
+            {
+                property = properties.First(p => p.Name == propertyName);
+            }
+            catch (InvalidOperationException e)
+            {
+                throw new InvalidOperationException($"Unexpected property '{propertyName}'.", e);
+            }
 
             TypeSwitch.Do(
                 property,
@@ -491,6 +500,9 @@ namespace UncommonSense.CBreeze.Read
                 TypeSwitch.Case<TextTypeProperty>(p => p.Value = propertyValue.ToEnum<TextType>()),
                 TypeSwitch.Case<TotalsMethodProperty>(p => p.Value = propertyValue.ToEnum<TotalsMethod>()),
                 TypeSwitch.Case<TransactionTypeProperty>(p => p.Value = propertyValue.ToEnum<TransactionType>()),
+#if NAVBC
+                TypeSwitch.Case<UsageCategoryProperty>(p=>p.Value = propertyValue.ToEnum<UsageCategory>()),
+#endif
                 TypeSwitch.Case<XmlPortEncodingProperty>(p => p.Value = propertyValue.ToEnum<XmlPortEncoding>()),
                 TypeSwitch.Case<XmlPortNodeDataTypeProperty>(p =>
                     p.Value = propertyValue.ToEnum<XmlPortNodeDataType>()),
@@ -961,6 +973,13 @@ namespace UncommonSense.CBreeze.Read
                 case VariableType.DataClassification:
                     var dataClassificationVariable = variables.Add(new DataClassificationVariable(variableID, variableName));
                     dataClassificationVariable.Dimensions = variableDimensions;
+                    break;
+#endif
+
+#if NAVBC
+                case VariableType.DataScope:
+                    var dataScopeVariable = variables.Add(new DataScopeVariable(variableID, variableName));
+                    dataScopeVariable.Dimensions = variableDimensions;
                     break;
 #endif
 
