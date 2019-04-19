@@ -31,6 +31,9 @@ namespace UncommonSense.CBreeze.Core.Table
         private TriggerProperty onRename = new TriggerProperty("OnRename");
         private NullableBooleanProperty pasteIsValid = new NullableBooleanProperty("PasteIsValid");
         private PermissionsProperty permissions = new PermissionsProperty("Permissions");
+#if NAVBC || NAV2019
+        private NullableBooleanProperty replicateData = new NullableBooleanProperty("ReplicateData");
+#endif
 #if NAV2016
         private TableTypeProperty tableType = new TableTypeProperty("TableType");
         private StringProperty externalName = new StringProperty("ExternalName");
@@ -40,9 +43,6 @@ namespace UncommonSense.CBreeze.Core.Table
 #if NAV2009
         private FormReferenceProperty lookupFormID = new FormReferenceProperty("LookupFormID");
         private FormReferenceProperty drillDownFormID = new FormReferenceProperty("DrillDownFormID");
-#endif
-#if NAV2019
-        private NullableBooleanProperty replicateData = new NullableBooleanProperty("ReplicateData");
 #endif
         internal TableProperties(Table table)
         {
@@ -70,10 +70,10 @@ namespace UncommonSense.CBreeze.Core.Table
             innerList.Add(obsoleteReason);
             innerList.Add(dataClassification);
 #endif
-            innerList.Add(includeDataInDesc);
-#if NAV2019
+#if NAVBC || NAV2019
             innerList.Add(replicateData);
 #endif
+            innerList.Add(includeDataInDesc);
             innerList.Add(captionML); // 8629
             innerList.Add(description); // 15386
             innerList.Add(pasteIsValid); // 15423
@@ -251,6 +251,14 @@ namespace UncommonSense.CBreeze.Core.Table
             }
         }
 
+#if NAVBC || NAV2019
+        public bool? ReplicateData
+        {
+            get => replicateData.Value;
+            set => replicateData.Value = value;
+        }
+#endif
+
 #if NAV2016
         public TableType? TableType
         {
@@ -329,13 +337,6 @@ namespace UncommonSense.CBreeze.Core.Table
         {
             get => includeDataInDesc.Value;
             set => includeDataInDesc.Value = value;
-        }
-#endif
-#if NAV2019
-        public bool? ReplicateData
-        {
-            get => replicateData.Value;
-            set => replicateData.Value = value;
         }
 #endif
     }

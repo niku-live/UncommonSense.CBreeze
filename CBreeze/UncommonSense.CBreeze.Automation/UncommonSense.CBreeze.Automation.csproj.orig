@@ -21,7 +21,11 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\UncommonSense.CBreeze.Automation\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NAV3;NAV4;NAV5;NAV2009;NAV2013R2;NAV2015;NAV2016;NAV2017;NAV2018;NAVBC</DefineConstants>
+<<<<<<< HEAD
+    <DefineConstants>TRACE;DEBUG;NAV3;NAV4;NAV5;NAV2009;NAV2013R2;NAV2015;NAV2016;NAV2017;NAV2018</DefineConstants>
+=======
+    <DefineConstants>TRACE;DEBUG;NAV2013R2;NAV2015;NAV2016;NAV2017;NAV2018;NAVBC</DefineConstants>
+>>>>>>> jhoek/master
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>

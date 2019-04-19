@@ -16,7 +16,7 @@ namespace UncommonSense.CBreeze.Core.Page
 #if NAV2018
         API,
 #endif
-#if NAV2019
+#if NAVBC || NAV2019
         HeadlinePart,
 #endif
     }

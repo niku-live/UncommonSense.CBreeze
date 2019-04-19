@@ -10,6 +10,10 @@ namespace UncommonSense.CBreeze.Core.Report
 {
     public class ReportProperties : Properties
     {
+#if NAVBC || NAV2019
+        private AccessByPermissionProperty accessByPermission = new AccessByPermissionProperty("AccessByPermission");
+        private TagListProperty applicationArea = new TagListProperty("ApplicationArea");
+#endif    
         private MultiLanguageProperty captionML = new MultiLanguageProperty("CaptionML");
 #if NAV2015
         private DefaultLayoutProperty defaultLayout = new DefaultLayoutProperty("DefaultLayout");
@@ -24,6 +28,7 @@ namespace UncommonSense.CBreeze.Core.Report
         private PaperSourceProperty paperSourceDefaultPage = new PaperSourceProperty("PaperSourceDefaultPage");
         private PaperSourceProperty paperSourceFirstPage = new PaperSourceProperty("PaperSourceFirstPage");
         private PaperSourceProperty paperSourceLastPage = new PaperSourceProperty("PaperSourceLastPage");
+        private NullableBooleanProperty pdfFontEmbedding = new NullableBooleanProperty("PDFFontEmbedding");
         private PermissionsProperty permissions = new PermissionsProperty("Permissions");
 #if NAV2015
         private PreviewModeProperty previewMode = new PreviewModeProperty("PreviewMode");
@@ -31,6 +36,9 @@ namespace UncommonSense.CBreeze.Core.Report
         private NullableBooleanProperty processingOnly = new NullableBooleanProperty("ProcessingOnly");
         private NullableBooleanProperty showPrintStatus = new NullableBooleanProperty("ShowPrintStatus");
         private TransactionTypeProperty transactionType = new TransactionTypeProperty("TransactionType");
+#if NAVBC || NAV2019
+        private UsageCategoryProperty usageCategory = new UsageCategoryProperty("UsageCategory");
+#endif
         private NullableBooleanProperty useRequestPage = new NullableBooleanProperty("UseRequestPage");
         private NullableBooleanProperty useSystemPrinter = new NullableBooleanProperty("UseSystemPrinter");
 #if NAV2015
@@ -47,11 +55,6 @@ namespace UncommonSense.CBreeze.Core.Report
         private StringProperty paperSize = new StringProperty("PaperSize");
         private NullableBooleanProperty useReqForm = new NullableBooleanProperty("UseReqForm");
 #endif
-#if NAV2019
-        private TagListProperty applicationArea = new TagListProperty("ApplicationArea");
-        private MenuItemDepartmentCategoryProperty usageCategory = new MenuItemDepartmentCategoryProperty("UsageCategory");
-        private AccessByPermissionProperty accessByPermission = new AccessByPermissionProperty("AccessByPermission");
-#endif
 
         internal ReportProperties(Report report)
         {
@@ -59,7 +62,13 @@ namespace UncommonSense.CBreeze.Core.Report
 
             innerList.Add(permissions);
             innerList.Add(transactionType);
+#if NAVBC || NAV2019
+            innerList.Add(accessByPermission);
+#endif
             innerList.Add(captionML);
+#if NAVBC || NAV2019
+            innerList.Add(applicationArea);
+#endif
             innerList.Add(description);
             innerList.Add(showPrintStatus);
             innerList.Add(useSystemPrinter);
@@ -74,10 +83,6 @@ namespace UncommonSense.CBreeze.Core.Report
             innerList.Add(enableExternalImages);
             innerList.Add(enableHyperlinks);
             innerList.Add(enableExternalAssemblies);
-#if NAV2019
-            innerList.Add(accessByPermission);
-            innerList.Add(applicationArea);
-#endif
             innerList.Add(onInitReport);
             innerList.Add(onPreReport);
             innerList.Add(onPostReport);
@@ -87,17 +92,20 @@ namespace UncommonSense.CBreeze.Core.Report
 #if NAV2015
             innerList.Add(previewMode);
             innerList.Add(defaultLayout);
-            innerList.Add(wordMergeDataItem);
 #endif
             innerList.Add(useRequestPage);
+#if NAV2015
+            innerList.Add(wordMergeDataItem);
+#endif
+#if NAVBC || NAV2019
+            innerList.Add(pdfFontEmbedding);
+            innerList.Add(usageCategory);
+#endif
 #if NAV2009
             innerList.Add(orientation);
             innerList.Add(paperSize);
             innerList.Add(horzGrid);
             innerList.Add(vertGrid);
-#endif
-#if NAV2019
-            innerList.Add(usageCategory);
 #endif
         }
 
@@ -105,11 +113,16 @@ namespace UncommonSense.CBreeze.Core.Report
 
         public override INode ParentNode => Report;
 
+#if NAVBC || NAV2019
+        public AccessByPermission AccessByPermission => accessByPermission.Value;
+        public TagList ApplicationArea => applicationArea.Value;    
+#endif
+
         public MultiLanguageValue CaptionML
         {
             get
             {
-                return this.captionML.Value;
+                return captionML.Value;
             }
         }
 
@@ -118,24 +131,24 @@ namespace UncommonSense.CBreeze.Core.Report
         {
             get
             {
-                return this.defaultLayout.Value;
+                return defaultLayout.Value;
             }
             set
             {
-                this.defaultLayout.Value = value;
+                defaultLayout.Value = value;
             }
         }
-#endif 
+#endif
 
         public string Description
         {
             get
             {
-                return this.description.Value;
+                return description.Value;
             }
             set
             {
-                this.description.Value = value;
+                description.Value = value;
             }
         }
 
@@ -143,11 +156,11 @@ namespace UncommonSense.CBreeze.Core.Report
         {
             get
             {
-                return this.enableExternalAssemblies.Value;
+                return enableExternalAssemblies.Value;
             }
             set
             {
-                this.enableExternalAssemblies.Value = value;
+                enableExternalAssemblies.Value = value;
             }
         }
 
@@ -155,11 +168,11 @@ namespace UncommonSense.CBreeze.Core.Report
         {
             get
             {
-                return this.enableExternalImages.Value;
+                return enableExternalImages.Value;
             }
             set
             {
-                this.enableExternalImages.Value = value;
+                enableExternalImages.Value = value;
             }
         }
 
@@ -167,11 +180,11 @@ namespace UncommonSense.CBreeze.Core.Report
         {
             get
             {
-                return this.enableHyperlinks.Value;
+                return enableHyperlinks.Value;
             }
             set
             {
-                this.enableHyperlinks.Value = value;
+                enableHyperlinks.Value = value;
             }
         }
 
@@ -179,7 +192,7 @@ namespace UncommonSense.CBreeze.Core.Report
         {
             get
             {
-                return this.onInitReport.Value;
+                return onInitReport.Value;
             }
         }
 
@@ -187,7 +200,7 @@ namespace UncommonSense.CBreeze.Core.Report
         {
             get
             {
-                return this.onPostReport.Value;
+                return onPostReport.Value;
             }
         }
 
@@ -195,7 +208,7 @@ namespace UncommonSense.CBreeze.Core.Report
         {
             get
             {
-                return this.onPreReport.Value;
+                return onPreReport.Value;
             }
         }
 
@@ -203,11 +216,11 @@ namespace UncommonSense.CBreeze.Core.Report
         {
             get
             {
-                return this.paperSourceDefaultPage.Value;
+                return paperSourceDefaultPage.Value;
             }
             set
             {
-                this.paperSourceDefaultPage.Value = value;
+                paperSourceDefaultPage.Value = value;
             }
         }
 
@@ -215,11 +228,11 @@ namespace UncommonSense.CBreeze.Core.Report
         {
             get
             {
-                return this.paperSourceFirstPage.Value;
+                return paperSourceFirstPage.Value;
             }
             set
             {
-                this.paperSourceFirstPage.Value = value;
+                paperSourceFirstPage.Value = value;
             }
         }
 
@@ -227,19 +240,25 @@ namespace UncommonSense.CBreeze.Core.Report
         {
             get
             {
-                return this.paperSourceLastPage.Value;
+                return paperSourceLastPage.Value;
             }
             set
             {
-                this.paperSourceLastPage.Value = value;
+                paperSourceLastPage.Value = value;
             }
+        }
+
+        public bool? PDFFontEmbedding
+        {
+            get => pdfFontEmbedding.Value;
+            set => pdfFontEmbedding.Value = value;
         }
 
         public Permissions Permissions
         {
             get
             {
-                return this.permissions.Value;
+                return permissions.Value;
             }
         }
 
@@ -248,11 +267,11 @@ namespace UncommonSense.CBreeze.Core.Report
         {
             get
             {
-                return this.previewMode.Value;
+                return previewMode.Value;
             }
             set
             {
-                this.previewMode.Value = value;
+                previewMode.Value = value;
             }
         }
 #endif
@@ -261,11 +280,11 @@ namespace UncommonSense.CBreeze.Core.Report
         {
             get
             {
-                return this.processingOnly.Value;
+                return processingOnly.Value;
             }
             set
             {
-                this.processingOnly.Value = value;
+                processingOnly.Value = value;
             }
         }
 
@@ -273,11 +292,11 @@ namespace UncommonSense.CBreeze.Core.Report
         {
             get
             {
-                return this.showPrintStatus.Value;
+                return showPrintStatus.Value;
             }
             set
             {
-                this.showPrintStatus.Value = value;
+                showPrintStatus.Value = value;
             }
         }
 
@@ -285,23 +304,31 @@ namespace UncommonSense.CBreeze.Core.Report
         {
             get
             {
-                return this.transactionType.Value;
+                return transactionType.Value;
             }
             set
             {
-                this.transactionType.Value = value;
+                transactionType.Value = value;
             }
         }
+
+#if NAVBC || NAV2019
+        public UsageCategory? UsageCategory
+        {
+            get => usageCategory.Value;
+            set => usageCategory.Value = value;
+        }
+#endif
 
         public bool? UseRequestPage
         {
             get
             {
-                return this.useRequestPage.Value;
+                return useRequestPage.Value;
             }
             set
             {
-                this.useRequestPage.Value = value;
+                useRequestPage.Value = value;
             }
         }
 
@@ -309,11 +336,11 @@ namespace UncommonSense.CBreeze.Core.Report
         {
             get
             {
-                return this.useSystemPrinter.Value;
+                return useSystemPrinter.Value;
             }
             set
             {
-                this.useSystemPrinter.Value = value;
+                useSystemPrinter.Value = value;
             }
         }
 
@@ -322,11 +349,11 @@ namespace UncommonSense.CBreeze.Core.Report
         {
             get
             {
-                return this.wordMergeDataItem.Value;
+                return wordMergeDataItem.Value;
             }
             set
             {
-                this.wordMergeDataItem.Value = value;
+                wordMergeDataItem.Value = value;
             }
         }
 #endif
@@ -383,30 +410,6 @@ namespace UncommonSense.CBreeze.Core.Report
         {
             get => useReqForm.Value;
             set => useReqForm.Value = value;
-        }
-#endif
-
-#if NAV2019
-        public TagList ApplicationArea => applicationArea.Value;
-
-        public MenuItemDepartmentCategory? UsageCategory
-        {
-            get
-            {
-                return this.usageCategory.Value;
-            }
-            set
-            {
-                this.usageCategory.Value = value;
-            }
-        }
-
-        public AccessByPermission AccessByPermission
-        {
-            get
-            {
-                return this.accessByPermission.Value;
-            }
         }
 #endif
     }

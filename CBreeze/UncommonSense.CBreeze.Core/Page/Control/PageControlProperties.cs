@@ -121,7 +121,7 @@ namespace UncommonSense.CBreeze.Core.Page.Control
             innerList.Add(visible);
             innerList.Add(enabled);
             innerList.Add(editable);
-#if NAV2015
+#if NAV2015 && !NAV2018
             innerList.Add(image);
 #endif
             innerList.Add(lookupPageID);
@@ -144,6 +144,7 @@ namespace UncommonSense.CBreeze.Core.Page.Control
             innerList.Add(onControlAddIn);
 #if NAV2018
             innerList.Add(odataEDMType);
+            innerList.Add(image);
 #endif
 #if NAV2015
             innerList.Add(showMandatory);

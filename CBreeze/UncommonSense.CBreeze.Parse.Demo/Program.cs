@@ -17,7 +17,7 @@ namespace UncommonSense.CBreeze.Parse.Demo
             var myListener = new MyListener();
             var desktopFolderName = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string folderFromArgs = (args != null) && (args.Length > 0) ? args[0] : null;
-            var sourceFolderName = folderFromArgs ?? Path.Combine(desktopFolderName, "be");
+            var sourceFolderName = folderFromArgs ?? Path.Combine(desktopFolderName, "objects");
             string outputFile = (args != null) && (args.Length > 1) ? args[1] : null;
             var codeStyle = Localization.Localizations.GetLocalizedCodeStyle("NAV2013", "lt-LT", true);
             codeStyle.Localization.DateFormat = "yy-MM-dd";
