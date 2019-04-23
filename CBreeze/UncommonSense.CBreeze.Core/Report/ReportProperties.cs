@@ -55,6 +55,9 @@ namespace UncommonSense.CBreeze.Core.Report
         private StringProperty paperSize = new StringProperty("PaperSize");
         private NullableBooleanProperty useReqForm = new NullableBooleanProperty("UseReqForm");
 #endif
+#if NAVBC2 || NAV2019R2
+        private MultiLanguageProperty additionalSearchTermsML = new MultiLanguageProperty("AdditionalSearchTermsML");
+#endif
 
         internal ReportProperties(Report report)
         {
@@ -92,6 +95,9 @@ namespace UncommonSense.CBreeze.Core.Report
 #if NAV2015
             innerList.Add(previewMode);
             innerList.Add(defaultLayout);
+#endif
+#if NAVBC2 || NAV2019R2
+            innerList.Add(additionalSearchTermsML);
 #endif
             innerList.Add(useRequestPage);
 #if NAV2015
@@ -411,6 +417,9 @@ namespace UncommonSense.CBreeze.Core.Report
             get => useReqForm.Value;
             set => useReqForm.Value = value;
         }
+#endif
+#if NAV2019R2 || NAVBC2
+        public MultiLanguageValue AdditionalSearchTermsML => additionalSearchTermsML.Value;
 #endif
     }
 }

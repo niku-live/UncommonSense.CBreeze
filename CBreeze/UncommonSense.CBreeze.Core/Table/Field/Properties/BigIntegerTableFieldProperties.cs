@@ -82,12 +82,14 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
 #if NAV2018
             innerList.Add(obsoleteState);
             innerList.Add(obsoleteReason);
-            innerList.Add(dataClassification);
 #endif
 #if NAV2016
             innerList.Add(externalName);
             innerList.Add(externalType);
             innerList.Add(externalAccess);
+#endif
+#if NAV2018
+            innerList.Add(dataClassification);
 #endif
             innerList.Add(captionML);
             innerList.Add(minValue);

@@ -145,7 +145,7 @@ namespace UncommonSense.CBreeze.Write
                 TypeSwitch.Case<XmlPortNodeDataTypeProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<DataClassificationProperty>(p => WriteSimpleProperty(p.Name, p.GetValue().ToString(), isLastProperty, writer)),
 #if NAV2017
-                TypeSwitch.Case<TagListProperty>(p => WriteSimpleProperty(p.Name, p.Value.ToString(), isLastProperty, writer)),
+                TypeSwitch.Case<TagListProperty>(p => p.Write(isLastProperty, style, writer)),
                 TypeSwitch.Case<GestureProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
 #endif
 #if NAV2018
@@ -728,6 +728,19 @@ namespace UncommonSense.CBreeze.Write
                 case false:
                     writer.WriteLine("{0}=Table{1};", propertyName, property.Value.Value);
                     break;
+            }
+        }
+
+        public static void Write(this TagListProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
+        {
+            bool useSpace = property.SpaceSeparation;
+            if (!useSpace)
+            {
+                WriteSimpleProperty(property.Name, property.Value.ToString(), isLastProperty, writer);
+            }
+            else
+            {
+                WriteSimpleProperty(property.Name, String.Join(", ", property.Value), isLastProperty, writer);
             }
         }
 

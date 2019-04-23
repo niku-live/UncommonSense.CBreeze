@@ -77,6 +77,10 @@ namespace UncommonSense.CBreeze.Core.Page
 #if NAVBC || NAV2019
         private UsageCategoryProperty usageCategory = new UsageCategoryProperty("UsageCategory");
 #endif
+#if NAVBC2 || NAV2019R2
+        private MultiLanguageProperty additionalSearchTermsML = new MultiLanguageProperty("AdditionalSearchTermsML");
+        private StringProperty queryCategory = new StringProperty("QueryCategory");
+#endif
 
         internal PageProperties(Page page)
         {
@@ -107,6 +111,10 @@ namespace UncommonSense.CBreeze.Core.Page
             innerList.Add(pageType);
 #if NAVBC || NAV2019
             innerList.Add(usageCategory);
+#endif
+#if NAVBC2 || NAV2019R2
+            innerList.Add(queryCategory);
+            innerList.Add(additionalSearchTermsML);
 #endif
             innerList.Add(sourceTableTemporary);
 #if NAVBC || NAV2019
@@ -589,6 +597,15 @@ namespace UncommonSense.CBreeze.Core.Page
         {
             get => usageCategory.Value;
             set => usageCategory.Value = value;
+        }
+#endif
+#if NAV2019R2 || NAVBC2
+        public MultiLanguageValue AdditionalSearchTermsML => additionalSearchTermsML.Value;
+
+        public string QueryCategory
+        {
+            get => queryCategory.Value;
+            set => queryCategory.Value = value;
         }
 #endif
     }

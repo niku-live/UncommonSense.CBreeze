@@ -11,11 +11,11 @@ namespace UncommonSense.CBreeze.Core.Table.Field
         {
         }
 
-        public CodeTableField(int no, string name, int dataLength = 10)
+        public CodeTableField(int no, string name, int dataLength = 10, int majorVersion = 0)
             : base(no, name)
         {
             DataLength = dataLength;
-            Properties = new CodeTableFieldProperties(this);
+            Properties = new CodeTableFieldProperties(this, majorVersion);
         }
 
         public override Property.Properties AllProperties

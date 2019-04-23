@@ -6,6 +6,11 @@ namespace UncommonSense.CBreeze.Parse
     {
         private bool IsMultiLineProperty(string propertyName)
         {
+            if (propertyName.EndsWith("Namespaces"))
+            {
+                return true;
+            }
+
             if (propertyName.EndsWith("ML"))
             {
                 return true;

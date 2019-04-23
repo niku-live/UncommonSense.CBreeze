@@ -25,7 +25,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NAV3;NAV2009;NAV2013;NAV2013R2;NAV2015;NAV2016;NAV2017;NAV2018;NAV2019;NAVBC</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NAV3;NAV2009;NAV2013;NAV2013R2;NAV2015;NAV2016;NAV2017;NAV2018;NAV2019;NAV2019R2;NAVBC;NAVBC2</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>true</UseVSHostingProcess>
@@ -34,7 +34,7 @@
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;NAV3;NAV2009;NAV2013;NAV2013R2;NAV2015;NAV2016;NAV2017;NAV2018;NAV2019</DefineConstants>
+    <DefineConstants>TRACE;NAV3;NAV2009;NAV2013;NAV2013R2;NAV2015;NAV2016;NAV2017;NAV2018;NAV2019;NAV2019R2;NAVBC;NAVBC2</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>

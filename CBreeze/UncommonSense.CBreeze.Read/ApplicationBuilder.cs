@@ -616,7 +616,7 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case TableFieldType.Code:
-                    var codeTableField = fields.Add(new CodeTableField(fieldNo, fieldName, fieldLength));
+                    var codeTableField = fields.Add(new CodeTableField(fieldNo, fieldName, fieldLength, Application.CodeStyle.PlatformVersion.MajorVersion));
                     currentProperties.Push(codeTableField.Properties);
                     currentTableField = codeTableField;
                     break;

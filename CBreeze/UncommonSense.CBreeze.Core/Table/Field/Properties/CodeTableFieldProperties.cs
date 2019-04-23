@@ -52,7 +52,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         private StringProperty sqlDataType = new StringProperty("SQL Data Type");
 #endif
 
-        internal CodeTableFieldProperties(CodeTableField field)
+        internal CodeTableFieldProperties(CodeTableField field, int majorVersion = 0)
         {
             Field = field;
 
@@ -60,10 +60,17 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             innerList.Add(calcFormula);
             innerList.Add(initValue);
             innerList.Add(tableRelation);
-            innerList.Add(altSearchField);
+            if (majorVersion < 9)
+            {
+                innerList.Add(altSearchField);
+            }
             innerList.Add(onValidate);
             innerList.Add(onLookup);
             innerList.Add(validateTableRelation);
+            if (majorVersion >= 9)
+            {
+                innerList.Add(altSearchField);
+            }
             innerList.Add(testTableRelation);
             innerList.Add(extendedDatatype);
             innerList.Add(width);

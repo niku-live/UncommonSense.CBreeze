@@ -12,6 +12,10 @@ namespace UncommonSense.CBreeze.Core.Property.Enumeration
         Category8,
         Category9,
         Category10,
+#if NAVBC2 || NAV2019R2
+        Category11,
+        Category12,
+#endif
     }
 
 }
