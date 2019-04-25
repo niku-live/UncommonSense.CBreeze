@@ -25,6 +25,9 @@ namespace UncommonSense.CBreeze.Write
                 function.ServiceEnabled.GetValueOrDefault(false),
                 "[ServiceEnabled]");
 #endif
+#if NAV2019 || NAVBC
+            writer.WriteLineIf(function.NormalFunctionType.HasValue, "[{0}]", function.NormalFunctionType);
+#endif
 #if NAV2015
             writer.WriteLineIf(function.UpgradeFunctionType.HasValue, "[{0}]", function.UpgradeFunctionType);
 #endif

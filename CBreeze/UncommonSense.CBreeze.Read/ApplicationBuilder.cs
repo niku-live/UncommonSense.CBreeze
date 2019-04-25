@@ -827,6 +827,11 @@ namespace UncommonSense.CBreeze.Read
                             currentFunction.UpgradeFunctionType = UpgradeFunctionType.Normal;
                             break;
 #endif
+                        default:
+#if NAV2019 || NAVBC
+                            currentFunction.NormalFunctionType = NormalFunctionType.Normal;
+#endif
+                            break;
                     }
 
                     break;

@@ -62,9 +62,9 @@ namespace UncommonSense.CBreeze.Parse
                     eventSubscriberMatch.Groups["OnMissingLicense"].Value,
                     eventSubscriberMatch.Groups["OnMissingPermission"].Value);
             }
-            else
+            //else
 #endif
-                if (functionTypeMatch.Success)
+            if (functionTypeMatch.Success)
             {
                 Listener.OnFunctionAttribute(functionTypeMatch.Groups[1].Value);
             }

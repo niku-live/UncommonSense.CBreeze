@@ -52,6 +52,9 @@ namespace UncommonSense.CBreeze.Core.Code.Variable
 #if NAV2015
         public UpgradeFunctionType? UpgradeFunctionType { get; set; }
 #endif
+#if NAV2019 || NAVBC
+        public NormalFunctionType? NormalFunctionType { get; set; }
+#endif
 
 #if NAV2016
         public bool? TryFunction { get; set; }

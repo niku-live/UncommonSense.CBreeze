@@ -52,6 +52,7 @@
     <Compile Include="Base\Application.cs" />
     <Compile Include="Base\DefaultRanges.cs" />
     <Compile Include="Base\GuidKeyedContainer.cs" />
+    <Compile Include="Code\Function\NormalFunctionType.cs" />
     <Compile Include="Code\Parameter\DataClassificationParameter.cs" />
     <Compile Include="Property\Enumeration\ClassicDataportFileFormat.cs" />
     <Compile Include="Property\Implementation\ClassicControlBorderStyleProperty.cs" />
