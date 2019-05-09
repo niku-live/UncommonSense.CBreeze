@@ -120,8 +120,9 @@ namespace UncommonSense.CBreeze.Write
                 stringBuilder.Append("TEMPORARY ");
 
             stringBuilder.Append(type);
-            if (suppressDispose)
-                stringBuilder.Append(" SUPPRESSDISPOSE");
+            if (writer.CodeStyle.PlatformVersion.MajorVersion < 13)
+                if (suppressDispose)
+                    stringBuilder.Append(" SUPPRESSDISPOSE");
 
             if (withEvents)
                 stringBuilder.Append(" WITHEVENTS");
@@ -131,6 +132,10 @@ namespace UncommonSense.CBreeze.Write
 
             if (includeInDataset)
                 stringBuilder.Append(" INDATASET");
+
+            if (writer.CodeStyle.PlatformVersion.MajorVersion >= 13)
+                if (suppressDispose)
+                    stringBuilder.Append(" SUPPRESSDISPOSE");
 
             if (!string.IsNullOrEmpty(securityFiltering))
                 stringBuilder.AppendFormat(" SECURITYFILTERING({0})", securityFiltering);

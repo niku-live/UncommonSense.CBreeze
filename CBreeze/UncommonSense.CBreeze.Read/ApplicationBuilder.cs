@@ -397,7 +397,8 @@ namespace UncommonSense.CBreeze.Read
 #endif
 #if NAV2017
                 TypeSwitch.Case<TagListProperty>(p =>
-                    p.Value.AddRange(propertyValue.Split(",".ToCharArray()).Where(s => !string.IsNullOrEmpty(s)))),
+                    //p.Value.AddRange(propertyValue.Split(",".ToCharArray()).Where(s => !string.IsNullOrEmpty(s)))),
+                    p.Value.SetFromString(propertyValue)),
 #endif
 #if NAV2016
                 TypeSwitch.Case<TableTypeProperty>(p => p.Value = propertyValue.ToEnum<TableType>()),

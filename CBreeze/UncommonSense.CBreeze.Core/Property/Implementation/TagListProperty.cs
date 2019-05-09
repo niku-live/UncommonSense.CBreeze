@@ -10,7 +10,7 @@ namespace UncommonSense.CBreeze.Core.Property.Implementation
             SpaceSeparation = spaceSeparation;
         }
 
-        public override bool HasValue => Value.Any();
+        public override bool HasValue => Value.Any() || Value.WasPreviouslySet;
 
         public bool SpaceSeparation { get; set; }
     }
