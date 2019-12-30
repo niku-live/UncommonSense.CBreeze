@@ -21,8 +21,8 @@ namespace UncommonSense.CBreeze.Common
 
         public System.Globalization.CultureInfo ActiveCultureInfo { get; set; } = System.Globalization.CultureInfo.InvariantCulture;
 
-        public string LocalizedYes { get; protected set; } = "Yes";
-        public string LocalizedNo { get; protected set; } = "No";
+        public string LocalizedYes { get; set; } = "Yes";
+        public string LocalizedNo { get; set; } = "No";
 
         public char[] TableNameExceptions { get; set; } = { '-', '/', '.' };
         public char[] FieldNameExceptions { get; set; } = { '-', '/', '.', '_' };

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UncommonSense.CBreeze.Common;
 using UncommonSense.CBreeze.Core.Codeunit;
 using UncommonSense.CBreeze.Core.Common;
 using UncommonSense.CBreeze.Core.Contracts;
@@ -16,7 +17,7 @@ using UncommonSense.CBreeze.Core.XmlPort;
 
 namespace UncommonSense.CBreeze.Core.Base
 {
-    public class Application : INode
+    public class Application : INode, INameResolver
     {
         public Application(params Object[] objects)
         {
@@ -102,6 +103,32 @@ namespace UncommonSense.CBreeze.Core.Base
             Codeunits.Clear();
             Queries.Clear();
             MenuSuites.Clear();
+        }
+
+        public string ResolveName(ObjectType objectType, int objectId)
+        {
+            switch(objectType)
+            {
+                case ObjectType.Table:
+                    return Tables.FirstOrDefault(o => o.ID == objectId)?.Name;
+                case ObjectType.Form:
+                    return Forms.FirstOrDefault(o => o.ID == objectId)?.Name;
+                case ObjectType.Report:
+                    return Reports.FirstOrDefault(o => o.ID == objectId)?.Name;
+                case ObjectType.Dataport:
+                    return Dataports.FirstOrDefault(o => o.ID == objectId)?.Name;
+                case ObjectType.Codeunit:
+                    return Codeunits.FirstOrDefault(o => o.ID == objectId)?.Name;
+                case ObjectType.XmlPort:
+                    return XmlPorts.FirstOrDefault(o => o.ID == objectId)?.Name;
+                case ObjectType.MenuSuite:
+                    return MenuSuites.FirstOrDefault(o => o.ID == objectId)?.Name;
+                case ObjectType.Page:
+                    return Pages.FirstOrDefault(o => o.ID == objectId)?.Name;
+                case ObjectType.Query:
+                    return Queries.FirstOrDefault(o => o.ID == objectId)?.Name;
+            }
+            return null;
         }
     }
 }

@@ -69,7 +69,7 @@ namespace UncommonSense.CBreeze.Write
                 TypeSwitch.Case<ImportanceProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<PermissionsProperty>(p => p.Write(isLastProperty, style, writer)),
                 TypeSwitch.Case<ActionListProperty>(p => p.Write(isLastProperty, style, writer)),
-                TypeSwitch.Case<FieldListProperty>(p => WriteSimpleProperty(p.Name, string.Join(",", p.Value), isLastProperty, writer)),
+                TypeSwitch.Case<FieldListProperty>(p => p.Write(isLastProperty, writer)),
                 TypeSwitch.Case<LinkFieldsProperty>(p => p.Write(isLastProperty, style, writer)),
                 TypeSwitch.Case<CalcFormulaProperty>(p => p.Write(isLastProperty, style, writer)),
                 TypeSwitch.Case<TableViewProperty>(p => p.Write(isLastProperty, style, writer)),
@@ -195,6 +195,22 @@ namespace UncommonSense.CBreeze.Write
             }
         }
 #endif
+
+        public static void Write(this FieldListProperty property, bool isLastProperty, CSideWriter writer)
+        {
+            string values = string.Empty;
+
+            if (writer.CodeStyle.UseQuitesInFieldList)
+            {
+                values = string.Join(",", property.Value.Select(v => v.QuotedFieldName(writer.CodeStyle)));
+            }
+            else
+            {
+                values = string.Join(",", property.Value);
+            }
+            WriteSimpleProperty(property.Name, values, isLastProperty, writer);
+        }
+
         public static void Write(this RunObjectLinkProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
             if (property.EmptyValueIsSet)
@@ -247,7 +263,17 @@ namespace UncommonSense.CBreeze.Write
                 var modify = permission.ModifyPermission ? "m" : "";
                 var delete = permission.DeletePermission ? "d" : "";
 
-                writer.WriteLine("TableData {0}={1}{2}{3}{4}{5}", permission.TableID, read, insert, modify, delete, terminator);
+                var objectName = permission.TableID.ToString();
+                if (writer.CodeStyle.PrintObjectReferenceAsName)
+                {
+                    var objName = writer.CodeStyle.ResolveObjectName(ObjectType.Table, permission.TableID);
+                    if (objName != null)
+                    {
+                        objectName = objName;
+                    }
+                }
+
+                writer.WriteLine("TableData {0}={1}{2}{3}{4}{5}", objectName, read, insert, modify, delete, terminator);
             }
 
             writer.Unindent();
@@ -327,12 +353,25 @@ namespace UncommonSense.CBreeze.Write
                 foreach (var tableFilterLine in property.Value.TableFilter)
                 {
                     var value = tableFilterLine.Value;
+                    if (tableFilterLine.Type == Core.Table.Field.TableFilterType.Field)
+                    {
+                        if (writer.CodeStyle.UseQuitesInFieldList)
+                        {
+                            value = value.QuotedFieldName(writer.CodeStyle);
+                        }
+                    }
+                    var fieldName = tableFilterLine.FieldName;
+                    if (writer.CodeStyle.UseQuitesInFieldList)
+                    {
+                        fieldName = fieldName.QuotedFieldName(writer.CodeStyle);
+                    }
+
                     if (tableFilterLine.ValueIsFilter)
                         value = string.Format("FILTER({0})", value);
                     if (tableFilterLine.OnlyMaxLimit)
                         value = string.Format("UPPERLIMIT({0})", value);
 
-                    writer.Write("{0}={1}({2})", tableFilterLine.FieldName, tableFilterLine.Type.AsString(), value);
+                    writer.Write("{0}={1}({2})", fieldName, tableFilterLine.Type.AsString(), value);
                     if (tableFilterLine != property.Value.TableFilter.Last())
                         writer.WriteLine(",");
                 }
@@ -472,7 +511,15 @@ namespace UncommonSense.CBreeze.Write
         public static void Write(this OptionStringProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
             var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
-            var value = (property.Value.Trim() != property.Value) ? string.Format("[{0}]", property.Value) : property.Value;
+            var value = property.Value.ActualString;
+            if (value.Trim() != value)
+            {
+                value = $"[{value}]";
+            }
+            if (writer.CodeStyle.UseQuitesInFieldList)
+            {
+                value = string.Join(",", property.Value.Select(ov => ov.OptionValueName.QuotedFieldName(writer.CodeStyle)));
+            }
 
             switch (isLastProperty)
             {
@@ -747,14 +794,24 @@ namespace UncommonSense.CBreeze.Write
         public static void Write(this PageReferenceProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
         {
             var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
+            var pageName = $"Page{property.Value.Value}";
+            if (writer.CodeStyle.PrintObjectReferenceAsName)
+            {
+                var objName = writer.CodeStyle.ResolveObjectName(ObjectType.Page, property.Value.Value);
+                if (objName != null)
+                {
+                    pageName = objName;
+                }
+            }
+
             switch (isLastProperty)
             {
                 case true:
-                    writer.Write("{0}=Page{1} ", propertyName, property.Value.Value);
+                    writer.Write("{0}={1} ", propertyName, pageName);
                     break;
 
                 case false:
-                    writer.WriteLine("{0}=Page{1};", propertyName, property.Value.Value);
+                    writer.WriteLine("{0}={1};", propertyName, pageName);
                     break;
             }
         }

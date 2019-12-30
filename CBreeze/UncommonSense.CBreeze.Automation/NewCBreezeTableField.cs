@@ -2070,6 +2070,8 @@ namespace UncommonSense.CBreeze.Automation
 			optionTableField.Properties.DataClassification = DataClassification;
 			optionTableField.Properties.Description = Description;
 			optionTableField.Properties.Editable = NullableBooleanFromSwitch(nameof(Editable));
+			optionTableField.Properties.EnumTypeId = EnumTypeId;
+			optionTableField.Properties.EnumTypeName = EnumTypeName;
 			optionTableField.Properties.ExtendedDatatype = ExtendedDatatype;
 			optionTableField.Properties.ExternalAccess = ExternalAccess;
 			optionTableField.Properties.ExternalName = ExternalName;
@@ -2151,6 +2153,12 @@ namespace UncommonSense.CBreeze.Automation
 
 	[Parameter()]
 	public SwitchParameter Editable { get;set; }
+
+	[Parameter()]
+	public Nullable<Int32> EnumTypeId { get;set; }
+
+	[Parameter()]
+	public String EnumTypeName { get;set; }
 
 	[Parameter()]
 	public Nullable<ExtendedDataType> ExtendedDatatype { get;set; }

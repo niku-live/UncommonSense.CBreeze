@@ -59,6 +59,11 @@ namespace UncommonSense.CBreeze.Core.Code.Variable
             return text.QuotedExcept(false, codeStyle.FieldNameExceptions);
         }
 
+        public static bool IsAsciiLetter(this char c)
+        {
+            return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+        }
+
         public static string QuotedExcept(this string text, bool onlyAnsiLetters, params char[] exceptions)
         {
             // In e.g. CalcFormulas, table names containing no other special characters than a hyphen
@@ -66,7 +71,7 @@ namespace UncommonSense.CBreeze.Core.Code.Variable
             // other special characters than a slash (e.g. "Country/Region") should not be quoted In
             // e.g. TableRelations, field names containing no other special characters than a dot
             // (e.g. "No.") should not be quoted
-            if (text.All(c => (char.IsLetterOrDigit(c) && (!onlyAnsiLetters || c.IsAnsiLetter())) || exceptions.Contains(c)))
+            if (text.All(c => (char.IsLetterOrDigit(c) && (!onlyAnsiLetters || c.IsAsciiLetter())) || exceptions.Contains(c)))
                 return text;
 
             return text.ForceQuoted();

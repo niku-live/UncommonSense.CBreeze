@@ -104,6 +104,7 @@ namespace UncommonSense.CBreeze.Read
                 parser.CodeStyle = codeStyle;
             }
             var application = new Application() { CodeStyle = parser.CodeStyle };
+            application.CodeStyle.ObjectNameResolvers.Add(application);
             var applicationBuilder = new ApplicationBuilder(application);
 
             parser.Listener = applicationBuilder;
@@ -459,7 +460,8 @@ namespace UncommonSense.CBreeze.Read
                 TypeSwitch.Case<ObsoleteStateProperty>(p => p.Value = propertyValue.ToEnum<ObsoleteState>()),
 #endif
                 TypeSwitch.Case<OccurrenceProperty>(p => p.Value = propertyValue.ToEnum<Occurrence>()),
-                TypeSwitch.Case<OptionStringProperty>(p => p.Value = propertyValue),
+                //TypeSwitch.Case<OptionStringProperty>(p => p.Value = propertyValue),
+                TypeSwitch.Case<OptionStringProperty>(p => p.Value.SetFromString(propertyValue)),
                 TypeSwitch.Case<PageReferenceProperty>(p => p.Value = propertyValue.ToPageReference()),
 #if NAV2009
                 TypeSwitch.Case<FormReferenceProperty>(p => p.Value = propertyValue.ToFormReference()),
@@ -620,7 +622,7 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 case TableFieldType.Code:
-                    var codeTableField = fields.Add(new CodeTableField(fieldNo, fieldName, fieldLength, Application.CodeStyle.PlatformVersion.MajorVersion));
+                    var codeTableField = fields.Add(new CodeTableField(fieldNo, fieldName, fieldLength, Application.CodeStyle.PlatformVersion.MajorVersion, Application.CodeStyle.ExportToNewSyntax));
                     currentProperties.Push(codeTableField.Properties);
                     currentTableField = codeTableField;
                     break;
@@ -682,7 +684,7 @@ namespace UncommonSense.CBreeze.Read
 #endif
 
                 case TableFieldType.Option:
-                    var optionTableField = fields.Add(new OptionTableField(fieldNo, fieldName));
+                    var optionTableField = fields.Add(new OptionTableField(fieldNo, fieldName, Application.CodeStyle.ExportToNewSyntax));
                     currentProperties.Push(optionTableField.Properties);
                     currentTableField = optionTableField;
                     break;
@@ -865,6 +867,11 @@ namespace UncommonSense.CBreeze.Read
 #endif
                     currentFunction.UpgradeFunctionType = name.ToNullableEnum<UpgradeFunctionType>();
                     break;
+#if NAVBC
+                case "LineStart":
+                    currentFunction.LineStart = values[0].ToNullableInteger();
+                    break;
+#endif
 #endif
                 default:
                     throw new ArgumentOutOfRangeException(GetFormattedTranslatedString("Unknown function type {0}.", name));

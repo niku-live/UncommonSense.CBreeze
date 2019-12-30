@@ -49,10 +49,10 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         private SemiColonSeparatedStringProperty valuesAllowed = new SemiColonSeparatedStringProperty("ValuesAllowed");
         private NullableIntegerProperty width = new NullableIntegerProperty("Width");
 #if NAV2009
-        private StringProperty sqlDataType = new StringProperty("SQL Data Type");
+        private StringProperty sqlDataType = new StringProperty("SQLDataType");
 #endif
 
-        internal CodeTableFieldProperties(CodeTableField field, int majorVersion = 0)
+        internal CodeTableFieldProperties(CodeTableField field, int majorVersion = 0, bool exportToNewSyntax = false)
         {
             Field = field;
 
@@ -60,14 +60,14 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             innerList.Add(calcFormula);
             innerList.Add(initValue);
             innerList.Add(tableRelation);
-            if (majorVersion < 9)
+            if ((majorVersion < 9) || exportToNewSyntax)
             {
                 innerList.Add(altSearchField);
             }
             innerList.Add(onValidate);
             innerList.Add(onLookup);
             innerList.Add(validateTableRelation);
-            if (majorVersion >= 9)
+            if ((majorVersion >= 9) && !exportToNewSyntax)
             {
                 innerList.Add(altSearchField);
             }

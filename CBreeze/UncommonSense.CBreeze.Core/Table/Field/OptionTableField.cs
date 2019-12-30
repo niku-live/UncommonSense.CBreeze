@@ -11,10 +11,10 @@ namespace UncommonSense.CBreeze.Core.Table.Field
         {
         }
 
-        public OptionTableField(int no, string name)
+        public OptionTableField(int no, string name, bool exportToNewSyntax = false)
             : base(no, name)
         {
-            Properties = new OptionTableFieldProperties(this);
+            Properties = new OptionTableFieldProperties(this, exportToNewSyntax);
         }
 
         public override Property.Properties AllProperties
@@ -49,7 +49,7 @@ namespace UncommonSense.CBreeze.Core.Table.Field
 
         public string GetOptionString()
         {
-            return Properties.OptionString;
+            return Properties.OptionString.ActualString;
         }
     }
 }

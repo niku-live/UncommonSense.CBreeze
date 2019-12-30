@@ -1,6 +1,6 @@
 namespace UncommonSense.CBreeze.Core.Property.Implementation
 {
-        public class OptionStringProperty : StringProperty
+        public class OptionStringProperty : ReferenceProperty<OptionValueList>
     {
         internal OptionStringProperty(string name)
             : base(name)

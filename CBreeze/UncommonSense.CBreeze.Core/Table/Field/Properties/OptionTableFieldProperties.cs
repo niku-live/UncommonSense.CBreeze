@@ -54,10 +54,14 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
         private NullableBooleanProperty validateTableRelation = new NullableBooleanProperty("ValidateTableRelation");
         private SemiColonSeparatedStringProperty valuesAllowed = new SemiColonSeparatedStringProperty("ValuesAllowed");
 #if NAV2009
-        private StringProperty sqlDataType = new StringProperty("SQL Data Type");
+        private StringProperty sqlDataType = new StringProperty("SQLDataType");
+#endif
+#if NAVBC
+        private StringProperty enumTypeName = new StringProperty("EnumTypeName");
+        private NullableIntegerProperty enumTypeId = new NullableIntegerProperty("EnumTypeId");
 #endif
 
-        internal OptionTableFieldProperties(OptionTableField field)
+        internal OptionTableFieldProperties(OptionTableField field, bool exportToNewSyntax = false)
         {
             Field = field;
 
@@ -84,6 +88,18 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             innerList.Add(obsoleteState);
             innerList.Add(obsoleteReason);
             innerList.Add(dataClassification);
+#endif
+#if NAVBC
+            if (exportToNewSyntax)
+            {
+                innerList.Add(enumTypeName);
+                innerList.Add(enumTypeId);
+            }
+            else
+            {
+                innerList.Add(enumTypeId);
+                innerList.Add(enumTypeName);
+            }
 #endif
             innerList.Add(captionML);
             innerList.Add(optionCaptionML);
@@ -407,15 +423,11 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
 
 #endif
 
-        public string OptionString
+        public OptionValueList OptionString
         {
             get
             {
                 return this.optionString.Value;
-            }
-            set
-            {
-                this.optionString.Value = value;
             }
         }
 
@@ -474,5 +486,31 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
                 this.valuesAllowed.Value = value;
             }
         }
+#if NAVBC
+        public string EnumTypeName
+        {
+            get
+            {
+                return this.enumTypeName.Value;
+            }
+            set
+            {
+                this.enumTypeName.Value = value;
+            }
+        }
+
+        public int? EnumTypeId
+        {
+            get
+            {
+                return this.enumTypeId.Value;
+            }
+            set
+            {
+                this.enumTypeId.Value = value;
+            }
+        }
+#endif
+
     }
 }

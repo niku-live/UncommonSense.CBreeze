@@ -115,6 +115,9 @@ namespace UncommonSense.CBreeze.Core.Code.Variable
         public FunctionVisibility? FunctionVisibility { get; set; }
 
 #endif
+#if NAVBC
+        public int? LineStart { get; set; }
+#endif
 
         public Functions Container
         {

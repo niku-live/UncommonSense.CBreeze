@@ -30,6 +30,10 @@ namespace UncommonSense.CBreeze.Parse
 #if NAV2018
             lines.FirstLineTryMatch(Patterns.FunctionVisibilityAttribute, out Match functionVisibilityMatch);
 #endif
+#if NAVBC2
+            lines.FirstLineTryMatch(Patterns.LineStartAttribute, out Match lineStartMatch);
+
+#endif
 
             if (!lines.FirstLineTryMatch(Patterns.ProcedureSignature, out Match procedureSignatureMatch))
             {
@@ -102,6 +106,12 @@ namespace UncommonSense.CBreeze.Parse
             if (serviceEnabledMatch.Success)
             {
                 Listener.OnFunctionAttribute("ServiceEnabled");
+            }
+#endif
+#if NAVBC
+            if (lineStartMatch.Success)
+            {
+                Listener.OnFunctionAttribute("LineStart", lineStartMatch.Groups[1].Value);
             }
 #endif
 

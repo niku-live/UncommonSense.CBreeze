@@ -56,6 +56,7 @@
     <Compile Include="Base\DefaultRanges.cs" />
     <Compile Include="Base\GlobalFormatProvider.cs" />
     <Compile Include="Base\GuidKeyedContainer.cs" />
+    <Compile Include="Base\ObjectNameCollection.cs" />
     <Compile Include="Code\Function\NormalFunctionType.cs" />
     <Compile Include="Code\Parameter\DataClassificationParameter.cs" />
     <Compile Include="Property\Enumeration\ClassicDataportFileFormat.cs" />
@@ -156,6 +157,8 @@
     <Compile Include="Code\Variable\BooleanVariable.cs" />
     <Compile Include="Code\Variable\ByteVariable.cs" />
     <Compile Include="Code\Variable\CharVariable.cs" />
+    <Compile Include="Property\Implementation\OptionValue.cs" />
+    <Compile Include="Property\Implementation\OptionValueList.cs" />
     <Compile Include="Property\Implementation\QueryTypeProperty.cs" />
     <Compile Include="Code\Parameter\SessionSettingsParameter.cs" />
     <Compile Include="Code\Variable\SessionSettingsVariable.cs" />

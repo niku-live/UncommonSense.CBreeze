@@ -196,8 +196,11 @@ namespace UncommonSense.CBreeze.Core.Common
         public bool DoNotPrintEmptyWordReportLayout { get; set; }
         public bool DoNotPrintEmptyRequestPage { get; set; }
         public bool DoNotPrintEmptyRequestForm { get; set; }
+        public bool PrintObjectReferenceAsName { get; set; }
 
         public PropertyMapCollection CustomPropertyMappings { get => Localization?.CustomPropertyMappings; }
+
+        public List<INameResolver> ObjectNameResolvers { get; private set; } = new List<INameResolver>();
 
         public PropertyMapCollection GetEnumMapping<T>(bool forTextValuePrinting = false)
         {
@@ -215,11 +218,17 @@ namespace UncommonSense.CBreeze.Core.Common
         public Localization Localization { get; set; } = Localization.Default;
 
         public PlatformVersion PlatformVersion { get; set; }
+        public bool UseQuitesInFieldList { get; set; }
+        public bool ExportToNewSyntax { get; set; }
 
         public override string ToString()
         {
             return $"Codestyle for {PlatformVersion} (locale: {Localization})";
         }
 
+        public string ResolveObjectName(ObjectType objectType, int objectId)
+        {
+            return ObjectNameResolvers.Select(r => r.ResolveName(objectType, objectId)).FirstOrDefault(n => n != null);
+        }
     }
 }

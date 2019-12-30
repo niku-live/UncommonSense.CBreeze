@@ -110,15 +110,11 @@ namespace UncommonSense.CBreeze.Core.Report
             }
         }
 
-        public string OptionString
+        public OptionValueList OptionString
         {
             get
             {
                 return this.optionString.Value;
-            }
-            set
-            {
-                this.optionString.Value = value;
             }
         }
 

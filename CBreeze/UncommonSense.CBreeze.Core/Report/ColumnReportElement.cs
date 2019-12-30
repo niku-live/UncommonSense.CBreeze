@@ -48,7 +48,7 @@ namespace UncommonSense.CBreeze.Core.Report
 
         public string GetOptionString()
         {
-            return Properties.OptionString;
+            return Properties.OptionString.ActualString;
         }
     }
 }

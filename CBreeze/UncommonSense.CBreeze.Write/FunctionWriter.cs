@@ -40,6 +40,9 @@ namespace UncommonSense.CBreeze.Write
 #if NAV2018
             writer.WriteLineIf(function.FunctionVisibility.HasValue, "[{0}]", function.FunctionVisibility);
 #endif
+#if NAVBC
+            writer.WriteLineIf(function.LineStart.HasValue, "[LineStart({0})]", function.LineStart);
+#endif
             writer.Write("{2}PROCEDURE {0}@{1}(", function.Name, function.ID, function.Local ? "LOCAL " : "");
             function.Parameters.Write(writer);
             writer.Write(")");
