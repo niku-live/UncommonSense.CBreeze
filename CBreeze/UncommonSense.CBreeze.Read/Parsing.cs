@@ -18,8 +18,7 @@ namespace UncommonSense.CBreeze.Read
         [DebuggerStepThrough()]
         internal static bool TryMatch(ref string text, Regex regex)
         {
-            Match match;
-            return TryMatch(ref text, regex, out match);
+            return TryMatch(ref text, regex, out _);
         }
 
         [DebuggerStepThrough()]
@@ -54,7 +53,7 @@ namespace UncommonSense.CBreeze.Read
             var match = regex.Match(text);
 
             if (!match.Success)
-                throw new ApplicationException(string.Format("'{0}' does not match pattern '{1}'.", text, regex));
+                throw new ApplicationException(GetFormattedTranslatedString("'{0}' does not match pattern '{1}'.", text, regex));
 
             text = text.Substring(match.Length);
             return match;
@@ -144,5 +143,7 @@ namespace UncommonSense.CBreeze.Read
 
             return result;
         }
+        private static string GetFormattedTranslatedString(string originalString, params object[] args) => Core.Base.GlobalFormatProvider.CurrentFormatProvider.GetFormattedTranslatedString(originalString, args);
+
     }
 }

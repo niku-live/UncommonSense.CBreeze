@@ -12,9 +12,18 @@
 <#
 	// FIXME: Should we support ChildNodes for MenuSuiteNodes?
 
-	var types = AppDomain
-		.CurrentDomain
-		.GetAssemblies()
+	//var types = AppDomain
+	//	.CurrentDomain
+	//	.GetAssemblies()
+	//	.SelectMany(a => a.GetTypes())
+	//	.Where(t => typeof(MenuSuiteNode).IsAssignableFrom(t))
+	//	.Where(t => typeof(MenuSuiteNode) != t);
+	var assemblies = new[] 
+	{
+	    typeof(UncommonSense.CBreeze.Common.ObjectType).Assembly,
+		typeof(UncommonSense.CBreeze.Core.MenuSuite.DeltaNode).Assembly
+	};
+	var types = assemblies
 		.SelectMany(a => a.GetTypes())
 		.Where(t => typeof(MenuSuiteNode).IsAssignableFrom(t))
 		.Where(t => typeof(MenuSuiteNode) != t);
@@ -104,7 +113,8 @@ namespace UncommonSense.CBreeze.Automation
 		relevantProperties.Add(new {
 			Name = "AccessByPermission",
 			// Cannot use Type= typeof(AccessByPermission) in pre-2015 code...
-			Type = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a=>a.GetTypes()).Single(t => t.FullName == "UncommonSense.CBreeze.Core.Property.Type.AccessByPermission"),
+			//Type = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a=>a.GetTypes()).Single(t => t.FullName == "UncommonSense.CBreeze.Core.Property.Type.AccessByPermission"),
+			Type = assemblies.SelectMany(a=>a.GetTypes()).Single(t => t.FullName == "UncommonSense.CBreeze.Core.Property.Type.AccessByPermission"),
 			Assignment = $"{variableName}.Properties.AccessByPermission.Set(AccessByPermission);",
 			RangeMin = "",
 			RangeMax = "",

@@ -14,9 +14,18 @@
 <#@ import namespace="UncommonSense.CBreeze.Core.Table.Field" #>
 <#@ output extension=".cs" #>
 <#
-	var types = AppDomain
-		.CurrentDomain
-		.GetAssemblies()
+	//var types = AppDomain
+	//	.CurrentDomain
+	//	.GetAssemblies()
+	//	.SelectMany(a => a.GetTypes())
+	//	.Where(t => typeof(TableField).IsAssignableFrom(t))
+	//	.Where(t => typeof(TableField) != t);
+	var assemblies = new[] 
+	{
+	    typeof(UncommonSense.CBreeze.Common.ObjectType).Assembly,
+		typeof(UncommonSense.CBreeze.Core.MenuSuite.DeltaNode).Assembly
+	};
+	var types = assemblies
 		.SelectMany(a => a.GetTypes())
 		.Where(t => typeof(TableField).IsAssignableFrom(t))
 		.Where(t => typeof(TableField) != t);
@@ -124,7 +133,8 @@ namespace UncommonSense.CBreeze.Automation
 			new {
 				Name = "AccessByPermission",
 				// Cannot use Type= typeof(AccessByPermission) in pre-2015 code...
-				Type = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a=>a.GetTypes()).Single(t => t.FullName == "UncommonSense.CBreeze.Core.Property.Type.AccessByPermission"),				
+				//Type = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a=>a.GetTypes()).Single(t => t.FullName == "UncommonSense.CBreeze.Core.Property.Type.AccessByPermission"),
+				Type = assemblies.SelectMany(a=>a.GetTypes()).Single(t => t.FullName == "UncommonSense.CBreeze.Core.Property.Type.AccessByPermission"),
 				Mandatory = false,
 				Assignment = string.Format("{0}.Properties.AccessByPermission.Set(AccessByPermission);", variableName)
 			}

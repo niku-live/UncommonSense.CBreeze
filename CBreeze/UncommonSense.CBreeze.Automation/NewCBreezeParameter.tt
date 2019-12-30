@@ -9,12 +9,21 @@
 <#@ import namespace="UncommonSense.CBreeze.Core.Code.Parameter"#>
 <#@ output extension=".cs" #>
 <#
-	var types = AppDomain
-		.CurrentDomain
-		.GetAssemblies()
+	//var types = AppDomain
+	//	.CurrentDomain
+	//	.GetAssemblies()
+	//	.SelectMany(a => a.GetTypes())
+	//	.Where(t => typeof(Parameter).IsAssignableFrom(t))
+	//	.Where(t => typeof(Parameter) != t);
+	var assemblies = new[] 
+	{
+	    typeof(UncommonSense.CBreeze.Common.ObjectType).Assembly,
+		typeof(UncommonSense.CBreeze.Core.MenuSuite.DeltaNode).Assembly
+	};
+	var types = assemblies
 		.SelectMany(a => a.GetTypes())
 		.Where(t => typeof(Parameter).IsAssignableFrom(t))
-		.Where(t => typeof(Parameter) != t); 
+		.Where(t => typeof(Parameter) != t);
 
 	var typesWithIntegerSubType = new List<string>() { "RecordParameter",  "PageParameter", "ReportParameter", "CodeunitParameter", "TestPageParameter", "TestRequestPageParameter", "QueryParameter", "XmlPortParameter" };
 	var typesWithStringSubType = new List<string>() { "AutomationParameter", "OcxParameter", "DotNetParameter" };

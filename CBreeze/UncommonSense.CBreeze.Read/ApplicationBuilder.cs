@@ -42,8 +42,8 @@ namespace UncommonSense.CBreeze.Read
     {
         private readonly Stack<IEnumerable<Property>> currentProperties = new Stack<IEnumerable<Property>>();
         private Code currentCode;
-        private DataItem currentDataItem;
-        private DataItems currentDataItems;
+        private DataItem currentReportDataItem;
+        private DataItems currentReportDataItems;
         private DataportDataItem currentDataportDataItem;
         private DataportField currentDataportField;
         private Event currentEvent;
@@ -63,7 +63,7 @@ namespace UncommonSense.CBreeze.Read
         private RequestForm currentRequestForm;
         private RequestPage currentRequestPage;
         private SectionBase currentSection;
-        private Sections currentSections;
+        private Sections currentReportSections;
         private SectionType? currentSectionType;
         private TableField currentTableField;
         private TableFieldGroup currentTableFieldGroup;
@@ -88,11 +88,6 @@ namespace UncommonSense.CBreeze.Read
         public static Application ReadFromFolder(string folderName, ApplicationCodeStyle codeStyle = null)
         {
             return ReadFromFiles(Directory.EnumerateFiles(folderName, "*.txt"), codeStyle: codeStyle);
-        }
-
-        public static Application ReadFromFile(string fileName, Encoding fileEncoding = null, ApplicationCodeStyle codeStyle = null)
-        {
-            return ReadFromFiles(codeStyle, fileName);
         }
 
         public static Application ReadFromFiles(ApplicationCodeStyle codeStyle = null, params string[] fileNames)
@@ -193,6 +188,9 @@ namespace UncommonSense.CBreeze.Read
 #if NAV2015
                     currentWordLayout = newReport.WordLayout;
 #endif
+#if NAV2009
+                    currentReportDataItems = newReport.DataItems;
+#endif
                     currentObject = newReport;
                     break;
 
@@ -265,6 +263,7 @@ namespace UncommonSense.CBreeze.Read
 #endif
             currentMenuSuiteNodes = null;
             currentFormControls = null;
+            currentReportDataItems = null;
         }
 
         public override void OnBeginSection(SectionType sectionType)
@@ -306,6 +305,10 @@ namespace UncommonSense.CBreeze.Read
 
         public override void OnProperty(string propertyName, string propertyValue)
         {
+            if (String.IsNullOrEmpty(propertyName))
+            {
+                throw new ArgumentNullException(nameof(propertyName));
+            }
             // Unfortunately, this block is necessary because the type of the section in the text files does not depend on the object section,
             // but on the "Properties" subordinate object. This is very unpleasant, because it is not really object-oriented.
             // Maybe there's a better solution?
@@ -317,34 +320,34 @@ namespace UncommonSense.CBreeze.Read
                 switch (secttype)
                 {
                     case Core.Report.Classic.Section.SectionType.Header:
-                        currentSection = new HeaderSection(currentDataItem);
+                        currentSection = new HeaderSection(currentReportDataItem);
                         break;
                     case Core.Report.Classic.Section.SectionType.TransHeader:
-                        currentSection = new TransHeaderSection(currentDataItem);
+                        currentSection = new TransHeaderSection(currentReportDataItem);
                         break;
                     case Core.Report.Classic.Section.SectionType.GroupHeader:
-                        currentSection = new GroupHeaderSection(currentDataItem);
+                        currentSection = new GroupHeaderSection(currentReportDataItem);
                         break;
                     case Core.Report.Classic.Section.SectionType.Body:
-                        currentSection = new BodySection(currentDataItem);
+                        currentSection = new BodySection(currentReportDataItem);
                         break;
                     case Core.Report.Classic.Section.SectionType.GroupFooter:
-                        currentSection = new GroupFooterSection(currentDataItem);
+                        currentSection = new GroupFooterSection(currentReportDataItem);
                         break;
                     case Core.Report.Classic.Section.SectionType.TransFooter:
-                        currentSection = new TransFooterSection(currentDataItem);
+                        currentSection = new TransFooterSection(currentReportDataItem);
                         break;
                     case Core.Report.Classic.Section.SectionType.Footer:
-                        currentSection = new FooterSection(currentDataItem);
+                        currentSection = new FooterSection(currentReportDataItem);
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        throw new ArgumentOutOfRangeException(nameof(propertyValue));
                 }
-                if (currentDataItem.Sections == null)
+                if (currentReportDataItem.Sections == null)
                 {
-                    currentDataItem.Sections = new Sections(currentDataItem);
+                    currentReportDataItem.Sections = new Sections(currentReportDataItem);
                 }
-                currentDataItem.Sections.Add(currentSection);
+                currentReportDataItem.Sections.Add(currentSection);
                 currentProperties.Push(currentSection.AllProperties);
                 currentFormControls = currentSection.Controls;
                 sectionBegin = false;
@@ -551,7 +554,7 @@ namespace UncommonSense.CBreeze.Read
             switch (currentSectionType)
             {
                 case SectionType.ObjectProperties:
-                    throw new ApplicationException("No variables expected in object properties section.");
+                    throw new ApplicationException(GetTranslatedString("No variables expected in object properties section."));
                 case SectionType.Properties:
                 case SectionType.Fields:
                 case SectionType.Controls:
@@ -864,7 +867,7 @@ namespace UncommonSense.CBreeze.Read
                     break;
 #endif
                 default:
-                    throw new ArgumentOutOfRangeException(string.Format("Unknown function type {0}.", name));
+                    throw new ArgumentOutOfRangeException(GetFormattedTranslatedString("Unknown function type {0}.", name));
             }
         }
 
@@ -878,7 +881,7 @@ namespace UncommonSense.CBreeze.Read
             switch (currentSectionType)
             {
                 case SectionType.ObjectProperties:
-                    throw new ApplicationException("No variables expected in object properties section.");
+                    throw new ApplicationException(GetTranslatedString("No variables expected in object properties section."));
                 case SectionType.Properties: // Object-level trigger variable
                 case SectionType.Fields: // Field trigger variable
                 case SectionType.Controls: // Page control trigger variable
@@ -898,8 +901,7 @@ namespace UncommonSense.CBreeze.Read
                     break;
 
                 default:
-                    throw new ArgumentException(string.Format("No variables expected for {0} section.",
-                        currentSectionType));
+                    throw new ArgumentException(GetFormattedTranslatedString("No variables expected for {0} section.", currentSectionType));
             }
 
             switch (variableType)
@@ -1244,7 +1246,7 @@ namespace UncommonSense.CBreeze.Read
             switch (currentSectionType)
             {
                 case SectionType.ObjectProperties:
-                    throw new ApplicationException("No codelines expected in object properties section.");
+                    throw new ApplicationException(GetTranslatedString("No codelines expected in object properties section."));
                 case SectionType.Properties:
                 case SectionType.Fields:
                 case SectionType.Controls:
@@ -1271,8 +1273,7 @@ namespace UncommonSense.CBreeze.Read
                     break;
 #endif
                 default:
-                    throw new ArgumentException(string.Format("No code lines expected for section {0}.",
-                        currentSectionType));
+                    throw new ArgumentException(GetFormattedTranslatedString("No code lines expected for section {0}.", currentSectionType));
             }
 
             codeLines.Add(codeLine);
@@ -1532,7 +1533,7 @@ namespace UncommonSense.CBreeze.Read
 #endif
 
                 default:
-                    throw new ArgumentOutOfRangeException("parameterType");
+                    throw new ArgumentOutOfRangeException(nameof(parameterType));
             }
             parameter.Dimensions = parameterDimensions;
             parameter.InDataSet = parameterInDataSet;
@@ -2040,20 +2041,19 @@ namespace UncommonSense.CBreeze.Read
 
         public override void OnBeginReportDataItem()
         {
-            var report = currentObject as Report;
-            if (report == null)
+            if (!(currentObject is Report))
                 return;
 
             var newDataItem = new DataItem();
-            report.DataItems.Add(newDataItem);
             currentProperties.Push(newDataItem.Properties);
-            currentDataItem = newDataItem;
+            currentReportDataItem = newDataItem;
+            currentReportDataItems.Add(newDataItem);
+            currentReportSections = newDataItem.Sections;
         }
 
         public override void OnBeginDataportDataItem()
         {
-            var dataport = currentObject as Dataport;
-            if (dataport == null)
+            if (!(currentObject is Dataport dataport))
                 return;
 
             var newDataItem = new DataportDataItem();
@@ -2070,14 +2070,14 @@ namespace UncommonSense.CBreeze.Read
 
         public override void OnEndReportDataItem()
         {
-            currentDataItem = null;
+            currentReportDataItem = null;
+            currentReportSections = null;
             currentProperties.Pop();
         }
 
         public override void OnBeginReportSection()
         {
-            var report = currentObject as Report;
-            if (report == null)
+            if (!(currentObject is Report))
                 return;
 
             currentSection = null;
@@ -2091,5 +2091,9 @@ namespace UncommonSense.CBreeze.Read
             currentFormControls = null;
             currentProperties.Pop();
         }
+
+        private static IFormatProvider PrepareFormatProvider(IFormatProvider specifiedProvider) => GlobalFormatProvider.CurrentFormatProvider.ResolveFormatProvider(specifiedProvider);
+        private static string GetTranslatedString(string originalString) => GlobalFormatProvider.CurrentFormatProvider.GetTranslatedString(originalString);
+        private static string GetFormattedTranslatedString(string originalString, params object[] args) => GlobalFormatProvider.CurrentFormatProvider.GetFormattedTranslatedString(originalString, args);
     }
 }

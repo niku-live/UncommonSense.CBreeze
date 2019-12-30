@@ -13,6 +13,10 @@ namespace UncommonSense.CBreeze.Read
     {
         public static BorderWidth ToBorderWidth(this string text)
         {
+            if (String.IsNullOrEmpty(text))
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
             if (Char.IsDigit(text[0]))
             {
                 text = "Item" + text;
@@ -23,7 +27,7 @@ namespace UncommonSense.CBreeze.Read
         public static T ToEnum<T>(this string text, bool ignoreCase = true, bool normalize = true, Application app = null) where T : struct
         {
             if (!typeof(T).IsEnum)
-                throw new ArgumentException("T must be an enumerated type.");
+                throw new ArgumentException(GetTranslatedString("T must be an enumerated type."));
 
             if (normalize) text = Regex.Replace(text, @"[\s-\.]", string.Empty);
 
@@ -59,10 +63,12 @@ namespace UncommonSense.CBreeze.Read
                 var enumValue = text.ToEnum<T>(ignoreCase, normalize);
                 return true;
             }
-            catch
+#pragma warning disable CA1031 // Do not catch general exception types
+            catch (Exception)
             {
                 return false;
             }
+#pragma warning restore CA1031 // Do not catch general exception types
         }
 
         public static AutoFormatType ToAutoFormatType(this string text)
@@ -83,16 +89,16 @@ namespace UncommonSense.CBreeze.Read
             }
         }
 
-        public static bool ToBoolean(this string text, Localization localization) => localization.ConvertTextToBool(text, strict: true).GetValueOrDefault();
+        public static bool ToBoolean(this string text, Localization localization) => ToNullableBoolean(text, localization, true).GetValueOrDefault();
 
-        public static int ToInteger(this string text)
+        public static int ToInteger(this string text, IFormatProvider formatProvider = null)
         {
-            return int.Parse(text);
+            return int.Parse(text, PrepareFormatProvider(formatProvider));
         }
 
-        public static bool? ToNullableBoolean(this string text, Localization localization) => localization.ConvertTextToBool(text);
+        public static bool? ToNullableBoolean(this string text, Localization localization, bool strict = false) => localization?.ConvertTextToBool(text, strict);
 
-        public static decimal? ToNullableDecimal(this string text, Localization localization) => localization.ConvertTextToNullableDecimal(text);
+        public static decimal? ToNullableDecimal(this string text, Localization localization) => localization?.ConvertTextToNullableDecimal(text);
 
         public static Guid? ToNullableGuid(this string text)
         {
@@ -104,12 +110,12 @@ namespace UncommonSense.CBreeze.Read
             return new Guid(text);
         }
 
-        public static long? ToNullableBigInteger(this string text)
+        public static long? ToNullableBigInteger(this string text, IFormatProvider formatProvider = null)
         {
             if (string.IsNullOrWhiteSpace(text))
                 return null;
 
-            return long.Parse(text);
+            return long.Parse(text, PrepareFormatProvider(formatProvider));
         }
 
         public static int? ToNullableInteger(this string text)
@@ -117,31 +123,30 @@ namespace UncommonSense.CBreeze.Read
             if (string.IsNullOrWhiteSpace(text))
                 return null;
 
-            int value = 0;
-            if (!int.TryParse(text, out value))
+            if (!int.TryParse(text, out int value))
             {
                 return null;
             }
             return value;
         }
 
-        public static TimeSpan? ToNullableTime(this string text)
+        public static TimeSpan? ToNullableTime(this string text, IFormatProvider formatProvider = null)
         {
             if (string.IsNullOrWhiteSpace(text))
                 return null;
 
-            return TimeSpan.Parse(text);
+            return TimeSpan.Parse(text, PrepareFormatProvider(formatProvider));
         }
 
-        public static DateTime? ToNullableDateTime(this string text)
+        public static DateTime? ToNullableDateTime(this string text, IFormatProvider formatProvider = null)
         {
             if (string.IsNullOrWhiteSpace(text))
                 return null;
 
-            return DateTime.Parse(text);
+            return DateTime.Parse(text, PrepareFormatProvider(formatProvider));
         }
 
-        public static int? ToPageReference(this string text)
+        public static int? ToPageReference(this string text, IFormatProvider formatProvider = null)
         {
             if (string.IsNullOrWhiteSpace(text))
                 return null;
@@ -149,12 +154,12 @@ namespace UncommonSense.CBreeze.Read
             var match = Regex.Match(text, @"Page(\d+)");
 
             if (!match.Success)
-                throw new ArgumentOutOfRangeException(string.Format("Invalid page reference: {0}.", text));
+                throw new ArgumentOutOfRangeException(string.Format(PrepareFormatProvider(formatProvider), "Invalid page reference: {0}.", text));
 
             return match.Groups[1].Value.ToInteger();
         }
 
-        public static int? ToFormReference(this string text)
+        public static int? ToFormReference(this string text, IFormatProvider formatProvider = null)
         {
             if (string.IsNullOrWhiteSpace(text))
                 return null;
@@ -162,12 +167,12 @@ namespace UncommonSense.CBreeze.Read
             var match = Regex.Match(text, @"Form(\d+)");
 
             if (!match.Success)
-                throw new ArgumentOutOfRangeException(string.Format("Invalid form reference: {0}.", text));
+                throw new ArgumentOutOfRangeException(string.Format(PrepareFormatProvider(formatProvider), "Invalid form reference: {0}.", text));
 
             return match.Groups[1].Value.ToInteger();
         }
 
-        public static int? ToTableReference(this string text)
+        public static int? ToTableReference(this string text, IFormatProvider formatProvider = null)
         {
             if (string.IsNullOrWhiteSpace(text))
                 return null;
@@ -175,17 +180,17 @@ namespace UncommonSense.CBreeze.Read
             var match = Regex.Match(text, @"Table(\d+)");
 
             if (!match.Success)
-                throw new ArgumentOutOfRangeException(string.Format("Invalid table reference: {0}.", text));
+                throw new ArgumentOutOfRangeException(string.Format(PrepareFormatProvider(formatProvider), "Invalid table reference: {0}.", text));
 
             return match.Groups[1].Value.ToInteger();
         }
 
-        public static Color ToColor(this string text)
+        public static Color ToColor(this string text, IFormatProvider formatProvider = null)
         {
             if (string.IsNullOrWhiteSpace(text))
                 return Color.FromArgb(100, 100, 100);
 
-            var integer = int.Parse(text);
+            var integer = int.Parse(text, PrepareFormatProvider(formatProvider));
             var buffer = BitConverter.GetBytes(integer);
 
             var red = (int) buffer[0];
@@ -196,12 +201,16 @@ namespace UncommonSense.CBreeze.Read
             return color;
         }
 
-        public static uint? ToNullableUnsignedInteger(this string text)
+        public static uint? ToNullableUnsignedInteger(this string text, IFormatProvider formatProvider = null)
         {
             if (string.IsNullOrWhiteSpace(text))
                 return null;
 
-            return uint.Parse(text);
+            return uint.Parse(text, PrepareFormatProvider(formatProvider));
         }
+
+        private static IFormatProvider PrepareFormatProvider(IFormatProvider specifiedProvider) => GlobalFormatProvider.CurrentFormatProvider.ResolveFormatProvider(specifiedProvider);
+
+        private static string GetTranslatedString(string originalString) => GlobalFormatProvider.CurrentFormatProvider.GetTranslatedString(originalString);
     }
 }

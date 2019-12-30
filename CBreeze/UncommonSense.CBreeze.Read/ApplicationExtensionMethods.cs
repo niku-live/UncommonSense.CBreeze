@@ -28,7 +28,7 @@ namespace UncommonSense.CBreeze.Read
             var match = Regex.Match(propertyValue, @"(\S+)\s(\d+)");
 
             if (!match.Success)
-                throw new ArgumentOutOfRangeException(string.Format("Invalid object reference: {0}.", propertyValue));
+                throw new ArgumentOutOfRangeException(GetFormattedTranslatedString("Invalid object reference: {0}.", propertyValue));
 
             property.Value.Type = match.Groups[1].Value.ToNullableEnum<RunObjectType>();
             property.Value.ID = match.Groups[2].Value.ToInteger();
@@ -128,12 +128,12 @@ namespace UncommonSense.CBreeze.Read
 
         internal static string GetLanguageValue(ref string value)
         {
-            if (value.StartsWith(";") || String.IsNullOrEmpty(value))
+            if (value.StartsWith(";", StringComparison.InvariantCulture) || String.IsNullOrEmpty(value))
             {                
                 return string.Empty;
             }
 
-            switch (value.StartsWith("\""))
+            switch (value.StartsWith("\"", StringComparison.InvariantCulture))
             {
                 case true:
                     Parsing.MustMatch(ref value, "^\"");
@@ -294,7 +294,7 @@ namespace UncommonSense.CBreeze.Read
 
         internal static string GetTableRelationTableName(ref string propertyValue)
         {
-            switch (propertyValue.StartsWith("\""))
+            switch (propertyValue.StartsWith("\"", StringComparison.InvariantCulture))
             {
                 case true:
                     return Parsing.MustMatch(ref propertyValue, @"\""([^\""]+)\""").Groups[1].Value;
@@ -309,7 +309,7 @@ namespace UncommonSense.CBreeze.Read
             if (!Parsing.TryMatch(ref propertyValue, @"^\."))
                 return null;
 
-            switch (propertyValue.StartsWith("\""))
+            switch (propertyValue.StartsWith("\"", StringComparison.InvariantCulture))
             {
                 case true:
                     return Parsing.MustMatch(ref propertyValue, @"\""([^\""]+)\""").Groups[1].Value;
@@ -352,7 +352,7 @@ namespace UncommonSense.CBreeze.Read
 
             // Remove closing bracket at the end of the property value, or
             // "Lookup(Table.Field)" in table 5329 will fail.
-            if (propertyValue.EndsWith(")"))
+            if (propertyValue.EndsWith(")", StringComparison.InvariantCulture))
                 propertyValue = propertyValue.Substring(0, propertyValue.Length - 1);
 
             var reverseSign = GetCalcFormulaReverseSign(ref propertyValue);
@@ -429,7 +429,7 @@ namespace UncommonSense.CBreeze.Read
 
         internal static string GetCalcFormulaTableName(ref string propertyValue)
         {
-            switch (propertyValue.StartsWith("\""))
+            switch (propertyValue.StartsWith("\"", StringComparison.InvariantCulture))
             {
                 case true:
                     return Parsing.MustMatch(ref propertyValue, @"\""([^\""]+)\""").Groups[1].Value;
@@ -444,7 +444,7 @@ namespace UncommonSense.CBreeze.Read
             if (!Parsing.TryMatch(ref propertyValue, @"^\."))
                 return null;
 
-            switch (propertyValue.StartsWith("\""))
+            switch (propertyValue.StartsWith("\"", StringComparison.InvariantCulture))
             {
                 case true:
                     return Parsing.MustMatch(ref propertyValue, @"\""([^\""]+)\""").Groups[1].Value;
@@ -556,5 +556,9 @@ namespace UncommonSense.CBreeze.Read
 
             return value;
         }
+
+        private static IFormatProvider PrepareFormatProvider(IFormatProvider specifiedProvider) => Core.Base.GlobalFormatProvider.CurrentFormatProvider.ResolveFormatProvider(specifiedProvider);
+        private static string GetTranslatedString(string originalString) => Core.Base.GlobalFormatProvider.CurrentFormatProvider.GetTranslatedString(originalString);
+        private static string GetFormattedTranslatedString(string originalString, params object[] args) => Core.Base.GlobalFormatProvider.CurrentFormatProvider.GetFormattedTranslatedString(originalString, args);
     }
 }

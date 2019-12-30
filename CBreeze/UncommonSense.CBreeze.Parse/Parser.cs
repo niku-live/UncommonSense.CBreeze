@@ -10,9 +10,8 @@ namespace UncommonSense.CBreeze.Parse
 {
     public partial class Parser
     {
-        private static NullListener nullListener = new NullListener();
+        private static readonly NullListener nullListener = new NullListener();
         private IListener listener;
-        private Encoding fileEncoding;
 
         public void ParseFiles(IEnumerable<string> fileNames, Action<string> reportProgress = null)
         {

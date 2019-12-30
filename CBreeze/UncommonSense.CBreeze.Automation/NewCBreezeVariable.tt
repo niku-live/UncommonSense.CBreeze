@@ -10,9 +10,18 @@
 <#@ import namespace="UncommonSense.CBreeze.Core.Code.Variable" #>
 <#@ output extension=".cs" #>
 <#
-	var types = AppDomain
-		.CurrentDomain
-		.GetAssemblies()
+	//var types = AppDomain
+	//	.CurrentDomain
+	//	.GetAssemblies()
+	//	.SelectMany(a => a.GetTypes())
+	//	.Where(t => typeof(Variable).IsAssignableFrom(t))
+	//	.Where(t => typeof(Variable) != t);
+	var assemblies = new[] 
+	{
+	    typeof(UncommonSense.CBreeze.Common.ObjectType).Assembly,
+		typeof(UncommonSense.CBreeze.Core.MenuSuite.DeltaNode).Assembly
+	};
+	var types = assemblies
 		.SelectMany(a => a.GetTypes())
 		.Where(t => typeof(Variable).IsAssignableFrom(t))
 		.Where(t => typeof(Variable) != t);
