@@ -34,11 +34,11 @@ namespace UncommonSense.CBreeze.Automation
             element.Properties.DecimalPlaces.AtMost = DecimalPlacesAtMost;
             element.Properties.Description = Description;
             element.Properties.IncludeCaption = NullableBooleanFromSwitch(nameof(IncludeCaption));
-            element.Properties.OptionString = OptionString;
+            //TODO:element.Properties.OptionString = OptionString;
             element.Properties.OptionCaptionML.Set(OptionCaptionML);
 
-            if (AutoOptionCaption)
-                element.Properties.OptionCaptionML.Set("ENU", element.Properties.OptionString);
+            //TOOD:if (AutoOptionCaption)
+            //TODO:    element.Properties.OptionCaptionML.Set("ENU", element.Properties.OptionString);
 
             yield return element;
         }

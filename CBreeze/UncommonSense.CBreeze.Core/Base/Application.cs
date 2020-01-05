@@ -17,7 +17,7 @@ using UncommonSense.CBreeze.Core.XmlPort;
 
 namespace UncommonSense.CBreeze.Core.Base
 {
-    public class Application : INode, INameResolver
+    public class Application : INode, INameResolver, IFieldTypeResolver
     {
         public Application(params Object[] objects)
         {
@@ -129,6 +129,23 @@ namespace UncommonSense.CBreeze.Core.Base
                     return Queries.FirstOrDefault(o => o.ID == objectId)?.Name;
             }
             return null;
+        }
+
+        public TableFieldType? ResolveFieldType(string tableName, string fieldName)
+        {
+            var table = Tables.FirstOrDefault(t => t.Name == tableName);
+            if (table == null)
+            {
+                return null;
+            }
+
+            var field = table.Fields.FirstOrDefault(f => f.Name == fieldName);
+            if (field == null)
+            {
+                return null;
+            }
+
+            return field.Type;
         }
     }
 }

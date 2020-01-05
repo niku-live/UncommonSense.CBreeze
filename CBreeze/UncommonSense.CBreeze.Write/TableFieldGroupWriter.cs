@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UncommonSense.CBreeze.Core;
 using UncommonSense.CBreeze.Core.Table.Field;
+using UncommonSense.CBreeze.Core.Code.Variable;
 
 namespace UncommonSense.CBreeze.Write
 {
@@ -11,7 +12,7 @@ namespace UncommonSense.CBreeze.Write
     {
         public static void Write(this TableFieldGroup fieldGroup, CSideWriter writer)
         {
-            var fields = string.Join(",", fieldGroup.Fields);
+            var fields = writer.CodeStyle.UseQuitesInFieldList? string.Join(",", fieldGroup.Fields.Select(f => f.QuotedFieldName(writer.CodeStyle))) : string.Join(",", fieldGroup.Fields);
             var fieldsWidth = Math.Max(fields.Length, 40);
 
             writer.Write("{ ");

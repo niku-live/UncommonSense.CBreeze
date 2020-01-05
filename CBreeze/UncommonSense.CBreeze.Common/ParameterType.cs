@@ -83,5 +83,7 @@ namespace UncommonSense.CBreeze.Common
         Verbosity,
 #endif
         XmlPort,
+        Form,
+        Dataport,
     }
 }

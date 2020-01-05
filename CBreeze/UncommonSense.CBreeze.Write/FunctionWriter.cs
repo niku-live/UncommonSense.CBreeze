@@ -41,7 +41,7 @@ namespace UncommonSense.CBreeze.Write
             writer.WriteLineIf(function.FunctionVisibility.HasValue, "[{0}]", function.FunctionVisibility);
 #endif
 #if NAVBC
-            writer.WriteLineIf(function.LineStart.HasValue, "[LineStart({0})]", function.LineStart);
+            writer.WriteLineIf(function.LineStart.HasValue, "[LineStart({0})]", GetLineStartForWrite(function, writer));
 #endif
             writer.Write("{2}PROCEDURE {0}@{1}(", function.Name, function.ID, function.Local ? "LOCAL " : "");
             function.Parameters.Write(writer);
@@ -57,6 +57,15 @@ namespace UncommonSense.CBreeze.Write
         }
 
 #if NAV2016
+
+        private static int? GetLineStartForWrite(Function function, CSideWriter writer)
+        {
+            if (writer.CodeStyle.ExportToNewSyntax)
+            {
+                return function.LineStart + 38;
+            }
+            return function.LineStart;
+        }
 
         public static void WritePublisherAttributes(Function function, CSideWriter writer)
         {

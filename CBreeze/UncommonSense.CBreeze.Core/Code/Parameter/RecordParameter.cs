@@ -1,9 +1,10 @@
 using UncommonSense.CBreeze.Common;
+using UncommonSense.CBreeze.Core.Contracts;
 using UncommonSense.CBreeze.Core.Property.Enumeration;
 
 namespace UncommonSense.CBreeze.Core.Code.Parameter
 {
-    public class RecordParameter : Parameter
+    public class RecordParameter : Parameter, IHasSubType
     {
         public RecordParameter(string name, int subType, bool var = false, int id = 0)
             : base(name, var, id)

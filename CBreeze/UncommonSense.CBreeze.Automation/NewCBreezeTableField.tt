@@ -58,6 +58,7 @@ using UncommonSense.CBreeze.Core.Table;
 using UncommonSense.CBreeze.Core.Property.Enumeration;
 using UncommonSense.CBreeze.Core.Property.Type;
 using UncommonSense.CBreeze.Core.Extension;
+using UncommonSense.CBreeze.Core.Property.Implementation;
 using System.Management.Automation;
 using System.Collections.Generic;
 
@@ -243,6 +244,7 @@ namespace UncommonSense.CBreeze.Automation
 		switch(propertyInfo)
 		{
 			case PropertyInfo p when p.Name == "CalcFormula": return $".Set({p.Name})";
+			case PropertyInfo p when p.Name == "OptionString": return $".Set({p.Name})";
 			case PropertyInfo p when p.PropertyType == typeof(bool?): return $" = NullableBooleanFromSwitch(nameof({p.Name}))";
 			default: return $" = {propertyInfo.Name}";
 		}

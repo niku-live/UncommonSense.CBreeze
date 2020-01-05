@@ -1,9 +1,10 @@
 using UncommonSense.CBreeze.Common;
+using UncommonSense.CBreeze.Core.Contracts;
 using UncommonSense.CBreeze.Core.Query;
 
 namespace UncommonSense.CBreeze.Core.Code.Parameter
 {
-    public class QueryParameter : Parameter
+    public class QueryParameter : Parameter, IHasSubType
     {
         public QueryParameter(string name, int subType, bool var = false, int id = 0) : base(name, var, id)
         {

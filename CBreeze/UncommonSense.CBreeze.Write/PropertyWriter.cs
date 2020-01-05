@@ -12,6 +12,7 @@ using UncommonSense.CBreeze.Core.Property.Implementation;
 using UncommonSense.CBreeze.Core.Property.Type;
 using UncommonSense.CBreeze.Core.Extension;
 using System.Drawing;
+using UncommonSense.CBreeze.Core.Table.Relation;
 
 namespace UncommonSense.CBreeze.Write
 {
@@ -352,19 +353,8 @@ namespace UncommonSense.CBreeze.Write
 
                 foreach (var tableFilterLine in property.Value.TableFilter)
                 {
-                    var value = tableFilterLine.Value;
-                    if (tableFilterLine.Type == Core.Table.Field.TableFilterType.Field)
-                    {
-                        if (writer.CodeStyle.UseQuitesInFieldList)
-                        {
-                            value = value.QuotedFieldName(writer.CodeStyle);
-                        }
-                    }
-                    var fieldName = tableFilterLine.FieldName;
-                    if (writer.CodeStyle.UseQuitesInFieldList)
-                    {
-                        fieldName = fieldName.QuotedFieldName(writer.CodeStyle);
-                    }
+                    var value = TableFilterLineValueAsString(property.Value.TableName, tableFilterLine.FieldName, tableFilterLine.Value, tableFilterLine.Type, writer);
+                    var fieldName = TableFilterLineFieldNameAsString(tableFilterLine.FieldName, writer);
 
                     if (tableFilterLine.ValueIsFilter)
                         value = string.Format("FILTER({0})", value);
@@ -723,7 +713,9 @@ namespace UncommonSense.CBreeze.Write
 
                     foreach (var tableFilterLine in tableRelationLine.TableFilter)
                     {
-                        writer.Write("{0}={1}({2})", tableFilterLine.FieldName, tableFilterLine.Type.AsString(), tableFilterLine.Value);
+                        var value = TableFilterLineValueAsString(tableRelationLine.TableName, tableFilterLine.FieldName, tableFilterLine.Value, tableFilterLine.Type, writer);
+                        var fieldName = TableFilterLineFieldNameAsString(tableFilterLine.FieldName, writer);
+                        writer.Write("{0}={1}({2})", fieldName, tableFilterLine.Type.AsString(), value);
 
                         switch (tableFilterLine == tableRelationLine.TableFilter.Last())
                         {
@@ -761,6 +753,45 @@ namespace UncommonSense.CBreeze.Write
 
             for (var i = 0; i < indentations; i++)
                 writer.Unindent();
+        }
+
+        public static string TableFilterLineFieldNameAsString(string fieldName, CSideWriter writer)
+        {
+            if (writer.CodeStyle.UseQuitesInFieldList)
+            {
+                fieldName = fieldName.QuotedFieldName(writer.CodeStyle);
+            }
+            return fieldName;
+        }
+
+        public static string TableFilterLineValueAsString(string tableName, string fieldName, string lineValue, Core.Table.Field.TableFilterType tableFilterLineType, CSideWriter writer)
+        {
+            var value = lineValue;
+            if (tableFilterLineType == Core.Table.Field.TableFilterType.Field)
+            {
+                if (writer.CodeStyle.UseQuitesInFieldList)
+                {
+                    value = value.QuotedFieldName(writer.CodeStyle);
+                }
+            }
+            if (tableFilterLineType == Core.Table.Field.TableFilterType.Const)
+            {
+                if (writer.CodeStyle.ExportToNewSyntax)
+                {
+                    var fieldType = writer.CodeStyle.ResolveTableFieldType(tableName, fieldName);
+                    switch (fieldType)
+                    {
+                        case TableFieldType.Boolean:
+                            value = (value.ToLower().Substring(0, 1) == "n") ? writer.CodeStyle.Localization.LocalizedNo : writer.CodeStyle.Localization.LocalizedYes;
+                            break;
+                        case TableFieldType.Text:
+                        case TableFieldType.Code:
+                            value = $"'{value}'";
+                            break;
+                    }
+                }
+            }
+            return value;
         }
 
         public static void Write(this TableReferenceProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)

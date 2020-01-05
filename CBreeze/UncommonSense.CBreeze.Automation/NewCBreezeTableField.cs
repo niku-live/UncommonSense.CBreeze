@@ -19,6 +19,7 @@ using UncommonSense.CBreeze.Core.Table;
 using UncommonSense.CBreeze.Core.Property.Enumeration;
 using UncommonSense.CBreeze.Core.Property.Type;
 using UncommonSense.CBreeze.Core.Extension;
+using UncommonSense.CBreeze.Core.Property.Implementation;
 using System.Management.Automation;
 using System.Collections.Generic;
 
@@ -2084,7 +2085,7 @@ namespace UncommonSense.CBreeze.Automation
 			optionTableField.Properties.ObsoleteReason = ObsoleteReason;
 			optionTableField.Properties.ObsoleteState = ObsoleteState;
 			optionTableField.Properties.OptionOrdinalValues = OptionOrdinalValues;
-			optionTableField.Properties.OptionString = OptionString;
+			optionTableField.Properties.OptionString.Set(OptionString);
 			optionTableField.Properties.SignDisplacement = SignDisplacement;
 			optionTableField.Properties.TestTableRelation = NullableBooleanFromSwitch(nameof(TestTableRelation));
 			optionTableField.Properties.ValidateTableRelation = NullableBooleanFromSwitch(nameof(ValidateTableRelation));
@@ -2197,7 +2198,7 @@ namespace UncommonSense.CBreeze.Automation
 	public String OptionOrdinalValues { get;set; }
 
 	[Parameter(Mandatory=true)]
-	public String OptionString { get;set; }
+	public OptionValueList OptionString { get;set; }
 
 	[Parameter()]
 	public Nullable<Int32> SignDisplacement { get;set; }

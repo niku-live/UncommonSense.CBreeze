@@ -202,6 +202,8 @@ namespace UncommonSense.CBreeze.Core.Common
 
         public List<INameResolver> ObjectNameResolvers { get; private set; } = new List<INameResolver>();
 
+        public List<IFieldTypeResolver> FieldTypeResolvers { get; private set; } = new List<IFieldTypeResolver>();
+
         public PropertyMapCollection GetEnumMapping<T>(bool forTextValuePrinting = false)
         {
             return Localization?.GetEnumMapping<T>(forTextValuePrinting);
@@ -229,6 +231,11 @@ namespace UncommonSense.CBreeze.Core.Common
         public string ResolveObjectName(ObjectType objectType, int objectId)
         {
             return ObjectNameResolvers.Select(r => r.ResolveName(objectType, objectId)).FirstOrDefault(n => n != null);
+        }
+
+        public TableFieldType? ResolveTableFieldType(string tableName, string fieldName)
+        {
+            return FieldTypeResolvers.Select(r => r.ResolveFieldType(tableName, fieldName)).FirstOrDefault(t => t != null);
         }
     }
 }

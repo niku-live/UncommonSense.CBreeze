@@ -59,7 +59,7 @@ namespace UncommonSense.CBreeze.Write
                 TypeSwitch.Case<NotificationVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
 #endif
                 TypeSwitch.Case<OcxVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
-                TypeSwitch.Case<OptionVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
+                TypeSwitch.Case<OptionVariable>(p => WriteOptionVariable(p, writer)),
                 TypeSwitch.Case<OutStreamVariable>(p => DoWrite(p.Name, p.ID, p.TypeName, p.Dimensions, writer)),
                 TypeSwitch.Case<PageVariable>(p => WriteObjectReference(p, p.SubType, p.Dimensions, false, null, writer)),
                 TypeSwitch.Case<QueryVariable>(p => WriteObjectReference(p, p.SubType, p.Dimensions, false, p.SecurityFiltering.HasValue? p.SecurityFiltering.Value.ToString() : null, writer)),
@@ -120,6 +120,21 @@ namespace UncommonSense.CBreeze.Write
             }
         }
 
+        private static void WriteOptionVariable(OptionVariable variable, CSideWriter writer)
+        {
+            if (writer.CodeStyle.ExportToNewSyntax)
+            {
+                Core.Property.Implementation.OptionValueList list = new Core.Property.Implementation.OptionValueList();
+                list.SetFromString(variable.OptionString);
+                var typeName = $"'{string.Join(",", list.Select(ov => ov.OptionValueName.QuotedFieldName(writer.CodeStyle)))}'";
+                DoWrite(variable.Name, variable.ID, typeName, variable.Dimensions, writer);
+            }
+            else
+            {
+                DoWrite(variable.Name, variable.ID, variable.TypeName, variable.Dimensions, writer);
+            }
+        }
+
         private static void WriteObjectReference(Variable variable, int subType, string dimensions, bool temporary, string securityFiltering, CSideWriter writer)
         {
             string typeName = variable.TypeName;
@@ -131,7 +146,7 @@ namespace UncommonSense.CBreeze.Write
                     var objName = writer.CodeStyle.ResolveObjectName(objType.Value, subType);
                     if (objName != null)
                     {
-                        typeName = $"{variable.Type} {objName}";
+                        typeName = $"{variable.Type} {objName.QuotedTableName(writer.CodeStyle)}";
                     }
                 }
             }

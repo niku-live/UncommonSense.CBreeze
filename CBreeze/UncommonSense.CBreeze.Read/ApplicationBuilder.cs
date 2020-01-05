@@ -1538,6 +1538,13 @@ namespace UncommonSense.CBreeze.Read
                     parameter = parameters.Add(new VerbosityParameter(parameterName, parameterVar, parameterID));
                     break;
 #endif
+                case ParameterType.Form:
+                    parameter = parameters.Add(new FormParameter(parameterName, parameterSubType.ToInteger(), parameterVar, parameterID));
+                    break;
+
+                case ParameterType.Dataport:
+                    parameter = parameters.Add(new DataportParameter(parameterName, parameterSubType.ToInteger(), parameterVar, parameterID));
+                    break;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(parameterType));

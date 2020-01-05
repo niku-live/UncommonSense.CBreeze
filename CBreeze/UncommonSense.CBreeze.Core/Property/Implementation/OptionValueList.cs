@@ -25,6 +25,11 @@ namespace UncommonSense.CBreeze.Core.Property.Implementation
                 AddRange(values);
         }
 
+        public void Set(OptionValueList values)
+        {
+            Set(values.ToArray());
+        }
+
         public string ValidTagPattern => @"^#[A-Za-z0-9]+$";
 
         public bool IsValidTag(string tag) => Regex.IsMatch(tag, ValidTagPattern);
