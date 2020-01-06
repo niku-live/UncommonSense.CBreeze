@@ -15,7 +15,7 @@ namespace UncommonSense.CBreeze.Write
 
             foreach (TableField tableField in tableFields.OrderBy(f => f.ID))
             {
-                tableField.Write(writer);
+                tableField.Write(writer, tableFields.Table.Name);
             }
 
             writer.EndSection();

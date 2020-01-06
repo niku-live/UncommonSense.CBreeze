@@ -92,13 +92,13 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
 #if NAVBC
             if (exportToNewSyntax)
             {
-                innerList.Add(enumTypeName);
                 innerList.Add(enumTypeId);
+                innerList.Add(enumTypeName);
             }
             else
             {
-                innerList.Add(enumTypeId);
                 innerList.Add(enumTypeName);
+                innerList.Add(enumTypeId);
             }
 #endif
             innerList.Add(captionML);

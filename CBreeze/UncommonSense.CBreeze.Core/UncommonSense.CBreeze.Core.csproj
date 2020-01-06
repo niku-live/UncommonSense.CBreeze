@@ -54,11 +54,24 @@
   <ItemGroup>
     <Compile Include="Base\Application.cs" />
     <Compile Include="Base\DefaultRanges.cs" />
+    <Compile Include="Base\FieldTypeMappingCollection.cs" />
     <Compile Include="Base\GlobalFormatProvider.cs" />
     <Compile Include="Base\GuidKeyedContainer.cs" />
     <Compile Include="Base\ObjectNameCollection.cs" />
     <Compile Include="Code\Function\NormalFunctionType.cs" />
     <Compile Include="Code\Parameter\DataClassificationParameter.cs" />
+    <Compile Include="Code\Parameter\DataportParameter.cs" />
+    <Compile Include="Code\Parameter\FormParameter.cs" />
+    <Compile Include="Contracts\IHasSubType.cs" />
+    <Compile Include="Filter\AndFilterExpressionItem.cs" />
+    <Compile Include="Filter\CollectionFilterExpressionItem.cs" />
+    <Compile Include="Filter\EmptyFilterExpressionItem.cs" />
+    <Compile Include="Filter\EqualityFilterExpressionItem.cs" />
+    <Compile Include="Filter\FilterExpression.cs" />
+    <Compile Include="Filter\FilterExpressionItem.cs" />
+    <Compile Include="Filter\OrFilterExpressionItem.cs" />
+    <Compile Include="Filter\RangeFilterExpressionItem.cs" />
+    <Compile Include="Filter\StringFilterExpressionItem.cs" />
     <Compile Include="Property\Enumeration\ClassicDataportFileFormat.cs" />
     <Compile Include="Property\Implementation\ClassicControlBorderStyleProperty.cs" />
     <Compile Include="Property\Implementation\ClassicDataportFileFormatProperty.cs" />

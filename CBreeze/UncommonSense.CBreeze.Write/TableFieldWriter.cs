@@ -22,7 +22,7 @@ namespace UncommonSense.CBreeze.Write
             return value.PadRight(length);
         }
 
-        public static void Write(this TableField field, CSideWriter writer)
+        public static void Write(this TableField field, CSideWriter writer, string tableName = null)
         {
             var debt = 0;
 
@@ -46,7 +46,7 @@ namespace UncommonSense.CBreeze.Write
                 writer.Indent(writer.Column);
             }
 
-            properties.Write(PropertiesStyle.Field, writer);
+            properties.Write(PropertiesStyle.Field, writer, tableName);
 
             var relevantProperties = properties.Where(p => p.HasValue);
             var lastProperty = relevantProperties.LastOrDefault();

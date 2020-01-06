@@ -9,14 +9,14 @@ namespace UncommonSense.CBreeze.Write
 {
     public static class PropertiesWriter
     {
-        public static void Write(this IEnumerable<Property> properties, PropertiesStyle style, CSideWriter writer)
+        public static void Write(this IEnumerable<Property> properties, PropertiesStyle style, CSideWriter writer, string tableName = null)
         {
             var relevantProperties = properties.Where(p => p.HasValue);
 
             foreach (var property in relevantProperties)
             {
                 var isLastProperty = (property == relevantProperties.Last());
-                property.Write(isLastProperty, style, writer);
+                property.Write(isLastProperty, style, writer, tableName);
             }
         }
     }

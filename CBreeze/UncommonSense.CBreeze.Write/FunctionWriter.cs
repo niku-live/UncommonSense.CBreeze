@@ -62,7 +62,7 @@ namespace UncommonSense.CBreeze.Write
         {
             if (writer.CodeStyle.ExportToNewSyntax)
             {
-                return function.LineStart + 38;
+                //return function.LineStart + 38;
             }
             return function.LineStart;
         }

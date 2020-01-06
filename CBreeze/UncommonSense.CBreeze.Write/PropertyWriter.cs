@@ -18,7 +18,7 @@ namespace UncommonSense.CBreeze.Write
 {
     public static class PropertyWriter
     {
-        public static void Write(this Property property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
+        public static void Write(this Property property, bool isLastProperty, PropertiesStyle style, CSideWriter writer, string tableName = null)
         {
             if (style == PropertiesStyle.Object)
                 isLastProperty = false;
@@ -102,7 +102,7 @@ namespace UncommonSense.CBreeze.Write
                 TypeSwitch.Case<MaxOccursProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<OccurrenceProperty>(p => WriteSimpleProperty(p.Name, p.Value.GetValueOrDefault().ToString(), isLastProperty, writer)),
                 TypeSwitch.Case<MultiLanguageProperty>(p => p.Write(isLastProperty, style, writer)),
-                TypeSwitch.Case<TableRelationProperty>(p => p.Write(isLastProperty, style, writer)),
+                TypeSwitch.Case<TableRelationProperty>(p => p.Write(isLastProperty, style, writer, tableName)),
                 TypeSwitch.Case<TableReferenceProperty>(p => p.Write(isLastProperty, style, writer)),
                 TypeSwitch.Case<PageReferenceProperty>(p => p.Write(isLastProperty, style, writer)),
                 TypeSwitch.Case<RunObjectProperty>(p => p.Write(isLastProperty, style, writer)),
@@ -652,7 +652,19 @@ namespace UncommonSense.CBreeze.Write
             }
         }
 
-        public static void Write(this TableRelationProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)
+        private static Core.Table.Field.TableFilterType SimpleTableFilterTypeToTableFilterType(Core.Table.Field.Properties.SimpleTableFilterType filterType)
+        {
+            switch (filterType)
+            {
+                case Core.Table.Field.Properties.SimpleTableFilterType.Const:
+                    return Core.Table.Field.TableFilterType.Const;
+                case Core.Table.Field.Properties.SimpleTableFilterType.Filter:
+                    return Core.Table.Field.TableFilterType.Filter;
+            }
+            return Core.Table.Field.TableFilterType.Const;
+        }
+
+        public static void Write(this TableRelationProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer, string tableName = null)
         {
             var propertyName = writer.CodeStyle.CustomPropertyMappings.GetDisplayName(property.Name);
             var indentations = 0;
@@ -679,7 +691,9 @@ namespace UncommonSense.CBreeze.Write
 
                     foreach (var condition in tableRelationLine.Conditions)
                     {
-                        writer.Write("{0}={1}({2})", condition.FieldName, condition.Type.ToString().ToUpper(), condition.Value);
+                        var fieldName = TableFilterLineFieldNameAsString(condition.FieldName, writer);
+                        var value = TableFilterLineValueAsString(tableName, condition.FieldName, condition.Value, SimpleTableFilterTypeToTableFilterType(condition.Type), writer);
+                        writer.Write("{0}={1}({2})", fieldName, condition.Type.ToString().ToUpper(), value);
 
                         var isLastCondition = (condition == tableRelationLine.Conditions.Last());
 
@@ -791,7 +805,66 @@ namespace UncommonSense.CBreeze.Write
                     }
                 }
             }
+            if (tableFilterLineType == Core.Table.Field.TableFilterType.Filter)
+            {
+                if (writer.CodeStyle.ExportToNewSyntax)
+                {
+                    var fieldType = writer.CodeStyle.ResolveTableFieldType(tableName, fieldName);
+                    var filterExp = new Core.Filter.FilterExpression();
+                    filterExp.Parse(value);
+                    value = GetFilterExpStringForNewSyntax(filterExp.RootItem, fieldType, writer);
+                }
+            }
             return value;
+        }
+
+        private static string GetFilterExpStringForNewSyntax(Core.Filter.FilterExpressionItem exp, TableFieldType? fieldType, CSideWriter writer)
+        {
+            if (exp is Core.Filter.OrFilterExpressionItem orExp)
+            {
+                return string.Join("|", orExp.Children.Select(c => GetFilterExpStringForNewSyntax(c, fieldType, writer)));
+            }
+            else if (exp is Core.Filter.AndFilterExpressionItem andExp)
+            {
+                return string.Join("&", andExp.Children.Select(c => GetFilterExpStringForNewSyntax(c, fieldType, writer)));
+            }
+            else if (exp is Core.Filter.EqualityFilterExpressionItem eqExp)
+            {
+                return $"{eqExp.Operator}{GetFilterExpStringForNewSyntax(eqExp.Operand, fieldType, writer)}";
+            }
+            else if (exp is Core.Filter.RangeFilterExpressionItem rangeExp)
+            {
+                return $"{GetFilterExpStringForNewSyntax(rangeExp.FirstItem, fieldType, writer)}..{GetFilterExpStringForNewSyntax(rangeExp.SecondItem, fieldType, writer)}";
+            }
+            else
+            {
+                switch (fieldType)
+                {
+                    case TableFieldType.Option:
+                        {
+                            var text = exp.GetValueToPrint();
+                            if (String.IsNullOrEmpty(text))
+                            {
+                                return "\"\"";
+                            }
+                            return text.QuotedFieldName(writer.CodeStyle);
+                        }
+                    case TableFieldType.Text:
+                    case TableFieldType.Code:
+                        return $"'{exp.GetValueToPrint()}'";
+                    case TableFieldType.Boolean:
+                        {
+                            var text = exp.GetValueToPrint();
+                            if (String.IsNullOrEmpty(text))
+                            {
+                                return writer.CodeStyle.Localization.LocalizedNo;
+                            }
+                            return text.Substring(0, 1).ToLower() == "n" ? writer.CodeStyle.Localization.LocalizedNo : writer.CodeStyle.Localization.LocalizedYes;
+                        }
+                    default:
+                        return exp.GetValueToPrint();
+                }
+            }
         }
 
         public static void Write(this TableReferenceProperty property, bool isLastProperty, PropertiesStyle style, CSideWriter writer)

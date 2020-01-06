@@ -32,7 +32,8 @@ namespace UncommonSense.CBreeze.Parse.Demo
                 parser.ParseFiles(Directory.GetFiles(sourceFolderName, "*.txt", SearchOption.AllDirectories));
             }
             else
-            {                
+            {
+                codeStyle.ExportToNewSyntax = true;
                 var application = ApplicationBuilder.ReadFromFolder(sourceFolderName, codeStyle);
                 application.CodeStyle.PrintObjectReferenceAsName = true;
                 application.CodeStyle.ExportToNewSyntax = true;
@@ -47,9 +48,14 @@ namespace UncommonSense.CBreeze.Parse.Demo
                 application.CodeStyle.ObjectNameResolvers.Add(nameCollection);
                 
                 nameCollection.RegisterObjectName(Common.ObjectType.Codeunit, 396, "NoSeriesManagement");
+                nameCollection.RegisterObjectName(Common.ObjectType.Table, 91, "User Setup");
                 nameCollection.RegisterObjectName(Common.ObjectType.Table, 156, "Resource");
                 nameCollection.RegisterObjectName(Common.ObjectType.Table, 225, "Post Code");
+                nameCollection.RegisterObjectName(Common.ObjectType.Table, 348, "Dimension");
+                nameCollection.RegisterObjectName(Common.ObjectType.Table, 360, "Dimension Buffer");
+                nameCollection.RegisterObjectName(Common.ObjectType.Table, 480, "Dimension Set Entry");
                 nameCollection.RegisterObjectName(Common.ObjectType.Table, 5200, "Employee");
+                nameCollection.RegisterObjectName(Common.ObjectType.Table, 2000000007, "Date");
                 nameCollection.RegisterObjectName(Common.ObjectType.Table, 2000000026, "Integer");
 
                 nameCollection.RegisterObjectName(Common.ObjectType.Codeunit, 17024401, "PAFinUtilsABS");
@@ -115,7 +121,15 @@ namespace UncommonSense.CBreeze.Parse.Demo
                 {
                     { "Confirmed", Common.TableFieldType.Boolean },
                 });
-
+                fieldTypeMappingCollection.RegisterTableFields("PAWorkRelationABS", new Dictionary<string, Common.TableFieldType>()
+                {
+                    { "Employee No.", Common.TableFieldType.Code },
+                    { "Work Relation Type", Common.TableFieldType.Option }
+                });
+                fieldTypeMappingCollection.RegisterTableFields("PAAnalysisColumnSubgroupABS", new Dictionary<string, Common.TableFieldType>()
+                {
+                    { "Type", Common.TableFieldType.Option },
+                });
                 ApplicationWriter.WriteToFile(application, outputFile);
             }
         }

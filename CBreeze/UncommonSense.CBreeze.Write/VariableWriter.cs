@@ -125,8 +125,11 @@ namespace UncommonSense.CBreeze.Write
             if (writer.CodeStyle.ExportToNewSyntax)
             {
                 Core.Property.Implementation.OptionValueList list = new Core.Property.Implementation.OptionValueList();
-                list.SetFromString(variable.OptionString);
-                var typeName = $"'{string.Join(",", list.Select(ov => ov.OptionValueName.QuotedFieldName(writer.CodeStyle)))}'";
+                if (variable.OptionString != null)
+                {
+                    list.SetFromString(variable.OptionString);
+                }
+                var typeName = String.IsNullOrEmpty(variable.OptionString)? "Option" : $"'{string.Join(",", list.Select(ov => ov.OptionValueName.QuotedFieldName(writer.CodeStyle)))}'";
                 DoWrite(variable.Name, variable.ID, typeName, variable.Dimensions, writer);
             }
             else

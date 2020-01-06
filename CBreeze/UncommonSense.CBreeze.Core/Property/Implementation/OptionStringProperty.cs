@@ -11,7 +11,7 @@ namespace UncommonSense.CBreeze.Core.Property.Implementation
         {
             get
             {
-                return Value != null;
+                return (Value != null) && (Value.WasPreviouslySet || (Value.Count > 0));
             }
         }
     }
