@@ -90,12 +90,12 @@ namespace UncommonSense.CBreeze.Core.Table.Field.Properties
             innerList.Add(dataClassification);
 #endif
 #if NAVBC
-            if (exportToNewSyntax)
-            {
-                innerList.Add(enumTypeId);
-                innerList.Add(enumTypeName);
-            }
-            else
+            //if (exportToNewSyntax)
+            //{
+            //    innerList.Add(enumTypeId);
+            //    innerList.Add(enumTypeName);
+            //}
+            //else
             {
                 innerList.Add(enumTypeName);
                 innerList.Add(enumTypeId);

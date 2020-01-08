@@ -802,6 +802,9 @@ namespace UncommonSense.CBreeze.Write
                         case TableFieldType.Code:
                             value = $"'{value}'";
                             break;
+                        case TableFieldType.Option:
+                            value = value.QuotedFieldName(writer.CodeStyle);
+                            break;
                     }
                 }
             }

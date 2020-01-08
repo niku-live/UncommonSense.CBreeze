@@ -130,6 +130,10 @@ namespace UncommonSense.CBreeze.Parse.Demo
                 {
                     { "Type", Common.TableFieldType.Option },
                 });
+                fieldTypeMappingCollection.RegisterTableFields("PAIndividualDataCodeABS", new Dictionary<string, Common.TableFieldType>()
+                {
+                    { "Type", Common.TableFieldType.Option },
+                });
                 ApplicationWriter.WriteToFile(application, outputFile);
             }
         }
