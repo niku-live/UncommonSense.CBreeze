@@ -50,7 +50,8 @@ namespace UncommonSense.CBreeze.Write
                     var objName = writer.CodeStyle.ResolveObjectName(objType.Value, subType);
                     if (objName != null)
                     {
-                        typeName = $"{parameter.Type} {objName.QuotedTableName(writer.CodeStyle)}";
+                        var paramType = parameter.Type == ParameterType.XmlPort ? "XMLport" : $"{parameter.Type}";
+                        typeName = $"{paramType} {objName.QuotedTableName(writer.CodeStyle)}";
                     }
                 }
             }

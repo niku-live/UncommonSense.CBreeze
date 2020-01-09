@@ -18,7 +18,7 @@ namespace UncommonSense.CBreeze.Write
             {
                 writer.WriteLine("{");
                 writer.Indent();
-                documentation.CodeLines.Write(writer);
+                documentation.CodeLines.Write(writer, true);
                 writer.Unindent();
                 writer.WriteLine("}");
             }

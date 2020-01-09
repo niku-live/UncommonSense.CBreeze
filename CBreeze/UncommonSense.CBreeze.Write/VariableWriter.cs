@@ -147,9 +147,10 @@ namespace UncommonSense.CBreeze.Write
                 if (objType != null)
                 {
                     var objName = writer.CodeStyle.ResolveObjectName(objType.Value, subType);
+                    var varType = variable.Type == VariableType.XmlPort ? "XMLport" : $"{variable.Type}";
                     if (objName != null)
                     {
-                        typeName = $"{variable.Type} {objName.QuotedTableName(writer.CodeStyle)}";
+                        typeName = $"{varType} {objName.QuotedTableName(writer.CodeStyle)}";
                     }
                 }
             }
